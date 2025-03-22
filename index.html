@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Звездные Войны</title>
-    <script src="https://js.stripe.com/v3/"></script> <!-- Подключаем Stripe.js -->
     <style>
         body, html {
             margin: 0;
@@ -72,53 +71,6 @@
                 opacity: 1;
             }
         }
-        /* Стили для формы оплаты */
-        .payment-form {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            z-index: 100;
-            display: none; /* Скрыто по умолчанию */
-        }
-        .payment-form input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #444;
-            border-radius: 5px;
-            background: #333;
-            color: #fff;
-        }
-        .payment-form button {
-            background: #22ECE1;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .payment-form button:hover {
-            background: #1cc7b8;
-        }
-        #open-payment-form {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #22ECE1;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            z-index: 100;
-        }
     </style>
 </head>
 <body>
@@ -144,71 +96,5 @@
             </p>
         </div>
     </div>
-
-    <!-- Кнопка для открытия формы оплаты -->
-    <button id="open-payment-form">Оплатить</button>
-
-    <!-- Форма оплаты -->
-    <div class="payment-form" id="payment-form">
-        <h2>Оплата</h2>
-        <form id="payment-form-inner">
-            <div id="card-element">
-                <!-- Stripe вставит сюда поле для ввода карты -->
-            </div>
-            <button id="submit-button">Оплатить</button>
-            <div id="error-message" style="color: red; margin-top: 10px;"></div>
-        </form>
-    </div>
-
-    <script>
-        // Инициализация Stripe
-        const stripe = Stripe('ВАШ_PUBLIC_KEY'); // Замените на ваш публичный ключ
-        const elements = stripe.elements();
-        const cardElement = elements.create('card');
-        cardElement.mount('#card-element');
-
-        const form = document.getElementById('payment-form-inner');
-        const errorMessage = document.getElementById('error-message');
-
-        // Открытие формы оплаты
-        document.getElementById('open-payment-form').addEventListener('click', () => {
-            document.getElementById('payment-form').style.display = 'block';
-        });
-
-        // Обработка отправки формы
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const { error, paymentMethod } = await stripe.createPaymentMethod({
-                type: 'card',
-                card: cardElement,
-            });
-
-            if (error) {
-                errorMessage.textContent = error.message;
-            } else {
-                // Отправка paymentMethod.id на ваш сервер для завершения оплаты
-                fetch('/create-payment-intent', { // Замените на ваш серверный endpoint
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ paymentMethodId: paymentMethod.id }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Оплата прошла успешно!');
-                        document.getElementById('payment-form').style.display = 'none';
-                    } else {
-                        errorMessage.textContent = 'Ошибка оплаты. Попробуйте снова.';
-                    }
-                })
-                .catch(error => {
-                    errorMessage.textContent = 'Ошибка соединения с сервером.';
-                });
-            }
-        });
-    </script>
 </body>
-</html>
+</html> 
