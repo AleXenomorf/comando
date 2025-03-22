@@ -10,58 +10,6 @@
             padding: 0;
             height: 100%;
             font-family: 'Arial', sans-serif;
-            background: #000;
-            color: #fff;
-            overflow: hidden;
-        }
-        .star-wars-container {
-            position: relative;
-            height: 100vh;
-            perspective: 500px;
-            overflow: hidden;
-        }
-        .stars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="50" cy="50" r="1" fill="white" /><circle cx="200" cy="150" r="1" fill="white" /><circle cx="300" cy="300" r="1" fill="white" /><circle cx="400" cy="50" r="1" fill="white" /><circle cx="500" cy="200" r="1" fill="white" /><circle cx="700" cy="100" r="1" fill="white" /><circle cx="800" cy="300" r="1" fill="white" /><circle cx="900" cy="50" r="1" fill="white" /><circle cx="1000" cy="250" r="1" fill="white" /></svg>');
-            animation: twinkle 5s infinite ease-in-out;
-            z-index: 1; /* Звезды на заднем плане */
-        }
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-        .header {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 10;
-        }
-        .header a {
-            color: #ffd700; /* Золотистый цвет текста */
-            text-decoration: none;
-            font-size: 18px<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фитнес-услуги</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Arial', sans-serif;
             background: #2c3e50; /* Серый фон, как асфальт */
             color: #fff;
             overflow: hidden;
