@@ -31,7 +31,7 @@
             font-size: 2.5vw;
             text-align: justify;
             animation: crawl 60s linear infinite;
-            z-index: 10; /* Текст поверх фона и силуэта */
+            z-index: 10; /* Текст поверх фона */
         }
         .star-wars-text h1 {
             text-align: center;
@@ -71,38 +71,11 @@
                 opacity: 1;
             }
         }
-        .vader-silhouette {
-            position: absolute;
-            left: 5%;
-            bottom: 0;
-            width: 200px;
-            height: 400px;
-            z-index: 2; /* Силуэт поверх звезд, но под текстом */
-            opacity: 0.8;
-        }
-        .vader-silhouette svg {
-            width: 100%;
-            height: 100%;
-        }
     </style>
 </head>
 <body>
     <div class="star-wars-container">
         <div class="stars"></div>
-        <div class="vader-silhouette">
-            <svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-                <!-- Голова -->
-                <path d="M100 20 Q120 30 120 50 Q120 70 100 80 Q80 70 80 50 Q80 30 100 20 Z" fill="white" />
-                <!-- Шлем -->
-                <path d="M100 80 Q120 90 120 110 Q120 130 100 140 Q80 130 80 110 Q80 90 100 80 Z" fill="white" />
-                <!-- Маска -->
-                <path d="M90 110 Q100 120 110 110 Q110 130 100 140 Q90 130 90 110 Z" fill="black" />
-                <!-- Тело -->
-                <path d="M80 140 Q100 150 120 140 L120 300 Q100 310 80 300 Z" fill="white" />
-                <!-- Плащ -->
-                <path d="M80 300 Q100 320 120 300 L120 400 Q100 420 80 400 Z" fill="white" />
-            </svg>
-        </div>
         <div class="star-wars-text">
             <h1>Эпизод IV</h1>
             <p>
