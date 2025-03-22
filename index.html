@@ -50,16 +50,44 @@
         .header a {
             color: #ffd700; /* Золотистый цвет текста */
             text-decoration: none;
+            font-size: 18px<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фитнес-услуги</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: #2c3e50; /* Серый фон, как асфальт */
+            color: #fff;
+            overflow: hidden;
+        }
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+        .header a {
+            color: #FF9800; /* Оранжевый цвет текста */
+            text-decoration: none;
             font-size: 18px;
             font-weight: bold;
             padding: 10px 20px;
-            border: 2px solid #ffd700; /* Золотистый цвет рамки */
+            border: 2px solid #FF5722; /* Темно-оранжевый цвет рамки */
             border-radius: 25px;
             transition: background 0.3s, color 0.3s;
         }
         .header a:hover {
-            background: #ffd700; /* Золотистый фон при наведении */
-            color: #000; /* Черный текст при наведении */
+            background: #FF5722; /* Темно-оранжевый фон при наведении */
+            color: #fff; /* Белый текст при наведении */
         }
         .content {
             position: absolute;
@@ -70,8 +98,8 @@
             z-index: 10;
         }
         .cta-button {
-            background: #ffd700; /* Золотистый цвет кнопки */
-            color: #000; /* Черный текст */
+            background: #FF9800; /* Оранжевый цвет кнопки */
+            color: #fff; /* Белый текст */
             border: none;
             padding: 15px 30px;
             font-size: 18px;
@@ -81,24 +109,21 @@
             transition: background 0.3s, transform 0.3s;
         }
         .cta-button:hover {
-            background: #e6b800; /* Темнее золотистый при наведении */
+            background: #FF5722; /* Темно-оранжевый при наведении */
             transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <div class="star-wars-container">
-        <div class="stars"></div>
-        <div class="header">
-            <a href="#about">О нас</a>
-            <a href="#services">Услуги</a>
-            <a href="#offers">Предложения</a>
-            <a href="#contacts">Контакты</a>
-            <a href="#pricing">Цены</a>
-        </div>
-        <div class="content">
-            <button class="cta-button">Начать сейчас</button>
-        </div>
+    <div class="header">
+        <a href="#about">О нас</a>
+        <a href="#services">Услуги</a>
+        <a href="#offers">Предложения</a>
+        <a href="#contacts">Контакты</a>
+        <a href="#pricing">Цены</a>
+    </div>
+    <div class="content">
+        <button class="cta-button">Начать сейчас</button>
     </div>
 </body>
 </html>
