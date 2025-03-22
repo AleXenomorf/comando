@@ -31,6 +31,7 @@
             font-size: 2.5vw;
             text-align: justify;
             animation: crawl 60s linear infinite;
+            z-index: 10; /* Текст поверх фона и силуэта */
         }
         .star-wars-text h1 {
             text-align: center;
@@ -60,6 +61,7 @@
             height: 100%;
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="50" cy="50" r="1" fill="white" /><circle cx="200" cy="150" r="1" fill="white" /><circle cx="300" cy="300" r="1" fill="white" /><circle cx="400" cy="50" r="1" fill="white" /><circle cx="500" cy="200" r="1" fill="white" /><circle cx="700" cy="100" r="1" fill="white" /><circle cx="800" cy="300" r="1" fill="white" /><circle cx="900" cy="50" r="1" fill="white" /><circle cx="1000" cy="250" r="1" fill="white" /></svg>');
             animation: twinkle 5s infinite ease-in-out;
+            z-index: 1; /* Звезды на заднем плане */
         }
         @keyframes twinkle {
             0%, 100% {
@@ -75,32 +77,8 @@
             bottom: 0;
             width: 200px;
             height: 400px;
-            background-color: black;
-            clip-path: polygon(
-                50% 0%, 
-                60% 10%, 
-                70% 10%, 
-                70% 20%, 
-                80% 20%, 
-                80% 30%, 
-                90% 30%, 
-                90% 40%, 
-                100% 40%, 
-                100% 100%, 
-                0% 100%, 
-                0% 40%, 
-                10% 40%, 
-                10% 30%, 
-                20% 30%, 
-                20% 20%, 
-                30% 20%, 
-                30% 10%, 
-                40% 10%, 
-                50% 0%
-            );
-            border: 2px solid white; /* Белая обводка */
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Свечение */
-            z-index: 10;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="10" cy="10" r="1" fill="white" /><circle cx="30" cy="50" r="1" fill="white" /><circle cx="50" cy="100" r="1" fill="white" /><circle cx="70" cy="150" r="1" fill="white" /><circle cx="90" cy="200" r="1" fill="white" /><circle cx="110" cy="250" r="1" fill="white" /><circle cx="130" cy="300" r="1" fill="white" /><circle cx="150" cy="350" r="1" fill="white" /><circle cx="170" cy="400" r="1" fill="white" /></svg>');
+            z-index: 2; /* Силуэт поверх звезд, но под текстом */
             opacity: 0.8;
         }
     </style>
