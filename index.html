@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звездные Войны</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        .star-wars-container {
+            position: relative;
+            height: 100vh;
+            perspective: 500px;
+            overflow: hidden;
+        }
+        .star-wars-text {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 80%;
+            max-width: 800px;
+            transform: translateX(-50%) rotateX(25deg);
+            transform-origin: 50% 100%;
+            font-size: 2.5vw;
+            text-align: justify;
+            animation: crawl 60s linear infinite;
+        }
+        .star-wars-text h1 {
+            text-align: center;
+            font-size: 4vw;
+            margin-bottom: 2vw;
+            color: #ffd700;
+        }
+        .star-wars-text p {
+            margin: 0;
+            line-height: 1.5;
+        }
+        @keyframes crawl {
+            0% {
+                top: 100%;
+                transform: translateX(-50%) rotateX(25deg) translateY(0);
+            }
+            100% {
+                top: -200%;
+                transform: translateX(-50%) rotateX(25deg) translateY(-100%);
+            }
+        }
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><circle cx="50" cy="50" r="1" fill="white" /><circle cx="200" cy="150" r="1" fill="white" /><circle cx="300" cy="300" r="1" fill="white" /><circle cx="400" cy="50" r="1" fill="white" /><circle cx="500" cy="200" r="1" fill="white" /><circle cx="700" cy="100" r="1" fill="white" /><circle cx="800" cy="300" r="1" fill="white" /><circle cx="900" cy="50" r="1" fill="white" /><circle cx="1000" cy="250" r="1" fill="white" /></svg>');
+            animation: twinkle 5s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="star-wars-container">
+        <div class="stars"></div>
+        <div class="star-wars-text">
+            <h1>Эпизод IV</h1>
+            <p>
+                Давным-давно, в далекой-далекой галактике...
+                Война охватила весь космос. Повстанцы, борющиеся за свободу,
+                противостоят могущественной Империи, стремящейся к абсолютной власти.
+                Судьба галактики висит на волоске, и только герои смогут изменить ход истории.
+            </p>
+            <p>
+                В центре событий — юный Люк Скайуокер, мечтающий о приключениях.
+                Вместе с дроидами R2-D2 и C-3PO он отправляется в опасное путешествие,
+                чтобы спасти принцессу Лею и помочь повстанцам в их борьбе.
+            </p>
+            <p>
+                Но Империя не дремлет. Темный лорд Вейдер и его легионы штурмовиков
+                готовы на все, чтобы уничтожить надежду на свободу.
+                Кто победит в этой битве добра и зла?
+            </p>
+        </div>
+    </div>
+</body>
+</html>
