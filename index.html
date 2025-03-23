@@ -21,15 +21,15 @@
         /* Контейнер для текста */
         .text-container {
             position: absolute;
-            top: 40%; /* Поднимаем текст выше */
-            right: 20px; /* Сдвигаем текст вправо */
-            text-align: left; /* Выравниваем текст по левому краю внутри контейнера */
+            top: calc(40% - 100px); /* Поднимаем текст выше на 100px */
+            right: 20px;
+            text-align: left;
             z-index: 10;
         }
 
         .text-container h1 {
             font-size: 36px;
-            margin: 0; /* Убираем отступы */
+            margin: 0;
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out forwards;
@@ -37,7 +37,7 @@
 
         .text-container h2 {
             font-size: 36px;
-            margin: 0; /* Убираем отступы */
+            margin: 0;
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 0.5s forwards;
@@ -45,7 +45,7 @@
 
         .text-container h3 {
             font-size: 36px;
-            margin: 0; /* Убираем отступы */
+            margin: 0;
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 0.75s forwards;
@@ -53,7 +53,7 @@
 
         .text-container .marathon {
             font-size: 48px;
-            margin: 0; /* Убираем отступы */
+            margin: 0;
             color: #4CAF50;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1s forwards;
@@ -62,7 +62,7 @@
         /* Контейнер для кнопки */
         .button-container {
             position: absolute;
-            top: 60%; /* Поднимаем кнопку выше */
+            top: calc(60% - 100px); /* Поднимаем кнопку выше на 100px */
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -107,8 +107,8 @@
 
             .text-container {
                 width: 100%;
-                text-align: left; /* Выравниваем текст по левому краю на мобильных устройствах */
-                top: 20px;
+                text-align: left;
+                top: calc(20px - 100px); /* Поднимаем текст выше на 100px */
                 right: 20px;
                 transform: translateY(0);
             }
@@ -130,7 +130,7 @@
             }
 
             .button-container {
-                top: 50%; /* Поднимаем кнопку выше для мобильных устройств */
+                top: calc(50% - 100px); /* Поднимаем кнопку выше на 100px */
             }
 
             .button-container button {
