@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            overflow: hidden;
+            background-image: url('https://alexenomorf.github.io/comando/IMG1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            z-index: 10;
+        }
+        .header a {
+            color: #FF9800;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #FF5722;
+            border-radius: 25px;
+            transition: background 0.3s, color 0.3s;
+        }
+        .header a:hover {
+            background: #FF5722;
+            color: #fff;
+        }
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html">Главная</a>
+        <a href="about.html">О нас</a>
+        <a href="services.html">Услуги</a>
+        <a href="offers.html">Предложения</a>
+        <a href="contacts.html">Контакты</a>
+        <a href="pricing.html">Цены</a>
+    </div>
+    <div class="content">
+        <h1>О нас</h1>
+        <p>Мы — команда профессионалов, готовых помочь вам достичь ваших целей!</p>
+    </div>
+</body>
+</html>
