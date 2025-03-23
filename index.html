@@ -113,11 +113,11 @@
 
             .text-container {
                 width: 100%;
-                text-align: center; /* Центрируем текст */
+                text-align: left; /* Выравниваем текст по левому краю */
                 top: 20px; /* Размещаем текст сверху */
                 right: 0;
                 transform: translateY(0);
-                padding: 0 20px; /* Добавляем отступы по бокам */
+                padding-left: 20px; /* Сдвигаем текст вправо */
             }
 
             .text-container h1 {
@@ -148,12 +148,14 @@
             }
 
             .button-container button {
-                font-size: 20px;
-                padding: 15px 30px;
+                font-size: 18px; /* Уменьшаем размер шрифта */
+                padding: 15px 20px; /* Уменьшаем отступы */
                 margin-top: 0;
-                width: 100%; /* Кнопка занимает всю ширину */
+                width: 90%; /* Кнопка занимает 90% ширины */
                 max-width: 300px; /* Ограничиваем максимальную ширину */
                 white-space: nowrap; /* Текст кнопки в одну строку */
+                overflow: hidden; /* Скрываем текст, выходящий за границы */
+                text-overflow: ellipsis; /* Добавляем многоточие, если текст не помещается */
             }
         }
     </style>
