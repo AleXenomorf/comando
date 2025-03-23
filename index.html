@@ -85,6 +85,7 @@
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1.5s forwards;
             display: block;
+            text-align: center; /* Выравниваем текст по центру */
         }
 
         .button-container button:hover {
@@ -117,7 +118,7 @@
                 top: 20px;
                 right: 0;
                 transform: translateY(0);
-                padding-left: 60px; /* Сдвигаем текст вправо на 60px */
+                padding-left: 50px; /* Сдвигаем текст вправо на 10px (было 40px, стало 50px) */
             }
 
             .text-container h1 {
@@ -143,17 +144,18 @@
             .button-container {
                 top: auto;
                 bottom: 20px;
-                left: 55%; /* Сдвигаем кнопку вправо */
+                left: 50%;
                 transform: translateX(-50%);
             }
 
             .button-container button {
-                font-size: 16px; /* Уменьшаем размер шрифта */
-                padding: 12px 24px; /* Уменьшаем размер кнопки */
+                font-size: 16px;
+                padding: 12px 24px;
                 margin-top: 0;
                 width: auto;
                 max-width: 90%;
                 white-space: nowrap;
+                text-align: center; /* Убедимся, что текст кнопки по центру */
             }
         }
     </style>
