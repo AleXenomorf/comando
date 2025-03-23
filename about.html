@@ -12,10 +12,10 @@
             font-family: 'Arial', sans-serif;
             color: #fff;
             overflow: hidden;
-            background-image: url('https://alexenomorf.github.io/comando/3.JPG'); /* Новое фоновое изображение */
-            background-size: cover; /* Растягиваем изображение на весь экран */
-            background-position: center; /* Центрируем изображение */
-            background-repeat: no-repeat; /* Запрещаем повторение изображения */
+            background-image: url('https://alexenomorf.github.io/comando/3.JPG'); /* Уникальный фон для about.html */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .header {
             position: absolute;
@@ -29,9 +29,9 @@
         .header a {
             color: #FF9800;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 18px; /* Размер шрифта для десктопов */
             font-weight: bold;
-            padding: 10px 20px;
+            padding: 10px 20px; /* Отступы для десктопов */
             border: 2px solid #FF5722;
             border-radius: 25px;
             transition: background 0.3s, color 0.3s;
@@ -47,6 +47,19 @@
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 10;
+        }
+
+        /* Медиазапрос для мобильных устройств */
+        @media (max-width: 768px) {
+            .header a {
+                font-size: 9px; /* Уменьшаем размер шрифта в 2 раза */
+                padding: 5px 10px; /* Уменьшаем отступы в 2 раза */
+            }
+
+            .header {
+                flex-wrap: wrap; /* Если кнопки не помещаются, они переносятся на новую строку */
+                gap: 5px; /* Уменьшаем расстояние между кнопками */
+            }
         }
     </style>
 </head>
