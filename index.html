@@ -69,7 +69,7 @@
         }
 
         .button-container a {
-            text-decoration: none; /* Убираем подчеркивание у ссылки */
+            text-decoration: none;
         }
 
         .button-container button {
@@ -105,8 +105,10 @@
 
         @media (max-width: 768px) {
             body, html {
-                background-size: contain;
-                background-position: top center;
+                background-image: url('https://alexenomorf.github.io/comando/5.jpg'); /* Новый фон для мобильной версии */
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
             }
 
             .text-container {
