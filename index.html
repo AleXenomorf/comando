@@ -105,7 +105,7 @@
 
         @media (max-width: 768px) {
             body, html {
-                background-image: url('https://alexenomorf.github.io/comando/5.jpg'); /* Новый фон для мобильной версии */
+                background-image: url('https://alexenomorf.github.io/comando/5.jpg');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -113,38 +113,47 @@
 
             .text-container {
                 width: 100%;
-                text-align: left;
-                top: calc(20px - 100px);
-                right: 20px;
+                text-align: center; /* Центрируем текст */
+                top: 20px; /* Размещаем текст сверху */
+                right: 0;
                 transform: translateY(0);
+                padding: 0 20px; /* Добавляем отступы по бокам */
             }
 
             .text-container h1 {
                 font-size: 24px;
+                margin-bottom: 10px; /* Отступ между строками */
             }
 
             .text-container h2 {
                 font-size: 24px;
+                margin-bottom: 10px; /* Отступ между строками */
             }
 
             .text-container h3 {
                 font-size: 24px;
+                margin-bottom: 10px; /* Отступ между строками */
             }
 
             .text-container .marathon {
                 font-size: 36px;
+                margin-bottom: 20px; /* Отступ перед кнопкой */
             }
 
             .button-container {
-                top: calc(50% - 100px);
+                top: auto; /* Сбрасываем позиционирование */
+                bottom: 20px; /* Размещаем кнопку внизу */
+                left: 50%;
+                transform: translateX(-50%);
             }
 
             .button-container button {
                 font-size: 20px;
                 padding: 15px 30px;
-                margin-top: 10px;
-                width: 80%;
-                max-width: 250px;
+                margin-top: 0;
+                width: 100%; /* Кнопка занимает всю ширину */
+                max-width: 300px; /* Ограничиваем максимальную ширину */
+                white-space: nowrap; /* Текст кнопки в одну строку */
             }
         }
     </style>
