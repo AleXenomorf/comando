@@ -12,65 +12,80 @@
             font-family: 'Arial', sans-serif;
             color: #fff;
             overflow: hidden;
-            background-image: url('https://alexenomorf.github.io/comando/IMG1.jpg'); /* Фон для главной страницы */
+            background-image: url('https://alexenomorf.github.io/comando/4.jpg'); /* Новый фон */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
-        .header {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            z-index: 10;
-        }
-        .header a {
-            color: #FF9800;
-            text-decoration: none;
-            font-size: 18px; /* Размер шрифта для десктопов */
-            font-weight: bold;
-            padding: 10px 20px; /* Отступы для десктопов */
-            border: 2px solid #FF5722;
-            border-radius: 25px;
-            transition: background 0.3s, color 0.3s;
-        }
-        .header a:hover {
-            background: #FF5722;
-            color: #fff;
-        }
+
+        /* Контейнер для текста и кнопки */
         .content {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
+            right: 20px; /* Размещаем справа */
+            transform: translateY(-50%);
+            text-align: right; /* Выравниваем текст по правому краю */
             z-index: 10;
+        }
+
+        /* Стили для текста */
+        .content h1 {
+            font-size: 36px;
+            margin: 0;
+            color: #fff; /* Белый цвет текста */
+        }
+
+        .content h2 {
+            font-size: 24px;
+            margin: 10px 0;
+            color: #4CAF50; /* Зеленый цвет текста */
+        }
+
+        /* Стили для кнопки */
+        .content button {
+            background: #4CAF50; /* Зеленый цвет кнопки */
+            color: #fff; /* Белый цвет текста */
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .content button:hover {
+            background: #45a049; /* Темно-зеленый при наведении */
+            transform: scale(1.05);
         }
 
         /* Медиазапрос для мобильных устройств */
         @media (max-width: 768px) {
-            .header a {
-                font-size: 9px; /* Уменьшаем размер шрифта в 2 раза */
-                padding: 5px 10px; /* Уменьшаем отступы в 2 раза */
+            .content {
+                right: 10px; /* Корректируем отступ для мобильных устройств */
+                text-align: center; /* Центрируем текст на мобильных устройствах */
             }
 
-            .header {
-                flex-wrap: wrap; /* Если кнопки не помещаются, они переносятся на новую строку */
-                gap: 5px; /* Уменьшаем расстояние между кнопками */
+            .content h1 {
+                font-size: 24px; /* Уменьшаем размер шрифта для мобильных устройств */
+            }
+
+            .content h2 {
+                font-size: 18px; /* Уменьшаем размер шрифта для мобильных устройств */
+            }
+
+            .content button {
+                font-size: 14px; /* Уменьшаем размер шрифта кнопки для мобильных устройств */
+                padding: 10px 20px; /* Уменьшаем отступы кнопки */
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <a href="/comando/index.html">Главная</a>
-        <a href="/comando/about.html">О нас</a>
-        <a href="/comando/services.html">Услуги</a>
-        <a href="/comando/offers.html">Предложения</a>
-        <a href="/comando/contacts.html">Контакты</a>
-        <a href="/comando/pricing.html">Цены</a>
+    <div class="content">
+        <h1>Поможем сбросить 40 тонн на 1 день</h1>
+        <h2>Марафон Pro</h2>
+        <button>Записаться на первый поток</button>
     </div>
 </body>
 </html>
