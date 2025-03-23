@@ -22,15 +22,14 @@
         .text-container {
             position: absolute;
             top: 40%; /* Поднимаем текст выше */
-            right: 20px;
-            transform: translateY(-50%);
-            text-align: right;
+            left: 20px; /* Сдвигаем текст влево */
+            text-align: left; /* Выравниваем текст по левому краю */
             z-index: 10;
         }
 
         .text-container h1 {
             font-size: 36px;
-            margin: 0;
+            margin: 0; /* Убираем отступы */
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out forwards;
@@ -38,7 +37,7 @@
 
         .text-container h2 {
             font-size: 36px;
-            margin: 10px 0 0;
+            margin: 0; /* Убираем отступы */
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 0.5s forwards;
@@ -46,7 +45,7 @@
 
         .text-container h3 {
             font-size: 36px;
-            margin: 0;
+            margin: 0; /* Убираем отступы */
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 0.75s forwards;
@@ -54,7 +53,7 @@
 
         .text-container .marathon {
             font-size: 48px;
-            margin: 10px 0;
+            margin: 0; /* Убираем отступы */
             color: #4CAF50;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1s forwards;
@@ -108,9 +107,9 @@
 
             .text-container {
                 width: 100%;
-                text-align: center;
+                text-align: left; /* Выравниваем текст по левому краю на мобильных устройствах */
                 top: 20px;
-                right: 0;
+                left: 20px;
                 transform: translateY(0);
             }
 
@@ -120,12 +119,10 @@
 
             .text-container h2 {
                 font-size: 24px;
-                margin-bottom: 0;
             }
 
             .text-container h3 {
                 font-size: 24px;
-                margin-bottom: 10px;
             }
 
             .text-container .marathon {
