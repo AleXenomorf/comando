@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>О нас</title>
     <style>
+        /* Убираем отступы по умолчанию */
         body, html {
             margin: 0;
             padding: 0;
@@ -12,11 +13,17 @@
             font-family: 'Arial', sans-serif;
             color: #fff;
             overflow: hidden;
-            background-image: url('https://alexenomorf.github.io/comando/3.JPG'); /* Уникальный фон для about.html */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
         }
+
+        /* Фоновое изображение на всю страницу без обрезки */
+        body {
+            background-image: url('https://alexenomorf.github.io/comando/3.JPG');
+            background-size: contain; /* Изображение отображается полностью */
+            background-position: center; /* Центрируем изображение */
+            background-repeat: no-repeat; /* Запрещаем повторение */
+            background-color: #000; /* Фоновый цвет, если изображение не покрывает всю область */
+        }
+
         .header {
             position: absolute;
             top: 20px;
@@ -26,6 +33,7 @@
             gap: 10px;
             z-index: 10;
         }
+
         .header a {
             color: #FF9800;
             text-decoration: none;
@@ -36,10 +44,12 @@
             border-radius: 25px;
             transition: background 0.3s, color 0.3s;
         }
+
         .header a:hover {
             background: #FF5722;
             color: #fff;
         }
+
         .content {
             position: absolute;
             top: 50%;
