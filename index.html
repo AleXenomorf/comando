@@ -21,7 +21,7 @@
         /* Контейнер для текста */
         .text-container {
             position: absolute;
-            top: calc(40% - 100px); /* Поднимаем текст выше на 100px */
+            top: calc(40% - 100px);
             right: 20px;
             text-align: left;
             z-index: 10;
@@ -62,10 +62,14 @@
         /* Контейнер для кнопки */
         .button-container {
             position: absolute;
-            top: calc(60% - 100px); /* Поднимаем кнопку выше на 100px */
+            top: calc(60% - 100px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
+        }
+
+        .button-container a {
+            text-decoration: none; /* Убираем подчеркивание у ссылки */
         }
 
         .button-container button {
@@ -108,7 +112,7 @@
             .text-container {
                 width: 100%;
                 text-align: left;
-                top: calc(20px - 100px); /* Поднимаем текст выше на 100px */
+                top: calc(20px - 100px);
                 right: 20px;
                 transform: translateY(0);
             }
@@ -130,7 +134,7 @@
             }
 
             .button-container {
-                top: calc(50% - 100px); /* Поднимаем кнопку выше на 100px */
+                top: calc(50% - 100px);
             }
 
             .button-container button {
@@ -151,7 +155,9 @@
         <h2 class="marathon">Марафон Pro</h2>
     </div>
     <div class="button-container">
-        <button>Записаться на первый поток</button>
+        <a href="https://t.me/tipamarafon1" target="_blank">
+            <button>Записаться на первый поток</button>
+        </a>
     </div>
 </body>
 </html>
