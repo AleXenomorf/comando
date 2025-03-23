@@ -104,7 +104,8 @@
             }
         }
 
-        @media (max-width: 768px) {
+        /* Стили для мобильной версии (портретная ориентация) */
+        @media (max-width: 768px) and (orientation: portrait) {
             body, html {
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
                 background-size: cover;
@@ -164,6 +165,54 @@
                 white-space: nowrap;
                 text-align: center; /* Убедимся, что текст кнопки по центру */
                 display: inline-block; /* Делаем кнопку inline-block для правильного центрирования */
+            }
+        }
+
+        /* Стили для ландшафтной ориентации (как десктоп) */
+        @media (max-width: 768px) and (orientation: landscape) {
+            body, html {
+                background-image: url('https://alexenomorf.github.io/comando/4.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            .text-container {
+                top: calc(40% - 100px);
+                right: 20px;
+                padding-left: 0;
+                margin-left: 0;
+            }
+
+            .text-container h1 {
+                font-size: 36px;
+                margin-left: 0;
+            }
+
+            .text-container h2 {
+                font-size: 36px;
+                margin-left: 0;
+            }
+
+            .text-container h3 {
+                font-size: 36px;
+                margin-left: 0;
+            }
+
+            .text-container .marathon {
+                font-size: 48px;
+                margin-left: 0;
+            }
+
+            .button-container {
+                top: calc(60% - 100px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .button-container button {
+                font-size: 36px;
+                padding: 30px 60px;
             }
         }
     </style>
