@@ -12,52 +12,48 @@
             font-family: 'Arial', sans-serif;
             color: #fff;
             overflow: hidden;
-            background-image: url('https://alexenomorf.github.io/comando/4.jpg'); /* Новый фон */
+            background-image: url('https://alexenomorf.github.io/comando/4.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        /* Контейнер для текста и кнопки */
         .content {
             position: absolute;
             top: 50%;
-            right: 20px; /* Размещаем справа */
+            right: 20px;
             transform: translateY(-50%);
-            text-align: right; /* Выравниваем текст по правому краю */
+            text-align: right;
             z-index: 10;
         }
 
-        /* Стили для текста */
         .content h1 {
             font-size: 36px;
             margin: 0;
-            color: #fff; /* Белый цвет текста */
-            opacity: 0; /* Начальная прозрачность */
-            animation: dominoEffect 1s ease-in-out forwards; /* Анимация */
+            color: #fff;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out forwards;
         }
 
         .content h2 {
-            font-size: 24px;
-            margin: 10px 0 0; /* Отступ сверху для второй строки */
-            color: #fff; /* Белый цвет текста */
-            opacity: 0; /* Начальная прозрачность */
-            animation: dominoEffect 1s ease-in-out 0.5s forwards; /* Анимация с задержкой */
+            font-size: 36px;
+            margin: 10px 0 0;
+            color: #fff;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out 0.5s forwards;
         }
 
-        /* Зеленая строка "Марафон Pro" */
         .content .marathon {
             font-size: 24px;
-            margin: 10px 0; /* Отступ сверху и снизу */
-            color: #4CAF50; /* Зеленый цвет текста */
-            opacity: 0; /* Начальная прозрачность */
-            animation: dominoEffect 1s ease-in-out 1s forwards; /* Анимация с задержкой */
+            margin: 10px 0;
+            color: #4CAF50;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out 1s forwards;
         }
 
-        /* Стили для кнопки */
         .content button {
-            background: #4CAF50; /* Зеленый цвет кнопки */
-            color: #fff; /* Белый цвет текста */
+            background: #4CAF50;
+            color: #fff;
             border: none;
             padding: 15px 30px;
             font-size: 18px;
@@ -65,16 +61,15 @@
             border-radius: 25px;
             cursor: pointer;
             transition: background 0.3s, transform 0.3s;
-            opacity: 0; /* Начальная прозрачность */
-            animation: dominoEffect 1s ease-in-out 1.5s forwards; /* Анимация с задержкой */
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out 1.5s forwards;
         }
 
         .content button:hover {
-            background: #45a049; /* Темно-зеленый при наведении */
+            background: #45a049;
             transform: scale(1.05);
         }
 
-        /* Анимация "как домино" */
         @keyframes dominoEffect {
             0% {
                 opacity: 0;
@@ -86,43 +81,42 @@
             }
         }
 
-        /* Медиазапрос для мобильных устройств */
         @media (max-width: 768px) {
             body, html {
-                background-size: contain; /* Фон адаптируется под экран без обрезки */
-                background-position: top center; /* Фон выравнивается по верхнему краю */
+                background-size: contain;
+                background-position: top center;
             }
 
             .content {
-                width: 100%; /* Занимаем всю ширину */
-                text-align: center; /* Центрируем текст */
-                top: 20px; /* Текст наверху */
-                right: 0; /* Сбрасываем правый отступ */
-                transform: translateY(0); /* Сбрасываем transform */
+                width: 100%;
+                text-align: center;
+                top: 20px;
+                right: 0;
+                transform: translateY(0);
             }
 
             .content h1 {
-                font-size: 24px; /* Уменьшаем размер шрифта для мобильных устройств */
+                font-size: 24px;
             }
 
             .content h2 {
-                font-size: 18px; /* Уменьшаем размер шрифта для мобильных устройств */
-                margin-bottom: 10px; /* Отступ снизу для кнопки */
+                font-size: 24px;
+                margin-bottom: 10px;
             }
 
             .content .marathon {
-                font-size: 18px; /* Уменьшаем размер шрифта для мобильных устройств */
+                font-size: 18px;
             }
 
             .content button {
-                font-size: 20px; /* Уменьшаем размер шрифта кнопки */
-                padding: 15px 30px; /* Уменьшаем отступы кнопки */
-                margin-top: 10px; /* Отступ сверху для кнопки */
-                display: block; /* Делаем кнопку блочным элементом */
-                margin-left: auto; /* Центрируем кнопку по горизонтали */
-                margin-right: auto; /* Центрируем кнопку по горизонтали */
-                width: 80%; /* Уменьшаем ширину кнопки */
-                max-width: 250px; /* Ограничиваем максимальную ширину */
+                font-size: 20px;
+                padding: 15px 30px;
+                margin-top: 10px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 80%;
+                max-width: 250px;
             }
         }
     </style>
