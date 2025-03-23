@@ -39,10 +39,19 @@
 
         .content h2 {
             font-size: 24px;
-            margin: 10px 0;
-            color: #4CAF50; /* Зеленый цвет текста */
+            margin: 10px 0 0; /* Отступ сверху для второй строки */
+            color: #fff; /* Белый цвет текста */
             opacity: 0; /* Начальная прозрачность */
             animation: dominoEffect 1s ease-in-out 0.5s forwards; /* Анимация с задержкой */
+        }
+
+        /* Зеленая строка "Марафон Pro" */
+        .content .marathon {
+            font-size: 24px;
+            margin: 10px 0; /* Отступ сверху и снизу */
+            color: #4CAF50; /* Зеленый цвет текста */
+            opacity: 0; /* Начальная прозрачность */
+            animation: dominoEffect 1s ease-in-out 1s forwards; /* Анимация с задержкой */
         }
 
         /* Стили для кнопки */
@@ -57,7 +66,7 @@
             cursor: pointer;
             transition: background 0.3s, transform 0.3s;
             opacity: 0; /* Начальная прозрачность */
-            animation: dominoEffect 1s ease-in-out 1s forwards; /* Анимация с задержкой */
+            animation: dominoEffect 1s ease-in-out 1.5s forwards; /* Анимация с задержкой */
         }
 
         .content button:hover {
@@ -101,6 +110,10 @@
                 margin-bottom: 10px; /* Отступ снизу для кнопки */
             }
 
+            .content .marathon {
+                font-size: 18px; /* Уменьшаем размер шрифта для мобильных устройств */
+            }
+
             .content button {
                 font-size: 20px; /* Уменьшаем размер шрифта кнопки */
                 padding: 15px 30px; /* Уменьшаем отступы кнопки */
@@ -116,9 +129,9 @@
 </head>
 <body>
     <div class="content">
-        <h1>Поможем сбросить 5 кг за месяц
-        и получить тело месты без стресса и голодовок!</h1>
-        <h2>Марафон Pro</h2>
+        <h1>Поможем сбросить 5 кг за месяц</h1>
+        <h2>и получить тело мечты без стресса и голодовок!</h2>
+        <h2 class="marathon">Марафон Pro</h2>
         <button>Записаться на первый поток</button>
     </div>
 </body>
