@@ -16,10 +16,10 @@
         .header {
             position: absolute;
             top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 20px; /* Перемещаем меню в левый край */
             display: flex;
-            gap: 20px;
+            flex-direction: column; /* Меню вертикально */
+            gap: 10px; /* Расстояние между пунктами меню */
             z-index: 10;
         }
         .header a {
@@ -36,29 +36,6 @@
             background: #FF5722; /* Темно-оранжевый фон при наведении */
             color: #fff; /* Белый текст при наведении */
         }
-        .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 10;
-        }
-        .cta-button {
-            background: #FF9800; /* Оранжевый цвет кнопки */
-            color: #fff; /* Белый текст */
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .cta-button:hover {
-            background: #FF5722; /* Темно-оранжевый при наведении */
-            transform: scale(1.05);
-        }
         .background-image {
             position: absolute;
             top: 0;
@@ -71,7 +48,7 @@
     </style>
 </head>
 <body>
-    <img class="background-image" src="" data-desktop="https://alexenomorf.github.io/comando/IMG1.jpg" alt="Фоновое изображение">
+    <img class="background-image" src="https://alexenomorf.github.io/comando/IMG1.jpg" alt="Фоновое изображение">
     <div class="header">
         <a href="#about">О нас</a>
         <a href="#services">Услуги</a>
@@ -79,15 +56,5 @@
         <a href="#contacts">Контакты</a>
         <a href="#pricing">Цены</a>
     </div>
-    <div class="content">
-        <button class="cta-button">Начать сейчас</button>
-    </div>
-
-    <script>
-        // Динамическая загрузка изображения для десктопной версии
-        const backgroundImage = document.querySelector('.background-image');
-        const desktopImage = backgroundImage.getAttribute('data-desktop');
-        backgroundImage.src = desktopImage;
-    </script>
 </body>
 </html>
