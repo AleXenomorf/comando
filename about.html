@@ -50,13 +50,39 @@
             color: #fff;
         }
 
-        .content {
+        /* Контейнер для текста */
+        .text-container {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
+            top: 100px; /* Располагаем текст ниже кнопок */
+            left: 20px;
             z-index: 10;
+        }
+
+        /* Стили для заголовка и текста */
+        .text-container h1 {
+            font-size: 48px; /* Увеличиваем размер шрифта */
+            margin: 0;
+            opacity: 0; /* Начальная прозрачность для анимации */
+            animation: dominoEffect 1s ease-in-out forwards; /* Анимация */
+        }
+
+        .text-container p {
+            font-size: 24px; /* Увеличиваем размер шрифта */
+            margin: 10px 0 0;
+            opacity: 0; /* Начальная прозрачность для анимации */
+            animation: dominoEffect 1s ease-in-out 0.5s forwards; /* Анимация с задержкой */
+        }
+
+        /* Анимация "как домино" */
+        @keyframes dominoEffect {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Медиазапрос для мобильных устройств */
@@ -70,6 +96,18 @@
                 flex-wrap: wrap; /* Если кнопки не помещаются, они переносятся на новую строку */
                 gap: 5px; /* Уменьшаем расстояние между кнопками */
             }
+
+            .text-container {
+                top: 80px; /* Корректируем положение текста для мобильных устройств */
+            }
+
+            .text-container h1 {
+                font-size: 32px; /* Уменьшаем размер шрифта для мобильных устройств */
+            }
+
+            .text-container p {
+                font-size: 18px; /* Уменьшаем размер шрифта для мобильных устройств */
+            }
         }
     </style>
 </head>
@@ -82,7 +120,7 @@
         <a href="/comando/contacts.html">Контакты</a>
         <a href="/comando/pricing.html">Цены</a>
     </div>
-    <div class="content">
+    <div class="text-container">
         <h1>О нас</h1>
         <p>Мы — команда профессионалов, готовых помочь вам достичь ваших целей!</p>
     </div>
