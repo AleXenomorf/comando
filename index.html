@@ -21,9 +21,9 @@
         .content {
             position: absolute;
             top: 50%;
-            left: 20px; /* Выравниваем текст слева */
+            right: 20px; /* Сдвигаем текст вправо */
             transform: translateY(-50%);
-            text-align: left; /* Выравниваем текст по левому краю */
+            text-align: right; /* Выравниваем текст по правому краю */
             z-index: 10;
         }
 
@@ -63,14 +63,16 @@
             background: #4CAF50;
             color: #fff;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 30px 60px; /* Увеличиваем отступы в 2 раза */
+            font-size: 36px; /* Увеличиваем размер шрифта в 2 раза */
             font-weight: bold;
             border-radius: 25px;
             cursor: pointer;
             transition: background 0.3s, transform 0.3s;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1.5s forwards;
+            display: block; /* Делаем кнопку блочным элементом */
+            margin: 20px auto 0; /* Центрируем кнопку и добавляем отступ сверху */
         }
 
         .content button:hover {
@@ -97,9 +99,9 @@
 
             .content {
                 width: 100%;
-                text-align: left;
+                text-align: center;
                 top: 20px;
-                left: 20px;
+                right: 0;
                 transform: translateY(0);
             }
 
@@ -125,7 +127,6 @@
                 font-size: 20px;
                 padding: 15px 30px;
                 margin-top: 10px;
-                display: block;
                 width: 80%;
                 max-width: 250px;
             }
