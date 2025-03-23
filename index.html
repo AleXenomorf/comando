@@ -33,12 +33,16 @@
             font-size: 36px;
             margin: 0;
             color: #fff; /* Белый цвет текста */
+            opacity: 0; /* Начальная прозрачность */
+            animation: dominoEffect 1s ease-in-out forwards; /* Анимация */
         }
 
         .content h2 {
             font-size: 24px;
             margin: 10px 0;
             color: #4CAF50; /* Зеленый цвет текста */
+            opacity: 0; /* Начальная прозрачность */
+            animation: dominoEffect 1s ease-in-out 0.5s forwards; /* Анимация с задержкой */
         }
 
         /* Стили для кнопки */
@@ -52,6 +56,8 @@
             border-radius: 25px;
             cursor: pointer;
             transition: background 0.3s, transform 0.3s;
+            opacity: 0; /* Начальная прозрачность */
+            animation: dominoEffect 1s ease-in-out 1s forwards; /* Анимация с задержкой */
         }
 
         .content button:hover {
@@ -59,11 +65,25 @@
             transform: scale(1.05);
         }
 
+        /* Анимация "как домино" */
+        @keyframes dominoEffect {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Медиазапрос для мобильных устройств */
         @media (max-width: 768px) {
             .content {
                 right: 10px; /* Корректируем отступ для мобильных устройств */
                 text-align: center; /* Центрируем текст на мобильных устройствах */
+                top: 20px; /* Перемещаем текст наверх */
+                transform: translateY(0); /* Сбрасываем transform */
             }
 
             .content h1 {
@@ -77,6 +97,10 @@
             .content button {
                 font-size: 14px; /* Уменьшаем размер шрифта кнопки для мобильных устройств */
                 padding: 10px 20px; /* Уменьшаем отступы кнопки */
+                position: absolute; /* Позиционируем кнопку отдельно */
+                bottom: 20px; /* Размещаем кнопку внизу */
+                left: 50%; /* Центрируем кнопку */
+                transform: translateX(-50%); /* Центрируем кнопку */
             }
         }
     </style>
