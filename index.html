@@ -15,22 +15,22 @@
             position: relative;
         }
 
-        /* Градиентный фон */
+        /* Градиентный фон (теперь зелёный -> бирюзовый) */
         .gradient-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #00b4b4, #009600);
+            background: linear-gradient(90deg, #009600, #00b4b4); /* Обратный градиент */
             z-index: -2;
         }
 
-        /* Изображение поверх градиента */
+        /* Изображение сдвинуто влево на 200px */
         .image-overlay {
             position: fixed;
             top: 50%;
-            left: 50%;
+            left: calc(50% - 200px); /* Сдвиг влево на 200px */
             transform: translate(-50%, -50%);
             width: 80%;
             height: 80%;
@@ -50,7 +50,6 @@
             z-index: 10;
         }
 
-        /* Остальные стили остаются без изменений */
         .text-container h1 {
             font-size: 36px;
             margin: 0;
@@ -129,13 +128,15 @@
 
         @media (max-width: 768px) and (orientation: portrait) {
             .gradient-bg {
-                background: linear-gradient(90deg, #00b4b4, #009600);
+                background: linear-gradient(90deg, #009600, #00b4b4); /* Обратный градиент */
             }
             
             .image-overlay {
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
                 width: 90%;
                 height: 60%;
+                left: 50%; /* На мобильных центрируем изображение */
+                transform: translate(-50%, -50%);
             }
 
             .text-container {
@@ -195,13 +196,15 @@
 
         @media (max-width: 768px) and (orientation: landscape) {
             .gradient-bg {
-                background: linear-gradient(90deg, #00b4b4, #009600);
+                background: linear-gradient(90deg, #009600, #00b4b4); /* Обратный градиент */
             }
             
             .image-overlay {
                 background-image: url('https://alexenomorf.github.io/comando/4.jpg');
                 width: 70%;
                 height: 90%;
+                left: calc(50% - 100px); /* Меньший сдвиг для ландшафтного режима */
+                transform: translate(-50%, -50%);
             }
 
             .text-container {
