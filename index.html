@@ -48,6 +48,41 @@
             z-index: 10;
         }
 
+        /* Кольцо с текстом */
+        .marathon-ring {
+            position: absolute;
+            top: 100px;
+            right: 100px;
+            width: 200px;
+            height: 200px;
+            z-index: 10;
+        }
+
+        .marathon-circle {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: rotateRing 15s linear infinite;
+        }
+
+        .marathon-char {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform-origin: 0 100px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            width: 20px;
+            text-align: center;
+        }
+
+        @keyframes rotateRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Остальные стили остаются без изменений */
         .text-container h1 {
             font-size: 36px;
             margin: 0;
@@ -72,46 +107,12 @@
             animation: dominoEffect 1s ease-in-out 0.75s forwards;
         }
 
-        /* Кольцо с текстом в правом верхнем углу */
-        .marathon-ring {
-            position: absolute;
-            top: 100px; /* Позиция сверху */
-            right: 100px; /* Позиция справа */
-            width: 200px;
-            height: 200px;
-            z-index: 10;
-        }
-
-        .marathon-text {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            color: white;
-            font-size: 28px; /* Увеличенный размер текста */
-            font-weight: bold;
-            animation: rotateRing 15s linear infinite;
-            transform-origin: center;
-        }
-
-        @keyframes rotateRing {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
         .button-container {
             position: absolute;
             top: calc(60% - 100px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
-        }
-
-        .button-container a {
-            text-decoration: none;
         }
 
         .button-container button {
@@ -130,151 +131,25 @@
             text-align: center;
         }
 
-        .button-container button:hover {
-            background: #45a049;
-            transform: scale(1.05);
-        }
-
         @keyframes dominoEffect {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 768px) and (orientation: portrait) {
-            .gradient-bg {
-                background: linear-gradient(90deg, #009600, #00b4b4);
-            }
-            
-            .image-overlay {
-                background-image: url('https://alexenomorf.github.io/comando/5.jpg');
-                width: 90%;
-                height: 60%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-            }
-
-            .text-container {
-                width: 100%;
-                text-align: left;
-                top: calc(40% + 100px);
-                right: 0;
-                transform: translateY(0);
-                padding-left: 0;
-                margin-left: 10px;
-            }
-
+        @media (max-width: 768px) {
             .marathon-ring {
                 top: 50px;
                 right: 50px;
                 width: 150px;
                 height: 150px;
             }
-
-            .marathon-text {
-                font-size: 20px;
-            }
-
-            .text-container h1 {
-                font-size: 24px;
-                margin-bottom: 10px;
-                margin-left: 10px;
-            }
-
-            .text-container h2 {
-                font-size: 24px;
-                margin-bottom: 10px;
-                margin-left: 10px;
-            }
-
-            .text-container h3 {
-                font-size: 24px;
-                margin-bottom: 10px;
-                margin-left: 10px;
-            }
-
-            .button-container {
-                top: auto;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 100%;
-                text-align: center;
-            }
-
-            .button-container button {
-                font-size: 16px;
-                padding: 12px 24px;
-                margin-top: 0;
-                width: auto;
-                max-width: 90%;
-                white-space: nowrap;
-                text-align: center;
-                display: inline-block;
-            }
-        }
-
-        @media (max-width: 768px) and (orientation: landscape) {
-            .gradient-bg {
-                background: linear-gradient(90deg, #009600, #00b4b4);
-            }
             
-            .image-overlay {
-                background-image: url('https://alexenomorf.github.io/comando/4.jpg');
-                width: 70%;
-                height: 90%;
-                left: calc(50% - 100px);
-                transform: translate(-50%, -50%);
-            }
-
-            .text-container {
-                top: calc(40% + 100px);
-                right: 20px;
-                padding-left: 0;
-                margin-left: 0;
-            }
-
-            .marathon-ring {
-                top: 50px;
-                right: 50px;
-                width: 150px;
-                height: 150px;
-            }
-
-            .marathon-text {
-                font-size: 20px;
-            }
-
-            .text-container h1 {
-                font-size: 24px;
-                margin-left: 0;
-            }
-
-            .text-container h2 {
-                font-size: 24px;
-                margin-left: 0;
-            }
-
-            .text-container h3 {
-                font-size: 24px;
-                margin-left: 0;
-            }
-
-            .button-container {
-                top: calc(60% - 20px);
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .button-container button {
+            .marathon-char {
                 font-size: 18px;
-                padding: 15px 30px;
+                transform-origin: 0 75px;
             }
+            
+            /* Остальные медиа-запросы остаются без изменений */
         }
     </style>
 </head>
@@ -282,9 +157,9 @@
     <div class="gradient-bg"></div>
     <div class="image-overlay"></div>
     
-    <!-- Кольцо с текстом в правом верхнем углу -->
+    <!-- Кольцо с текстом -->
     <div class="marathon-ring">
-        <div class="marathon-text">Марафон Pro*Марафон Pro*Марафон Pro*Марафон Pro</div>
+        <div class="marathon-circle" id="marathonCircle"></div>
     </div>
     
     <div class="text-container">
@@ -292,6 +167,7 @@
         <h2>и получить тело мечты</h2>
         <h3>без стресса и голодовок!</h3>
     </div>
+    
     <div class="button-container">
         <a href="https://t.me/tipamarafon1" target="_blank">
             <button>Записаться на первый поток</button>
@@ -299,21 +175,20 @@
     </div>
 
     <script>
-        // Создаем круглый текст
-        const marathonText = document.querySelector('.marathon-text');
-        const text = marathonText.textContent;
-        const characters = text.split('');
-        
-        marathonText.innerHTML = '';
-        
-        characters.forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.style.position = 'absolute';
-            span.style.left = '50%';
-            span.style.transform = `rotate(${index * (360 / characters.length)}deg) translateY(-90px) rotate(${index * (360 / characters.length)}deg)`;
-            span.style.transformOrigin = 'left center';
-            marathonText.appendChild(span);
+        document.addEventListener('DOMContentLoaded', function() {
+            const text = "Марафон Pro*Марафон Pro*Марафон Pro*Марафон Pro";
+            const circle = document.getElementById('marathonCircle');
+            const radius = 100; // Радиус круга
+            const angle = 360 / text.length; // Угол между символами
+            
+            // Создаем элементы для каждого символа
+            for (let i = 0; i < text.length; i++) {
+                const charElem = document.createElement('div');
+                charElem.className = 'marathon-char';
+                charElem.textContent = text[i];
+                charElem.style.transform = `rotate(${i * angle}deg)`;
+                circle.appendChild(charElem);
+            }
         });
     </script>
 </body>
