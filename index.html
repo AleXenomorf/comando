@@ -28,7 +28,7 @@
         .image-overlay {
             position: fixed;
             top: 50%;
-            left: calc(50% - 200px);
+            left: calc(50% - 100px); /* Сдвиг влево на 100px */
             transform: translate(-50%, -50%);
             width: 80%;
             height: 80%;
@@ -42,7 +42,7 @@
 
         .text-container {
             position: absolute;
-            top: calc(40% + 100px);
+            top: calc(40% - 50px);
             right: 20px;
             text-align: left;
             z-index: 10;
@@ -52,7 +52,7 @@
         .marathon-ring {
             position: absolute;
             top: 100px;
-            right: 100px;
+            left: 50px; /* Сдвиг влево на 50px */
             width: 200px;
             height: 200px;
             z-index: 10;
@@ -110,7 +110,7 @@
 
         .button-container {
             position: absolute;
-            top: calc(60% - 100px);
+            top: calc(60% + 50px); /* Позиция под текстом */
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
@@ -121,15 +121,14 @@
         }
 
         .button-container button {
-            background: #4CAF50;
-            color: #fff;
-            border: none;
-            padding: 30px 60px;
+            background: transparent; /* Прозрачный фон */
+            color: #fff; /* Белый текст */
+            border: none; /* Убрана рамка */
+            padding: 10px 0; /* Уменьшенные отступы */
             font-size: 36px;
             font-weight: bold;
-            border-radius: 25px;
             cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
+            transition: opacity 0.3s;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1.5s forwards;
             display: block;
@@ -137,8 +136,7 @@
         }
 
         .button-container button:hover {
-            background: #45a049;
-            transform: scale(1.05);
+            opacity: 0.8;
         }
 
         @keyframes dominoEffect {
@@ -161,14 +159,14 @@
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
                 width: 90%;
                 height: 60%;
-                left: 50%;
+                left: calc(50% - 50px); /* Меньший сдвиг для мобильных */
                 transform: translate(-50%, -50%);
             }
 
             .text-container {
                 width: 100%;
                 text-align: left;
-                top: calc(40% + 100px);
+                top: calc(40% - 30px);
                 right: 0;
                 transform: translateY(0);
                 padding-left: 0;
@@ -177,7 +175,7 @@
 
             .marathon-ring {
                 top: 50px;
-                right: 50px;
+                left: 25px; /* Меньший сдвиг для мобильных */
                 width: 150px;
                 height: 150px;
             }
@@ -207,23 +205,15 @@
             }
 
             .button-container {
-                top: auto;
-                bottom: 20px;
+                top: calc(60% + 30px);
                 left: 50%;
                 transform: translateX(-50%);
                 width: 100%;
-                text-align: center;
             }
 
             .button-container button {
-                font-size: 16px;
-                padding: 12px 24px;
-                margin-top: 0;
-                width: auto;
-                max-width: 90%;
-                white-space: nowrap;
-                text-align: center;
-                display: inline-block;
+                font-size: 24px;
+                padding: 5px 0;
             }
         }
 
@@ -236,12 +226,12 @@
                 background-image: url('https://alexenomorf.github.io/comando/4.jpg');
                 width: 70%;
                 height: 90%;
-                left: calc(50% - 100px);
+                left: calc(50% - 80px);
                 transform: translate(-50%, -50%);
             }
 
             .text-container {
-                top: calc(40% + 100px);
+                top: calc(40% - 30px);
                 right: 20px;
                 padding-left: 0;
                 margin-left: 0;
@@ -249,7 +239,7 @@
 
             .marathon-ring {
                 top: 50px;
-                right: 50px;
+                left: 30px;
                 width: 150px;
                 height: 150px;
             }
@@ -276,14 +266,14 @@
             }
 
             .button-container {
-                top: calc(60% - 20px);
+                top: calc(60% + 30px);
                 left: 50%;
                 transform: translateX(-50%);
             }
 
             .button-container button {
-                font-size: 18px;
-                padding: 15px 30px;
+                font-size: 24px;
+                padding: 5px 0;
             }
         }
     </style>
@@ -310,7 +300,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const text = "Марафон Pro*Марафон Pro*Марафон Pro*Марафон Pro";
+            const text = "Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro ";
             const circle = document.getElementById('marathonCircle');
             const radius = 100;
             const angleStep = 360 / text.length;
