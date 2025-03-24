@@ -102,7 +102,7 @@
 
         .text-container h3 {
             font-size: 36px;
-            margin: 0;
+            margin: 0 0 50px 0; /* Добавлен отступ снизу 50px */
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 0.75s forwards;
@@ -110,9 +110,9 @@
 
         .button-container {
             position: absolute;
-            top: calc(60% + 100px);
-            left: calc(50% + 200px); /* Сдвиг вправо на 200px */
-            transform: translateX(-50%);
+            top: auto; /* Убрано фиксированное позиционирование */
+            right: 20px; /* Выравнивание по правому краю как у текста */
+            transform: none; /* Убрано transform */
             z-index: 10;
             white-space: nowrap;
         }
@@ -133,8 +133,9 @@
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1.5s forwards;
             display: block;
-            text-align: center;
+            text-align: left; /* Выравнивание текста по левому краю */
             white-space: nowrap;
+            margin: 0; /* Убраны все отступы */
         }
 
         @keyframes dominoEffect {
@@ -167,12 +168,14 @@
                 height: 75px;
             }
 
-            .text-container h1 {
+            .text-container h1,
+            .text-container h2,
+            .text-container h3 {
                 font-size: 24px;
             }
 
-            .button-container {
-                left: calc(50% + 100px); /* Сдвиг для мобильных */
+            .text-container h3 {
+                margin-bottom: 30px; /* Меньший отступ для мобильных */
             }
 
             .button-container button {
@@ -183,9 +186,6 @@
         @media (max-width: 768px) and (orientation: landscape) {
             .image-overlay {
                 margin-left: -120px;
-            }
-            .button-container {
-                left: calc(50% + 150px); /* Сдвиг для ландшафта */
             }
         }
     </style>
@@ -202,12 +202,11 @@
         <h1>Поможем сбросить 5 кг за месяц</h1>
         <h2>и получить тело мечты</h2>
         <h3>без стресса и голодовок!</h3>
-    </div>
-    
-    <div class="button-container">
-        <a href="https://t.me/tipamarafon1" target="_blank">
-            <button>Записаться на первый поток</button>
-        </a>
+        <div class="button-container">
+            <a href="https://t.me/tipamarafon1" target="_blank">
+                <button>Записаться на первый поток</button>
+            </a>
+        </div>
     </div>
 
     <script>
