@@ -3,304 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Марафон Pro - Фитнес программа</title>
+    <title>Фитнес-услуги</title>
     <style>
-        /* Основные стили */
         body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
             font-family: 'Arial', sans-serif;
-            color: #333;
-            scroll-behavior: smooth;
-        }
-        
-        section {
-            padding: 60px 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: #4CAF50;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            background: #45a049;
-            transform: scale(1.05);
-        }
-        
-        /* Секция героя (офер) */
-        .hero {
+            color: #fff;
+            overflow: hidden;
             background-image: url('https://alexenomorf.github.io/comando/4.jpg');
             background-size: cover;
             background-position: center;
-            color: white;
-            text-align: center;
-            position: relative;
+            background-repeat: no-repeat;
         }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
+
+        .text-container {
+            position: absolute;
+            top: calc(40% - 100px);
+            right: 20px;
+            text-align: left;
+            z-index: 10;
         }
-        
-        .hero h1 {
-            font-size: 3rem;
-            color: white;
-            margin-bottom: 20px;
+
+        .text-container h1 {
+            font-size: 36px;
+            margin: 0;
+            color: #fff;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out forwards;
         }
-        
-        .hero .marathon {
-            font-size: 4rem;
+
+        .text-container h2 {
+            font-size: 36px;
+            margin: 0;
+            color: #fff;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out 0.5s forwards;
+        }
+
+        .text-container h3 {
+            font-size: 36px;
+            margin: 0;
+            color: #fff;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out 0.75s forwards;
+        }
+
+        .text-container .marathon {
+            font-size: 48px;
+            margin: 0;
             color: #4CAF50;
-            margin: 20px 0;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out 1s forwards;
         }
-        
-        /* Адаптивные стили */
-        @media (max-width: 768px) {
-            .hero {
-                background-image: url('https://alexenomorf.github.io/comando/5.jpg');
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero .marathon {
-                font-size: 2.5rem;
-            }
+
+        .button-container {
+            position: absolute;
+            top: calc(60% - 100px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
         }
-        
-        /* Стили для других секций */
-        .benefits {
-            background: #f9f9f9;
+
+        .button-container a {
+            text-decoration: none;
         }
-        
-        .benefit-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .case-study {
-            margin: 30px 0;
-        }
-        
-        .team-member {
+
+        .button-container button {
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 30px 60px;
+            font-size: 36px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            opacity: 0;
+            animation: dominoEffect 1s ease-in-out 1.5s forwards;
+            display: block;
             text-align: center;
-            margin: 20px;
         }
-        
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
+
+        .button-container button:hover {
+            background: #45a049;
+            transform: scale(1.05);
         }
-        
-        /* Форма квиза */
-        .quiz-form {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 600px;
-            margin: 0 auto;
+
+        @keyframes dominoEffect {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .quiz-form input, .quiz-form select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+
+        @media (max-width: 768px) and (orientation: portrait) {
+            body, html {
+                background-image: url('https://alexenomorf.github.io/comando/5.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            .text-container {
+                width: 100%;
+                text-align: left;
+                top: 20px;
+                right: 0;
+                transform: translateY(0);
+                padding-left: 0;
+                margin-left: 10px;
+            }
+
+            .text-container h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .text-container h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .text-container h3 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .text-container .marathon {
+                font-size: 36px;
+                margin-bottom: 20px;
+                margin-left: 10px;
+            }
+
+            .button-container {
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                text-align: center;
+            }
+
+            .button-container button {
+                font-size: 16px;
+                padding: 12px 24px;
+                margin-top: 0;
+                width: auto;
+                max-width: 90%;
+                white-space: nowrap;
+                text-align: center;
+                display: inline-block;
+            }
         }
-        
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate {
-            animation: fadeIn 1s ease-out forwards;
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            body, html {
+                background-image: url('https://alexenomorf.github.io/comando/4.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            .text-container {
+                top: calc(40% - 100px);
+                right: 20px;
+                padding-left: 0;
+                margin-left: 0;
+            }
+
+            .text-container h1 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .text-container h2 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .text-container h3 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .text-container .marathon {
+                font-size: 32px;
+                margin-left: 0;
+            }
+
+            .button-container {
+                top: calc(60% - 20px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .button-container button {
+                font-size: 18px;
+                padding: 15px 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Офер (продажа) -->
-    <section class="hero">
-        <div class="hero-content container">
-            <h1>Поможем сбросить 5 кг за месяц</h1>
-            <h2>и получить тело мечты</h2>
-            <h3>без стресса и голодовок!</h3>
-            <h2 class="marathon">Марафон Pro</h2>
-            <p>Старт следующего потока: 15 октября</p>
-            <a href="#cta" class="btn">Записаться на первый поток</a>
-        </div>
-    </section>
-
-    <!-- Призыв к действию -->
-    <section id="cta" class="container">
-        <h2>Успей записаться!</h2>
-        <p>Осталось всего 5 мест в следующем потоке</p>
-        <div id="countdown"></div>
-        <a href="https://t.me/tipamarafon1" target="_blank" class="btn">Забронировать место</a>
-    </section>
-
-    <!-- Онлайн квиз -->
-    <section class="quiz">
-        <div class="container">
-            <h2>Ответьте на 3 вопроса и получите персональные рекомендации</h2>
-            <form class="quiz-form">
-                <div class="quiz-step active">
-                    <p>1. Ваш текущий вес и рост?</p>
-                    <input type="text" placeholder="Вес (кг)">
-                    <input type="text" placeholder="Рост (см)">
-                    <button type="button" class="next-btn btn">Далее</button>
-                </div>
-                <!-- Другие шаги квиза -->
-            </form>
-        </div>
-    </section>
-
-    <!-- Преимущества -->
-    <section class="benefits">
-        <div class="container">
-            <h2>Преимущества работы с нами</h2>
-            <div class="benefit-card">
-                <h3>Полная цифровизация процессов</h3>
-                <p>Вся работа структурирована и полностью оцифрована! Мы не просто говорим, что делать, но и объясняем все процессы.</p>
-            </div>
-            <!-- Другие карточки преимуществ -->
-        </div>
-    </section>
-
-    <!-- Кейсы -->
-    <section class="cases">
-        <div class="container">
-            <h2>Наши результаты</h2>
-            <div class="case-study">
-                <img src="before-after.jpg" alt="До и после">
-                <p>Анна, 32 года: -12 кг за 2 месяца</p>
-            </div>
-            <!-- Другие кейсы -->
-        </div>
-    </section>
-
-    <!-- Экспертность -->
-    <section class="expertise">
-        <div class="container">
-            <h2>Наша экспертиза</h2>
-            <p>7+ лет в индустрии фитнеса и питания</p>
-            <p>500+ довольных клиентов</p>
-            <!-- Сертификаты и т.д. -->
-        </div>
-    </section>
-
-    <!-- Формат работы -->
-    <section class="program">
-        <div class="container">
-            <h2>Формат сопровождения</h2>
-            <div class="program-step">
-                <h3>Неделя 1</h3>
-                <p>Определяем уровень метаболизма, учимся считать калории (7-10 мин/день)</p>
-            </div>
-            <!-- Другие недели -->
-        </div>
-    </section>
-
-    <!-- Бесплатная консультация -->
-    <section class="consultation">
-        <div class="container">
-            <h2>Получите бесплатную диагностику</h2>
-            <a href="https://t.me/tipamarafon1" target="_blank" class="btn">Записаться на консультацию</a>
-        </div>
-    </section>
-
-    <!-- Команда -->
-    <section class="team">
-        <div class="container">
-            <h2>Наша команда</h2>
-            <div class="team-member">
-                <img src="coach1.jpg" alt="Тренер">
-                <h3>Иван Петров</h3>
-                <p>Нутрициолог, 10 лет опыта</p>
-            </div>
-            <!-- Другие члены команды -->
-        </div>
-    </section>
-
-    <!-- Контакты -->
-    <section class="contacts">
-        <div class="container">
-            <h2>Контакты</h2>
-            <p>Telegram: @marathonpro</p>
-            <p>Email: info@marathonpro.ru</p>
-        </div>
-    </section>
-
-    <script>
-        // Таймер обратного отсчета
-        function updateCountdown() {
-            const now = new Date();
-            const target = new Date(now.getFullYear(), now.getMonth(), 15);
-            if (now.getDate() > 15) target.setMonth(target.getMonth() + 1);
-            
-            const diff = target - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            
-            document.getElementById('countdown').innerHTML = `
-                До старта осталось: ${days} дней
-            `;
-        }
-        
-        updateCountdown();
-        setInterval(updateCountdown, 86400000);
-        
-        // Логика квиза
-        const quizSteps = document.querySelectorAll('.quiz-step');
-        const nextBtns = document.querySelectorAll('.next-btn');
-        
-        nextBtns.forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                quizSteps[index].classList.remove('active');
-                quizSteps[index+1].classList.add('active');
-            });
-        });
-        
-        // Анимация при прокрутке
-        const animateElements = document.querySelectorAll('.benefit-card, .case-study, .program-step');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        animateElements.forEach(el => observer.observe(el));
-    </script>
+    <div class="text-container">
+        <h1>Поможем сбросить 5 кг за месяц</h1>
+        <h2>и получить тело мечты</h2>
+        <h3>без стресса и голодовок!</h3>
+        <h2 class="marathon">Марафон Pro</h2>
+    </div>
+    <div class="button-container">
+        <a href="https://t.me/tipamarafon1" target="_blank">
+            <button>Записаться на первый поток</button>
+        </a>
+    </div>
 </body>
 </html>
