@@ -111,10 +111,10 @@
         .button-container {
             position: absolute;
             top: calc(60% + 100px);
-            left: calc(50% + 100px); /* Сдвиг вправо на 100px от центра */
+            left: calc(50% + 200px); /* Сдвиг вправо на 200px */
             transform: translateX(-50%);
             z-index: 10;
-            white-space: nowrap; /* Запрет переноса текста */
+            white-space: nowrap;
         }
 
         .button-container a {
@@ -134,7 +134,7 @@
             animation: dominoEffect 1s ease-in-out 1.5s forwards;
             display: block;
             text-align: center;
-            white-space: nowrap; /* Запрет переноса текста */
+            white-space: nowrap;
         }
 
         @keyframes dominoEffect {
@@ -172,7 +172,7 @@
             }
 
             .button-container {
-                left: calc(50% + 50px); /* Меньший сдвиг для мобильных */
+                left: calc(50% + 100px); /* Сдвиг для мобильных */
             }
 
             .button-container button {
@@ -185,7 +185,7 @@
                 margin-left: -120px;
             }
             .button-container {
-                left: calc(50% + 80px); /* Средний сдвиг для ландшафта */
+                left: calc(50% + 150px); /* Сдвиг для ландшафта */
             }
         }
     </style>
