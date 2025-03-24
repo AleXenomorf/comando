@@ -113,6 +113,7 @@
             font-size: 36px;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1.25s forwards;
+            color: #00cc00; /* Зелёный цвет для стрелок */
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
@@ -121,21 +122,28 @@
         }
 
         .button-container button {
-            background: transparent;
+            background-color: #00cc00; /* Зелёный фон */
             color: #fff;
             border: none;
-            padding: 0;
+            padding: 10px 20px;
             font-size: 36px;
             font-weight: bold;
             cursor: pointer;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1.5s forwards;
             display: block;
-            text-align: left;
+            text-align: center;
             white-space: nowrap;
             margin: 0;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .button-container button:hover {
+            background-color: #00aa00; /* Темнее при наведении */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
         }
 
         @keyframes dominoEffect {
