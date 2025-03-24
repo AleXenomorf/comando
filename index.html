@@ -12,10 +12,30 @@
             font-family: 'Arial', sans-serif;
             color: #fff;
             overflow: hidden;
+        }
+
+        .background-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(90deg, rgba(0, 180, 180, 0.6), rgba(0, 150, 0, 0.6));
+        }
+
+        .background-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            width: 200%;
+            height: 200%;
             background-image: url('https://alexenomorf.github.io/comando/4.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            opacity: 0.8;
         }
 
         .text-container {
@@ -103,11 +123,9 @@
         }
 
         @media (max-width: 768px) and (orientation: portrait) {
-            body, html {
+            .background-image {
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
+                transform: translate(-50%, -50%) scale(0.5);
             }
 
             .text-container {
@@ -166,11 +184,9 @@
         }
 
         @media (max-width: 768px) and (orientation: landscape) {
-            body, html {
+            .background-image {
                 background-image: url('https://alexenomorf.github.io/comando/4.jpg');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
+                transform: translate(-50%, -50%) scale(0.5);
             }
 
             .text-container {
@@ -214,6 +230,10 @@
     </style>
 </head>
 <body>
+    <div class="background-wrapper">
+        <div class="background-image"></div>
+    </div>
+    
     <div class="text-container">
         <h1>Поможем сбросить 5 кг за месяц</h1>
         <h2>и получить тело мечты</h2>
