@@ -43,7 +43,7 @@
 
         .text-container {
             position: absolute;
-            top: calc(40% + 50px); /* Было calc(40% - 50px), теперь +50px (итого сдвиг на 100px вниз) */
+            top: calc(40% + 50px);
             right: 20px;
             text-align: left;
             z-index: 10;
@@ -110,6 +110,7 @@
 
         .button-container {
             position: relative;
+            left: 50px; /* Сдвиг вправо на 50px */
             z-index: 10;
             white-space: nowrap;
             margin-top: 0;
@@ -167,7 +168,7 @@
             }
 
             .text-container {
-                top: calc(40% + 30px); /* Меньший сдвиг для мобильных */
+                top: calc(40% + 30px);
             }
 
             .text-container h1,
@@ -180,6 +181,10 @@
                 margin-bottom: 30px;
             }
 
+            .button-container {
+                left: 30px; /* Меньший сдвиг для мобильных */
+            }
+
             .button-container button {
                 font-size: 24px;
             }
@@ -188,6 +193,9 @@
         @media (max-width: 768px) and (orientation: landscape) {
             .image-overlay {
                 margin-left: -120px;
+            }
+            .button-container {
+                left: 40px; /* Средний сдвиг для ландшафта */
             }
         }
     </style>
