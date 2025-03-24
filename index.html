@@ -8,42 +8,31 @@
         body, html {
             margin: 0;
             padding: 0;
-            height: 200%; /* Увеличиваем высоту для двух экранов */
             font-family: 'Arial', sans-serif;
             color: #fff;
             overflow-x: hidden;
-            position: relative;
         }
 
-        .bg-section {
+        .image-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .content {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -2;
-        }
-
-        .bg-top {
-            background-image: url('https://alexenomorf.github.io/comando/4.jpg');
             height: 100vh;
-        }
-
-        .bg-bottom {
-            background-image: url('https://alexenomorf.github.io/comando/01.jpg');
-            top: 100vh;
-            height: 100vh;
-        }
-
-        .content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
+            pointer-events: none;
+            z-index: 10;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -58,7 +47,7 @@
             right: 100px;
             width: 200px;
             height: 200px;
-            z-index: 10;
+            z-index: 11;
         }
 
         .marathon-circle {
@@ -89,8 +78,9 @@
 
         .text-container {
             text-align: left;
-            z-index: 10;
+            z-index: 11;
             max-width: 600px;
+            pointer-events: auto;
         }
 
         .text-container h1 {
@@ -123,12 +113,13 @@
         .button-container {
             position: relative;
             left: 0;
-            z-index: 10;
+            z-index: 11;
             white-space: nowrap;
             margin-top: 0;
             display: flex;
             align-items: center;
             gap: 10px;
+            pointer-events: auto;
         }
 
         .arrows {
@@ -141,6 +132,7 @@
 
         .button-container a {
             text-decoration: none;
+            pointer-events: auto;
         }
 
         .button-container button {
@@ -159,6 +151,7 @@
             white-space: nowrap;
             margin: 0;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            pointer-events: auto;
         }
 
         .button-container button:hover {
@@ -178,10 +171,6 @@
         }
 
         @media (max-width: 768px) and (orientation: portrait) {
-            .bg-top {
-                background-image: url('https://alexenomorf.github.io/comando/5.jpg');
-            }
-            
             .marathon-ring {
                 top: 50px;
                 right: 50px;
@@ -217,9 +206,11 @@
     </style>
 </head>
 <body>
-    <div class="bg-section bg-top"></div>
-    <div class="bg-section bg-bottom"></div>
-    
+    <div class="image-container">
+        <img src="https://alexenomorf.github.io/comando/4.jpg" alt="Фитнес услуги" class="page-image">
+        <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Фитнес услуги" class="page-image">
+    </div>
+
     <div class="content">
         <div class="marathon-ring">
             <div class="marathon-circle" id="marathonCircle"></div>
@@ -253,33 +244,6 @@
                 charElem.style.transform = `rotate(${i * angleStep}deg)`;
                 circle.appendChild(charElem);
             }
-
-            // Плавная прокрутка при скролле
-            let isScrolling = false;
-            window.addEventListener('wheel', function(e) {
-                if (!isScrolling) {
-                    isScrolling = true;
-                    
-                    if (e.deltaY > 0) {
-                        // Скролл вниз
-                        window.scrollTo({
-                            top: window.innerHeight,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        // Скролл вверх
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    }
-                    
-                    setTimeout(() => {
-                        isScrolling = false;
-                    }, 1000);
-                }
-                e.preventDefault();
-            }, { passive: false });
         });
     </script>
 </body>
