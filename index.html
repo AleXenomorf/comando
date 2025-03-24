@@ -28,8 +28,8 @@
         .image-overlay {
             position: fixed;
             top: 50%;
-            left: 0; /* Прижато к левому краю */
-            margin-left: 100px; /* Отступ 100px от края */
+            left: 0;
+            margin-left: -100px; /* Сдвиг влево на 200px от исходного (100px → -100px) */
             width: 80%;
             height: 80%;
             background-image: url('https://alexenomorf.github.io/comando/4.jpg');
@@ -41,7 +41,6 @@
             transform: translateY(-50%);
         }
 
-        /* Остальной CSS без изменений */
         .text-container {
             position: absolute;
             top: calc(40% - 50px);
@@ -149,8 +148,7 @@
 
         @media (max-width: 768px) and (orientation: portrait) {
             .image-overlay {
-                left: 0;
-                margin-left: 50px;
+                margin-left: -150px; /* Сдвиг для мобильных (50px → -150px) */
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
             }
             
@@ -178,8 +176,7 @@
 
         @media (max-width: 768px) and (orientation: landscape) {
             .image-overlay {
-                left: 0;
-                margin-left: 80px;
+                margin-left: -120px; /* Сдвиг для ландшафта (80px → -120px) */
             }
         }
     </style>
