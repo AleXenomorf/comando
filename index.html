@@ -29,7 +29,7 @@
             position: fixed;
             top: 50%;
             left: 0;
-            margin-left: -100px; /* Сдвиг влево на 200px от исходного (100px → -100px) */
+            margin-left: -100px;
             width: 80%;
             height: 80%;
             background-image: url('https://alexenomorf.github.io/comando/4.jpg');
@@ -111,7 +111,7 @@
         .button-container {
             position: absolute;
             top: calc(60% + 100px);
-            left: 50%;
+            left: calc(50% + 500px); /* Сдвиг вправо на 500px */
             transform: translateX(-50%);
             z-index: 10;
         }
@@ -148,7 +148,7 @@
 
         @media (max-width: 768px) and (orientation: portrait) {
             .image-overlay {
-                margin-left: -150px; /* Сдвиг для мобильных (50px → -150px) */
+                margin-left: -150px;
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
             }
             
@@ -169,6 +169,10 @@
                 font-size: 24px;
             }
 
+            .button-container {
+                left: calc(50% + 200px); /* Меньший сдвиг для мобильных */
+            }
+
             .button-container button {
                 font-size: 24px;
             }
@@ -176,7 +180,10 @@
 
         @media (max-width: 768px) and (orientation: landscape) {
             .image-overlay {
-                margin-left: -120px; /* Сдвиг для ландшафта (80px → -120px) */
+                margin-left: -120px;
+            }
+            .button-container {
+                left: calc(50% + 300px); /* Средний сдвиг для ландшафта */
             }
         }
     </style>
