@@ -28,8 +28,7 @@
         .image-overlay {
             position: fixed;
             top: 50%;
-            left: calc(50% - 100px); /* Фото сдвинуто влево на 100px */
-            transform: translate(-50%, -50%);
+            left: 100px; /* Фиксированный отступ 100px слева */
             width: 80%;
             height: 80%;
             background-image: url('https://alexenomorf.github.io/comando/4.jpg');
@@ -38,6 +37,7 @@
             background-repeat: no-repeat;
             z-index: -1;
             opacity: 1;
+            transform: translateY(-50%); /* Только вертикальное центрирование */
         }
 
         .text-container {
@@ -48,7 +48,7 @@
             z-index: 10;
         }
 
-        /* Кольцо остаётся на прежнем месте */
+        /* Кольцо в правом верхнем углу */
         .marathon-ring {
             position: absolute;
             top: 100px;
@@ -136,6 +136,10 @@
             text-align: center;
         }
 
+        .button-container button:hover {
+            opacity: 0.8;
+        }
+
         @keyframes dominoEffect {
             0% {
                 opacity: 0;
@@ -149,18 +153,115 @@
 
         @media (max-width: 768px) and (orientation: portrait) {
             .image-overlay {
-                left: calc(50% - 50px); /* Меньший сдвиг для мобильных */
+                left: 50px; /* Меньший сдвиг для мобильных */
+                width: 90%;
+                height: 60%;
             }
-            
-            /* Остальные стили для мобильных остаются без изменений */
+
+            .text-container {
+                width: 100%;
+                text-align: left;
+                top: calc(40% - 30px);
+                right: 0;
+                transform: translateY(0);
+                padding-left: 0;
+                margin-left: 10px;
+            }
+
+            .marathon-ring {
+                top: 50px;
+                right: 50px;
+                width: 150px;
+                height: 150px;
+            }
+
+            .marathon-char {
+                font-size: 16px;
+                transform-origin: 0 75px;
+                height: 75px;
+            }
+
+            .text-container h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .text-container h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .text-container h3 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .button-container {
+                top: calc(60% + 50px);
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+            }
+
+            .button-container button {
+                font-size: 24px;
+            }
         }
 
         @media (max-width: 768px) and (orientation: landscape) {
             .image-overlay {
-                left: calc(50% - 80px); /* Сдвиг для ландшафта */
+                left: 80px; /* Сдвиг для ландшафта */
+                width: 70%;
+                height: 90%;
             }
-            
-            /* Остальные стили для ландшафта остаются без изменений */
+
+            .text-container {
+                top: calc(40% - 30px);
+                right: 20px;
+                padding-left: 0;
+                margin-left: 0;
+            }
+
+            .marathon-ring {
+                top: 50px;
+                right: 50px;
+                width: 150px;
+                height: 150px;
+            }
+
+            .marathon-char {
+                font-size: 16px;
+                transform-origin: 0 75px;
+                height: 75px;
+            }
+
+            .text-container h1 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .text-container h2 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .text-container h3 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .button-container {
+                top: calc(60% + 50px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .button-container button {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -168,6 +269,7 @@
     <div class="gradient-bg"></div>
     <div class="image-overlay"></div>
     
+    <!-- Вращающееся кольцо с текстом -->
     <div class="marathon-ring">
         <div class="marathon-circle" id="marathonCircle"></div>
     </div>
@@ -178,6 +280,7 @@
         <h3>без стресса и голодовок!</h3>
     </div>
     
+    <!-- Кнопка под текстом -->
     <div class="button-container">
         <a href="https://t.me/tipamarafon1" target="_blank">
             <button>Записаться на первый поток</button>
