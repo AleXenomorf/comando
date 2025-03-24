@@ -43,7 +43,7 @@
 
         .text-container {
             position: absolute;
-            top: calc(40% - 50px);
+            top: calc(40% + 50px); /* Было calc(40% - 50px), теперь +50px (итого сдвиг на 100px вниз) */
             right: 20px;
             text-align: left;
             z-index: 10;
@@ -102,19 +102,17 @@
 
         .text-container h3 {
             font-size: 36px;
-            margin: 0 0 50px 0; /* Добавлен отступ снизу 50px */
+            margin: 0 0 50px 0;
             color: #fff;
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 0.75s forwards;
         }
 
         .button-container {
-            position: absolute;
-            top: auto; /* Убрано фиксированное позиционирование */
-            right: 20px; /* Выравнивание по правому краю как у текста */
-            transform: none; /* Убрано transform */
+            position: relative;
             z-index: 10;
             white-space: nowrap;
+            margin-top: 0;
         }
 
         .button-container a {
@@ -133,9 +131,9 @@
             opacity: 0;
             animation: dominoEffect 1s ease-in-out 1.5s forwards;
             display: block;
-            text-align: left; /* Выравнивание текста по левому краю */
+            text-align: left;
             white-space: nowrap;
-            margin: 0; /* Убраны все отступы */
+            margin: 0;
         }
 
         @keyframes dominoEffect {
@@ -168,6 +166,10 @@
                 height: 75px;
             }
 
+            .text-container {
+                top: calc(40% + 30px); /* Меньший сдвиг для мобильных */
+            }
+
             .text-container h1,
             .text-container h2,
             .text-container h3 {
@@ -175,7 +177,7 @@
             }
 
             .text-container h3 {
-                margin-bottom: 30px; /* Меньший отступ для мобильных */
+                margin-bottom: 30px;
             }
 
             .button-container button {
@@ -211,7 +213,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const text = "М а р а ф о н  P r o  М а р а ф о н  P r o  М а р а ф он  P r o  М а р а ф о н  P r o  М а р а ф о н  P r o ";
+            const text = "Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro ";
             const circle = document.getElementById('marathonCircle');
             const angleStep = 360 / text.length;
             
