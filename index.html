@@ -48,7 +48,7 @@
             z-index: 10;
         }
 
-        /* Кольцо с текстом */
+        /* Стили для вращающегося кольца */
         .marathon-ring {
             position: absolute;
             top: 100px;
@@ -62,7 +62,7 @@
             position: relative;
             width: 100%;
             height: 100%;
-            animation: rotateRing 15s linear infinite;
+            animation: rotateRing 20s linear infinite;
         }
 
         .marathon-char {
@@ -71,10 +71,12 @@
             top: 0;
             transform-origin: 0 100px;
             color: white;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
+            height: 100px;
             width: 20px;
             text-align: center;
+            line-height: 1;
         }
 
         @keyframes rotateRing {
@@ -82,7 +84,6 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Остальные стили остаются без изменений */
         .text-container h1 {
             font-size: 36px;
             margin: 0;
@@ -115,6 +116,10 @@
             z-index: 10;
         }
 
+        .button-container a {
+            text-decoration: none;
+        }
+
         .button-container button {
             background: #4CAF50;
             color: #fff;
@@ -131,25 +136,155 @@
             text-align: center;
         }
 
-        @keyframes dominoEffect {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        .button-container button:hover {
+            background: #45a049;
+            transform: scale(1.05);
         }
 
-        @media (max-width: 768px) {
+        @keyframes dominoEffect {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) and (orientation: portrait) {
+            .gradient-bg {
+                background: linear-gradient(90deg, #009600, #00b4b4);
+            }
+            
+            .image-overlay {
+                background-image: url('https://alexenomorf.github.io/comando/5.jpg');
+                width: 90%;
+                height: 60%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .text-container {
+                width: 100%;
+                text-align: left;
+                top: calc(40% + 100px);
+                right: 0;
+                transform: translateY(0);
+                padding-left: 0;
+                margin-left: 10px;
+            }
+
             .marathon-ring {
                 top: 50px;
                 right: 50px;
                 width: 150px;
                 height: 150px;
             }
-            
+
             .marathon-char {
-                font-size: 18px;
+                font-size: 16px;
                 transform-origin: 0 75px;
+                height: 75px;
+            }
+
+            .text-container h1 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .text-container h2 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .text-container h3 {
+                font-size: 24px;
+                margin-bottom: 10px;
+                margin-left: 10px;
+            }
+
+            .button-container {
+                top: auto;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                text-align: center;
+            }
+
+            .button-container button {
+                font-size: 16px;
+                padding: 12px 24px;
+                margin-top: 0;
+                width: auto;
+                max-width: 90%;
+                white-space: nowrap;
+                text-align: center;
+                display: inline-block;
+            }
+        }
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            .gradient-bg {
+                background: linear-gradient(90deg, #009600, #00b4b4);
             }
             
-            /* Остальные медиа-запросы остаются без изменений */
+            .image-overlay {
+                background-image: url('https://alexenomorf.github.io/comando/4.jpg');
+                width: 70%;
+                height: 90%;
+                left: calc(50% - 100px);
+                transform: translate(-50%, -50%);
+            }
+
+            .text-container {
+                top: calc(40% + 100px);
+                right: 20px;
+                padding-left: 0;
+                margin-left: 0;
+            }
+
+            .marathon-ring {
+                top: 50px;
+                right: 50px;
+                width: 150px;
+                height: 150px;
+            }
+
+            .marathon-char {
+                font-size: 16px;
+                transform-origin: 0 75px;
+                height: 75px;
+            }
+
+            .text-container h1 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .text-container h2 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .text-container h3 {
+                font-size: 24px;
+                margin-left: 0;
+            }
+
+            .button-container {
+                top: calc(60% - 20px);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .button-container button {
+                font-size: 18px;
+                padding: 15px 30px;
+            }
         }
     </style>
 </head>
@@ -157,7 +292,7 @@
     <div class="gradient-bg"></div>
     <div class="image-overlay"></div>
     
-    <!-- Кольцо с текстом -->
+    <!-- Вращающееся кольцо с текстом -->
     <div class="marathon-ring">
         <div class="marathon-circle" id="marathonCircle"></div>
     </div>
@@ -167,7 +302,6 @@
         <h2>и получить тело мечты</h2>
         <h3>без стресса и голодовок!</h3>
     </div>
-    
     <div class="button-container">
         <a href="https://t.me/tipamarafon1" target="_blank">
             <button>Записаться на первый поток</button>
@@ -178,15 +312,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             const text = "Марафон Pro*Марафон Pro*Марафон Pro*Марафон Pro";
             const circle = document.getElementById('marathonCircle');
-            const radius = 100; // Радиус круга
-            const angle = 360 / text.length; // Угол между символами
+            const radius = 100;
+            const angleStep = 360 / text.length;
+            
+            // Очищаем содержимое
+            circle.innerHTML = '';
             
             // Создаем элементы для каждого символа
             for (let i = 0; i < text.length; i++) {
                 const charElem = document.createElement('div');
                 charElem.className = 'marathon-char';
                 charElem.textContent = text[i];
-                charElem.style.transform = `rotate(${i * angle}deg)`;
+                charElem.style.transform = `rotate(${i * angleStep}deg)`;
                 circle.appendChild(charElem);
             }
         });
