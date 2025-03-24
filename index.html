@@ -42,7 +42,7 @@
 
         .text-container {
             position: absolute;
-            top: calc(40% + 100px); /* Сдвиг на 200px вниз (было -100px, стало +100px) */
+            top: calc(40% + 100px);
             right: 20px;
             text-align: left;
             z-index: 10;
@@ -72,14 +72,13 @@
             animation: dominoEffect 1s ease-in-out 0.75s forwards;
         }
 
-        /* Анимация кольца для "Марафон Pro" */
+        /* Кольцо с текстом в правом верхнем углу */
         .marathon-ring {
             position: absolute;
-            top: calc(40% - 200px); /* Поднято на 100px выше (было -100px, стало -200px) */
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5); /* Уменьшено в 2 раза */
-            width: 300px;
-            height: 300px;
+            top: 100px; /* Позиция сверху */
+            right: 100px; /* Позиция справа */
+            width: 200px;
+            height: 200px;
             z-index: 10;
         }
 
@@ -87,10 +86,10 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            color: white; /* Белый цвет текста */
-            font-size: 24px;
+            color: white;
+            font-size: 28px; /* Увеличенный размер текста */
             font-weight: bold;
-            animation: rotateRing 10s linear infinite;
+            animation: rotateRing 15s linear infinite;
             transform-origin: center;
         }
 
@@ -171,8 +170,14 @@
             }
 
             .marathon-ring {
-                top: calc(40% - 150px);
-                transform: translate(-50%, -50%) scale(0.4);
+                top: 50px;
+                right: 50px;
+                width: 150px;
+                height: 150px;
+            }
+
+            .marathon-text {
+                font-size: 20px;
             }
 
             .text-container h1 {
@@ -235,8 +240,14 @@
             }
 
             .marathon-ring {
-                top: calc(40% - 150px);
-                transform: translate(-50%, -50%) scale(0.4);
+                top: 50px;
+                right: 50px;
+                width: 150px;
+                height: 150px;
+            }
+
+            .marathon-text {
+                font-size: 20px;
             }
 
             .text-container h1 {
@@ -271,7 +282,7 @@
     <div class="gradient-bg"></div>
     <div class="image-overlay"></div>
     
-    <!-- Кольцо с текстом "Марафон Pro" -->
+    <!-- Кольцо с текстом в правом верхнем углу -->
     <div class="marathon-ring">
         <div class="marathon-text">Марафон Pro*Марафон Pro*Марафон Pro*Марафон Pro</div>
     </div>
@@ -299,8 +310,9 @@
             const span = document.createElement('span');
             span.textContent = char;
             span.style.position = 'absolute';
-            span.style.transform = `rotate(${index * (360 / characters.length)}deg)`;
-            span.style.transformOrigin = '0 150px';
+            span.style.left = '50%';
+            span.style.transform = `rotate(${index * (360 / characters.length)}deg) translateY(-90px) rotate(${index * (360 / characters.length)}deg)`;
+            span.style.transformOrigin = 'left center';
             marathonText.appendChild(span);
         });
     </script>
