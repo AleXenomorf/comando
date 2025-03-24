@@ -17,22 +17,34 @@
             width: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
-        .page-image {
+        .first-image {
+            width: 100%;
+            height: 100vh;
+            background-image: url('https://alexenomorf.github.io/comando/4.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .second-image {
             width: 100%;
             height: auto;
+        }
+
+        .second-image img {
+            width: 100%;
             display: block;
         }
 
         .content {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            pointer-events: none;
-            z-index: 10;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -47,7 +59,7 @@
             right: 100px;
             width: 200px;
             height: 200px;
-            z-index: 11;
+            z-index: 10;
         }
 
         .marathon-circle {
@@ -78,9 +90,8 @@
 
         .text-container {
             text-align: left;
-            z-index: 11;
+            z-index: 10;
             max-width: 600px;
-            pointer-events: auto;
         }
 
         .text-container h1 {
@@ -113,13 +124,12 @@
         .button-container {
             position: relative;
             left: 0;
-            z-index: 11;
+            z-index: 10;
             white-space: nowrap;
             margin-top: 0;
             display: flex;
             align-items: center;
             gap: 10px;
-            pointer-events: auto;
         }
 
         .arrows {
@@ -132,7 +142,6 @@
 
         .button-container a {
             text-decoration: none;
-            pointer-events: auto;
         }
 
         .button-container button {
@@ -151,7 +160,6 @@
             white-space: nowrap;
             margin: 0;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-            pointer-events: auto;
         }
 
         .button-container button:hover {
@@ -171,6 +179,10 @@
         }
 
         @media (max-width: 768px) and (orientation: portrait) {
+            .first-image {
+                background-image: url('https://alexenomorf.github.io/comando/5.jpg');
+            }
+            
             .marathon-ring {
                 top: 50px;
                 right: 50px;
@@ -207,25 +219,28 @@
 </head>
 <body>
     <div class="image-container">
-        <img src="https://alexenomorf.github.io/comando/4.jpg" alt="Фитнес услуги" class="page-image">
-        <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Фитнес услуги" class="page-image">
-    </div>
-
-    <div class="content">
-        <div class="marathon-ring">
-            <div class="marathon-circle" id="marathonCircle"></div>
+        <div class="first-image">
+            <div class="content">
+                <div class="marathon-ring">
+                    <div class="marathon-circle" id="marathonCircle"></div>
+                </div>
+                
+                <div class="text-container">
+                    <h1>Поможем сбросить 5 кг за месяц</h1>
+                    <h2>и получить тело мечты</h2>
+                    <h3>без стресса и голодовок!</h3>
+                    <div class="button-container">
+                        <div class="arrows">>>></div>
+                        <a href="https://t.me/tipamarafon1" target="_blank">
+                            <button>Записаться на первый поток</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <div class="text-container">
-            <h1>Поможем сбросить 5 кг за месяц</h1>
-            <h2>и получить тело мечты</h2>
-            <h3>без стресса и голодовок!</h3>
-            <div class="button-container">
-                <div class="arrows">>>></div>
-                <a href="https://t.me/tipamarafon1" target="_blank">
-                    <button>Записаться на первый поток</button>
-                </a>
-            </div>
+        <div class="second-image">
+            <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Фитнес услуги">
         </div>
     </div>
 
