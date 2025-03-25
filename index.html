@@ -13,14 +13,12 @@
             overflow-x: hidden;
         }
 
-        /* Контейнер для изображений */
         .image-container {
             width: 100%;
             display: flex;
             flex-direction: column;
         }
 
-        /* Первое изображение (верхнее) */
         .first-image {
             width: 100%;
             height: 100vh;
@@ -30,7 +28,6 @@
             position: relative;
         }
 
-        /* Второе изображение (среднее) */
         .second-image,
         .third-image {
             width: 100%;
@@ -47,7 +44,6 @@
             display: block;
         }
 
-        /* Общие стили для текстовых блоков */
         .text-block {
             position: absolute;
             top: 0;
@@ -103,7 +99,6 @@
             opacity: 1;
         }
 
-        /* Контент на первом изображении */
         .content {
             position: absolute;
             top: 0;
@@ -114,15 +109,14 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-end;
-            padding-right: 220px; /* Увеличено для сдвига вправо (ближе к центру) */
+            padding-right: 220px;
             box-sizing: border-box;
         }
 
-        /* Вращающееся кольцо */
         .marathon-ring {
             position: absolute;
             top: 100px;
-            right: 300px; /* Сдвинуто вправо (ближе к центру) */
+            right: 300px;
             width: 200px;
             height: 200px;
             z-index: 10;
@@ -154,12 +148,11 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Текст на первом изображении */
         .main-text {
             text-align: left;
             z-index: 10;
             max-width: 600px;
-            margin-right: 100px; /* Добавлено для сдвига текста вправо */
+            margin-right: 100px;
         }
 
         .main-text h1 {
@@ -194,7 +187,6 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Кнопка */
         .button-container {
             position: relative;
             left: 0;
@@ -241,7 +233,6 @@
             transform: translateY(-2px);
         }
         
-        /* Стили для анимированной кнопки консультации */
         .consultation-button {
             margin-top: 30px;
             background: rgba(0, 204, 0, 0.7);
@@ -281,7 +272,6 @@
             animation: none;
         }
         
-        /* Анимация пульсации */
         @keyframes pulse {
             0% {
                 box-shadow: 0 0 0 0 rgba(0, 204, 0, 0.7);
@@ -294,13 +284,11 @@
             }
         }
         
-        /* Анимация мигания текста */
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
         
-        /* Эффект "вспышки" при наведении */
         .consultation-button::before {
             content: '';
             position: absolute;
@@ -317,25 +305,55 @@
             transform: translateX(200%) skewX(-20deg);
         }
 
-        /* Адаптив для мобильных */
+        /* Мобильная версия */
         @media (max-width: 768px) and (orientation: portrait) {
             .first-image {
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
             }
             
             .content {
-                padding-right: 20px; /* Оставлено как было для мобильной версии */
+                padding-right: 0;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 30px;
             }
             
             .marathon-ring {
-                top: 50px;
-                right: 50px; /* Оставлено как было для мобильной версии */
+                position: relative;
+                top: 0;
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
                 width: 150px;
                 height: 150px;
+                margin-bottom: 30px;
             }
 
             .main-text {
-                margin-right: 0; /* Убрано для мобильной версии */
+                text-align: center;
+                max-width: 90%;
+                margin: 0 auto;
+                padding: 0 15px;
+            }
+
+            .main-text h1,
+            .main-text h2,
+            .main-text h3 {
+                font-size: 24px;
+                line-height: 1.3;
+            }
+
+            .main-text h3 {
+                margin-bottom: 30px;
+            }
+
+            .button-container {
+                left: 0;
+                justify-content: center;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
             }
 
             .marathon-char {
@@ -344,46 +362,47 @@
                 height: 75px;
             }
 
-            .main-text h1,
-            .main-text h2,
-            .main-text h3 {
-                font-size: 24px;
-            }
-
-            .main-text h3 {
-                margin-bottom: 30px;
-            }
-
-            .button-container {
-                left: -20px;
-            }
-
             .button-container button,
             .arrows {
                 font-size: 24px;
+                text-align: center;
+            }
+
+            .arrows {
+                display: none;
             }
 
             .text-content {
-                margin-left: 20px;
-                padding: 15px;
-                max-width: 80%;
+                margin-left: 0;
+                padding: 20px;
+                max-width: 90%;
+                margin: 0 auto;
             }
 
             .text-block h2 {
                 font-size: 24px;
+                text-align: center;
             }
 
             .text-block p {
                 font-size: 16px;
+                text-align: center;
             }
             
             .consultation-button {
                 padding: 12px 20px;
+                margin: 25px auto 0;
+                display: block;
+                width: fit-content;
+                max-width: 100%;
+                text-align: center;
                 animation: pulse-mobile 2s infinite 2s;
             }
             
             .consultation-button a {
                 font-size: 16px;
+                white-space: normal;
+                text-align: center;
                 animation: blink-mobile 2s infinite;
             }
             
@@ -408,7 +427,6 @@
 </head>
 <body>
     <div class="image-container">
-        <!-- Первое изображение с основным контентом -->
         <div class="first-image">
             <div class="content">
                 <div class="marathon-ring">
@@ -429,7 +447,6 @@
             </div>
         </div>
         
-        <!-- Второе изображение с преимуществами -->
         <div class="second-image">
             <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Преимущества">
             <div class="text-block" id="advantagesBlock">
@@ -444,7 +461,6 @@
             </div>
         </div>
 
-        <!-- Третье изображение с программой -->
         <div class="third-image">
             <img src="https://alexenomorf.github.io/comando/33.webp" alt="Программа">
             <div class="text-block" id="programBlock">
@@ -467,7 +483,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Анимация вращающегося кольца
             const text = "Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro ";
             const circle = document.getElementById('marathonCircle');
             const angleStep = 360 / text.length;
@@ -482,7 +497,6 @@
                 circle.appendChild(charElem);
             }
 
-            // Анимация текста при скролле
             const textBlocks = [document.getElementById('advantagesBlock'), document.getElementById('programBlock')];
             
             function checkVisibility() {
@@ -497,7 +511,7 @@
             }
             
             window.addEventListener('scroll', checkVisibility);
-            checkVisibility(); // Проверить сразу при загрузке
+            checkVisibility();
         });
     </script>
 </body>
