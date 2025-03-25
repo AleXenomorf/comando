@@ -611,12 +611,107 @@
                     box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
                 }
             }
+            
+            /* Мобильное меню */
+            .nav-menu {
+                width: 80%;
+                max-width: 300px;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+            }
+            
+            .menu-toggle {
+                left: 15px;
+                top: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 28px;
+                background: rgba(0, 204, 0, 0.7);
+            }
+            
+            .nav-menu ul {
+                margin-top: 70px;
+            }
+            
+            .nav-menu li {
+                padding: 18px 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+            
+            .nav-menu a {
+                font-size: 18px;
+                font-weight: 500;
+            }
+            
+            .nav-menu li:hover {
+                background: rgba(0, 204, 0, 0.3);
+            }
+            
+            .nav-menu a:hover {
+                transform: translateX(8px);
+            }
+            
+            /* Кнопка закрытия меню */
+            .close-menu {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                font-size: 30px;
+                color: white;
+                background: none;
+                border: none;
+                cursor: pointer;
+                display: none;
+            }
+            
+            .nav-menu.active .close-menu {
+                display: block;
+            }
+            
+            /* Оверлей для меню */
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 99;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+            }
+            
+            .menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            /* Анимация для мобильного меню */
+            @keyframes slideIn {
+                from { transform: translateX(-100%); }
+                to { transform: translateX(0); }
+            }
+            
+            @keyframes slideOut {
+                from { transform: translateX(0); }
+                to { transform: translateX(-100%); }
+            }
+            
+            .nav-menu {
+                animation: slideOut 0.3s forwards;
+            }
+            
+            .nav-menu.active {
+                animation: slideIn 0.3s forwards;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Навигационное меню -->
     <div class="nav-menu" id="navMenu">
+        <button class="close-menu" id="closeMenu">×</button>
         <ul>
             <li><a href="#home">Главная</a></li>
             <li><a href="#advantages">Преимущества</a></li>
@@ -626,6 +721,8 @@
             <li><a href="#about">О нас</a></li>
         </ul>
     </div>
+    
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <button class="menu-toggle" id="menuToggle">☰</button>
 
@@ -720,12 +817,20 @@
             // Управление меню
             const menuToggle = document.getElementById('menuToggle');
             const navMenu = document.getElementById('navMenu');
+            const closeMenu = document.getElementById('closeMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
             const imageContainer = document.getElementById('imageContainer');
 
-            menuToggle.addEventListener('click', function() {
+            function toggleMenu() {
                 navMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
                 imageContainer.classList.toggle('menu-open');
-            });
+                document.body.classList.toggle('no-scroll');
+            }
+
+            menuToggle.addEventListener('click', toggleMenu);
+            closeMenu.addEventListener('click', toggleMenu);
+            menuOverlay.addEventListener('click', toggleMenu);
 
             // Плавная прокрутка к разделам
             document.querySelectorAll('.nav-menu a').forEach(anchor => {
@@ -737,8 +842,7 @@
                     
                     if (targetElement) {
                         // Закрываем меню после выбора раздела
-                        navMenu.classList.remove('active');
-                        imageContainer.classList.remove('menu-open');
+                        toggleMenu();
                         
                         // Плавная прокрутка
                         window.scrollTo({
@@ -748,6 +852,9 @@
                     }
                 });
             });
+
+            // Запрет скролла при открытом меню
+            document.body.classList.remove('no-scroll');
         });
     </script>
 </body>
