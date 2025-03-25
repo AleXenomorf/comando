@@ -366,55 +366,45 @@
             .content {
                 padding-right: 0;
                 align-items: center;
-                justify-content: flex-start; /* Изменено для поднятия кольца */
-                padding-top: 20px; /* Добавлено для поднятия кольца */
-                padding: 15px;
+                justify-content: flex-start;
+                padding-top: 50px; /* Добавлен отступ сверху */
             }
             
             .marathon-ring {
                 position: relative;
-                top: 20px; /* Поднято выше */
-                right: auto;
+                top: 0;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 100px; /* Уменьшен размер */
-                height: 100px;
-                margin-bottom: 10px; /* Уменьшен отступ */
-            }
-
-            .marathon-char {
-                font-size: 12px;
-                transform-origin: 0 50px;
-                height: 50px;
-                width: 12px;
+                width: 120px;
+                height: 120px;
+                margin-bottom: 30px;
             }
 
             .main-text {
                 text-align: center;
                 max-width: 100%;
-                margin: 10px 0 0; /* Уменьшен отступ сверху */
-                padding: 0 10px;
+                margin: 50px 0 0; /* Текст опущен ниже */
+                padding: 0 15px;
                 width: 100%;
                 box-sizing: border-box;
             }
 
             .main-text h1 {
-                font-size: 26px;
+                font-size: 28px;
                 line-height: 1.3;
-                padding: 0 5px;
-                margin-top: 10px; /* Добавлен отступ */
+                padding: 0 10px;
             }
 
             .main-text h2 {
-                font-size: 22px;
-                margin-top: 8px;
-                padding: 0 5px;
+                font-size: 24px;
+                margin-top: 10px;
+                padding: 0 10px;
             }
 
             .main-text h3 {
                 font-size: 18px;
-                margin: 15px 0 20px;
-                padding: 0 5px;
+                margin: 20px 0 30px;
+                padding: 0 10px;
             }
 
             .button-container {
@@ -423,19 +413,25 @@
                 width: 100%;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 15px;
-                padding: 0 10px;
+                margin-top: 20px;
+                padding: 0 15px;
                 box-sizing: border-box;
             }
 
             .button-container button {
-                padding: 14px 20px;
-                font-size: 16px;
+                padding: 16px 24px;
+                font-size: 18px;
                 width: 100%;
                 max-width: 280px;
                 white-space: normal;
                 line-height: 1.3;
-                border-radius: 30px;
+            }
+
+            .marathon-char {
+                font-size: 14px;
+                transform-origin: 0 60px;
+                height: 60px;
+                width: 15px;
             }
 
             /* Стили для второго изображения */
@@ -457,7 +453,7 @@
                             var(--bg-image);
                 background-size: cover;
                 background-position: center;
-                padding: 15px;
+                padding: 20px 15px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -474,47 +470,47 @@
             .text-content {
                 max-width: 100%;
                 margin: 0;
-                padding: 20px 15px;
+                padding: 25px 20px;
                 background: rgba(0, 0, 0, 0.65);
                 transform: none;
                 opacity: 1;
-                border-radius: 10px;
-                width: calc(100% - 30px);
+                border-radius: 12px;
+                width: calc(100% - 40px);
                 box-sizing: border-box;
             }
 
             .text-block h2 {
-                font-size: 24px;
-                margin-bottom: 15px;
+                font-size: 26px;
+                margin-bottom: 20px;
                 text-align: center;
                 line-height: 1.3;
             }
 
             .text-block p {
-                font-size: 15px;
+                font-size: 16px;
                 line-height: 1.6;
-                margin-bottom: 12px;
+                margin-bottom: 15px;
                 text-align: center;
                 transform: none;
                 opacity: 1;
-                padding: 0 5px;
+                padding: 0 10px;
             }
             
             .consultation-button {
-                padding: 12px 18px;
-                margin: 20px auto 0;
+                padding: 14px 20px;
+                margin: 25px auto 0;
                 display: block;
-                width: calc(100% - 30px);
+                width: calc(100% - 40px);
                 max-width: 100%;
                 text-align: center;
                 animation: pulse-mobile 2s infinite 2s;
-                border-radius: 25px;
-                font-size: 14px;
+                border-radius: 30px;
+                font-size: 15px;
                 box-sizing: border-box;
             }
             
             .consultation-button a {
-                font-size: 14px;
+                font-size: 15px;
                 white-space: normal;
                 text-align: center;
                 animation: blink-mobile 2s infinite;
@@ -547,7 +543,7 @@
                 </div>
                 
                 <div class="main-text">
-                    <h1>Поможем сбросить до 5 кг за месяц</h1>
+                    <h1>Поможем сбросить 5 кг за месяц</h1>
                     <h2>и получить тело мечты</h2>
                     <h3>без стресса и голодовок!</h3>
                     <div class="button-container">
