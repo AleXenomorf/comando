@@ -101,7 +101,7 @@
             opacity: 1;
         }
 
-        /* Остальные стили остаются без изменений */
+        /* Остальные стили */
         .content {
             position: absolute;
             top: 0;
@@ -364,27 +364,6 @@
             
             window.addEventListener('scroll', checkVisibility);
             checkVisibility(); // Проверить сразу при загрузке
-
-            // Кнопка для прокрутки к преимуществам
-            const scrollButton = document.createElement('div');
-            scrollButton.style.position = 'fixed';
-            scrollButton.style.bottom = '20px';
-            scrollButton.style.right = '20px';
-            scrollButton.style.backgroundColor = 'rgba(0,0,0,0.5)';
-            scrollButton.style.color = '#00cc00';
-            scrollButton.style.padding = '10px 15px';
-            scrollButton.style.borderRadius = '5px';
-            scrollButton.style.cursor = 'pointer';
-            scrollButton.style.zIndex = '100';
-            scrollButton.style.fontWeight = 'bold';
-            scrollButton.textContent = '↓ Наши преимущества ↓';
-            scrollButton.addEventListener('click', function() {
-                window.scrollTo({
-                    top: window.innerHeight,
-                    behavior: 'smooth'
-                });
-            });
-            document.body.appendChild(scrollButton);
         });
     </script>
 </body>
