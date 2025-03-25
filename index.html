@@ -118,7 +118,10 @@
         }
 
         .second-image,
-        .third-image {
+        .third-image,
+        .fourth-image,
+        .fifth-image,
+        .sixth-image {
             width: 100%;
             height: 100vh;
             position: relative;
@@ -126,7 +129,10 @@
         }
 
         .second-image img,
-        .third-image img {
+        .third-image img,
+        .fourth-image img,
+        .fifth-image img,
+        .sixth-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -514,20 +520,29 @@
                 width: 15px;
             }
 
-            /* Стили для второго изображения */
+            /* Стили для изображений */
             .second-image,
-            .third-image {
+            .third-image,
+            .fourth-image,
+            .fifth-image,
+            .sixth-image {
                 height: auto;
                 min-height: 100vh;
             }
 
             .second-image img,
-            .third-image img {
+            .third-image img,
+            .fourth-image img,
+            .fifth-image img,
+            .sixth-image img {
                 display: none;
             }
 
             .second-image .text-block,
-            .third-image .text-block {
+            .third-image .text-block,
+            .fourth-image .text-block,
+            .fifth-image .text-block,
+            .sixth-image .text-block {
                 position: relative;
                 background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                             var(--bg-image);
@@ -545,6 +560,18 @@
 
             .third-image .text-block {
                 --bg-image: url('https://alexenomorf.github.io/comando/33.webp');
+            }
+            
+            .fourth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/cases-bg.jpg');
+            }
+            
+            .fifth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/team-bg.jpg');
+            }
+            
+            .sixth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/contacts-bg.jpg');
             }
 
             .text-content {
@@ -716,9 +743,9 @@
             <li><a href="#home">Главная</a></li>
             <li><a href="#advantages">Преимущества</a></li>
             <li><a href="#program">Программа</a></li>
-            <li><a href="#reviews">Отзывы</a></li>
+            <li><a href="#cases">Кейсы</a></li>
+            <li><a href="#team">Команда</a></li>
             <li><a href="#contacts">Контакты</a></li>
-            <li><a href="#about">О нас</a></li>
         </ul>
     </div>
     
@@ -778,6 +805,36 @@
                 </div>
             </div>
         </div>
+        
+        <div class="fourth-image" id="cases">
+            <img src="https://alexenomorf.github.io/comando/cases-bg.jpg" alt="Кейсы">
+            <div class="text-block" id="casesBlock">
+                <div class="text-content">
+                    <h2>Кейсы</h2>
+                    <!-- Контент для кейсов будет добавлен позже -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="fifth-image" id="team">
+            <img src="https://alexenomorf.github.io/comando/team-bg.jpg" alt="Команда">
+            <div class="text-block" id="teamBlock">
+                <div class="text-content">
+                    <h2>Команда</h2>
+                    <!-- Контент для команды будет добавлен позже -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="sixth-image" id="contacts">
+            <img src="https://alexenomorf.github.io/comando/contacts-bg.jpg" alt="Контакты">
+            <div class="text-block" id="contactsBlock">
+                <div class="text-content">
+                    <h2>Контакты</h2>
+                    <!-- Контент для контактов будет добавлен позже -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -798,10 +855,18 @@
             }
 
             // Плавное появление блоков
-            const textBlocks = [document.getElementById('advantagesBlock'), document.getElementById('programBlock')];
+            const textBlocks = [
+                document.getElementById('advantagesBlock'), 
+                document.getElementById('programBlock'),
+                document.getElementById('casesBlock'),
+                document.getElementById('teamBlock'),
+                document.getElementById('contactsBlock')
+            ];
             
             function checkVisibility() {
                 textBlocks.forEach(block => {
+                    if (!block) return;
+                    
                     const rect = block.getBoundingClientRect();
                     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
                     
