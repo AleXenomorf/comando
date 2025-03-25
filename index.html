@@ -31,14 +31,7 @@
         }
 
         /* Второе изображение (среднее) */
-        .second-image {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Третье изображение (нижнее) */
+        .second-image,
         .third-image {
             width: 100%;
             height: 100vh;
@@ -54,8 +47,8 @@
             display: block;
         }
 
-        /* Блок с преимуществами на втором изображении */
-        .advantages {
+        /* Общие стили для текстовых блоков */
+        .text-block {
             position: absolute;
             top: 0;
             left: 0;
@@ -68,7 +61,7 @@
             justify-content: center;
         }
 
-        .advantages-content {
+        .text-content {
             max-width: 600px;
             margin-left: 50px;
             background: rgba(0, 0, 0, 0.5);
@@ -79,18 +72,18 @@
             transition: all 0.8s ease-out;
         }
 
-        .advantages.visible .advantages-content {
+        .visible .text-content {
             transform: translateX(0);
             opacity: 1;
         }
 
-        .advantages h2 {
+        .text-block h2 {
             font-size: 32px;
             color: #00cc00;
             margin-bottom: 20px;
         }
 
-        .advantages p {
+        .text-block p {
             font-size: 18px;
             line-height: 1.6;
             margin-bottom: 15px;
@@ -99,18 +92,18 @@
             transition: all 0.6s ease-out;
         }
 
-        .advantages.visible p:nth-child(2) { transition-delay: 0.2s; }
-        .advantages.visible p:nth-child(3) { transition-delay: 0.4s; }
-        .advantages.visible p:nth-child(4) { transition-delay: 0.6s; }
-        .advantages.visible p:nth-child(5) { transition-delay: 0.8s; }
-        .advantages.visible p:nth-child(6) { transition-delay: 1.0s; }
+        .visible p:nth-child(2) { transition-delay: 0.2s; }
+        .visible p:nth-child(3) { transition-delay: 0.4s; }
+        .visible p:nth-child(4) { transition-delay: 0.6s; }
+        .visible p:nth-child(5) { transition-delay: 0.8s; }
+        .visible p:nth-child(6) { transition-delay: 1.0s; }
 
-        .advantages.visible p {
+        .visible p {
             transform: translateX(0);
             opacity: 1;
         }
 
-        /* Остальные стили */
+        /* Контент на первом изображении */
         .content {
             position: absolute;
             top: 0;
@@ -162,40 +155,40 @@
         }
 
         /* Текст на первом изображении */
-        .text-container {
+        .main-text {
             text-align: left;
             z-index: 10;
             max-width: 600px;
         }
 
-        .text-container h1 {
+        .main-text h1 {
             font-size: 36px;
             margin: 0;
             color: #fff;
             opacity: 0;
-            animation: dominoEffect 1s ease-in-out forwards;
+            animation: fadeIn 1s ease-in-out forwards;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        .text-container h2 {
+        .main-text h2 {
             font-size: 36px;
             margin: 0;
             color: #fff;
             opacity: 0;
-            animation: dominoEffect 1s ease-in-out 0.5s forwards;
+            animation: fadeIn 1s ease-in-out 0.5s forwards;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        .text-container h3 {
+        .main-text h3 {
             font-size: 36px;
             margin: 0 0 50px 0;
             color: #fff;
             opacity: 0;
-            animation: dominoEffect 1s ease-in-out 0.75s forwards;
+            animation: fadeIn 1s ease-in-out 0.75s forwards;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        @keyframes dominoEffect {
+        @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(-20px); }
             100% { opacity: 1; transform: translateY(0); }
         }
@@ -215,7 +208,7 @@
         .arrows {
             font-size: 36px;
             opacity: 0;
-            animation: dominoEffect 1s ease-in-out 1.25s forwards;
+            animation: fadeIn 1s ease-in-out 1.25s forwards;
             color: #00cc00;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
@@ -234,7 +227,7 @@
             cursor: pointer;
             transition: all 0.3s;
             opacity: 0;
-            animation: dominoEffect 1s ease-in-out 1.5s forwards;
+            animation: fadeIn 1s ease-in-out 1.5s forwards;
             display: block;
             text-align: left;
             white-space: nowrap;
@@ -266,13 +259,13 @@
                 height: 75px;
             }
 
-            .text-container h1,
-            .text-container h2,
-            .text-container h3 {
+            .main-text h1,
+            .main-text h2,
+            .main-text h3 {
                 font-size: 24px;
             }
 
-            .text-container h3 {
+            .main-text h3 {
                 margin-bottom: 30px;
             }
 
@@ -285,17 +278,17 @@
                 font-size: 24px;
             }
 
-            .advantages-content {
+            .text-content {
                 margin-left: 20px;
                 padding: 15px;
                 max-width: 80%;
             }
 
-            .advantages h2 {
+            .text-block h2 {
                 font-size: 24px;
             }
 
-            .advantages p {
+            .text-block p {
                 font-size: 16px;
             }
         }
@@ -310,7 +303,7 @@
                     <div class="marathon-circle" id="marathonCircle"></div>
                 </div>
                 
-                <div class="text-container">
+                <div class="main-text">
                     <h1>Поможем сбросить 5 кг за месяц</h1>
                     <h2>и получить тело мечты</h2>
                     <h3>без стресса и голодовок!</h3>
@@ -327,8 +320,8 @@
         <!-- Второе изображение с преимуществами -->
         <div class="second-image">
             <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Преимущества">
-            <div class="advantages" id="advantagesBlock">
-                <div class="advantages-content">
+            <div class="text-block" id="advantagesBlock">
+                <div class="text-content">
                     <h2>Преимущества работы с нами</h2>
                     <p>Вся работа структурирована и полностью оцифрована! Мы не просто говорим, что делать, но и объясняем все процессы.</p>
                     <p>К каждому прикреплен индивидуальный куратор, который проверяет, дает обратную связь и поддержку!</p>
@@ -339,9 +332,19 @@
             </div>
         </div>
 
-        <!-- Третье изображение (новое) -->
+        <!-- Третье изображение с программой -->
         <div class="third-image">
-            <img src="https://alexenomorf.github.io/comando/33.webp" alt="Дополнительное фото">
+            <img src="https://alexenomorf.github.io/comando/33.webp" alt="Программа">
+            <div class="text-block" id="programBlock">
+                <div class="text-content">
+                    <h2>Формат сопровождения участников</h2>
+                    <p><strong>Неделя 1:</strong> Определяем уровень метаболизма каждого участника, учимся считать калории и фиксировать активность (не более 7-10 минут в день).</p>
+                    <p><strong>Неделя 2:</strong> Выдача индивидуальных норм по калориям, белкам и активности (шагам) на основании результатов первой недели.</p>
+                    <p><strong>Неделя 3:</strong> Рекомпозиция продуктовой корзины, устранение дефицитов в питании, профилактика срывов (физиологических и психологических).</p>
+                    <p><strong>Неделя 4:</strong> Настройка режима дня, улучшение качества сна, восстановления и самочувствия.</p>
+                    <p><strong>Неделя 5 (бонусная):</strong> Выдача индивидуальных норм по калориям для поддержания результата и персональных рекомендаций!</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -362,18 +365,18 @@
                 circle.appendChild(charElem);
             }
 
-            // Анимация текста преимуществ при скролле
-            const advantagesBlock = document.getElementById('advantagesBlock');
+            // Анимация текста при скролле
+            const textBlocks = [document.getElementById('advantagesBlock'), document.getElementById('programBlock')];
             
             function checkVisibility() {
-                const rect = advantagesBlock.getBoundingClientRect();
-                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                
-                // Если блок виден хотя бы на 50%
-                if (rect.top <= windowHeight * 0.5 && rect.bottom >= windowHeight * 0.5) {
-                    advantagesBlock.classList.add('visible');
-                    window.removeEventListener('scroll', checkVisibility);
-                }
+                textBlocks.forEach(block => {
+                    const rect = block.getBoundingClientRect();
+                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                    
+                    if (rect.top <= windowHeight * 0.7 && rect.bottom >= windowHeight * 0.3) {
+                        block.classList.add('visible');
+                    }
+                });
             }
             
             window.addEventListener('scroll', checkVisibility);
