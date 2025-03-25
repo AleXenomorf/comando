@@ -372,32 +372,47 @@
                 display: none;
             }
 
-            /* Стили для второго изображения в мобильной версии */
+            /* Стили для второго изображения */
             .second-image {
                 height: auto;
                 min-height: 100vh;
-                padding-bottom: 30px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .second-image img {
+                display: none;
+            }
+
+            .second-image .text-block {
+                position: relative;
+                flex-grow: 1;
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                            url('https://alexenomorf.github.io/comando/01.jpg');
+                background-size: cover;
+                background-position: center;
+                padding: 20px 15px;
             }
 
             .second-image .text-content {
-                padding: 15px;
-                max-width: 95%;
-                margin: 0 auto;
-                background: rgba(0, 0, 0, 0.7);
+                max-width: 100%;
+                margin: 0;
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.6);
                 transform: none;
                 opacity: 1;
             }
 
             .second-image .text-block h2 {
-                font-size: 22px;
-                margin-bottom: 15px;
+                font-size: 24px;
+                margin-bottom: 20px;
                 text-align: center;
             }
 
             .second-image .text-block p {
-                font-size: 14px;
-                line-height: 1.5;
-                margin-bottom: 12px;
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 15px;
                 text-align: center;
                 transform: none;
                 opacity: 1;
