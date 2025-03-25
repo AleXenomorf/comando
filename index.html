@@ -13,13 +13,14 @@
             overflow-x: hidden;
         }
 
+        /* Контейнер для изображений */
         .image-container {
             width: 100%;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
+        /* Первое изображение (верхнее) */
         .first-image {
             width: 100%;
             height: 100vh;
@@ -29,9 +30,10 @@
             position: relative;
         }
 
+        /* Второе изображение (нижнее) */
         .second-image {
             width: 100%;
-            height: auto;
+            position: relative;
         }
 
         .second-image img {
@@ -39,6 +41,57 @@
             display: block;
         }
 
+        /* Блок с преимуществами на втором изображении */
+        .advantages {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .advantages-content {
+            max-width: 600px;
+            margin-left: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .advantages h2 {
+            font-size: 32px;
+            color: #00cc00;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: dominoEffect 0.5s ease-in-out 0.5s forwards;
+        }
+
+        .advantages p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        /* Анимация для текста преимуществ */
+        .advantages p:nth-child(2) { animation: dominoEffect 0.5s ease-in-out 0.7s forwards; }
+        .advantages p:nth-child(3) { animation: dominoEffect 0.5s ease-in-out 0.9s forwards; }
+        .advantages p:nth-child(4) { animation: dominoEffect 0.5s ease-in-out 1.1s forwards; }
+        .advantages p:nth-child(5) { animation: dominoEffect 0.5s ease-in-out 1.3s forwards; }
+        .advantages p:nth-child(6) { animation: dominoEffect 0.5s ease-in-out 1.5s forwards; }
+
+        @keyframes dominoEffect {
+            0% { opacity: 0; transform: translateX(-20px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Контент на первом изображении */
         .content {
             position: absolute;
             top: 0;
@@ -53,6 +106,7 @@
             box-sizing: border-box;
         }
 
+        /* Вращающееся кольцо */
         .marathon-ring {
             position: absolute;
             top: 100px;
@@ -88,6 +142,7 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Текст на первом изображении */
         .text-container {
             text-align: left;
             z-index: 10;
@@ -121,6 +176,7 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
+        /* Кнопка */
         .button-container {
             position: relative;
             left: 0;
@@ -167,17 +223,7 @@
             transform: translateY(-2px);
         }
 
-        @keyframes dominoEffect {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        /* Адаптив для мобильных */
         @media (max-width: 768px) and (orientation: portrait) {
             .first-image {
                 background-image: url('https://alexenomorf.github.io/comando/5.jpg');
@@ -214,11 +260,26 @@
             .arrows {
                 font-size: 24px;
             }
+
+            .advantages-content {
+                margin-left: 20px;
+                padding: 15px;
+                max-width: 80%;
+            }
+
+            .advantages h2 {
+                font-size: 24px;
+            }
+
+            .advantages p {
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="image-container">
+        <!-- Первое изображение с основным контентом -->
         <div class="first-image">
             <div class="content">
                 <div class="marathon-ring">
@@ -239,13 +300,25 @@
             </div>
         </div>
         
+        <!-- Второе изображение с преимуществами -->
         <div class="second-image">
-            <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Фитнес услуги">
+            <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Преимущества">
+            <div class="advantages">
+                <div class="advantages-content">
+                    <h2>Преимущества работы с нами</h2>
+                    <p>Вся работа структурирована и полностью оцифрована! Мы не просто говорим, что делать, но и объясняем все процессы.</p>
+                    <p>К каждому прикреплен индивидуальный куратор, который проверяет, дает обратную связь и поддержку!</p>
+                    <p>Доступ к общему чату участников проекта, где можно делиться успехами, трудностями и получать поддержку от единомышленников!</p>
+                    <p>Статистику и анализ данных ведет ИИ-ассистент, минимизируя вероятность ошибок.</p>
+                    <p>Еженедельные онлайн-созвоны с наставником проекта, где можно задать любой вопрос и получить развернутый ответ.</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Анимация вращающегося кольца
             const text = "Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro ";
             const circle = document.getElementById('marathonCircle');
             const angleStep = 360 / text.length;
@@ -259,6 +332,26 @@
                 charElem.style.transform = `rotate(${i * angleStep}deg)`;
                 circle.appendChild(charElem);
             }
+
+            // Плавная прокрутка к преимуществам
+            const scrollToAdvantages = document.createElement('div');
+            scrollToAdvantages.style.position = 'fixed';
+            scrollToAdvantages.style.bottom = '20px';
+            scrollToAdvantages.style.right = '20px';
+            scrollToAdvantages.style.backgroundColor = 'rgba(0,0,0,0.5)';
+            scrollToAdvantages.style.color = '#00cc00';
+            scrollToAdvantages.style.padding = '10px';
+            scrollToAdvantages.style.borderRadius = '5px';
+            scrollToAdvantages.style.cursor = 'pointer';
+            scrollToAdvantages.style.zIndex = '100';
+            scrollToAdvantages.textContent = '↓ Наши преимущества ↓';
+            scrollToAdvantages.addEventListener('click', function() {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+            document.body.appendChild(scrollToAdvantages);
         });
     </script>
 </body>
