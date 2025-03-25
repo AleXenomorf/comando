@@ -12,6 +12,7 @@
             --accent-color: #00E676;
             --dark-bg: rgba(0, 0, 0, 0.7);
             --text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            --menu-width: 250px;
         }
         
         body, html {
@@ -23,10 +24,87 @@
             background: #000;
         }
 
+        /* Навигационное меню */
+        .nav-menu {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--menu-width);
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(5px);
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .menu-toggle {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 101;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle:hover {
+            background: var(--primary-color);
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 80px 0 0 0;
+        }
+
+        .nav-menu li {
+            padding: 15px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .nav-menu li:hover {
+            background: rgba(0, 204, 0, 0.2);
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
         .image-container {
             width: 100%;
             display: flex;
             flex-direction: column;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+        .image-container.menu-open {
+            margin-left: var(--menu-width);
         }
 
         .first-image {
@@ -356,6 +434,7 @@
         @media (max-width: 768px), (orientation: portrait) {
             :root {
                 --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                --menu-width: 80%;
             }
             
             .first-image {
@@ -383,7 +462,7 @@
             .main-text {
                 text-align: center;
                 max-width: 100%;
-                margin: 260px 0 0; /* Увеличен отступ сверху до 260px (было 220px) */
+                margin: 260px 0 0;
                 padding: 0 15px;
                 width: 100%;
                 box-sizing: border-box;
@@ -536,8 +615,22 @@
     </style>
 </head>
 <body>
-    <div class="image-container">
-        <div class="first-image">
+    <!-- Навигационное меню -->
+    <div class="nav-menu" id="navMenu">
+        <ul>
+            <li><a href="#home">Главная</a></li>
+            <li><a href="#advantages">Преимущества</a></li>
+            <li><a href="#program">Программа</a></li>
+            <li><a href="#reviews">Отзывы</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+            <li><a href="#about">О нас</a></li>
+        </ul>
+    </div>
+
+    <button class="menu-toggle" id="menuToggle">☰</button>
+
+    <div class="image-container" id="imageContainer">
+        <div class="first-image" id="home">
             <div class="content">
                 <div class="marathon-ring">
                     <div class="marathon-circle" id="marathonCircle"></div>
@@ -556,7 +649,7 @@
             </div>
         </div>
         
-        <div class="second-image">
+        <div class="second-image" id="advantages">
             <img src="https://alexenomorf.github.io/comando/01.jpg" alt="Преимущества">
             <div class="text-block" id="advantagesBlock">
                 <div class="text-content">
@@ -570,7 +663,7 @@
             </div>
         </div>
 
-        <div class="third-image">
+        <div class="third-image" id="program">
             <img src="https://alexenomorf.github.io/comando/33.webp" alt="Программа">
             <div class="text-block" id="programBlock">
                 <div class="text-content">
@@ -592,6 +685,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Анимация кольца
             const text = "Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro  Марафон Pro ";
             const circle = document.getElementById('marathonCircle');
             const angleStep = 360 / text.length;
@@ -606,6 +700,7 @@
                 circle.appendChild(charElem);
             }
 
+            // Плавное появление блоков
             const textBlocks = [document.getElementById('advantagesBlock'), document.getElementById('programBlock')];
             
             function checkVisibility() {
@@ -621,6 +716,38 @@
             
             window.addEventListener('scroll', checkVisibility);
             checkVisibility();
+
+            // Управление меню
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const imageContainer = document.getElementById('imageContainer');
+
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                imageContainer.classList.toggle('menu-open');
+            });
+
+            // Плавная прокрутка к разделам
+            document.querySelectorAll('.nav-menu a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Закрываем меню после выбора раздела
+                        navMenu.classList.remove('active');
+                        imageContainer.classList.remove('menu-open');
+                        
+                        // Плавная прокрутка
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
