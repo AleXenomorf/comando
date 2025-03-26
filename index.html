@@ -203,7 +203,7 @@
 
         .content {
             position: absolute;
-            top: 50px; /* Сдвиг вниз на 50px */
+            top: 50px;
             left: 0;
             width: 100%;
             height: calc(100vh - 50px);
@@ -217,7 +217,7 @@
 
         .marathon-ring {
             position: absolute;
-            top: 20px; /* Подняли кольцо выше */
+            top: 20px;
             right: 300px;
             width: 200px;
             height: 200px;
@@ -237,7 +237,7 @@
             top: 0;
             transform-origin: 50% 100px;
             color: white;
-            font-size: 20px; /* Уменьшили размер шрифта */
+            font-size: 20px;
             font-weight: bold;
             height: 100px;
             width: 20px;
@@ -257,12 +257,12 @@
             z-index: 10;
             max-width: 600px;
             margin-right: 100px;
-            margin-top: 50px; /* Добавили отступ сверху */
+            margin-top: 50px;
         }
 
         .main-text h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 48px; /* Уменьшили размер шрифта */
+            font-size: 48px;
             margin: 0;
             color: #fff;
             opacity: 0;
@@ -274,7 +274,7 @@
 
         .main-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 38px; /* Уменьшили размер шрифта */
+            font-size: 38px;
             margin: 15px 0 0;
             color: #fff;
             opacity: 0;
@@ -285,8 +285,8 @@
 
         .main-text h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 24px; /* Уменьшили размер шрифта */
-            margin: 30px 0 40px; /* Уменьшили отступ */
+            font-size: 24px;
+            margin: 30px 0 40px;
             color: #fff;
             opacity: 0;
             animation: fadeIn 1s ease-in-out 0.75s forwards;
@@ -305,7 +305,7 @@
             left: 0;
             z-index: 10;
             white-space: nowrap;
-            margin-top: 20px; /* Уменьшили отступ */
+            margin-top: 20px;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -319,8 +319,8 @@
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 16px 36px; /* Уменьшили padding */
-            font-size: 22px; /* Уменьшили размер шрифта */
+            padding: 16px 36px;
+            font-size: 22px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.4s;
@@ -361,9 +361,9 @@
         }
         
         .consultation-button {
-            margin-top: 30px; /* Уменьшили отступ */
+            margin-top: 30px;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: 16px 28px; /* Уменьшили padding */
+            padding: 16px 28px;
             border-radius: 50px;
             display: inline-block;
             transition: all 0.4s;
@@ -387,7 +387,7 @@
         .consultation-button a {
             color: white;
             text-decoration: none;
-            font-size: 16px; /* Уменьшили размер шрифта */
+            font-size: 16px;
             font-weight: 600;
             display: block;
             position: relative;
@@ -455,24 +455,24 @@
                 align-items: center;
                 justify-content: center;
                 padding-top: 0;
-                top: 30px; /* Сдвиг вниз на 30px */
+                top: 30px;
                 height: calc(100vh - 30px);
             }
             
             .marathon-ring {
-                position: relative;
-                top: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 120px;
-                height: 120px;
+                position: absolute;
+                top: 15px;
+                left: 30px;
+                transform: none;
+                width: 100px;
+                height: 100px;
                 margin-bottom: 20px;
             }
             
             .marathon-char {
                 font-size: 12px;
-                transform-origin: 50% 60px;
-                height: 60px;
+                transform-origin: 50% 50px;
+                height: 50px;
                 width: 12px;
                 transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
             }
@@ -480,7 +480,7 @@
             .main-text {
                 text-align: center;
                 max-width: 100%;
-                margin: 20px 0 0;
+                margin: 120px 0 0;
                 padding: 0 15px;
                 width: 100%;
                 box-sizing: border-box;
