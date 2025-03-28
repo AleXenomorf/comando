@@ -499,7 +499,7 @@
 
         .team-member-container {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             width: 90%;
             max-width: 1200px;
@@ -507,15 +507,15 @@
         }
 
         .team-member-photo-container {
-            width: 350px; /* Уменьшенный размер фото */
-            height: 525px; /* Сохраняем пропорции 2:3 */
+            width: 480px;
+            height: 720px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             background: rgba(0,0,0,0.3);
             border-radius: 8px;
-            flex-shrink: 0; /* Запрещаем уменьшение размера */
+            flex-shrink: 0;
         }
 
         .team-member-photo {
@@ -533,7 +533,7 @@
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
-            margin-left: 20px;
+            margin-top: 20px;
         }
 
         .team-member-info h3 {
@@ -545,7 +545,7 @@
         }
 
         .team-member-info p {
-            font-size: 16px; /* Уменьшенный размер текста */
+            font-size: 16px;
             line-height: 1.6;
             margin-bottom: 15px;
         }
@@ -923,7 +923,7 @@
                 min-width: 100%;
                 height: auto;
                 min-height: 80vh;
-                padding: 30px 15px;
+                padding: 20px 15px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -932,6 +932,7 @@
                 transform: none !important;
                 transition: none;
                 box-sizing: border-box;
+                opacity: 1 !important;
             }
 
             .team-member-container {
@@ -939,13 +940,13 @@
                 width: 100%;
                 gap: 20px;
                 max-width: 100%;
-                padding: 0 15px;
-                height: 100%;
+                padding: 0;
+                height: auto;
             }
 
             .team-member-photo-container {
                 width: 100%;
-                height: 250px;
+                height: 300px;
                 max-height: 40vh;
                 border-radius: 8px;
                 overflow: hidden;
@@ -967,7 +968,8 @@
                 margin-top: 0;
                 box-sizing: border-box;
                 overflow-y: auto;
-                max-height: calc(60vh - 100px);
+                max-height: none;
+                background: rgba(0,0,0,0.7);
             }
 
             .team-member-info h3 {
@@ -1315,6 +1317,13 @@
             let currentSlide = 0;
             let isMobile = window.matchMedia("(max-width: 768px)").matches;
 
+            // Показываем все слайды в мобильной версии
+            if (isMobile) {
+                slides.forEach(slide => {
+                    slide.style.display = 'flex';
+                });
+            }
+
             if (isMobile) {
                 // Инициализация горизонтального слайдера для мобильных устройств
                 teamSlider.style.display = 'flex';
@@ -1327,6 +1336,7 @@
                 slides.forEach((slide, index) => {
                     slide.style.minWidth = '100%';
                     slide.style.scrollSnapAlign = 'start';
+                    slide.style.opacity = '1'; // Все слайды видимы в мобильной версии
                 });
 
                 // Обработчики событий для мобильных стрелок
@@ -1361,7 +1371,9 @@
                 // Обновление активной точки
                 function updateDots() {
                     dots.forEach(dot => dot.classList.remove('active'));
-                    dots[currentSlide].classList.add('active');
+                    if (dots[currentSlide]) {
+                        dots[currentSlide].classList.add('active');
+                    }
                 }
 
                 // Обновление при изменении размера окна
