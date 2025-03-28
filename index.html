@@ -485,7 +485,7 @@
             transition: opacity 0.8s ease;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             padding: 120px 50px 50px;
             box-sizing: border-box;
         }
@@ -495,10 +495,29 @@
             z-index: 1;
         }
 
+        .team-member-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 1200px;
+            gap: 50px;
+        }
+
+        .team-member-photo-container {
+            width: 400px;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
         .team-member-photo {
-            width: 50%;
-            height: 80%;
-            object-fit: cover;
+            height: 100%;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
@@ -510,7 +529,6 @@
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
-            margin-left: 50px;
         }
 
         .team-member-info h3 {
@@ -903,17 +921,26 @@
                 padding: 80px 20px 20px;
             }
 
+            .team-member-container {
+                flex-direction: column;
+                width: 100%;
+                gap: 20px;
+            }
+
+            .team-member-photo-container {
+                width: 100%;
+                height: auto;
+                max-height: 400px;
+            }
+
             .team-member-photo {
                 width: 100%;
                 height: auto;
-                max-height: 300px;
-                margin-bottom: 20px;
             }
 
             .team-member-info {
                 width: 100%;
                 padding: 20px;
-                margin-left: 0;
             }
 
             .team-member-info h3 {
@@ -1025,46 +1052,58 @@
                 <div class="team-slider">
                     <!-- Слайд 1 - Андрей Дорохов -->
                     <div class="team-slide active">
-                        <img src="https://alexenomorf.github.io/comando/22.jpg" alt="Андрей Дорохов" class="team-member-photo">
-                        <div class="team-member-info">
-                            <h3>Андрей Дорохов</h3>
-                            <p>Наставник проекта</p>
-                            <p>Фитнес-тренер, тренер по здоровому образу жизни</p>
-                            <p>2 высших образования:</p>
-                            <p>- Бакалавр физической культуры и спорта (Красный диплом)</p>
-                            <p>- Реабилитолог. Государственный диплом Российской Федерации</p>
-                            <p>Мастер спорта международного класса РК по жиму штанги лежа</p>
-                            <p>Чемпион и рекордсмен Азии и Казахстана</p>
-                            <p>Тренерский опыт - более 15 лет</p>
-                            <p>Более 300 человек приобрели здоровое тело и форму</p>
+                        <div class="team-member-container">
+                            <div class="team-member-photo-container">
+                                <img src="https://alexenomorf.github.io/comando/22.jpg" alt="Андрей Дорохов" class="team-member-photo">
+                            </div>
+                            <div class="team-member-info">
+                                <h3>Андрей Дорохов</h3>
+                                <p>Наставник проекта</p>
+                                <p>Фитнес-тренер, тренер по здоровому образу жизни</p>
+                                <p>2 высших образования:</p>
+                                <p>- Бакалавр физической культуры и спорта (Красный диплом)</p>
+                                <p>- Реабилитолог. Государственный диплом Российской Федерации</p>
+                                <p>Мастер спорта международного класса РК по жиму штанги лежа</p>
+                                <p>Чемпион и рекордсмен Азии и Казахстана</p>
+                                <p>Тренерский опыт - более 15 лет</p>
+                                <p>Более 300 человек приобрели здоровое тело и форму</p>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Слайд 2 - Дорохова Татьяна -->
                     <div class="team-slide">
-                        <img src="https://alexenomorf.github.io/comando/11.JPG" alt="Дорохова Татьяна" class="team-member-photo">
-                        <div class="team-member-info">
-                            <h3>Дорохова Татьяна</h3>
-                            <p>Старший куратор</p>
-                            <p>Специалист по гипертрофийному и реабилитационному фитнесу</p>
-                            <p>Доказательный нутрициолог - Государственный диплом Российской Федерации</p>
-                            <p>Специалист по реабилитации женщин после родов</p>
-                            <p>Серебряный призер чемпионатов Казахстана по жиму штанги лежа</p>
+                        <div class="team-member-container">
+                            <div class="team-member-photo-container">
+                                <img src="https://alexenomorf.github.io/comando/11.JPG" alt="Дорохова Татьяна" class="team-member-photo">
+                            </div>
+                            <div class="team-member-info">
+                                <h3>Дорохова Татьяна</h3>
+                                <p>Старший куратор</p>
+                                <p>Специалист по гипертрофийному и реабилитационному фитнесу</p>
+                                <p>Доказательный нутрициолог - Государственный диплом Российской Федерации</p>
+                                <p>Специалист по реабилитации женщин после родов</p>
+                                <p>Серебряный призер чемпионатов Казахстана по жиму штанги лежа</p>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Слайд 3 - Руслан Самсонов -->
                     <div class="team-slide">
-                        <img src="https://alexenomorf.github.io/comando/33.jpg" alt="Руслан Самсонов" class="team-member-photo">
-                        <div class="team-member-info">
-                            <h3>Руслан Самсонов</h3>
-                            <p>Старший куратор</p>
-                            <p>Обучение:</p>
-                            <p>- Physical Education - гипертрофийный тренинг</p>
-                            <p>- BTF - онлайн сопровождение клиентов в фитнесе</p>
-                            <p>- HRMN - Вектор-ресурсы психики человека</p>
-                            <p>- BodyCoach - диплом эндокринолога Государственного Российского образца</p>
-                            <p>Стаж работы тренером 6 лет, стаж тренировок 12 лет</p>
+                        <div class="team-member-container">
+                            <div class="team-member-photo-container">
+                                <img src="https://alexenomorf.github.io/comando/33.jpg" alt="Руслан Самсонов" class="team-member-photo">
+                            </div>
+                            <div class="team-member-info">
+                                <h3>Руслан Самсонов</h3>
+                                <p>Старший куратор</p>
+                                <p>Обучение:</p>
+                                <p>- Physical Education - гипертрофийный тренинг</p>
+                                <p>- BTF - онлайн сопровождение клиентов в фитнесе</p>
+                                <p>- HRMN - Вектор-ресурсы психики человека</p>
+                                <p>- BodyCoach - диплом эндокринолога Государственного Российского образца</p>
+                                <p>Стаж работы тренером 6 лет, стаж тренировок 12 лет</p>
+                            </div>
                         </div>
                     </div>
                 </div>
