@@ -934,7 +934,7 @@
                 position: relative;
                 min-width: 100%;
                 height: auto;
-                min-height: 60vh;
+                min-height: auto;
                 padding: 0 15px 60px;
                 display: flex;
                 flex-direction: column;
@@ -958,18 +958,23 @@
 
             .team-member-photo-container {
                 width: 100%;
-                height: 200px; /* Уменьшенная высота фото */
-                max-height: 30vh;
+                height: 200px;
+                max-height: none;
                 border-radius: 8px;
                 overflow: hidden;
                 background: rgba(0,0,0,0.3);
                 margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .team-member-photo {
+                display: block !important;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                border-radius: 8px;
             }
 
             .team-member-info {
