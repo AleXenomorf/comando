@@ -922,6 +922,7 @@
             .team-slider {
                 padding-top: 0;
                 height: auto;
+                position: relative;
                 display: flex;
                 flex-direction: row;
                 overflow-x: auto;
@@ -1034,8 +1035,9 @@
             }
 
             .mobile-slider-arrow {
-                position: fixed;
-                bottom: 30px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
                 width: 40px;
                 height: 40px;
                 background: rgba(0,0,0,0.7);
@@ -1331,118 +1333,125 @@
             let currentSlide = 0;
             let isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-            // Показываем все слайды в мобильной версии
-            if (isMobile) {
-                slides.forEach(slide => {
-                    slide.style.display = 'flex';
-                });
+            // Функция для показа слайда
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
             }
 
-            if (isMobile) {
-                // Инициализация горизонтального слайдера для мобильных устройств
-                teamSlider.style.display = 'flex';
-                teamSlider.style.flexDirection = 'row';
-                teamSlider.style.overflowX = 'auto';
-                teamSlider.style.scrollSnapType = 'x mandatory';
-                teamSlider.style.scrollBehavior = 'smooth';
-                teamSlider.style.WebkitOverflowScrolling = 'touch';
+            // Функция для следующего слайда
+            function nextSlide() {
+                let newIndex = (currentSlide + 1) % slides.length;
+                showSlide(newIndex);
+            }
 
-                slides.forEach((slide, index) => {
-                    slide.style.minWidth = '100%';
-                    slide.style.scrollSnapAlign = 'start';
-                    slide.style.opacity = '1'; // Все слайды видимы в мобильной версии
-                });
+            // Функция для предыдущего слайда
+            function prevSlide() {
+                let newIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(newIndex);
+            }
 
-                // Обработчики событий для мобильных стрелок
-                mobileNextArrow.addEventListener('click', () => {
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    updateSlider();
-                });
+            // Инициализация слайдера
+            function initSlider() {
+                if (isMobile) {
+                    // Мобильная версия
+                    teamSlider.style.display = 'flex';
+                    teamSlider.style.flexDirection = 'row';
+                    teamSlider.style.overflowX = 'auto';
+                    teamSlider.style.scrollSnapType = 'x mandatory';
+                    teamSlider.style.scrollBehavior = 'smooth';
+                    teamSlider.style.WebkitOverflowScrolling = 'touch';
 
-                mobilePrevArrow.addEventListener('click', () => {
-                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-                    updateSlider();
-                });
-
-                // Обработчики событий для точек навигации
-                dots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        currentSlide = slideIndex;
-                        updateSlider();
+                    slides.forEach((slide, index) => {
+                        slide.style.minWidth = '100%';
+                        slide.style.scrollSnapAlign = 'start';
+                        slide.style.opacity = '1';
                     });
-                });
 
-                // Функция обновления слайдера
-                function updateSlider() {
-                    teamSlider.scrollTo({
-                        left: currentSlide * window.innerWidth,
-                        behavior: 'smooth'
+                    // Обработчики для мобильных стрелок
+                    mobilePrevArrow.addEventListener('click', prevSlide);
+                    mobileNextArrow.addEventListener('click', nextSlide);
+
+                    // Обработчики для точек
+                    dots.forEach(dot => {
+                        dot.addEventListener('click', function() {
+                            const slideIndex = parseInt(this.getAttribute('data-slide'));
+                            showSlide(slideIndex);
+                        });
                     });
-                    updateDots();
-                }
 
-                // Обновление активной точки
-                function updateDots() {
-                    dots.forEach(dot => dot.classList.remove('active'));
-                    if (dots[currentSlide]) {
+                    // Автоматическая прокрутка при изменении слайда
+                    function updateSlider() {
+                        teamSlider.scrollTo({
+                            left: currentSlide * window.innerWidth,
+                            behavior: 'smooth'
+                        });
+                    }
+
+                    // Обновление точек
+                    function updateDots() {
+                        dots.forEach(dot => dot.classList.remove('active'));
                         dots[currentSlide].classList.add('active');
                     }
-                }
 
-                // Обновление при изменении размера окна
-                window.addEventListener('resize', () => {
-                    updateSlider();
-                });
-
-                // Инициализация
-                updateSlider();
-            } else {
-                // Версия для десктопа
-                function showSlide(index) {
-                    slides.forEach(slide => slide.classList.remove('active'));
-                    dots.forEach(dot => dot.classList.remove('active'));
-                    
-                    slides[index].classList.add('active');
-                    dots[index].classList.add('active');
-                    currentSlide = index;
-                }
-
-                function nextSlide() {
-                    let newIndex = (currentSlide + 1) % slides.length;
-                    showSlide(newIndex);
-                }
-
-                function prevSlide() {
-                    let newIndex = (currentSlide - 1 + slides.length) % slides.length;
-                    showSlide(newIndex);
-                }
-
-                // Обработчики событий
-                nextArrow.addEventListener('click', nextSlide);
-                prevArrow.addEventListener('click', prevSlide);
-
-                dots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        showSlide(slideIndex);
+                    // Обработчик изменения слайда
+                    teamSlider.addEventListener('scroll', function() {
+                        const scrollPosition = teamSlider.scrollLeft;
+                        const slideWidth = teamSlider.clientWidth;
+                        currentSlide = Math.round(scrollPosition / slideWidth);
+                        updateDots();
                     });
-                });
 
-                // Автоматическая смена слайдов
-                let slideInterval = setInterval(nextSlide, 5000);
+                    // Инициализация
+                    updateSlider();
+                } else {
+                    // Десктоп версия
+                    slides.forEach(slide => {
+                        slide.style.position = 'absolute';
+                        slide.style.opacity = '0';
+                    });
 
-                // Остановка автоматической смены при наведении
-                const slider = document.querySelector('.team-slider');
-                slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                slider.addEventListener('mouseleave', () => {
-                    clearInterval(slideInterval);
-                    slideInterval = setInterval(nextSlide, 5000);
-                });
+                    // Обработчики для стрелок
+                    if (prevArrow) prevArrow.addEventListener('click', prevSlide);
+                    if (nextArrow) nextArrow.addEventListener('click', nextSlide);
 
-                // Инициализация первого слайда
+                    // Обработчики для точек
+                    dots.forEach(dot => {
+                        dot.addEventListener('click', function() {
+                            const slideIndex = parseInt(this.getAttribute('data-slide'));
+                            showSlide(slideIndex);
+                        });
+                    });
+
+                    // Автоматическая смена слайдов
+                    let slideInterval = setInterval(nextSlide, 5000);
+
+                    // Остановка при наведении
+                    teamSlider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                    teamSlider.addEventListener('mouseleave', () => {
+                        slideInterval = setInterval(nextSlide, 5000);
+                    });
+                }
+
+                // Показываем первый слайд
                 showSlide(0);
             }
+
+            // Инициализация слайдера
+            initSlider();
+
+            // Обновление при изменении размера окна
+            window.addEventListener('resize', function() {
+                const newIsMobile = window.matchMedia("(max-width: 768px)").matches;
+                if (newIsMobile !== isMobile) {
+                    isMobile = newIsMobile;
+                    initSlider();
+                }
+            });
         });
     </script>
 </body>
