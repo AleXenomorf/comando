@@ -511,6 +511,8 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
         }
 
         .team-member-photo {
@@ -518,17 +520,17 @@
             width: auto;
             max-width: 100%;
             object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .team-member-info {
             width: 500px;
+            height: 600px;
             background: var(--dark-bg);
             padding: 40px;
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
+            overflow-y: auto;
         }
 
         .team-member-info h3 {
@@ -929,17 +931,18 @@
 
             .team-member-photo-container {
                 width: 100%;
-                height: auto;
-                max-height: 400px;
+                height: 400px;
             }
 
             .team-member-photo {
                 width: 100%;
-                height: auto;
+                height: 100%;
+                object-fit: cover;
             }
 
             .team-member-info {
                 width: 100%;
+                height: auto;
                 padding: 20px;
             }
 
