@@ -511,6 +511,8 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
         }
 
         .team-member-photo {
@@ -685,7 +687,7 @@
                 margin-top: 0;
             }
 
-            /* Обновленные стили для изображений */
+            /* Стили для изображений */
             .second-image,
             .third-image,
             .fourth-image,
@@ -906,43 +908,73 @@
                 background-image: 
                     linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
                     url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+                padding-top: 50px;
+                padding-bottom: 50px;
+                height: auto;
             }
 
             .team-title {
-                top: 30px;
+                position: relative;
+                top: auto;
+                margin-top: 20px;
                 font-size: 28px;
+                padding: 0 15px;
             }
 
             .team-slider {
-                padding-top: 80px;
+                padding-top: 0;
                 flex-direction: column;
+                height: auto;
+                overflow: hidden;
             }
 
             .team-slide {
+                position: relative;
+                height: auto;
+                min-height: 100vh;
+                opacity: 0;
+                padding: 30px 15px;
+                display: flex;
                 flex-direction: column;
-                padding: 80px 20px 20px;
+                align-items: center;
+                justify-content: flex-start;
+                transition: transform 0.5s ease, opacity 0.5s ease;
+                transform: translateY(100%);
+            }
+
+            .team-slide.active {
+                opacity: 1;
+                transform: translateY(0);
             }
 
             .team-member-container {
                 flex-direction: column;
                 width: 100%;
                 gap: 20px;
+                max-width: 100%;
+                padding: 0 15px;
             }
 
             .team-member-photo-container {
                 width: 100%;
-                height: auto;
-                max-height: 400px;
+                height: 300px;
+                border-radius: 8px;
+                overflow: hidden;
+                background: rgba(0,0,0,0.3);
             }
 
             .team-member-photo {
                 width: 100%;
-                height: auto;
+                height: 100%;
+                object-fit: cover;
             }
 
             .team-member-info {
                 width: 100%;
+                height: auto;
                 padding: 20px;
+                border-radius: 8px;
+                margin-top: 0;
             }
 
             .team-member-info h3 {
@@ -956,13 +988,63 @@
             }
 
             .team-slider-controls {
+                position: fixed;
                 bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 10px;
+                z-index: 20;
+                background: rgba(0,0,0,0.5);
+                padding: 10px 15px;
+                border-radius: 30px;
+            }
+
+            .slider-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.3);
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            .slider-dot.active {
+                background: var(--primary-color);
+                transform: scale(1.2);
             }
 
             .slider-arrow {
+                display: none;
+            }
+
+            .mobile-slider-arrow {
+                position: fixed;
+                bottom: 30px;
                 width: 40px;
                 height: 40px;
+                background: rgba(0,0,0,0.7);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 20;
                 font-size: 20px;
+                color: white;
+                transition: all 0.3s;
+            }
+
+            .mobile-slider-arrow:hover {
+                background: var(--primary-color);
+            }
+
+            .mobile-slider-arrow.prev {
+                left: 15px;
+            }
+
+            .mobile-slider-arrow.next {
+                right: 15px;
             }
         }
     </style>
@@ -1217,13 +1299,26 @@
             const dots = document.querySelectorAll('.slider-dot');
             const prevArrow = document.querySelector('.slider-arrow.prev');
             const nextArrow = document.querySelector('.slider-arrow.next');
+            const mobilePrevArrow = document.querySelector('.mobile-slider-arrow.prev');
+            const mobileNextArrow = document.querySelector('.mobile-slider-arrow.next');
             let currentSlide = 0;
+            let isMobile = window.matchMedia("(max-width: 768px)").matches;
 
             function showSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                    if (isMobile) {
+                        slide.style.transform = 'translateY(100%)';
+                        slide.style.opacity = '0';
+                    }
+                });
                 dots.forEach(dot => dot.classList.remove('active'));
                 
                 slides[index].classList.add('active');
+                if (isMobile) {
+                    slides[index].style.transform = 'translateY(0)';
+                    slides[index].style.opacity = '1';
+                }
                 dots[index].classList.add('active');
                 currentSlide = index;
             }
@@ -1239,8 +1334,13 @@
             }
 
             // Обработчики событий
-            nextArrow.addEventListener('click', nextSlide);
-            prevArrow.addEventListener('click', prevSlide);
+            if (!isMobile) {
+                nextArrow.addEventListener('click', nextSlide);
+                prevArrow.addEventListener('click', prevSlide);
+            } else {
+                mobileNextArrow.addEventListener('click', nextSlide);
+                mobilePrevArrow.addEventListener('click', prevSlide);
+            }
 
             dots.forEach(dot => {
                 dot.addEventListener('click', function() {
@@ -1259,6 +1359,35 @@
                 clearInterval(slideInterval);
                 slideInterval = setInterval(nextSlide, 5000);
             });
+
+            // Адаптация для мобильных устройств
+            if (isMobile) {
+                // Инициализация первого слайда
+                showSlide(0);
+                
+                // Обработка свайпов для мобильных устройств
+                let touchStartY = 0;
+                let touchEndY = 0;
+                
+                document.querySelector('.team-section').addEventListener('touchstart', (e) => {
+                    touchStartY = e.changedTouches[0].screenY;
+                }, false);
+                
+                document.querySelector('.team-section').addEventListener('touchend', (e) => {
+                    touchEndY = e.changedTouches[0].screenY;
+                    handleSwipe();
+                }, false);
+                
+                function handleSwipe() {
+                    if (touchEndY < touchStartY - 50) {
+                        // Свайп вверх - следующий слайд
+                        nextSlide();
+                    } else if (touchEndY > touchStartY + 50) {
+                        // Свайп вниз - предыдущий слайд
+                        prevSlide();
+                    }
+                }
+            }
         });
     </script>
 </body>
