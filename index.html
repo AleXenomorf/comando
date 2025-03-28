@@ -448,12 +448,11 @@
             background-image: 
                 linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
                 url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-            overflow: hidden;
         }
 
         .team-title {
             position: absolute;
-            top: 0;
+            top: 50px;
             left: 0;
             width: 100%;
             text-align: center;
@@ -465,53 +464,53 @@
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
             z-index: 10;
-            padding-top: 30px;
-        }
-
-        .team-slider-container {
-            width: 100%;
-            height: calc(100% - 100px);
-            position: relative;
-            margin-top: 100px;
-            overflow: hidden;
         }
 
         .team-slider {
             display: flex;
-            width: 300%;
+            width: 100%;
             height: 100%;
-            transition: transform 0.8s ease;
+            position: relative;
+            padding-top: 120px;
+            box-sizing: border-box;
         }
 
         .team-slide {
-            width: 33.333%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 50px;
+            padding: 120px 50px 50px;
             box-sizing: border-box;
+        }
+
+        .team-slide.active {
+            opacity: 1;
+            z-index: 1;
         }
 
         .team-member-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            width: 90%;
             max-width: 1200px;
             gap: 50px;
         }
 
         .team-member-photo-container {
-            width: 440px;
-            height: 660px;
+            width: 400px;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            flex-shrink: 0;
         }
 
         .team-member-photo {
@@ -519,17 +518,17 @@
             width: auto;
             max-width: 100%;
             object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .team-member-info {
-            width: 550px;
-            height: 660px;
+            width: 500px;
             background: var(--dark-bg);
             padding: 40px;
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
-            overflow-y: auto;
         }
 
         .team-member-info h3 {
@@ -686,7 +685,7 @@
                 margin-top: 0;
             }
 
-            /* Стили для изображений */
+            /* Обновленные стили для изображений */
             .second-image,
             .third-image,
             .fourth-image,
@@ -701,7 +700,7 @@
             .fourth-image img,
             .fifth-image img,
             .sixth-image img {
-                display: block;
+                display: none;
             }
 
             .second-image .text-block,
@@ -710,13 +709,16 @@
             .fifth-image .text-block,
             .sixth-image .text-block {
                 position: relative;
-                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                            var(--bg-image);
                 background-size: cover;
                 background-position: center;
                 padding: 20px 15px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                min-height: 100vh;
+                width: 100%;
             }
 
             .second-image .text-block {
@@ -904,68 +906,43 @@
                 background-image: 
                     linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
                     url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-                padding-top: 50px;
-                padding-bottom: 50px;
-                height: auto;
             }
 
             .team-title {
-                position: relative;
-                top: auto;
-                margin-top: 20px;
+                top: 30px;
                 font-size: 28px;
-                padding: 0 15px;
-            }
-
-            .team-slider-container {
-                height: auto;
-                margin-top: 20px;
-                overflow: hidden;
             }
 
             .team-slider {
-                width: 300%;
-                height: auto;
-                transition: transform 0.5s ease;
+                padding-top: 80px;
+                flex-direction: column;
             }
 
             .team-slide {
-                width: 33.333%;
-                height: auto;
-                min-height: 100vh;
-                padding: 20px 15px;
                 flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
+                padding: 80px 20px 20px;
             }
 
             .team-member-container {
                 flex-direction: column;
                 width: 100%;
                 gap: 20px;
-                max-width: 100%;
-                padding: 0 15px;
             }
 
             .team-member-photo-container {
                 width: 100%;
-                height: 300px;
-                border-radius: 8px;
-                overflow: hidden;
+                height: auto;
+                max-height: 400px;
             }
 
             .team-member-photo {
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
+                height: auto;
             }
 
             .team-member-info {
                 width: 100%;
-                height: auto;
                 padding: 20px;
-                border-radius: 8px;
-                margin-top: 0;
             }
 
             .team-member-info h3 {
@@ -979,63 +956,13 @@
             }
 
             .team-slider-controls {
-                position: fixed;
                 bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                gap: 10px;
-                z-index: 20;
-                background: rgba(0,0,0,0.5);
-                padding: 10px 15px;
-                border-radius: 30px;
-            }
-
-            .slider-dot {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                background: rgba(255,255,255,0.3);
-                cursor: pointer;
-                transition: all 0.3s;
-            }
-
-            .slider-dot.active {
-                background: var(--primary-color);
-                transform: scale(1.2);
             }
 
             .slider-arrow {
-                display: none;
-            }
-
-            .mobile-slider-arrow {
-                position: fixed;
-                bottom: 30px;
                 width: 40px;
                 height: 40px;
-                background: rgba(0,0,0,0.7);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                z-index: 20;
                 font-size: 20px;
-                color: white;
-                transition: all 0.3s;
-            }
-
-            .mobile-slider-arrow:hover {
-                background: var(--primary-color);
-            }
-
-            .mobile-slider-arrow.prev {
-                left: 15px;
-            }
-
-            .mobile-slider-arrow.next {
-                right: 15px;
             }
         }
     </style>
@@ -1124,68 +1051,63 @@
         <div class="fifth-image" id="team">
             <div class="team-section">
                 <h2 class="team-title">Наша команда</h2>
-                <div class="team-slider-container">
-                    <div class="team-slider" id="teamSlider">
-                        <!-- Слайд 1 - Андрей Дорохов -->
-                        <div class="team-slide">
-                            <div class="team-member-container">
-                                <div class="team-member-photo-container">
-                                    <img src="https://alexenomorf.github.io/comando/22.jpg" alt="Андрей Дорохов" class="team-member-photo">
-                                </div>
-                                <div class="team-member-info">
-                                    <h3>Андрей Дорохов</h3>
-                                    <p>Наставник проекта</p>
-                                    <p>Фитнес-тренер, тренер по здоровому образу жизни</p>
-                                    <p>2 высших образования:</p>
-                                    <p>- Бакалавр физической культуры и спорта (Красный диплом)</p>
-                                    <p>- Реабилитолог. Государственный диплом Российской Федерации</p>
-                                    <p>Мастер спорта международного класса РК по жиму штанги лежа</p>
-                                    <p>Чемпион и рекордсмен Азии и Казахстана</p>
-                                    <p>Тренерский опыт - более 15 лет</p>
-                                    <p>Более 300 человек приобрели здоровое тело и форму</p>
-                                </div>
+                <div class="team-slider">
+                    <!-- Слайд 1 - Андрей Дорохов -->
+                    <div class="team-slide active">
+                        <div class="team-member-container">
+                            <div class="team-member-photo-container">
+                                <img src="https://alexenomorf.github.io/comando/22.jpg" alt="Андрей Дорохов" class="team-member-photo">
                             </div>
-                        </div>
-                        
-                        <!-- Слайд 2 - Дорохова Татьяна -->
-                        <div class="team-slide">
-                            <div class="team-member-container">
-                                <div class="team-member-photo-container">
-                                    <img src="https://alexenomorf.github.io/comando/11.JPG" alt="Дорохова Татьяна" class="team-member-photo">
-                                </div>
-                                <div class="team-member-info">
-                                    <h3>Дорохова Татьяна</h3>
-                                    <p>Старший куратор</p>
-                                    <p>Специалист по гипертрофийному и реабилитационному фитнесу</p>
-                                    <p>Доказательный нутрициолог - Государственный диплом Российской Федерации</p>
-                                    <p>Специалист по реабилитации женщин после родов</p>
-                                    <p>Серебряный призер чемпионатов Казахстана по жиму штанги лежа</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Слайд 3 - Руслан Самсонов -->
-                        <div class="team-slide">
-                            <div class="team-member-container">
-                                <div class="team-member-photo-container">
-                                    <img src="https://alexenomorf.github.io/comando/33.jpg" alt="Руслан Самсонов" class="team-member-photo">
-                                </div>
-                                <div class="team-member-info">
-                                    <h3>Руслан Самсонов</h3>
-                                    <p>Старший куратор</p>
-                                    <p>Обучение:</p>
-                                    <p>- Physical Education - гипертрофийный тренинг</p>
-                                    <p>- BTF - онлайн сопровождение клиентов в фитнесе</p>
-                                    <p>- HRMN - Вектор-ресурсы психики человека</p>
-                                    <p>- BodyCoach - диплом эндокринолога Государственного Российского образца</p>
-                                    <p>Стаж работы тренером 6 лет, стаж тренировок 12 лет</p>
-                                </div>
+                            <div class="team-member-info">
+                                <h3>Андрей Дорохов</h3>
+                                <p>Наставник проекта</p>
+                                <p>Фитнес-тренер, тренер по здоровому образу жизни</p>
+                                <p>2 высших образования:</p>
+                                <p>- Бакалавр физической культуры и спорта (Красный диплом)</p>
+                                <p>- Реабилитолог. Государственный диплом Российской Федерации</p>
+                                <p>Мастер спорта международного класса РК по жиму штанги лежа</p>
+                                <p>Чемпион и рекордсмен Азии и Казахстана</p>
+                                <p>Тренерский опыт - более 15 лет</p>
+                                <p>Более 300 человек приобрели здоровое тело и форму</p>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="slider-arrow prev">❮</div>
-                    <div class="slider-arrow next">❯</div>
+                    <!-- Слайд 2 - Дорохова Татьяна -->
+                    <div class="team-slide">
+                        <div class="team-member-container">
+                            <div class="team-member-photo-container">
+                                <img src="https://alexenomorf.github.io/comando/11.JPG" alt="Дорохова Татьяна" class="team-member-photo">
+                            </div>
+                            <div class="team-member-info">
+                                <h3>Дорохова Татьяна</h3>
+                                <p>Старший куратор</p>
+                                <p>Специалист по гипертрофийному и реабилитационному фитнесу</p>
+                                <p>Доказательный нутрициолог - Государственный диплом Российской Федерации</p>
+                                <p>Специалист по реабилитации женщин после родов</p>
+                                <p>Серебряный призер чемпионатов Казахстана по жиму штанги лежа</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Слайд 3 - Руслан Самсонов -->
+                    <div class="team-slide">
+                        <div class="team-member-container">
+                            <div class="team-member-photo-container">
+                                <img src="https://alexenomorf.github.io/comando/33.jpg" alt="Руслан Самсонов" class="team-member-photo">
+                            </div>
+                            <div class="team-member-info">
+                                <h3>Руслан Самсонов</h3>
+                                <p>Старший куратор</p>
+                                <p>Обучение:</p>
+                                <p>- Physical Education - гипертрофийный тренинг</p>
+                                <p>- BTF - онлайн сопровождение клиентов в фитнесе</p>
+                                <p>- HRMN - Вектор-ресурсы психики человека</p>
+                                <p>- BodyCoach - диплом эндокринолога Государственного Российского образца</p>
+                                <p>Стаж работы тренером 6 лет, стаж тренировок 12 лет</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="team-slider-controls">
@@ -1193,6 +1115,9 @@
                     <div class="slider-dot" data-slide="1"></div>
                     <div class="slider-dot" data-slide="2"></div>
                 </div>
+                
+                <div class="slider-arrow prev">❮</div>
+                <div class="slider-arrow next">❯</div>
             </div>
         </div>
         
@@ -1288,48 +1213,34 @@
             });
 
             // Слайдер команды
-            const teamSlider = document.getElementById('teamSlider');
+            const slides = document.querySelectorAll('.team-slide');
             const dots = document.querySelectorAll('.slider-dot');
             const prevArrow = document.querySelector('.slider-arrow.prev');
             const nextArrow = document.querySelector('.slider-arrow.next');
-            const mobilePrevArrow = document.querySelector('.mobile-slider-arrow.prev');
-            const mobileNextArrow = document.querySelector('.mobile-slider-arrow.next');
             let currentSlide = 0;
-            let isMobile = window.matchMedia("(max-width: 768px)").matches;
-            let slideInterval;
 
             function showSlide(index) {
-                currentSlide = index;
-                const slideWidth = 100 / 3;
-                teamSlider.style.transform = `translateX(-${currentSlide * slideWidth}%)`;
-                
-                // Обновляем активные точки
+                slides.forEach(slide => slide.classList.remove('active'));
                 dots.forEach(dot => dot.classList.remove('active'));
-                dots[currentSlide].classList.add('active');
                 
-                // Перезапускаем интервал
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, 5000);
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
             }
 
             function nextSlide() {
-                let newIndex = (currentSlide + 1) % dots.length;
+                let newIndex = (currentSlide + 1) % slides.length;
                 showSlide(newIndex);
             }
 
             function prevSlide() {
-                let newIndex = (currentSlide - 1 + dots.length) % dots.length;
+                let newIndex = (currentSlide - 1 + slides.length) % slides.length;
                 showSlide(newIndex);
             }
 
             // Обработчики событий
-            if (!isMobile) {
-                nextArrow.addEventListener('click', nextSlide);
-                prevArrow.addEventListener('click', prevSlide);
-            } else {
-                if (mobileNextArrow) mobileNextArrow.addEventListener('click', nextSlide);
-                if (mobilePrevArrow) mobilePrevArrow.addEventListener('click', prevSlide);
-            }
+            nextArrow.addEventListener('click', nextSlide);
+            prevArrow.addEventListener('click', prevSlide);
 
             dots.forEach(dot => {
                 dot.addEventListener('click', function() {
@@ -1339,45 +1250,15 @@
             });
 
             // Автоматическая смена слайдов
-            slideInterval = setInterval(nextSlide, 5000);
+            let slideInterval = setInterval(nextSlide, 5000);
 
             // Остановка автоматической смены при наведении
-            const sliderContainer = document.querySelector('.team-slider-container');
-            if (sliderContainer) {
-                sliderContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                sliderContainer.addEventListener('mouseleave', () => {
-                    clearInterval(slideInterval);
-                    slideInterval = setInterval(nextSlide, 5000);
-                });
-            }
-
-            // Адаптация для мобильных устройств
-            if (isMobile) {
-                // Обработка свайпов для мобильных устройств
-                let touchStartX = 0;
-                let touchEndX = 0;
-                
-                if (sliderContainer) {
-                    sliderContainer.addEventListener('touchstart', (e) => {
-                        touchStartX = e.changedTouches[0].screenX;
-                    }, false);
-                    
-                    sliderContainer.addEventListener('touchend', (e) => {
-                        touchEndX = e.changedTouches[0].screenX;
-                        handleSwipe();
-                    }, false);
-                }
-                
-                function handleSwipe() {
-                    if (touchEndX < touchStartX - 50) {
-                        // Свайп влево - следующий слайд
-                        nextSlide();
-                    } else if (touchEndX > touchStartX + 50) {
-                        // Свайп вправо - предыдущий слайд
-                        prevSlide();
-                    }
-                }
-            }
+            const slider = document.querySelector('.team-slider');
+            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slider.addEventListener('mouseleave', () => {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 5000);
+            });
         });
     </script>
 </body>
