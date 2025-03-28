@@ -452,7 +452,7 @@
 
         .team-title {
             position: absolute;
-            top: 0;
+            top: 50px;
             left: 0;
             width: 100%;
             text-align: center;
@@ -464,7 +464,6 @@
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
             z-index: 10;
-            padding-top: 20px;
         }
 
         .team-slider {
@@ -474,7 +473,6 @@
             position: relative;
             padding-top: 120px;
             box-sizing: border-box;
-            overflow: hidden;
         }
 
         .team-slide {
@@ -484,7 +482,7 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: all 0.8s ease;
+            transition: opacity 0.8s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -499,7 +497,7 @@
 
         .team-member-container {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
             width: 90%;
             max-width: 1200px;
@@ -507,21 +505,19 @@
         }
 
         .team-member-photo-container {
-            width: 480px;
-            height: 720px;
+            width: 400px;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            flex-shrink: 0;
         }
 
         .team-member-photo {
-            width: 100%;
             height: 100%;
-            object-fit: cover;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
@@ -529,11 +525,10 @@
         .team-member-info {
             width: 500px;
             background: var(--dark-bg);
-            padding: 30px;
+            padding: 40px;
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
-            margin-top: 20px;
         }
 
         .team-member-info h3 {
@@ -545,8 +540,8 @@
         }
 
         .team-member-info p {
-            font-size: 16px;
-            line-height: 1.6;
+            font-size: 18px;
+            line-height: 1.8;
             margin-bottom: 15px;
         }
 
@@ -705,12 +700,7 @@
             .fourth-image img,
             .fifth-image img,
             .sixth-image img {
-                display: block;
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                z-index: -1;
+                display: none;
             }
 
             .second-image .text-block,
@@ -719,13 +709,35 @@
             .fifth-image .text-block,
             .sixth-image .text-block {
                 position: relative;
-                background: rgba(0,0,0,0.7);
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                            var(--bg-image);
+                background-size: cover;
+                background-position: center;
                 padding: 20px 15px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 min-height: 100vh;
-                width: 100%;
+            }
+
+            .second-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/01.jpg');
+            }
+
+            .third-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/33.webp');
+            }
+            
+            .fourth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/cases-bg.jpg');
+            }
+            
+            .fifth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/team-bg.jpg');
+            }
+            
+            .sixth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/contacts-bg.jpg');
             }
 
             .text-content {
