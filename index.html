@@ -438,6 +438,119 @@
             transform: translateX(100%);
         }
 
+        /* Стили для раздела "Команда" */
+        .team-slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .team-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            box-sizing: border-box;
+        }
+
+        .team-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .team-member-photo {
+            width: 40%;
+            height: 80%;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .team-member-info {
+            width: 50%;
+            background: var(--dark-bg);
+            padding: 40px;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .team-member-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .team-member-info p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .team-slider-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .slider-arrow:hover {
+            background: var(--primary-color);
+        }
+
+        .slider-arrow.prev {
+            left: 20px;
+        }
+
+        .slider-arrow.next {
+            right: 20px;
+        }
+
         /* Мобильная версия */
         @media (max-width: 768px), (orientation: portrait) {
             :root {
@@ -736,6 +849,45 @@
             .nav-menu.active {
                 animation: slideIn 0.3s forwards;
             }
+
+            /* Мобильная версия слайдера команды */
+            .team-slide {
+                flex-direction: column;
+                padding: 20px;
+                justify-content: flex-start;
+            }
+
+            .team-member-photo {
+                width: 100%;
+                height: auto;
+                max-height: 300px;
+                margin-bottom: 20px;
+            }
+
+            .team-member-info {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .team-member-info h3 {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .team-member-info p {
+                font-size: 14px;
+                text-align: center;
+            }
+
+            .team-slider-controls {
+                bottom: 20px;
+            }
+
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
         }
     </style>
 </head>
@@ -824,8 +976,62 @@
             <img src="https://alexenomorf.github.io/comando/team-bg.jpg" alt="Команда">
             <div class="text-block" id="teamBlock">
                 <div class="text-content">
-                    <h2>Команда</h2>
-                    <!-- Контент для команды будет добавлен позже -->
+                    <h2>Наша команда</h2>
+                    <div class="team-slider">
+                        <!-- Слайд 1 - Андрей Дорохов -->
+                        <div class="team-slide active">
+                            <img src="https://alexenomorf.github.io/comando/22.jpg" alt="Андрей Дорохов" class="team-member-photo">
+                            <div class="team-member-info">
+                                <h3>Андрей Дорохов</h3>
+                                <p>Наставник проекта</p>
+                                <p>Фитнес-тренер, тренер по здоровому образу жизни</p>
+                                <p>2 высших образования:</p>
+                                <p>- Бакалавр физической культуры и спорта (Красный диплом)</p>
+                                <p>- Реабилитолог. Государственный диплом Российской Федерации</p>
+                                <p>Мастер спорта международного класса РК по жиму штанги лежа</p>
+                                <p>Чемпион и рекордсмен Азии и Казахстана</p>
+                                <p>Тренерский опыт - более 15 лет</p>
+                                <p>Более 300 человек приобрели здоровое тело и форму</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Слайд 2 - Дорохова Татьяна -->
+                        <div class="team-slide">
+                            <img src="https://alexenomorf.github.io/comando/11.JPG" alt="Дорохова Татьяна" class="team-member-photo">
+                            <div class="team-member-info">
+                                <h3>Дорохова Татьяна</h3>
+                                <p>Старший куратор</p>
+                                <p>Специалист по гипертрофийному и реабилитационному фитнесу</p>
+                                <p>Доказательный нутрициолог - Государственный диплом Российской Федерации</p>
+                                <p>Специалист по реабилитации женщин после родов</p>
+                                <p>Серебряный призер чемпионатов Казахстана по жиму штанги лежа</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Слайд 3 - Руслан Самсонов -->
+                        <div class="team-slide">
+                            <img src="https://alexenomorf.github.io/comando/33.jpg" alt="Руслан Самсонов" class="team-member-photo">
+                            <div class="team-member-info">
+                                <h3>Руслан Самсонов</h3>
+                                <p>Старший куратор</p>
+                                <p>Обучение:</p>
+                                <p>- Physical Education - гипертрофийный тренинг</p>
+                                <p>- BTF - онлайн сопровождение клиентов в фитнесе</p>
+                                <p>- HRMN - Вектор-ресурсы психики человека</p>
+                                <p>- BodyCoach - диплом эндокринолога Государственного Российского образца</p>
+                                <p>Стаж работы тренером 6 лет, стаж тренировок 12 лет</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-slider-controls">
+                        <div class="slider-dot active" data-slide="0"></div>
+                        <div class="slider-dot" data-slide="1"></div>
+                        <div class="slider-dot" data-slide="2"></div>
+                    </div>
+                    
+                    <div class="slider-arrow prev">❮</div>
+                    <div class="slider-arrow next">❯</div>
                 </div>
             </div>
         </div>
@@ -923,6 +1129,54 @@
 
             // Запрет скролла при открытом меню
             document.body.classList.remove('no-scroll');
+
+            // Слайдер команды
+            const slides = document.querySelectorAll('.team-slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            const prevArrow = document.querySelector('.slider-arrow.prev');
+            const nextArrow = document.querySelector('.slider-arrow.next');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+            }
+
+            function nextSlide() {
+                let newIndex = (currentSlide + 1) % slides.length;
+                showSlide(newIndex);
+            }
+
+            function prevSlide() {
+                let newIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(newIndex);
+            }
+
+            // Обработчики событий
+            nextArrow.addEventListener('click', nextSlide);
+            prevArrow.addEventListener('click', prevSlide);
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    showSlide(slideIndex);
+                });
+            });
+
+            // Автоматическая смена слайдов
+            let slideInterval = setInterval(nextSlide, 5000);
+
+            // Остановка автоматической смены при наведении
+            const slider = document.querySelector('.team-slider');
+            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slider.addEventListener('mouseleave', () => {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 5000);
+            });
         });
     </script>
 </body>
