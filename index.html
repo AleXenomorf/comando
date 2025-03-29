@@ -688,13 +688,13 @@
                 align-items: center;
                 justify-content: center;
                 padding-top: 0;
-                top: 200px;
-                height: calc(100vh - 200px);
+                top: 150px; /* Поднято на 50px выше (было 200px) */
+                height: calc(100vh - 150px); /* Соответственно уменьшена высота */
             }
             
             .marathon-ring {
                 position: absolute;
-                top: -80px;
+                top: -130px; /* Поднято на 50px выше (было -80px) */
                 right: 70px;
                 width: 100px;
                 height: 100px;
@@ -716,6 +716,8 @@
                 padding: 0 15px;
                 width: 100%;
                 box-sizing: border-box;
+                margin-top: 0; /* Убрали отступ сверху */
+                padding-top: 50px; /* Добавили отступ сверху 50px */
             }
 
             .main-text h1 {
@@ -745,6 +747,7 @@
                 margin-top: 15px;
                 padding: 0 15px;
                 box-sizing: border-box;
+                margin-top: -30px; /* Подняли кнопку на 50px выше */
             }
 
             .button-container button {
