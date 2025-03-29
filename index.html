@@ -676,7 +676,7 @@
         .contacts-container {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: 60vh; /* Уменьшил высоту раздела */
             overflow: hidden;
             background: linear-gradient(135deg, #111, #000);
         }
@@ -715,16 +715,16 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            padding: 20px; /* Уменьшил отступы */
             box-sizing: border-box;
             text-align: center;
         }
 
         .contacts-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 4vw, 48px);
+            font-size: clamp(24px, 3vw, 36px); /* Уменьшил размер шрифта */
             color: var(--primary-color);
-            margin-bottom: 40px;
+            margin-bottom: 20px; /* Уменьшил отступ */
             text-shadow: 0 0 10px rgba(0, 204, 0, 0.5);
             position: relative;
         }
@@ -732,31 +732,32 @@
         .contacts-title::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -10px; /* Поднял линию ближе */
             left: 50%;
             transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
+            width: 80px; /* Уменьшил длину линии */
+            height: 2px; /* Уменьшил толщину линии */
             background: var(--primary-color);
-            box-shadow: 0 0 10px var(--primary-color);
+            box-shadow: 0 0 8px var(--primary-color); /* Уменьшил тень */
         }
 
         .social-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-            max-width: 800px;
+            gap: 15px; /* Уменьшил расстояние между иконками */
+            margin-bottom: 20px; /* Уменьшил отступ */
+            max-width: 600px; /* Уменьшил максимальную ширину */
         }
 
         .social-link {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            width: 100px; /* Уменьшил ширину */
+            height: 100px; /* Уменьшил высоту */
+            border-radius: 16px; /* Скруглил углы */
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 24px;
@@ -764,6 +765,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
         }
 
         .social-link::before {
@@ -782,7 +784,7 @@
         }
 
         .social-link:hover {
-            transform: translateY(-5px) scale(1.1);
+            transform: translateY(-5px) scale(1.05);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
@@ -792,47 +794,11 @@
         .social-link.premium { background: linear-gradient(45deg, #ffd700, #ffbf00); }
 
         .social-text {
-            font-size: clamp(14px, 2vw, 18px);
-            margin-top: 10px;
+            font-size: 14px; /* Уменьшил размер текста */
+            margin-top: 8px; /* Уменьшил отступ */
             color: #ddd;
             text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-        }
-
-        .contact-info {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 16px;
-            max-width: 600px;
-            width: 100%;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            font-size: clamp(16px, 2vw, 20px);
-        }
-
-        .contact-item i {
-            margin-right: 15px;
-            color: var(--primary-color);
-            font-size: 24px;
-            width: 30px;
-            text-align: center;
-        }
-
-        .contact-item a {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .contact-item a:hover {
-            color: var(--primary-color);
-            text-shadow: 0 0 10px rgba(0, 204, 0, 0.5);
+            font-weight: 500;
         }
 
         /* Мобильная версия */
@@ -1314,45 +1280,32 @@
             
             /* Мобильная версия контактов */
             .contacts-container {
-                min-height: 100vh;
+                min-height: 60vh;
             }
             
             .contacts-content {
-                padding: 20px;
+                padding: 15px;
             }
             
             .contacts-title {
-                font-size: 24px;
-                margin-bottom: 30px;
+                font-size: 22px;
+                margin-bottom: 15px;
             }
             
             .social-links {
-                gap: 15px;
-                margin-bottom: 30px;
+                gap: 10px;
+                margin-bottom: 15px;
             }
             
             .social-link {
-                width: 50px;
-                height: 50px;
+                width: 80px;
+                height: 80px;
                 font-size: 20px;
             }
             
             .social-text {
                 font-size: 12px;
-            }
-            
-            .contact-info {
-                padding: 20px;
-            }
-            
-            .contact-item {
-                font-size: 14px;
-                margin-bottom: 10px;
-            }
-            
-            .contact-item i {
-                font-size: 20px;
-                margin-right: 10px;
+                margin-top: 5px;
             }
         }
     </style>
@@ -1542,23 +1495,6 @@
                             <i class="fas fa-crown"></i>
                             <span class="social-text">Premium</span>
                         </a>
-                    </div>
-                    
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:info@fitness-marathon.com">info@fitness-marathon.com</a>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <a href="tel:+77777777777">+7 (777) 777-77-77</a>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Казахстан, г. Алматы</span>
-                        </div>
                     </div>
                 </div>
             </div>
