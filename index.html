@@ -676,8 +676,9 @@
         .contacts-container {
             position: relative;
             width: 100%;
-            height: 50vh; /* Уменьшил высоту в 2 раза (было 100vh) */
+            height: 50vh;
             overflow: hidden;
+            background: transparent !important;
         }
 
         .sword-light {
@@ -697,7 +698,6 @@
             );
             background-size: 200% 200%;
             animation: swordGlow 6s linear infinite;
-            z-index: 1;
         }
 
         @keyframes swordGlow {
@@ -1279,7 +1279,8 @@
             
             /* Мобильная версия контактов */
             .contacts-container {
-                min-height: 50vh; /* Уменьшил высоту в 2 раза для мобильной версии */
+                min-height: 50vh;
+                background: transparent !important;
             }
             
             .contacts-content {
