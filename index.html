@@ -24,6 +24,7 @@
             overflow-x: hidden;
             background: #000;
             scroll-behavior: smooth;
+            font-size: calc(14px + 0.3vw); /* Адаптивный базовый размер шрифта */
         }
 
         /* Навигационное меню */
@@ -47,15 +48,15 @@
 
         .menu-toggle {
             position: fixed;
-            left: 20px;
-            top: 20px;
+            left: 1.5vw;
+            top: 1.5vw;
             z-index: 101;
             background: rgba(0,0,0,0.7);
             border: none;
             color: white;
-            font-size: 24px;
-            width: 40px;
-            height: 40px;
+            font-size: calc(16px + 0.5vw);
+            width: calc(30px + 1vw);
+            height: calc(30px + 1vw);
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -71,11 +72,11 @@
         .nav-menu ul {
             list-style: none;
             padding: 0;
-            margin: 80px 0 0 0;
+            margin: 10vh 0 0 0;
         }
 
         .nav-menu li {
-            padding: 15px 25px;
+            padding: 1.5vh 2vw;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             transition: all 0.3s;
         }
@@ -87,7 +88,7 @@
         .nav-menu a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
+            font-size: calc(14px + 0.3vw);
             display: block;
             transition: all 0.3s;
         }
@@ -147,7 +148,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 20px;
+            padding: 2vw;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -155,11 +156,11 @@
         }
 
         .text-content {
-            max-width: 600px;
-            margin-left: 50px;
+            max-width: 40vw;
+            margin-left: 5vw;
             background: var(--dark-bg);
-            padding: 40px;
-            border-radius: 16px;
+            padding: 3vw;
+            border-radius: 1.5vw;
             transform: translateX(-100%);
             opacity: 0;
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -174,18 +175,18 @@
 
         .text-block h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(24px, 3vw, 42px);
+            font-size: calc(20px + 1.5vw);
             color: var(--primary-color);
-            margin-bottom: 25px;
+            margin-bottom: 2vh;
             font-weight: 700;
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
         }
 
         .text-block p {
-            font-size: clamp(14px, 2vw, 18px);
+            font-size: calc(14px + 0.4vw);
             line-height: 1.8;
-            margin-bottom: 20px;
+            margin-bottom: 1.5vh;
             transform: translateX(-20px);
             opacity: 0;
             transition: all 0.6s ease-out;
@@ -205,24 +206,28 @@
 
         .content {
             position: absolute;
-            top: 200px;
+            top: 20vh;
             left: 0;
             width: 100%;
-            height: calc(100vh - 200px);
+            height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: flex-end;
-            padding-right: clamp(20px, 15vw, 220px);
+            padding-right: 15vw;
             box-sizing: border-box;
         }
 
         .marathon-ring {
             position: absolute;
-            top: -80px;
-            right: clamp(20px, 5vw, 70px);
-            width: clamp(100px, 10vw, 150px);
-            height: clamp(100px, 10vw, 150px);
+            top: -8vh;
+            right: 5vw;
+            width: 10vw;
+            height: 10vw;
+            min-width: 80px;
+            min-height: 80px;
+            max-width: 150px;
+            max-height: 150px;
             z-index: 10;
         }
 
@@ -237,12 +242,12 @@
             position: absolute;
             left: 50%;
             top: 0;
-            transform-origin: 50% calc(clamp(50px, 5vw, 75px));
+            transform-origin: 50% 50%;
             color: white;
-            font-size: clamp(12px, 1vw, 16px);
+            font-size: calc(10px + 0.5vw);
             font-weight: bold;
-            height: calc(clamp(50px, 5vw, 75px));
-            width: clamp(12px, 1vw, 15px);
+            height: 50%;
+            width: 1em;
             text-align: center;
             line-height: 1;
             font-family: 'Montserrat', sans-serif;
@@ -257,14 +262,14 @@
         .main-text {
             text-align: left;
             z-index: 10;
-            max-width: clamp(300px, 60vw, 600px);
-            margin-right: clamp(20px, 10vw, 100px);
-            margin-top: 50px;
+            max-width: 40vw;
+            margin-right: 8vw;
+            margin-top: 5vh;
         }
 
         .main-text h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(24px, 5vw, 48px);
+            font-size: calc(20px + 2vw);
             margin: 0;
             color: #fff;
             opacity: 0;
@@ -276,8 +281,8 @@
 
         .main-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 4vw, 38px);
-            margin: 15px 0 0;
+            font-size: calc(16px + 1.5vw);
+            margin: 1.5vh 0 0;
             color: #fff;
             opacity: 0;
             animation: fadeIn 1s ease-in-out 0.5s forwards;
@@ -287,8 +292,8 @@
 
         .main-text h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(16px, 2.5vw, 24px);
-            margin: clamp(15px, 3vw, 30px) 0 clamp(20px, 4vw, 40px);
+            font-size: calc(14px + 0.8vw);
+            margin: 3vh 0 4vh;
             color: #fff;
             opacity: 0;
             animation: fadeIn 1s ease-in-out 0.75s forwards;
@@ -307,10 +312,10 @@
             left: 0;
             z-index: 10;
             white-space: nowrap;
-            margin-top: 20px;
+            margin-top: 2vh;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1.5vw;
         }
 
         .button-container a {
@@ -321,8 +326,8 @@
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: clamp(12px, 1.5vw, 16px) clamp(20px, 2.5vw, 36px);
-            font-size: clamp(16px, 2vw, 22px);
+            padding: 1.5vh 3vw;
+            font-size: calc(14px + 0.6vw);
             font-weight: 700;
             cursor: pointer;
             transition: all 0.4s;
@@ -363,9 +368,9 @@
         }
         
         .consultation-button {
-            margin-top: 30px;
+            margin-top: 3vh;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: clamp(12px, 1.5vw, 16px) clamp(16px, 2vw, 28px);
+            padding: 1.5vh 2.5vw;
             border-radius: 50px;
             display: inline-block;
             transition: all 0.4s;
@@ -389,7 +394,7 @@
         .consultation-button a {
             color: white;
             text-decoration: none;
-            font-size: clamp(14px, 1.5vw, 16px);
+            font-size: calc(12px + 0.4vw);
             font-weight: 600;
             display: block;
             position: relative;
@@ -453,14 +458,14 @@
 
         .team-title {
             position: absolute;
-            top: 40px; /* Изменено с 100px на 40px (поднято на 60px выше) */
+            top: 4vh;
             left: 0;
             width: 100%;
             text-align: center;
             font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 3vw, 42px);
+            font-size: calc(20px + 1.5vw);
             color: var(--primary-color);
-            margin-bottom: 25px;
+            margin-bottom: 2vh;
             font-weight: 700;
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
@@ -472,7 +477,7 @@
             width: 100%;
             height: 100%;
             position: relative;
-            padding-top: 120px;
+            padding-top: 12vh;
             box-sizing: border-box;
         }
 
@@ -487,7 +492,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 120px 50px 50px;
+            padding: 12vh 5vw 5vh;
             box-sizing: border-box;
         }
 
@@ -502,12 +507,16 @@
             justify-content: center;
             width: 90%;
             max-width: 1200px;
-            gap: 50px;
+            gap: 5vw;
         }
 
         .team-member-photo-container {
-            width: clamp(300px, 30vw, 400px);
-            height: clamp(450px, 50vw, 600px);
+            width: 30vw;
+            height: 50vh;
+            min-width: 250px;
+            min-height: 350px;
+            max-width: 400px;
+            max-height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -519,46 +528,50 @@
             width: auto;
             max-width: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 0.8vw;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .team-member-info {
-            width: clamp(300px, 40vw, 500px);
+            width: 40vw;
+            min-width: 300px;
+            max-width: 500px;
             background: var(--dark-bg);
-            padding: clamp(20px, 3vw, 40px);
-            border-radius: 16px;
+            padding: 3vw;
+            border-radius: 1.5vw;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
         .team-member-info h3 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(22px, 2.5vw, 32px);
+            font-size: calc(18px + 1vw);
             color: var(--primary-color);
-            margin-bottom: 20px;
+            margin-bottom: 2vh;
             font-weight: 700;
         }
 
         .team-member-info p {
-            font-size: clamp(14px, 1.5vw, 18px);
+            font-size: calc(12px + 0.5vw);
             line-height: 1.8;
-            margin-bottom: 15px;
+            margin-bottom: 1.5vh;
         }
 
         .team-slider-controls {
             position: absolute;
-            bottom: 40px;
+            bottom: 4vh;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 15px;
+            gap: 1.5vw;
             z-index: 10;
         }
 
         .slider-dot {
-            width: 12px;
-            height: 12px;
+            width: 1.2vw;
+            height: 1.2vw;
+            min-width: 10px;
+            min-height: 10px;
             border-radius: 50%;
             background: rgba(255,255,255,0.3);
             cursor: pointer;
@@ -574,8 +587,12 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
+            width: 5vw;
+            height: 5vw;
+            min-width: 40px;
+            min-height: 40px;
+            max-width: 50px;
+            max-height: 50px;
             background: rgba(0,0,0,0.5);
             border-radius: 50%;
             display: flex;
@@ -583,7 +600,7 @@
             justify-content: center;
             cursor: pointer;
             z-index: 10;
-            font-size: 24px;
+            font-size: calc(16px + 0.5vw);
             color: white;
             transition: all 0.3s;
         }
@@ -593,11 +610,11 @@
         }
 
         .slider-arrow.prev {
-            left: 20px;
+            left: 2vw;
         }
 
         .slider-arrow.next {
-            right: 20px;
+            right: 2vw;
         }
 
         /* Мобильная версия */
@@ -605,6 +622,10 @@
             :root {
                 --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
                 --menu-width: 80%;
+            }
+            
+            body, html {
+                font-size: calc(14px + 0.5vw);
             }
             
             .first-image {
@@ -617,52 +638,47 @@
                 align-items: center;
                 justify-content: center;
                 padding-top: 0;
-                top: 200px;
-                height: calc(100vh - 200px);
+                top: 20vh;
+                height: 80vh;
             }
             
             .marathon-ring {
                 position: absolute;
-                top: -80px;
-                right: 70px;
-                width: 100px;
-                height: 100px;
-                margin-bottom: 20px;
+                top: -8vh;
+                right: 5vw;
+                width: 20vw;
+                height: 20vw;
+                min-width: 80px;
+                min-height: 80px;
             }
             
             .marathon-char {
-                font-size: 12px;
-                transform-origin: 50% 50px;
-                height: 50px;
-                width: 12px;
-                transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
+                font-size: calc(10px + 0.8vw);
+                transform-origin: 50% 50%;
             }
 
             .main-text {
                 text-align: center;
-                max-width: 100%;
+                max-width: 90%;
                 margin: 0;
-                padding: 0 15px;
+                padding: 0 5vw;
                 width: 100%;
                 box-sizing: border-box;
             }
 
             .main-text h1 {
-                font-size: 24px;
+                font-size: calc(18px + 2vw);
                 line-height: 1.3;
-                padding: 0 10px;
             }
 
             .main-text h2 {
-                font-size: 20px;
-                margin-top: 10px;
-                padding: 0 10px;
+                font-size: calc(16px + 1.5vw);
+                margin-top: 1vh;
             }
 
             .main-text h3 {
-                font-size: 16px;
-                margin: 15px 0 20px;
-                padding: 0 10px;
+                font-size: calc(14px + 1vw);
+                margin: 2vh 0 3vh;
             }
 
             .button-container {
@@ -671,14 +687,14 @@
                 width: 100%;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 15px;
-                padding: 0 15px;
+                margin-top: 2vh;
+                padding: 0 5vw;
                 box-sizing: border-box;
             }
 
             .button-container button {
-                padding: 14px 20px;
-                font-size: 16px;
+                padding: 1.5vh 5vw;
+                font-size: calc(14px + 1vw);
                 width: 100%;
                 max-width: 280px;
                 white-space: normal;
@@ -714,7 +730,7 @@
                             var(--bg-image);
                 background-size: cover;
                 background-position: center;
-                padding: 20px 15px;
+                padding: 2vh 5vw;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -744,47 +760,47 @@
             .text-content {
                 max-width: 100%;
                 margin: 0;
-                padding: 25px 20px;
+                padding: 3vh 5vw;
                 background: rgba(0, 0, 0, 0.65);
                 transform: none;
                 opacity: 1;
-                border-radius: 12px;
-                width: calc(100% - 40px);
+                border-radius: 2vw;
+                width: calc(100% - 10vw);
                 box-sizing: border-box;
             }
 
             .text-block h2 {
-                font-size: 24px;
-                margin-bottom: 15px;
+                font-size: calc(18px + 1.5vw);
+                margin-bottom: 2vh;
                 text-align: center;
                 line-height: 1.3;
             }
 
             .text-block p {
-                font-size: 14px;
+                font-size: calc(12px + 1vw);
                 line-height: 1.5;
-                margin-bottom: 12px;
+                margin-bottom: 1.5vh;
                 text-align: center;
                 transform: none;
                 opacity: 1;
-                padding: 0 5px;
+                padding: 0 1vw;
             }
             
             .consultation-button {
-                padding: 12px 16px;
-                margin: 20px auto 0;
+                padding: 1.5vh 3vw;
+                margin: 2vh auto 0;
                 display: block;
-                width: calc(100% - 40px);
+                width: calc(100% - 10vw);
                 max-width: 100%;
                 text-align: center;
                 animation: pulse-mobile 2s infinite 2s;
                 border-radius: 30px;
-                font-size: 14px;
+                font-size: calc(12px + 1vw);
                 box-sizing: border-box;
             }
             
             .consultation-button a {
-                font-size: 14px;
+                font-size: calc(12px + 1vw);
                 white-space: normal;
                 text-align: center;
                 animation: blink-mobile 2s infinite;
@@ -815,25 +831,27 @@
             }
             
             .menu-toggle {
-                left: 15px;
-                top: 15px;
-                width: 45px;
-                height: 45px;
-                font-size: 28px;
+                left: 3vw;
+                top: 3vw;
+                width: 8vw;
+                height: 8vw;
+                min-width: 40px;
+                min-height: 40px;
+                font-size: calc(16px + 2vw);
                 background: rgba(0, 204, 0, 0.7);
             }
             
             .nav-menu ul {
-                margin-top: 70px;
+                margin-top: 10vh;
             }
             
             .nav-menu li {
-                padding: 15px 20px;
+                padding: 1.5vh 5vw;
                 border-bottom: 1px solid rgba(255,255,255,0.2);
             }
             
             .nav-menu a {
-                font-size: 16px;
+                font-size: calc(14px + 1vw);
                 font-weight: 500;
             }
             
@@ -848,9 +866,9 @@
             /* Кнопка закрытия меню */
             .close-menu {
                 position: absolute;
-                right: 15px;
-                top: 15px;
-                font-size: 28px;
+                right: 3vw;
+                top: 3vw;
+                font-size: calc(16px + 2vw);
                 color: white;
                 background: none;
                 border: none;
@@ -906,8 +924,8 @@
                 background-image: 
                     linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
                     url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-                padding-top: 30px;
-                padding-bottom: 80px;
+                padding-top: 5vh;
+                padding-bottom: 10vh;
                 height: auto;
                 overflow: hidden;
             }
@@ -916,8 +934,8 @@
                 position: relative;
                 top: auto;
                 margin-top: 0;
-                font-size: 28px;
-                padding: 0 15px 20px;
+                font-size: calc(18px + 2vw);
+                padding: 0 5vw 3vh;
             }
 
             .team-slider {
@@ -937,7 +955,7 @@
                 min-width: 100%;
                 height: auto;
                 min-height: auto;
-                padding: 0 15px 60px;
+                padding: 0 5vw 10vh;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -952,7 +970,7 @@
             .team-member-container {
                 flex-direction: column;
                 width: 100%;
-                gap: 20px;
+                gap: 3vh;
                 max-width: 100%;
                 padding: 0;
                 height: auto;
@@ -960,9 +978,9 @@
 
             .team-member-photo-container {
                 width: 100%;
-                height: 300px;
+                height: 40vh;
                 max-height: none;
-                border-radius: 8px;
+                border-radius: 2vw;
                 overflow: hidden;
                 background: rgba(0,0,0,0.3);
                 margin: 0 auto;
@@ -976,14 +994,14 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                border-radius: 8px;
+                border-radius: 2vw;
             }
 
             .team-member-info {
                 width: 100%;
                 height: auto;
-                padding: 20px;
-                border-radius: 8px;
+                padding: 3vh 5vw;
+                border-radius: 2vw;
                 margin-top: 0;
                 box-sizing: border-box;
                 overflow-y: auto;
@@ -992,34 +1010,36 @@
             }
 
             .team-member-info h3 {
-                font-size: 22px;
+                font-size: calc(18px + 1.5vw);
                 text-align: center;
-                margin-bottom: 15px;
+                margin-bottom: 2vh;
             }
 
             .team-member-info p {
-                font-size: 14px;
+                font-size: calc(12px + 1vw);
                 text-align: center;
-                margin-bottom: 12px;
+                margin-bottom: 1.5vh;
                 line-height: 1.5;
             }
 
             .team-slider-controls {
                 position: fixed;
-                bottom: 20px;
+                bottom: 3vh;
                 left: 50%;
                 transform: translateX(-50%);
                 display: flex;
-                gap: 10px;
+                gap: 2vw;
                 z-index: 20;
                 background: rgba(0,0,0,0.5);
-                padding: 10px 15px;
+                padding: 1.5vh 3vw;
                 border-radius: 30px;
             }
 
             .slider-dot {
-                width: 12px;
-                height: 12px;
+                width: 2.5vw;
+                height: 2.5vw;
+                min-width: 12px;
+                min-height: 12px;
                 border-radius: 50%;
                 background: rgba(255,255,255,0.3);
                 cursor: pointer;
@@ -1039,8 +1059,10 @@
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                width: 40px;
-                height: 40px;
+                width: 8vw;
+                height: 8vw;
+                min-width: 40px;
+                min-height: 40px;
                 background: rgba(0,0,0,0.7);
                 border-radius: 50%;
                 display: flex;
@@ -1048,7 +1070,7 @@
                 justify-content: center;
                 cursor: pointer;
                 z-index: 20;
-                font-size: 20px;
+                font-size: calc(16px + 1vw);
                 color: white;
                 transition: all 0.3s;
             }
@@ -1058,11 +1080,11 @@
             }
 
             .mobile-slider-arrow.prev {
-                left: 15px;
+                left: 3vw;
             }
 
             .mobile-slider-arrow.next {
-                right: 15px;
+                right: 3vw;
             }
 
             /* Отключение стандартного скроллбара */
