@@ -219,7 +219,7 @@
 
         .marathon-ring {
             position: absolute;
-            top: 20px; /* Подняли кольцо вверх в угол */
+            top: -80px; /* Подняли кольцо выше на 100px */
             right: 20px;
             width: 150px;
             height: 150px;
@@ -623,7 +623,7 @@
             
             .marathon-ring {
                 position: absolute;
-                top: 20px; /* Подняли кольцо вверх в угол */
+                top: -80px; /* Подняли кольцо выше на 100px */
                 right: 20px;
                 width: 100px;
                 height: 100px;
@@ -1341,13 +1341,18 @@
             let velocity = 0;
             let lastTime = 0;
             let lastPosition = 0;
+            let slideInterval;
 
             // Функция для показа слайда
             function showSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.opacity = '0';
+                });
                 dots.forEach(dot => dot.classList.remove('active'));
                 
                 slides[index].classList.add('active');
+                slides[index].style.opacity = '1';
                 dots[index].classList.add('active');
                 currentSlide = index;
             }
@@ -1449,17 +1454,26 @@
                     });
 
                     // Автоматическая смена слайдов
-                    let slideInterval = setInterval(nextSlide, 5000);
+                    startSlideInterval();
 
                     // Остановка при наведении
-                    teamSlider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-                    teamSlider.addEventListener('mouseleave', () => {
-                        slideInterval = setInterval(nextSlide, 5000);
-                    });
+                    teamSlider.addEventListener('mouseenter', stopSlideInterval);
+                    teamSlider.addEventListener('mouseleave', startSlideInterval);
                 }
 
                 // Показываем первый слайд
                 showSlide(0);
+            }
+
+            function startSlideInterval() {
+                stopSlideInterval();
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopSlideInterval() {
+                if (slideInterval) {
+                    clearInterval(slideInterval);
+                }
             }
 
             // Touch-обработчики для мобильной версии
