@@ -616,8 +616,8 @@
                 align-items: center;
                 justify-content: center;
                 padding-top: 0;
-                top: 30px;
-                height: calc(100vh - 30px);
+                top: 100px; /* Опустили текст на 50px ниже */
+                height: calc(100vh - 100px);
             }
             
             .marathon-ring {
@@ -640,7 +640,7 @@
             .main-text {
                 text-align: center;
                 max-width: 100%;
-                margin: 120px 0 0;
+                margin: 0;
                 padding: 0 15px;
                 width: 100%;
                 box-sizing: border-box;
@@ -1332,6 +1332,11 @@
             const teamSlider = document.querySelector('.team-slider');
             let currentSlide = 0;
             let isMobile = window.matchMedia("(max-width: 768px)").matches;
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID = 0;
 
             // Функция для показа слайда
             function showSlide(index) {
@@ -1347,12 +1352,26 @@
             function nextSlide() {
                 let newIndex = (currentSlide + 1) % slides.length;
                 showSlide(newIndex);
+                if (isMobile) {
+                    updateSliderPosition();
+                }
             }
 
             // Функция для предыдущего слайда
             function prevSlide() {
                 let newIndex = (currentSlide - 1 + slides.length) % slides.length;
                 showSlide(newIndex);
+                if (isMobile) {
+                    updateSliderPosition();
+                }
+            }
+
+            // Обновление позиции слайдера в мобильной версии
+            function updateSliderPosition() {
+                teamSlider.scrollTo({
+                    left: currentSlide * window.innerWidth,
+                    behavior: 'smooth'
+                });
             }
 
             // Инициализация слайдера
@@ -1380,39 +1399,37 @@
                     dots.forEach(dot => {
                         dot.addEventListener('click', function() {
                             const slideIndex = parseInt(this.getAttribute('data-slide'));
+                            currentSlide = slideIndex;
                             showSlide(slideIndex);
+                            updateSliderPosition();
                         });
                     });
 
-                    // Автоматическая прокрутка при изменении слайда
-                    function updateSlider() {
-                        teamSlider.scrollTo({
-                            left: currentSlide * window.innerWidth,
-                            behavior: 'smooth'
-                        });
-                    }
+                    // Обработчики для touch-событий
+                    teamSlider.addEventListener('touchstart', touchStart);
+                    teamSlider.addEventListener('touchmove', touchMove);
+                    teamSlider.addEventListener('touchend', touchEnd);
 
-                    // Обновление точек
-                    function updateDots() {
-                        dots.forEach(dot => dot.classList.remove('active'));
-                        dots[currentSlide].classList.add('active');
-                    }
-
-                    // Обработчик изменения слайда
+                    // Обработчик изменения слайда при скролле
                     teamSlider.addEventListener('scroll', function() {
                         const scrollPosition = teamSlider.scrollLeft;
                         const slideWidth = teamSlider.clientWidth;
-                        currentSlide = Math.round(scrollPosition / slideWidth);
-                        updateDots();
+                        const newSlide = Math.round(scrollPosition / slideWidth);
+                        
+                        if (newSlide !== currentSlide) {
+                            currentSlide = newSlide;
+                            showSlide(currentSlide);
+                        }
                     });
 
                     // Инициализация
-                    updateSlider();
+                    updateSliderPosition();
                 } else {
                     // Десктоп версия
-                    slides.forEach(slide => {
+                    slides.forEach((slide, index) => {
                         slide.style.position = 'absolute';
                         slide.style.opacity = '0';
+                        slide.style.display = 'flex';
                     });
 
                     // Обработчики для стрелок
@@ -1439,6 +1456,43 @@
 
                 // Показываем первый слайд
                 showSlide(0);
+            }
+
+            // Touch-обработчики для мобильной версии
+            function touchStart(e) {
+                isDragging = true;
+                startPos = e.touches[0].clientX;
+                animationID = requestAnimationFrame(animation);
+                teamSlider.style.scrollBehavior = 'auto';
+            }
+
+            function touchMove(e) {
+                if (isDragging) {
+                    const currentPosition = e.touches[0].clientX;
+                    const diff = currentPosition - startPos;
+                    teamSlider.scrollLeft = prevTranslate - diff;
+                }
+            }
+
+            function touchEnd() {
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                teamSlider.style.scrollBehavior = 'smooth';
+                
+                const slideWidth = teamSlider.clientWidth;
+                const newSlide = Math.round(teamSlider.scrollLeft / slideWidth);
+                
+                if (newSlide !== currentSlide) {
+                    currentSlide = newSlide;
+                    showSlide(currentSlide);
+                }
+                
+                updateSliderPosition();
+            }
+
+            function animation() {
+                teamSlider.scrollLeft = prevTranslate;
+                if (isDragging) requestAnimationFrame(animation);
             }
 
             // Инициализация слайдера
