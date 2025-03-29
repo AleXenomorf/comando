@@ -676,9 +676,8 @@
         .contacts-container {
             position: relative;
             width: 100%;
-            height: 30vh; /* Уменьшил высоту до 30vh */
+            height: 100vh; /* Изменил на 100vh */
             overflow: hidden;
-            background: linear-gradient(135deg, #111, #000);
         }
 
         .sword-light {
@@ -715,39 +714,39 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px; /* Уменьшил отступы */
+            padding: 20px;
             box-sizing: border-box;
             text-align: center;
         }
 
         .contacts-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 3vw, 28px); /* Уменьшил размер шрифта */
+            font-size: clamp(24px, 3vw, 36px);
             color: var(--primary-color);
-            margin-bottom: 10px; /* Уменьшил отступ */
-            text-shadow: 0 0 8px rgba(0, 204, 0, 0.5);
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
             position: relative;
         }
 
         .contacts-title::after {
             content: '';
             position: absolute;
-            bottom: -8px; /* Поднял линию ближе */
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px; /* Уменьшил длину линии */
-            height: 2px; /* Уменьшил толщину линии */
+            width: 80px;
+            height: 3px;
             background: var(--primary-color);
-            box-shadow: 0 0 6px var(--primary-color); /* Уменьшил тень */
+            box-shadow: 0 0 8px var(--primary-color);
         }
 
         .social-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px; /* Уменьшил расстояние между иконками */
-            margin-bottom: 10px; /* Уменьшил отступ */
-            max-width: 500px; /* Уменьшил максимальную ширину */
+            gap: 15px;
+            margin-bottom: 20px;
+            max-width: 600px;
         }
 
         .social-link {
@@ -755,16 +754,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 80px; /* Уменьшил ширину */
-            height: 80px; /* Уменьшил высоту */
-            border-radius: 12px; /* Скруглил углы */
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 20px; /* Уменьшил размер иконок */
+            font-size: 24px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             text-decoration: none;
         }
 
@@ -784,8 +783,8 @@
         }
 
         .social-link:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
         .social-link.instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
@@ -794,10 +793,10 @@
         .social-link.premium { background: linear-gradient(45deg, #ffd700, #ffbf00); }
 
         .social-text {
-            font-size: 12px; /* Уменьшил размер текста */
-            margin-top: 6px; /* Уменьшил отступ */
-            color: #ddd;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            font-size: 14px;
+            margin-top: 8px;
+            color: #eee;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             font-weight: 500;
         }
 
@@ -1280,7 +1279,7 @@
             
             /* Мобильная версия контактов */
             .contacts-container {
-                min-height: 30vh;
+                min-height: 100vh;
             }
             
             .contacts-content {
