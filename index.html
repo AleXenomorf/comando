@@ -174,7 +174,7 @@
 
         .text-block h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: clamp(24px, 3vw, 42px);
             color: var(--primary-color);
             margin-bottom: 25px;
             font-weight: 700;
@@ -183,7 +183,7 @@
         }
 
         .text-block p {
-            font-size: 18px;
+            font-size: clamp(14px, 2vw, 18px);
             line-height: 1.8;
             margin-bottom: 20px;
             transform: translateX(-20px);
@@ -213,16 +213,16 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-end;
-            padding-right: 220px;
+            padding-right: clamp(20px, 15vw, 220px);
             box-sizing: border-box;
         }
 
         .marathon-ring {
             position: absolute;
             top: -80px;
-            right: 70px; /* Изменено с 20px на 70px (сдвиг на 50px левее) */
-            width: 150px;
-            height: 150px;
+            right: clamp(20px, 5vw, 70px);
+            width: clamp(100px, 10vw, 150px);
+            height: clamp(100px, 10vw, 150px);
             z-index: 10;
         }
 
@@ -237,12 +237,12 @@
             position: absolute;
             left: 50%;
             top: 0;
-            transform-origin: 50% 75px;
+            transform-origin: 50% calc(clamp(50px, 5vw, 75px));
             color: white;
-            font-size: 16px;
+            font-size: clamp(12px, 1vw, 16px);
             font-weight: bold;
-            height: 75px;
-            width: 15px;
+            height: calc(clamp(50px, 5vw, 75px));
+            width: clamp(12px, 1vw, 15px);
             text-align: center;
             line-height: 1;
             font-family: 'Montserrat', sans-serif;
@@ -257,14 +257,14 @@
         .main-text {
             text-align: left;
             z-index: 10;
-            max-width: 600px;
-            margin-right: 100px;
+            max-width: clamp(300px, 60vw, 600px);
+            margin-right: clamp(20px, 10vw, 100px);
             margin-top: 50px;
         }
 
         .main-text h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: clamp(24px, 5vw, 48px);
             margin: 0;
             color: #fff;
             opacity: 0;
@@ -276,7 +276,7 @@
 
         .main-text h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 38px;
+            font-size: clamp(20px, 4vw, 38px);
             margin: 15px 0 0;
             color: #fff;
             opacity: 0;
@@ -287,8 +287,8 @@
 
         .main-text h3 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 24px;
-            margin: 30px 0 40px;
+            font-size: clamp(16px, 2.5vw, 24px);
+            margin: clamp(15px, 3vw, 30px) 0 clamp(20px, 4vw, 40px);
             color: #fff;
             opacity: 0;
             animation: fadeIn 1s ease-in-out 0.75s forwards;
@@ -321,8 +321,8 @@
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 16px 36px;
-            font-size: 22px;
+            padding: clamp(12px, 1.5vw, 16px) clamp(20px, 2.5vw, 36px);
+            font-size: clamp(16px, 2vw, 22px);
             font-weight: 700;
             cursor: pointer;
             transition: all 0.4s;
@@ -365,7 +365,7 @@
         .consultation-button {
             margin-top: 30px;
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: 16px 28px;
+            padding: clamp(12px, 1.5vw, 16px) clamp(16px, 2vw, 28px);
             border-radius: 50px;
             display: inline-block;
             transition: all 0.4s;
@@ -389,7 +389,7 @@
         .consultation-button a {
             color: white;
             text-decoration: none;
-            font-size: 16px;
+            font-size: clamp(14px, 1.5vw, 16px);
             font-weight: 600;
             display: block;
             position: relative;
@@ -458,7 +458,7 @@
             width: 100%;
             text-align: center;
             font-family: 'Playfair Display', serif;
-            font-size: 42px;
+            font-size: clamp(28px, 3vw, 42px);
             color: var(--primary-color);
             margin-bottom: 25px;
             font-weight: 700;
@@ -506,8 +506,8 @@
         }
 
         .team-member-photo-container {
-            width: 400px;
-            height: 600px;
+            width: clamp(300px, 30vw, 400px);
+            height: clamp(450px, 50vw, 600px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -524,9 +524,9 @@
         }
 
         .team-member-info {
-            width: 500px;
+            width: clamp(300px, 40vw, 500px);
             background: var(--dark-bg);
-            padding: 40px;
+            padding: clamp(20px, 3vw, 40px);
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
@@ -534,14 +534,14 @@
 
         .team-member-info h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 32px;
+            font-size: clamp(22px, 2.5vw, 32px);
             color: var(--primary-color);
             margin-bottom: 20px;
             font-weight: 700;
         }
 
         .team-member-info p {
-            font-size: 18px;
+            font-size: clamp(14px, 1.5vw, 18px);
             line-height: 1.8;
             margin-bottom: 15px;
         }
@@ -624,7 +624,7 @@
             .marathon-ring {
                 position: absolute;
                 top: -80px;
-                right: 70px; /* Аналогичное изменение для мобильной версии */
+                right: 70px;
                 width: 100px;
                 height: 100px;
                 margin-bottom: 20px;
@@ -1219,6 +1219,10 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- Стрелки для десктопной версии -->
+                <div class="slider-arrow prev">❮</div>
+                <div class="slider-arrow next">❯</div>
                 
                 <div class="team-slider-controls">
                     <div class="slider-dot active" data-slide="0"></div>
