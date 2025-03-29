@@ -24,6 +24,7 @@
             overflow-x: hidden;
             background: #000;
             scroll-behavior: smooth;
+            transform-origin: top left;
         }
 
         /* Навигационное меню */
@@ -39,6 +40,7 @@
             transition: transform 0.3s ease;
             backdrop-filter: blur(5px);
             border-right: 1px solid rgba(255,255,255,0.1);
+            transform-origin: left center;
         }
 
         .nav-menu.active {
@@ -62,6 +64,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
+            transform-origin: center;
         }
 
         .menu-toggle:hover {
@@ -103,6 +106,7 @@
             flex-direction: column;
             margin-left: 0;
             transition: margin-left 0.3s;
+            transform-origin: top left;
         }
 
         .image-container.menu-open {
@@ -117,6 +121,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            transform-origin: top left;
         }
 
         .second-image,
@@ -128,6 +133,7 @@
             height: 100vh;
             position: relative;
             overflow: hidden;
+            transform-origin: top left;
         }
 
         .second-image img,
@@ -139,6 +145,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transform-origin: center;
         }
 
         .text-block {
@@ -152,6 +159,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            transform-origin: center;
         }
 
         .text-content {
@@ -165,6 +173,7 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
+            transform-origin: left center;
         }
 
         .visible .text-content {
@@ -180,6 +189,7 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
+            transform-origin: left center;
         }
 
         .text-block p {
@@ -190,6 +200,7 @@
             opacity: 0;
             transition: all 0.6s ease-out;
             font-weight: 400;
+            transform-origin: left center;
         }
 
         .visible p:nth-child(2) { transition-delay: 0.2s; }
@@ -215,6 +226,7 @@
             align-items: flex-end;
             padding-right: clamp(20px, 15vw, 220px);
             box-sizing: border-box;
+            transform-origin: center;
         }
 
         .marathon-ring {
@@ -224,6 +236,7 @@
             width: clamp(100px, 10vw, 150px);
             height: clamp(100px, 10vw, 150px);
             z-index: 10;
+            transform-origin: center;
         }
 
         .marathon-circle {
@@ -231,6 +244,7 @@
             width: 100%;
             height: 100%;
             animation: rotateRing 20s linear infinite;
+            transform-origin: center;
         }
 
         .marathon-char {
@@ -260,6 +274,7 @@
             max-width: clamp(300px, 60vw, 600px);
             margin-right: clamp(20px, 10vw, 100px);
             margin-top: 50px;
+            transform-origin: left center;
         }
 
         .main-text h1 {
@@ -272,6 +287,7 @@
             text-shadow: var(--text-shadow);
             font-weight: 700;
             line-height: 1.2;
+            transform-origin: left center;
         }
 
         .main-text h2 {
@@ -283,6 +299,7 @@
             animation: fadeIn 1s ease-in-out 0.5s forwards;
             text-shadow: var(--text-shadow);
             font-weight: 700;
+            transform-origin: left center;
         }
 
         .main-text h3 {
@@ -295,6 +312,7 @@
             text-shadow: var(--text-shadow);
             font-weight: 600;
             letter-spacing: 1px;
+            transform-origin: left center;
         }
 
         @keyframes fadeIn {
@@ -311,6 +329,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            transform-origin: left center;
         }
 
         .button-container a {
@@ -339,6 +358,7 @@
             border-radius: 50px;
             box-shadow: 0 4px 20px rgba(0, 204, 0, 0.5);
             text-transform: uppercase;
+            transform-origin: center;
         }
 
         .button-container button:hover {
@@ -379,6 +399,7 @@
             border: none;
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
+            transform-origin: left center;
         }
         
         .visible .consultation-button {
@@ -465,6 +486,7 @@
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
             z-index: 10;
+            transform-origin: center;
         }
 
         .team-slider {
@@ -474,6 +496,7 @@
             position: relative;
             padding-top: 120px;
             box-sizing: border-box;
+            transform-origin: center;
         }
 
         .team-slide {
@@ -489,6 +512,7 @@
             justify-content: center;
             padding: 120px 50px 50px;
             box-sizing: border-box;
+            transform-origin: center;
         }
 
         .team-slide.active {
@@ -503,6 +527,7 @@
             width: 90%;
             max-width: 1200px;
             gap: 50px;
+            transform-origin: center;
         }
 
         .team-member-photo-container {
@@ -512,6 +537,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            transform-origin: center;
         }
 
         .team-member-photo {
@@ -521,6 +547,7 @@
             object-fit: cover;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transform-origin: center;
         }
 
         .team-member-info {
@@ -530,6 +557,7 @@
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
+            transform-origin: center;
         }
 
         .team-member-info h3 {
@@ -554,6 +582,7 @@
             display: flex;
             gap: 15px;
             z-index: 10;
+            transform-origin: center;
         }
 
         .slider-dot {
@@ -563,6 +592,7 @@
             background: rgba(255,255,255,0.3);
             cursor: pointer;
             transition: all 0.3s;
+            transform-origin: center;
         }
 
         .slider-dot.active {
@@ -586,6 +616,7 @@
             font-size: 24px;
             color: white;
             transition: all 0.3s;
+            transform-origin: center;
         }
 
         .slider-arrow:hover {
