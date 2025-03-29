@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фитнес-услуги</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --primary-color: #00cc00;
@@ -502,7 +503,7 @@
 
         .team-title {
             position: absolute;
-            top: -10px; /* Было 40px, теперь -10px (поднято еще на 50px выше) */
+            top: -10px;
             left: 0;
             width: 100%;
             text-align: center;
@@ -671,6 +672,169 @@
             right: 20px;
         }
 
+        /* Стили для раздела контактов */
+        .contacts-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(135deg, #111, #000);
+        }
+
+        .sword-light {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0.1) 60%,
+                rgba(255, 255, 255, 0) 80%,
+                rgba(255, 255, 255, 0.1) 100%
+            );
+            background-size: 200% 200%;
+            animation: swordGlow 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes swordGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .contacts-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .contacts-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 4vw, 48px);
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.5);
+            position: relative;
+        }
+
+        .contacts-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-link.instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .social-link.telegram { background: linear-gradient(45deg, #0088cc, #00aced); }
+        .social-link.vk { background: linear-gradient(45deg, #4a76a8, #5b88bd); }
+        .social-link.premium { background: linear-gradient(45deg, #ffd700, #ffbf00); }
+
+        .social-text {
+            font-size: clamp(14px, 2vw, 18px);
+            margin-top: 10px;
+            color: #ddd;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .contact-info {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: clamp(16px, 2vw, 20px);
+        }
+
+        .contact-item i {
+            margin-right: 15px;
+            color: var(--primary-color);
+            font-size: 24px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.5);
+        }
+
         /* Мобильная версия */
         @media (max-width: 768px), (orientation: portrait) {
             :root {
@@ -688,13 +852,13 @@
                 align-items: center;
                 justify-content: center;
                 padding-top: 0;
-                top: 150px; /* Поднято на 50px выше (было 200px) */
-                height: calc(100vh - 150px); /* Соответственно уменьшена высота */
+                top: 150px;
+                height: calc(100vh - 150px);
             }
             
             .marathon-ring {
                 position: absolute;
-                top: -130px; /* Поднято на 50px выше (было -80px) */
+                top: -130px;
                 right: 70px;
                 width: 100px;
                 height: 100px;
@@ -716,8 +880,8 @@
                 padding: 0 15px;
                 width: 100%;
                 box-sizing: border-box;
-                margin-top: 0; /* Убрали отступ сверху */
-                padding-top: 50px; /* Добавили отступ сверху 50px */
+                margin-top: 0;
+                padding-top: 50px;
             }
 
             .main-text h1 {
@@ -744,7 +908,7 @@
                 width: 100%;
                 flex-direction: column;
                 align-items: center;
-                margin-top: 40px; /* Увеличили отступ сверху для кнопки */
+                margin-top: 40px;
                 padding: 0 15px;
                 box-sizing: border-box;
             }
@@ -1147,6 +1311,49 @@
                 -ms-overflow-style: none;
                 scrollbar-width: none;
             }
+            
+            /* Мобильная версия контактов */
+            .contacts-container {
+                min-height: 100vh;
+            }
+            
+            .contacts-content {
+                padding: 20px;
+            }
+            
+            .contacts-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            
+            .social-links {
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+            
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .social-text {
+                font-size: 12px;
+            }
+            
+            .contact-info {
+                padding: 20px;
+            }
+            
+            .contact-item {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .contact-item i {
+                font-size: 20px;
+                margin-right: 10px;
+            }
         }
     </style>
 </head>
@@ -1310,11 +1517,49 @@
         </div>
         
         <div class="sixth-image" id="contacts">
-            <img src="https://alexenomorf.github.io/comando/contacts-bg.jpg" alt="Контакты">
-            <div class="text-block" id="contactsBlock">
-                <div class="text-content">
-                    <h2>Контакты</h2>
-                    <!-- Контент для контактов будет добавлен позже -->
+            <div class="contacts-container">
+                <div class="sword-light"></div>
+                <div class="contacts-content">
+                    <h2 class="contacts-title">Наши контакты</h2>
+                    
+                    <div class="social-links">
+                        <a href="https://instagram.com/dorohov.health" target="_blank" class="social-link instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span class="social-text">Instagram</span>
+                        </a>
+                        
+                        <a href="https://t.me/tipamarafon1" target="_blank" class="social-link telegram">
+                            <i class="fab fa-telegram-plane"></i>
+                            <span class="social-text">Telegram</span>
+                        </a>
+                        
+                        <a href="https://m.vk.com/id89833047" target="_blank" class="social-link vk">
+                            <i class="fab fa-vk"></i>
+                            <span class="social-text">ВКонтакте</span>
+                        </a>
+                        
+                        <a href="https://t.me/tribute/app?startapp=smGt" target="_blank" class="social-link premium">
+                            <i class="fas fa-crown"></i>
+                            <span class="social-text">Premium</span>
+                        </a>
+                    </div>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@fitness-marathon.com">info@fitness-marathon.com</a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+77777777777">+7 (777) 777-77-77</a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Казахстан, г. Алматы</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1342,7 +1587,7 @@
                 document.getElementById('programBlock'),
                 document.getElementById('casesBlock'),
                 document.getElementById('team'),
-                document.getElementById('contactsBlock')
+                document.getElementById('contacts')
             ];
             
             function checkVisibility() {
