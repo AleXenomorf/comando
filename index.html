@@ -204,10 +204,10 @@
 
         .content {
             position: absolute;
-            top: 50px;
+            top: 100px; /* Опустили текст на 50px ниже */
             left: 0;
             width: 100%;
-            height: calc(100vh - 50px);
+            height: calc(100vh - 100px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -218,7 +218,7 @@
 
         .marathon-ring {
             position: absolute;
-            top: 20px;
+            top: 50px; /* Подняли кольцо выше */
             right: 300px;
             width: 200px;
             height: 200px;
@@ -616,13 +616,13 @@
                 align-items: center;
                 justify-content: center;
                 padding-top: 0;
-                top: 100px; /* Опустили текст на 50px ниже */
-                height: calc(100vh - 100px);
+                top: 150px; /* Опустили текст на 50px ниже */
+                height: calc(100vh - 150px);
             }
             
             .marathon-ring {
                 position: absolute;
-                top: 20px;
+                top: 50px; /* Подняли кольцо выше */
                 right: 20px;
                 width: 100px;
                 height: 100px;
@@ -1337,6 +1337,9 @@
             let currentTranslate = 0;
             let prevTranslate = 0;
             let animationID = 0;
+            let velocity = 0;
+            let lastTime = 0;
+            let lastPosition = 0;
 
             // Функция для показа слайда
             function showSlide(index) {
@@ -1406,9 +1409,9 @@
                     });
 
                     // Обработчики для touch-событий
-                    teamSlider.addEventListener('touchstart', touchStart);
-                    teamSlider.addEventListener('touchmove', touchMove);
-                    teamSlider.addEventListener('touchend', touchEnd);
+                    teamSlider.addEventListener('touchstart', touchStart, { passive: false });
+                    teamSlider.addEventListener('touchmove', touchMove, { passive: false });
+                    teamSlider.addEventListener('touchend', touchEnd, { passive: false });
 
                     // Обработчик изменения слайда при скролле
                     teamSlider.addEventListener('scroll', function() {
@@ -1462,25 +1465,47 @@
             function touchStart(e) {
                 isDragging = true;
                 startPos = e.touches[0].clientX;
-                animationID = requestAnimationFrame(animation);
+                currentTranslate = teamSlider.scrollLeft;
+                prevTranslate = currentTranslate;
+                velocity = 0;
+                lastTime = performance.now();
+                lastPosition = startPos;
                 teamSlider.style.scrollBehavior = 'auto';
+                e.preventDefault();
             }
 
             function touchMove(e) {
-                if (isDragging) {
-                    const currentPosition = e.touches[0].clientX;
-                    const diff = currentPosition - startPos;
-                    teamSlider.scrollLeft = prevTranslate - diff;
+                if (!isDragging) return;
+                
+                const currentPosition = e.touches[0].clientX;
+                const diff = currentPosition - startPos;
+                teamSlider.scrollLeft = prevTranslate - diff;
+                
+                // Расчет скорости для инерции
+                const time = performance.now();
+                const deltaTime = time - lastTime;
+                const deltaPosition = currentPosition - lastPosition;
+                
+                if (deltaTime > 0) {
+                    velocity = deltaPosition / deltaTime;
                 }
+                
+                lastTime = time;
+                lastPosition = currentPosition;
+                e.preventDefault();
             }
 
             function touchEnd() {
+                if (!isDragging) return;
                 isDragging = false;
-                cancelAnimationFrame(animationID);
-                teamSlider.style.scrollBehavior = 'smooth';
                 
+                // Применение инерции
+                const momentum = velocity * 100;
                 const slideWidth = teamSlider.clientWidth;
-                const newSlide = Math.round(teamSlider.scrollLeft / slideWidth);
+                let newSlide = Math.round((teamSlider.scrollLeft - momentum) / slideWidth);
+                
+                // Ограничиваем индекс слайда
+                newSlide = Math.max(0, Math.min(newSlide, slides.length - 1));
                 
                 if (newSlide !== currentSlide) {
                     currentSlide = newSlide;
@@ -1488,11 +1513,7 @@
                 }
                 
                 updateSliderPosition();
-            }
-
-            function animation() {
-                teamSlider.scrollLeft = prevTranslate;
-                if (isDragging) requestAnimationFrame(animation);
+                teamSlider.style.scrollBehavior = 'smooth';
             }
 
             // Инициализация слайдера
