@@ -1258,6 +1258,7 @@
                 scroll-snap-type: x mandatory;
                 scroll-behavior: smooth;
                 -webkit-overflow-scrolling: touch;
+                padding-bottom: 60px; /* Добавил отступ для пагинации */
             }
 
             .team-slide {
@@ -1265,7 +1266,7 @@
                 min-width: 100%;
                 height: auto;
                 min-height: auto;
-                padding: 0 15px 60px;
+                padding: 0 15px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -1332,6 +1333,7 @@
                 line-height: 1.5;
             }
 
+            /* Фиксированная пагинация в мобильной версии */
             .team-slider-controls {
                 position: fixed;
                 bottom: 20px;
@@ -1340,9 +1342,10 @@
                 display: flex;
                 gap: 10px;
                 z-index: 20;
-                background: rgba(0,0,0,0.5);
+                background: rgba(0,0,0,0.7);
                 padding: 10px 15px;
                 border-radius: 30px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             }
 
             .slider-dot {
@@ -1931,9 +1934,6 @@
                 }
             });
         });
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
