@@ -1034,7 +1034,11 @@
             }
             
             .sixth-image .text-block {
-                background: transparent !important;
+                --bg-image: url('https://alexenomorf.github.io/comando/contacts-bg.jpg');
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                            var(--bg-image) !important;
+                background-size: cover !important;
+                background-position: center !important;
                 min-height: 50vh !important;
             }
 
@@ -1927,6 +1931,9 @@
                 }
             });
         });
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
