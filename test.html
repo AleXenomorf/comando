@@ -28,7 +28,7 @@
             margin: 0 auto;
             padding: 40px 20px;
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
@@ -72,6 +72,7 @@
             border: 2px solid #000;
             display: flex;
             align-items: center;
+            color: #333;
         }
 
         .option-item:hover {
@@ -82,6 +83,7 @@
         .option-item.selected {
             background: var(--primary-color);
             color: white;
+            border-color: white;
         }
 
         .option-radio {
@@ -115,6 +117,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
+            gap: 15px;
         }
 
         .nav-button {
@@ -127,7 +130,8 @@
             font-size: 16px;
             font-weight: 600;
             transition: all 0.3s;
-            display: none;
+            flex: 1;
+            text-align: center;
         }
 
         .nav-button:hover {
@@ -136,8 +140,16 @@
             box-shadow: 0 5px 15px rgba(0, 204, 0, 0.4);
         }
 
-        .nav-button.active {
-            display: block;
+        .nav-button.hidden {
+            display: none;
+        }
+
+        #submitButton {
+            background: #ff6600;
+        }
+
+        #submitButton:hover {
+            background: #e65c00;
         }
 
         @keyframes fadeIn {
@@ -149,11 +161,17 @@
         @media (max-width: 768px) {
             .test-container {
                 padding: 20px 15px;
+                justify-content: flex-start;
+                min-height: auto;
             }
             
             .question-title {
                 font-size: 20px;
                 margin-bottom: 20px;
+            }
+            
+            .question-slide {
+                padding: 20px 15px;
             }
             
             .option-item {
@@ -165,8 +183,17 @@
             }
             
             .nav-button {
-                padding: 10px 20px;
+                padding: 10px 15px;
                 font-size: 14px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .progress-bar {
+                margin: 20px 0;
             }
         }
     </style>
@@ -270,9 +297,9 @@
         </div>
 
         <div class="nav-buttons">
-            <button class="nav-button" id="prevButton">Назад</button>
-            <button class="nav-button active" id="nextButton">Далее</button>
-            <button class="nav-button" id="submitButton">Получить результат</button>
+            <button class="nav-button hidden" id="prevButton">Назад</button>
+            <button class="nav-button" id="nextButton">Далее</button>
+            <button class="nav-button hidden" id="submitButton">Получить результат</button>
         </div>
     </div>
 
@@ -300,21 +327,26 @@
                 });
                 
                 // Управление видимостью кнопок
-                prevButton.style.display = index > 0 ? 'block' : 'none';
-                nextButton.style.display = index < totalQuestions - 1 ? 'block' : 'none';
-                submitButton.style.display = index === totalQuestions - 1 ? 'block' : 'none';
+                prevButton.classList.toggle('hidden', index === 0);
+                nextButton.classList.toggle('hidden', index === totalQuestions - 1);
+                submitButton.classList.toggle('hidden', index !== totalQuestions - 1);
                 
                 // Проверка, выбран ли ответ для текущего вопроса
-                const currentOptions = questions[index].querySelectorAll('input[type="radio"]');
+                checkAnswerSelected();
+                
+                updateProgress();
+            }
+            
+            // Проверка выбранного ответа
+            function checkAnswerSelected() {
+                const currentOptions = questions[currentQuestion].querySelectorAll('input[type="radio"]');
                 const isAnswered = Array.from(currentOptions).some(option => option.checked);
                 
-                if (index < totalQuestions - 1) {
+                if (currentQuestion < totalQuestions - 1) {
                     nextButton.disabled = !isAnswered;
                 } else {
                     submitButton.disabled = !isAnswered;
                 }
-                
-                updateProgress();
             }
             
             // Переход к следующему вопросу
@@ -335,24 +367,15 @@
             
             // Отправка результатов
             submitButton.addEventListener('click', function() {
-                // Здесь можно добавить обработку результатов
-                alert('Спасибо за прохождение теста! Мы подберем для вас оптимальную программу.');
-                // window.location.href = 'результат.html'; // Перенаправление на страницу с результатами
+                window.location.href = 'https://t.me/tipamarafon1';
             });
             
-            // Проверка выбранного ответа
+            // Проверка выбранного ответа при изменении
             questions.forEach(question => {
                 const options = question.querySelectorAll('input[type="radio"]');
                 options.forEach(option => {
                     option.addEventListener('change', function() {
-                        const currentOptions = questions[currentQuestion].querySelectorAll('input[type="radio"]');
-                        const isAnswered = Array.from(currentOptions).some(opt => opt.checked);
-                        
-                        if (currentQuestion < totalQuestions - 1) {
-                            nextButton.disabled = !isAnswered;
-                        } else {
-                            submitButton.disabled = !isAnswered;
-                        }
+                        checkAnswerSelected();
                     });
                 });
             });
@@ -371,6 +394,14 @@
                         
                         // Выделяем выбранный вариант
                         item.classList.add('selected');
+                    }
+                });
+                
+                // Подсветка при клике на весь блок
+                item.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'INPUT') {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
                     }
                 });
             });
