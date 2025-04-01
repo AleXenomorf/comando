@@ -25,11 +25,8 @@
             overflow-x: hidden;
             background: #000;
             scroll-behavior: smooth;
-            transform-origin: top left;
-            zoom: 1;
         }
 
-        /* Навигационное меню */
         .nav-menu {
             position: fixed;
             left: 0;
@@ -42,8 +39,6 @@
             transition: transform 0.3s ease;
             backdrop-filter: blur(5px);
             border-right: 1px solid rgba(255,255,255,0.1);
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .nav-menu.active {
@@ -67,8 +62,6 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .menu-toggle:hover {
@@ -79,14 +72,12 @@
             list-style: none;
             padding: 0;
             margin: 80px 0 0 0;
-            zoom: 1;
         }
 
         .nav-menu li {
             padding: 15px 25px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             transition: all 0.3s;
-            zoom: 1;
         }
 
         .nav-menu li:hover {
@@ -99,7 +90,6 @@
             font-size: 16px;
             display: block;
             transition: all 0.3s;
-            zoom: 1;
         }
 
         .nav-menu a:hover {
@@ -113,8 +103,6 @@
             flex-direction: column;
             margin-left: 0;
             transition: margin-left 0.3s;
-            transform-origin: top left;
-            zoom: 1;
         }
 
         .image-container.menu-open {
@@ -129,8 +117,6 @@
             background-size: cover;
             background-position: center;
             position: relative;
-            transform-origin: top left;
-            zoom: 1;
         }
 
         .second-image,
@@ -142,8 +128,6 @@
             height: 100vh;
             position: relative;
             overflow: hidden;
-            transform-origin: top left;
-            zoom: 1;
         }
 
         .second-image img,
@@ -154,8 +138,6 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .text-block {
@@ -169,8 +151,6 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .text-content {
@@ -184,8 +164,6 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .visible .text-content {
@@ -201,8 +179,6 @@
             font-weight: 700;
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .text-block p {
@@ -213,15 +189,12 @@
             opacity: 0;
             transition: all 0.6s ease-out;
             font-weight: 400;
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .visible p:nth-child(2) { transition-delay: 0.2s; }
         .visible p:nth-child(3) { transition-delay: 0.4s; }
         .visible p:nth-child(4) { transition-delay: 0.6s; }
         .visible p:nth-child(5) { transition-delay: 0.8s; }
-        .visible p:nth-child(6) { transition-delay: 1.0s; }
 
         .visible p {
             transform: translateX(0);
@@ -240,8 +213,6 @@
             align-items: flex-end;
             padding-right: clamp(20px, 15vw, 220px);
             box-sizing: border-box;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .marathon-ring {
@@ -251,8 +222,6 @@
             width: clamp(100px, 10vw, 150px);
             height: clamp(100px, 10vw, 150px);
             z-index: 10;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .marathon-circle {
@@ -260,8 +229,6 @@
             width: 100%;
             height: 100%;
             animation: rotateRing 20s linear infinite;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .marathon-char {
@@ -278,7 +245,6 @@
             line-height: 1;
             font-family: 'Montserrat', sans-serif;
             transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
-            zoom: 1;
         }
 
         @keyframes rotateRing {
@@ -292,8 +258,6 @@
             max-width: clamp(300px, 60vw, 600px);
             margin-right: clamp(20px, 10vw, 100px);
             margin-top: 50px;
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .main-text h1 {
@@ -306,8 +270,6 @@
             text-shadow: var(--text-shadow);
             font-weight: 700;
             line-height: 1.2;
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .main-text h2 {
@@ -319,8 +281,6 @@
             animation: fadeIn 1s ease-in-out 0.5s forwards;
             text-shadow: var(--text-shadow);
             font-weight: 700;
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .main-text h3 {
@@ -333,8 +293,6 @@
             text-shadow: var(--text-shadow);
             font-weight: 600;
             letter-spacing: 1px;
-            transform-origin: left center;
-            zoom: 1;
         }
 
         @keyframes fadeIn {
@@ -351,13 +309,10 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            transform-origin: left center;
-            zoom: 1;
         }
 
         .button-container a {
             text-decoration: none;
-            zoom: 1;
         }
 
         .button-container button {
@@ -382,8 +337,6 @@
             border-radius: 50px;
             box-shadow: 0 4px 20px rgba(0, 204, 0, 0.5);
             text-transform: uppercase;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .button-container button:hover {
@@ -424,8 +377,6 @@
             border: none;
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
-            transform-origin: left center;
-            zoom: 1;
         }
         
         .visible .consultation-button {
@@ -443,7 +394,6 @@
             z-index: 2;
             animation: blink 2s infinite;
             letter-spacing: 0.5px;
-            zoom: 1;
         }
         
         .consultation-button:hover {
@@ -488,7 +438,6 @@
             transform: translateX(100%);
         }
 
-        /* Новая кнопка "Жми сюда!" */
         .program-selector {
             position: absolute;
             left: 800px;
@@ -505,18 +454,18 @@
 
         .program-text {
             font-family: 'Montserrat', sans-serif;
-            font-size: 22px; /* Увеличил размер шрифта */
+            font-size: 22px;
             color: white;
-            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7); /* Добавил тень */
-            margin-bottom: 15px; /* Увеличил отступ */
-            background: rgba(0,0,0,0.7); /* Более темный фон */
-            padding: 15px 25px; /* Увеличил отступы */
-            border-radius: 12px; /* Скругленные углы */
-            border: 2px solid var(--primary-color); /* Зеленая рамка */
-            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5); /* Тень */
-            font-weight: 700; /* Жирный шрифт */
-            letter-spacing: 0.5px; /* Разрежение букв */
-            animation: pulse-text 2s infinite; /* Анимация пульсации */
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: pulse-text 2s infinite;
         }
 
         @keyframes pulse-text {
@@ -527,22 +476,22 @@
 
         .program-button {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: 16px 32px; /* Увеличил размер кнопки */
+            padding: 16px 32px;
             border-radius: 50px;
             display: inline-block;
             transition: all 0.4s;
-            box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6); /* Усилил тень */
+            box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6);
             border: none;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 800; /* Более жирный шрифт */
-            font-size: 18px; /* Увеличил размер шрифта */
+            font-weight: 800;
+            font-size: 18px;
             color: white;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            text-transform: uppercase; /* Все буквы заглавные */
-            letter-spacing: 1px; /* Разрежение букв */
-            animation: pulse-btn-program 2s infinite; /* Анимация пульсации */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse-btn-program 2s infinite;
         }
 
         @keyframes pulse-btn-program {
@@ -561,12 +510,11 @@
         }
 
         .program-button:hover {
-            transform: translateY(-5px) scale(1.1); /* Усилил эффект при наведении */
+            transform: translateY(-5px) scale(1.1);
             box-shadow: 0 10px 30px rgba(0, 204, 0, 0.8);
             animation: none;
         }
 
-        /* Анимация мерцания при наведении */
         .program-button:hover::after {
             content: '';
             position: absolute;
@@ -588,7 +536,6 @@
             100% { transform: translateX(100%); }
         }
 
-        /* Стили для раздела "Команда" */
         .team-section {
             width: 100%;
             height: 100%;
@@ -597,7 +544,6 @@
             background-image: 
                 linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
                 url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-            zoom: 1;
         }
 
         .team-title {
@@ -614,8 +560,6 @@
             letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
             z-index: 10;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .team-slider {
@@ -625,8 +569,6 @@
             position: relative;
             padding-top: 120px;
             box-sizing: border-box;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .team-slide {
@@ -642,8 +584,6 @@
             justify-content: center;
             padding: 120px 50px 50px;
             box-sizing: border-box;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .team-slide.active {
@@ -658,8 +598,6 @@
             width: 90%;
             max-width: 1200px;
             gap: 50px;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .team-member-photo-container {
@@ -669,8 +607,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .team-member-photo {
@@ -680,8 +616,6 @@
             object-fit: cover;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            transform-origin: center;
-            zoom: 1;
         }
 
         .team-member-info {
@@ -691,8 +625,6 @@
             border-radius: 16px;
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255,255,255,0.1);
-            transform-origin: center;
-            zoom: 1;
         }
 
         .team-member-info h3 {
@@ -700,14 +632,12 @@
             font-size: clamp(22px, 2.5vw, 32px);
             color: var(--primary-color);
             margin-bottom: 20px;
-            zoom: 1;
         }
 
         .team-member-info p {
             font-size: clamp(14px, 1.5vw, 18px);
             line-height: 1.8;
             margin-bottom: 15px;
-            zoom: 1;
         }
 
         .team-slider-controls {
@@ -718,8 +648,6 @@
             display: flex;
             gap: 15px;
             z-index: 10;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .slider-dot {
@@ -729,8 +657,6 @@
             background: rgba(255,255,255,0.3);
             cursor: pointer;
             transition: all 0.3s;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .slider-dot.active {
@@ -754,8 +680,6 @@
             font-size: 24px;
             color: white;
             transition: all 0.3s;
-            transform-origin: center;
-            zoom: 1;
         }
 
         .slider-arrow:hover {
@@ -770,7 +694,6 @@
             right: 20px;
         }
 
-        /* Стили для раздела контактов */
         .sixth-image {
             background: transparent !important;
             height: 50vh !important;
@@ -904,7 +827,7 @@
             font-weight: 500;
         }
 
-        /* Стили для раздела кейсов */
+        /* Обновленные стили для кейсов */
         .cases-section {
             width: 100%;
             height: 100%;
@@ -949,19 +872,21 @@
         .cases-images {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            gap: 15px;
             width: 100%;
             padding: 0 20px;
             box-sizing: border-box;
         }
 
         .case-image {
-            width: calc(33.333% - 20px);
-            height: 300px; /* Уменьшил высоту изображений */
-            object-fit: cover;
+            width: calc(33.333% - 10px);
+            height: 250px;
+            object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
+            background: rgba(0,0,0,0.5);
         }
 
         .case-image:hover {
@@ -1022,7 +947,6 @@
             right: 20px;
         }
 
-        /* Мобильная версия */
         @media (max-width: 768px), (orientation: portrait) {
             :root {
                 --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -1110,7 +1034,6 @@
                 margin-top: 0;
             }
 
-            /* Стили для изображений */
             .second-image,
             .third-image,
             .fourth-image,
@@ -1219,7 +1142,6 @@
                 line-height: 1.3;
             }
             
-            /* Новая кнопка в мобильной версии */
             .program-selector {
                 position: relative;
                 left: auto;
@@ -1261,7 +1183,6 @@
                 }
             }
             
-            /* Мобильное меню */
             .nav-menu {
                 width: 80%;
                 max-width: 300px;
@@ -1300,7 +1221,6 @@
                 transform: translateX(5px);
             }
             
-            /* Кнопка закрытия меню */
             .close-menu {
                 position: absolute;
                 right: 15px;
@@ -1317,7 +1237,6 @@
                 display: block;
             }
             
-            /* Оверлей для меню */
             .menu-overlay {
                 position: fixed;
                 top: 0;
@@ -1336,7 +1255,6 @@
                 visibility: visible;
             }
             
-            /* Анимация для мобильного меню */
             @keyframes slideIn {
                 from { transform: translateX(-100%); }
                 to { transform: translateX(0); }
@@ -1355,7 +1273,6 @@
                 animation: slideIn 0.3s forwards;
             }
 
-            /* Мобильная версия слайдера команды */
             .team-section {
                 background: var(--asphalt-bg);
                 background-image: 
@@ -1385,7 +1302,7 @@
                 scroll-snap-type: x mandatory;
                 scroll-behavior: smooth;
                 -webkit-overflow-scrolling: touch;
-                padding-bottom: 60px; /* Добавил отступ для пагинации */
+                padding-bottom: 60px;
             }
 
             .team-slide {
@@ -1460,9 +1377,8 @@
                 line-height: 1.5;
             }
 
-            /* Фиксированная пагинация в мобильной версии */
             .team-slider-controls {
-                position: relative; /* Изменено с fixed на relative */
+                position: relative;
                 bottom: auto;
                 left: 50%;
                 transform: translateX(-50%);
@@ -1525,8 +1441,7 @@
             .mobile-slider-arrow.next {
                 right: 15px;
             }
-
-            /* Отключение стандартного скроллбара */
+            
             .team-slider::-webkit-scrollbar {
                 display: none;
             }
@@ -1536,7 +1451,6 @@
                 scrollbar-width: none;
             }
             
-            /* Мобильная версия контактов */
             .contacts-container {
                 min-height: 50vh;
             }
@@ -1566,7 +1480,6 @@
                 margin-top: 4px;
             }
 
-            /* Мобильная версия слайдера кейсов */
             .cases-section {
                 padding: 20px 10px;
                 min-height: 100vh;
@@ -1582,7 +1495,7 @@
                 opacity: 1;
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
+                gap: 15px;
                 padding: 20px 0;
                 height: auto;
             }
@@ -1590,14 +1503,14 @@
             .cases-images {
                 flex-direction: column;
                 align-items: center;
-                gap: 20px;
+                gap: 15px;
                 padding: 0 10px;
             }
 
             .case-image {
                 width: 100%;
                 max-width: 350px;
-                height: 250px; /* Уменьшил высоту для мобильных устройств */
+                height: 200px;
             }
 
             .cases-controls {
@@ -1691,7 +1604,6 @@
                     <p>Статистику и анализ данных ведет ИИ-ассистент, минимизируя вероятность ошибок.</p>
                     <p>Еженедельные онлайн-созвоны с наставником проекта, где можно задать любой вопрос и получить развернутый ответ.</p>
                 </div>
-                <!-- Новая кнопка "Жми сюда!" с отдельным текстом -->
                 <div class="program-selector">
                     <div class="program-text">Хочешь знать какая программа тебе подходит?</div>
                     <button class="program-button" onclick="window.location.href='test.html'">ЖМИ СЮДА!</button>
@@ -1842,7 +1754,7 @@
                 <div class="slider-arrow prev">❮</div>
                 <div class="slider-arrow next">❯</div>
                 
-                <!-- Контролы слайдера (теперь находятся внутри слайдов) -->
+                <!-- Контролы слайдера -->
                 <div class="team-slider-controls">
                     <div class="slider-dot active" data-slide="0"></div>
                     <div class="slider-dot" data-slide="1"></div>
@@ -1890,7 +1802,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Анимация кольца
-            const text = "МАРАФОН PRO МАРАФОН PRO"; // 24 символа (12 + пробел + 12)
+            const text = "МАРАФОН PRO МАРАФОН PRO";
             const circle = document.getElementById('marathonCircle');
             
             circle.innerHTML = '';
@@ -1955,10 +1867,7 @@
                     const targetElement = document.querySelector(targetId);
                     
                     if (targetElement) {
-                        // Закрываем меню после выбора раздела
                         toggleMenu();
-                        
-                        // Плавная прокрутка
                         window.scrollTo({
                             top: targetElement.offsetTop,
                             behavior: 'smooth'
@@ -1977,17 +1886,8 @@
             const teamSlider = document.querySelector('.team-slider');
             let currentTeamSlide = 0;
             let isMobile = window.matchMedia("(max-width: 768px)").matches;
-            let isDragging = false;
-            let startPos = 0;
-            let currentTranslate = 0;
-            let prevTranslate = 0;
-            let animationID = 0;
-            let velocity = 0;
-            let lastTime = 0;
-            let lastPosition = 0;
             let slideInterval;
 
-            // Функция для показа слайда команды
             function showTeamSlide(index) {
                 teamSlides.forEach(slide => {
                     slide.classList.remove('active');
@@ -2001,112 +1901,14 @@
                 currentTeamSlide = index;
             }
 
-            // Функция для следующего слайда команды
             function nextTeamSlide() {
                 let newIndex = (currentTeamSlide + 1) % teamSlides.length;
                 showTeamSlide(newIndex);
-                if (isMobile) {
-                    updateTeamSliderPosition();
-                }
             }
 
-            // Функция для предыдущего слайда команды
             function prevTeamSlide() {
                 let newIndex = (currentTeamSlide - 1 + teamSlides.length) % teamSlides.length;
                 showTeamSlide(newIndex);
-                if (isMobile) {
-                    updateTeamSliderPosition();
-                }
-            }
-
-            // Обновление позиции слайдера команды в мобильной версии
-            function updateTeamSliderPosition() {
-                teamSlider.scrollTo({
-                    left: currentTeamSlide * window.innerWidth,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Инициализация слайдера команды
-            function initTeamSlider() {
-                if (isMobile) {
-                    // Мобильная версия
-                    teamSlider.style.display = 'flex';
-                    teamSlider.style.flexDirection = 'row';
-                    teamSlider.style.overflowX = 'auto';
-                    teamSlider.style.scrollSnapType = 'x mandatory';
-                    teamSlider.style.scrollBehavior = 'smooth';
-                    teamSlider.style.WebkitOverflowScrolling = 'touch';
-
-                    teamSlides.forEach((slide, index) => {
-                        slide.style.minWidth = '100%';
-                        slide.style.scrollSnapAlign = 'start';
-                        slide.style.opacity = '1';
-                    });
-
-                    // Обработчики для мобильных стрелок
-                    teamMobilePrevArrow.addEventListener('click', prevTeamSlide);
-                    teamMobileNextArrow.addEventListener('click', nextTeamSlide);
-
-                    // Обработчики для точек
-                    teamDots.forEach(dot => {
-                        dot.addEventListener('click', function() {
-                            const slideIndex = parseInt(this.getAttribute('data-slide'));
-                            currentTeamSlide = slideIndex;
-                            showTeamSlide(slideIndex);
-                            updateTeamSliderPosition();
-                        });
-                    });
-
-                    // Обработчики для touch-событий
-                    teamSlider.addEventListener('touchstart', touchStart, { passive: true });
-                    teamSlider.addEventListener('touchmove', touchMove, { passive: true });
-                    teamSlider.addEventListener('touchend', touchEnd, { passive: true });
-
-                    // Обработчик изменения слайда при скролле
-                    teamSlider.addEventListener('scroll', function() {
-                        const scrollPosition = teamSlider.scrollLeft;
-                        const slideWidth = teamSlider.clientWidth;
-                        const newSlide = Math.round(scrollPosition / slideWidth);
-                        
-                        if (newSlide !== currentTeamSlide) {
-                            currentTeamSlide = newSlide;
-                            showTeamSlide(currentTeamSlide);
-                        }
-                    });
-
-                    // Инициализация
-                    updateTeamSliderPosition();
-                } else {
-                    // Десктоп версия
-                    teamSlides.forEach((slide, index) => {
-                        slide.style.position = 'absolute';
-                        slide.style.opacity = '0';
-                        slide.style.display = 'flex';
-                    });
-
-                    // Обработчики для стрелок
-                    if (teamPrevArrow) teamPrevArrow.addEventListener('click', prevTeamSlide);
-                    if (teamNextArrow) teamNextArrow.addEventListener('click', nextTeamSlide);
-
-                    // Обработчики для точек
-                    teamDots.forEach(dot => {
-                        dot.addEventListener('click', function() {
-                            const slideIndex = parseInt(this.getAttribute('data-slide'));
-                            showTeamSlide(slideIndex);
-                        });
-                    });
-
-                    // Автоматическая смена слайдов
-                    startTeamSlideInterval();
-
-                    // Остановка при наведении
-                    teamSlider.addEventListener('mouseenter', stopTeamSlideInterval);
-                    teamSlider.addEventListener('mouseleave', startTeamSlideInterval);
-                }
-
-                // Показываем первый слайд
-                showTeamSlide(0);
             }
 
             function startTeamSlideInterval() {
@@ -2120,63 +1922,54 @@
                 }
             }
 
-            // Touch-обработчики для мобильной версии
-            function touchStart(e) {
-                if (window.innerWidth > 768) return;
-                
-                isDragging = true;
-                startPos = e.touches[0].clientX;
-                currentTranslate = teamSlider.scrollLeft;
-                prevTranslate = currentTranslate;
-                velocity = 0;
-                lastTime = performance.now();
-                lastPosition = startPos;
-                teamSlider.style.scrollBehavior = 'auto';
-            }
-
-            function touchMove(e) {
-                if (window.innerWidth > 768 || !isDragging) return;
-                
-                const currentPosition = e.touches[0].clientX;
-                const diff = currentPosition - startPos;
-                teamSlider.scrollLeft = prevTranslate - diff;
-                
-                // Расчет скорости для инерции
-                const time = performance.now();
-                const deltaTime = time - lastTime;
-                const deltaPosition = currentPosition - lastPosition;
-                
-                if (deltaTime > 0) {
-                    velocity = deltaPosition / deltaTime;
-                }
-                
-                lastTime = time;
-                lastPosition = currentPosition;
-            }
-
-            function touchEnd() {
-                if (window.innerWidth > 768 || !isDragging) return;
-                isDragging = false;
-                
-                // Применение инерции
-                const momentum = velocity * 100;
-                const slideWidth = teamSlider.clientWidth;
-                let newSlide = Math.round((teamSlider.scrollLeft - momentum) / slideWidth);
-                
-                // Ограничиваем индекс слайда
-                newSlide = Math.max(0, Math.min(newSlide, teamSlides.length - 1));
-                
-                if (newSlide !== currentTeamSlide) {
-                    currentTeamSlide = newSlide;
-                    showTeamSlide(newIndex);
-                }
-                
-                updateTeamSliderPosition();
-                teamSlider.style.scrollBehavior = 'smooth';
-            }
-
             // Инициализация слайдера команды
-            initTeamSlider();
+            if (isMobile) {
+                teamSlider.style.display = 'flex';
+                teamSlider.style.flexDirection = 'row';
+                teamSlider.style.overflowX = 'auto';
+                teamSlider.style.scrollSnapType = 'x mandatory';
+                teamSlider.style.scrollBehavior = 'smooth';
+                teamSlider.style.WebkitOverflowScrolling = 'touch';
+
+                teamSlides.forEach((slide, index) => {
+                    slide.style.minWidth = '100%';
+                    slide.style.scrollSnapAlign = 'start';
+                    slide.style.opacity = '1';
+                });
+
+                teamMobilePrevArrow.addEventListener('click', prevTeamSlide);
+                teamMobileNextArrow.addEventListener('click', nextTeamSlide);
+
+                teamDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        currentTeamSlide = slideIndex;
+                        showTeamSlide(slideIndex);
+                    });
+                });
+            } else {
+                teamSlides.forEach((slide, index) => {
+                    slide.style.position = 'absolute';
+                    slide.style.opacity = '0';
+                    slide.style.display = 'flex';
+                });
+
+                if (teamPrevArrow) teamPrevArrow.addEventListener('click', prevTeamSlide);
+                if (teamNextArrow) teamNextArrow.addEventListener('click', nextTeamSlide);
+
+                teamDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        showTeamSlide(slideIndex);
+                    });
+                });
+
+                startTeamSlideInterval();
+                teamSlider.addEventListener('mouseenter', stopTeamSlideInterval);
+                teamSlider.addEventListener('mouseleave', startTeamSlideInterval);
+            }
+
+            showTeamSlide(0);
 
             // Слайдер кейсов
             const casesSlides = document.querySelectorAll('.cases-slide');
@@ -2187,17 +1980,8 @@
             const casesMobileNextArrow = document.querySelector('.mobile-cases-arrow.next');
             const casesSlider = document.querySelector('.cases-slider');
             let currentCasesSlide = 0;
-            let isCasesDragging = false;
-            let casesStartPos = 0;
-            let casesCurrentTranslate = 0;
-            let casesPrevTranslate = 0;
-            let casesAnimationID = 0;
-            let casesVelocity = 0;
-            let casesLastTime = 0;
-            let casesLastPosition = 0;
             let casesSlideInterval;
 
-            // Функция для показа слайда кейсов
             function showCasesSlide(index) {
                 casesSlides.forEach(slide => {
                     slide.classList.remove('active');
@@ -2211,112 +1995,14 @@
                 currentCasesSlide = index;
             }
 
-            // Функция для следующего слайда кейсов
             function nextCasesSlide() {
                 let newIndex = (currentCasesSlide + 1) % casesSlides.length;
                 showCasesSlide(newIndex);
-                if (isMobile) {
-                    updateCasesSliderPosition();
-                }
             }
 
-            // Функция для предыдущего слайда кейсов
             function prevCasesSlide() {
                 let newIndex = (currentCasesSlide - 1 + casesSlides.length) % casesSlides.length;
                 showCasesSlide(newIndex);
-                if (isMobile) {
-                    updateCasesSliderPosition();
-                }
-            }
-
-            // Обновление позиции слайдера кейсов в мобильной версии
-            function updateCasesSliderPosition() {
-                casesSlider.scrollTo({
-                    left: currentCasesSlide * window.innerWidth,
-                    behavior: 'smooth'
-                });
-            }
-
-            // Инициализация слайдера кейсов
-            function initCasesSlider() {
-                if (isMobile) {
-                    // Мобильная версия
-                    casesSlider.style.display = 'flex';
-                    casesSlider.style.flexDirection = 'column';
-                    casesSlider.style.overflowY = 'auto';
-                    casesSlider.style.scrollSnapType = 'y mandatory';
-                    casesSlider.style.scrollBehavior = 'smooth';
-                    casesSlider.style.WebkitOverflowScrolling = 'touch';
-
-                    casesSlides.forEach((slide, index) => {
-                        slide.style.minHeight = '100%';
-                        slide.style.scrollSnapAlign = 'start';
-                        slide.style.opacity = '1';
-                    });
-
-                    // Обработчики для мобильных стрелок
-                    casesMobilePrevArrow.addEventListener('click', prevCasesSlide);
-                    casesMobileNextArrow.addEventListener('click', nextCasesSlide);
-
-                    // Обработчики для точек
-                    casesDots.forEach(dot => {
-                        dot.addEventListener('click', function() {
-                            const slideIndex = parseInt(this.getAttribute('data-slide'));
-                            currentCasesSlide = slideIndex;
-                            showCasesSlide(slideIndex);
-                            updateCasesSliderPosition();
-                        });
-                    });
-
-                    // Обработчики для touch-событий
-                    casesSlider.addEventListener('touchstart', casesTouchStart, { passive: true });
-                    casesSlider.addEventListener('touchmove', casesTouchMove, { passive: true });
-                    casesSlider.addEventListener('touchend', casesTouchEnd, { passive: true });
-
-                    // Обработчик изменения слайда при скролле
-                    casesSlider.addEventListener('scroll', function() {
-                        const scrollPosition = casesSlider.scrollTop;
-                        const slideHeight = casesSlider.clientHeight;
-                        const newSlide = Math.round(scrollPosition / slideHeight);
-                        
-                        if (newSlide !== currentCasesSlide) {
-                            currentCasesSlide = newSlide;
-                            showCasesSlide(currentCasesSlide);
-                        }
-                    });
-
-                    // Инициализация
-                    updateCasesSliderPosition();
-                } else {
-                    // Десктоп версия
-                    casesSlides.forEach((slide, index) => {
-                        slide.style.position = 'absolute';
-                        slide.style.opacity = '0';
-                        slide.style.display = 'flex';
-                    });
-
-                    // Обработчики для стрелок
-                    if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
-                    if (casesNextArrow) casesNextArrow.addEventListener('click', nextCasesSlide);
-
-                    // Обработчики для точек
-                    casesDots.forEach(dot => {
-                        dot.addEventListener('click', function() {
-                            const slideIndex = parseInt(this.getAttribute('data-slide'));
-                            showCasesSlide(slideIndex);
-                        });
-                    });
-
-                    // Автоматическая смена слайдов
-                    startCasesSlideInterval();
-
-                    // Остановка при наведении
-                    casesSlider.addEventListener('mouseenter', stopCasesSlideInterval);
-                    casesSlider.addEventListener('mouseleave', startCasesSlideInterval);
-                }
-
-                // Показываем первый слайд
-                showCasesSlide(0);
             }
 
             function startCasesSlideInterval() {
@@ -2330,71 +2016,61 @@
                 }
             }
 
-            // Touch-обработчики для мобильной версии слайдера кейсов
-            function casesTouchStart(e) {
-                if (window.innerWidth > 768) return;
-                
-                isCasesDragging = true;
-                casesStartPos = e.touches[0].clientY;
-                casesCurrentTranslate = casesSlider.scrollTop;
-                casesPrevTranslate = casesCurrentTranslate;
-                casesVelocity = 0;
-                casesLastTime = performance.now();
-                casesLastPosition = casesStartPos;
-                casesSlider.style.scrollBehavior = 'auto';
-            }
-
-            function casesTouchMove(e) {
-                if (window.innerWidth > 768 || !isCasesDragging) return;
-                
-                const currentPosition = e.touches[0].clientY;
-                const diff = currentPosition - casesStartPos;
-                casesSlider.scrollTop = casesPrevTranslate - diff;
-                
-                // Расчет скорости для инерции
-                const time = performance.now();
-                const deltaTime = time - casesLastTime;
-                const deltaPosition = currentPosition - casesLastPosition;
-                
-                if (deltaTime > 0) {
-                    casesVelocity = deltaPosition / deltaTime;
-                }
-                
-                casesLastTime = time;
-                casesLastPosition = currentPosition;
-            }
-
-            function casesTouchEnd() {
-                if (window.innerWidth > 768 || !isCasesDragging) return;
-                isCasesDragging = false;
-                
-                // Применение инерции
-                const momentum = casesVelocity * 100;
-                const slideHeight = casesSlider.clientHeight;
-                let newSlide = Math.round((casesSlider.scrollTop - momentum) / slideHeight);
-                
-                // Ограничиваем индекс слайда
-                newSlide = Math.max(0, Math.min(newSlide, casesSlides.length - 1));
-                
-                if (newSlide !== currentCasesSlide) {
-                    currentCasesSlide = newSlide;
-                    showCasesSlide(newSlide);
-                }
-                
-                updateCasesSliderPosition();
-                casesSlider.style.scrollBehavior = 'smooth';
-            }
-
             // Инициализация слайдера кейсов
-            initCasesSlider();
+            if (isMobile) {
+                casesSlider.style.display = 'flex';
+                casesSlider.style.flexDirection = 'column';
+                casesSlider.style.overflowY = 'auto';
+                casesSlider.style.scrollSnapType = 'y mandatory';
+                casesSlider.style.scrollBehavior = 'smooth';
+                casesSlider.style.WebkitOverflowScrolling = 'touch';
+
+                casesSlides.forEach((slide, index) => {
+                    slide.style.minHeight = '100%';
+                    slide.style.scrollSnapAlign = 'start';
+                    slide.style.opacity = '1';
+                });
+
+                casesMobilePrevArrow.addEventListener('click', prevCasesSlide);
+                casesMobileNextArrow.addEventListener('click', nextCasesSlide);
+
+                casesDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        currentCasesSlide = slideIndex;
+                        showCasesSlide(slideIndex);
+                    });
+                });
+            } else {
+                casesSlides.forEach((slide, index) => {
+                    slide.style.position = 'absolute';
+                    slide.style.opacity = '0';
+                    slide.style.display = 'flex';
+                });
+
+                if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
+                if (casesNextArrow) casesNextArrow.addEventListener('click', nextCasesSlide);
+
+                casesDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        showCasesSlide(slideIndex);
+                    });
+                });
+
+                startCasesSlideInterval();
+                casesSlider.addEventListener('mouseenter', stopCasesSlideInterval);
+                casesSlider.addEventListener('mouseleave', startCasesSlideInterval);
+            }
+
+            showCasesSlide(0);
 
             // Обновление при изменении размера окна
             window.addEventListener('resize', function() {
                 const newIsMobile = window.matchMedia("(max-width: 768px)").matches;
                 if (newIsMobile !== isMobile) {
                     isMobile = newIsMobile;
-                    initTeamSlider();
-                    initCasesSlider();
+                    location.reload();
                 }
             });
         });
