@@ -883,19 +883,20 @@
 
         .case-image {
             width: 30%;
-            max-width: 300px;
+            max-width: 350px;
             height: auto;
-            max-height: 200px;
+            max-height: 250px;
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
             background: rgba(0,0,0,0.5);
             margin: 10px;
+            transform: scale(1.1);
         }
 
         .case-image:hover {
-            transform: scale(1.03);
+            transform: scale(1.15);
         }
 
         .cases-controls {
@@ -1513,10 +1514,16 @@
             }
 
             .case-image {
-                width: 100%;
+                width: 90%;
                 max-width: 350px;
                 height: auto;
-                max-height: 150px;
+                max-height: none;
+                transform: scale(1);
+                margin: 5px 0;
+            }
+
+            .case-image:hover {
+                transform: scale(1.05);
             }
 
             .cases-controls {
