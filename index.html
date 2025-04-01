@@ -1564,16 +1564,20 @@
             .case-image-container {
                 width: 100%;
                 max-width: 350px;
-                height: auto;
-                max-height: 400px;
+                height: 300px;
                 margin: 5px 0;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
             }
 
             .case-image {
                 width: 100%;
-                height: auto;
-                max-height: 100%;
-                object-fit: contain;
+                height: 100%;
+                object-fit: cover;
+                display: block !important;
             }
 
             .cases-controls {
@@ -1743,16 +1747,16 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 4 -->
+                    <!-- Слайд 4 (увеличен в 1.5 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
-                            <div class="case-image-container">
+                            <div class="case-image-container" style="width: 45%; min-width: 450px; max-height: 750px;">
                                 <img src="https://alexenomorf.github.io/comando/photo4.1.jpg" alt="Кейс 4.1" class="case-image">
                             </div>
-                            <div class="case-image-container">
+                            <div class="case-image-container" style="width: 45%; min-width: 450px; max-height: 750px;">
                                 <img src="https://alexenomorf.github.io/comando/photo4.2.jpg" alt="Кейс 4.2" class="case-image">
                             </div>
-                            <div class="case-image-container">
+                            <div class="case-image-container" style="width: 45%; min-width: 450px; max-height: 750px;">
                                 <img src="https://alexenomorf.github.io/comando/photo4.3.jpg" alt="Кейс 4.3" class="case-image">
                             </div>
                         </div>
