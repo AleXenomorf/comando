@@ -895,6 +895,124 @@
             font-weight: 500;
         }
 
+        /* Стили для раздела кейсов */
+        .cases-section {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .cases-slider {
+            width: 100%;
+            max-width: 1200px;
+            height: 80%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cases-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .cases-slide.active {
+            opacity: 1;
+        }
+
+        .cases-images {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .case-image {
+            width: calc(33.333% - 20px);
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .case-image:hover {
+            transform: scale(1.03);
+        }
+
+        .cases-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .cases-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cases-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .cases-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .cases-arrow:hover {
+            background: var(--primary-color);
+        }
+
+        .cases-arrow.prev {
+            left: 20px;
+        }
+
+        .cases-arrow.next {
+            right: 20px;
+        }
+
         /* Мобильная версия */
         @media (max-width: 768px), (orientation: portrait) {
             :root {
@@ -1438,6 +1556,80 @@
                 font-size: 11px;
                 margin-top: 4px;
             }
+
+            /* Мобильная версия слайдера кейсов */
+            .cases-section {
+                padding: 20px 10px;
+                min-height: 100vh;
+            }
+
+            .cases-slider {
+                height: auto;
+                min-height: 70vh;
+            }
+
+            .cases-slide {
+                position: relative;
+                opacity: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px 0;
+                height: auto;
+            }
+
+            .cases-images {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 0 10px;
+            }
+
+            .case-image {
+                width: 100%;
+                max-width: 350px;
+                height: 300px;
+            }
+
+            .cases-controls {
+                position: relative;
+                bottom: auto;
+                margin-top: 20px;
+            }
+
+            .cases-arrow {
+                display: none;
+            }
+
+            .mobile-cases-arrow {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 40px;
+                height: 40px;
+                background: rgba(0,0,0,0.7);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 20;
+                font-size: 20px;
+                color: white;
+                transition: all 0.3s;
+            }
+
+            .mobile-cases-arrow:hover {
+                background: var(--primary-color);
+            }
+
+            .mobile-cases-arrow.prev {
+                left: 5px;
+            }
+
+            .mobile-cases-arrow.next {
+                right: 5px;
+            }
         }
     </style>
 </head>
@@ -1518,12 +1710,60 @@
         </div>
         
         <div class="fourth-image" id="cases">
-            <img src="https://alexenomorf.github.io/comando/cases-bg.jpg" alt="Кейсы">
-            <div class="text-block" id="casesBlock">
-                <div class="text-content">
-                    <h2>Кейсы</h2>
-                    <!-- Контент для кейсов будет добавлен позже -->
+            <div class="cases-section">
+                <div class="cases-slider">
+                    <!-- Слайд 1 -->
+                    <div class="cases-slide active">
+                        <div class="cases-images">
+                            <img src="https://alexenomorf.github.io/comando/photo1.1.jpg" alt="Кейс 1.1" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo1.2.jpg" alt="Кейс 1.2" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo1.3.jpg" alt="Кейс 1.3" class="case-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Слайд 2 -->
+                    <div class="cases-slide">
+                        <div class="cases-images">
+                            <img src="https://alexenomorf.github.io/comando/photo2.1.jpg" alt="Кейс 2.1" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo2.2.jpg" alt="Кейс 2.2" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo2.3.jpg" alt="Кейс 2.3" class="case-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Слайд 3 -->
+                    <div class="cases-slide">
+                        <div class="cases-images">
+                            <img src="https://alexenomorf.github.io/comando/photo3.1.jpg" alt="Кейс 3.1" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo3.2.jpg" alt="Кейс 3.2" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo3.3.jpg" alt="Кейс 3.3" class="case-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Слайд 4 -->
+                    <div class="cases-slide">
+                        <div class="cases-images">
+                            <img src="https://alexenomorf.github.io/comando/photo4.1.jpg" alt="Кейс 4.1" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo4.2.jpg" alt="Кейс 4.2" class="case-image">
+                            <img src="https://alexenomorf.github.io/comando/photo4.3.jpg" alt="Кейс 4.3" class="case-image">
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Стрелки для десктопной версии -->
+                <div class="cases-arrow prev">❮</div>
+                <div class="cases-arrow next">❯</div>
+                
+                <!-- Контролы слайдера -->
+                <div class="cases-controls">
+                    <div class="cases-dot active" data-slide="0"></div>
+                    <div class="cases-dot" data-slide="1"></div>
+                    <div class="cases-dot" data-slide="2"></div>
+                    <div class="cases-dot" data-slide="3"></div>
+                </div>
+                
+                <!-- Мобильные стрелки слайдера -->
+                <div class="mobile-cases-arrow prev">❮</div>
+                <div class="mobile-cases-arrow next">❯</div>
             </div>
         </div>
         
@@ -1658,7 +1898,7 @@
             const textBlocks = [
                 document.getElementById('advantagesBlock'), 
                 document.getElementById('programBlock'),
-                document.getElementById('casesBlock'),
+                document.getElementById('cases'),
                 document.getElementById('team'),
                 document.getElementById('contacts')
             ];
@@ -1719,14 +1959,14 @@
             });
 
             // Слайдер команды
-            const slides = document.querySelectorAll('.team-slide');
-            const dots = document.querySelectorAll('.slider-dot');
-            const prevArrow = document.querySelector('.slider-arrow.prev');
-            const nextArrow = document.querySelector('.slider-arrow.next');
-            const mobilePrevArrow = document.querySelector('.mobile-slider-arrow.prev');
-            const mobileNextArrow = document.querySelector('.mobile-slider-arrow.next');
+            const teamSlides = document.querySelectorAll('.team-slide');
+            const teamDots = document.querySelectorAll('.slider-dot');
+            const teamPrevArrow = document.querySelector('.slider-arrow.prev');
+            const teamNextArrow = document.querySelector('.slider-arrow.next');
+            const teamMobilePrevArrow = document.querySelector('.mobile-slider-arrow.prev');
+            const teamMobileNextArrow = document.querySelector('.mobile-slider-arrow.next');
             const teamSlider = document.querySelector('.team-slider');
-            let currentSlide = 0;
+            let currentTeamSlide = 0;
             let isMobile = window.matchMedia("(max-width: 768px)").matches;
             let isDragging = false;
             let startPos = 0;
@@ -1738,48 +1978,48 @@
             let lastPosition = 0;
             let slideInterval;
 
-            // Функция для показа слайда
-            function showSlide(index) {
-                slides.forEach(slide => {
+            // Функция для показа слайда команды
+            function showTeamSlide(index) {
+                teamSlides.forEach(slide => {
                     slide.classList.remove('active');
                     slide.style.opacity = '0';
                 });
-                dots.forEach(dot => dot.classList.remove('active'));
+                teamDots.forEach(dot => dot.classList.remove('active'));
                 
-                slides[index].classList.add('active');
-                slides[index].style.opacity = '1';
-                dots[index].classList.add('active');
-                currentSlide = index;
+                teamSlides[index].classList.add('active');
+                teamSlides[index].style.opacity = '1';
+                teamDots[index].classList.add('active');
+                currentTeamSlide = index;
             }
 
-            // Функция для следующего слайда
-            function nextSlide() {
-                let newIndex = (currentSlide + 1) % slides.length;
-                showSlide(newIndex);
+            // Функция для следующего слайда команды
+            function nextTeamSlide() {
+                let newIndex = (currentTeamSlide + 1) % teamSlides.length;
+                showTeamSlide(newIndex);
                 if (isMobile) {
-                    updateSliderPosition();
+                    updateTeamSliderPosition();
                 }
             }
 
-            // Функция для предыдущего слайда
-            function prevSlide() {
-                let newIndex = (currentSlide - 1 + slides.length) % slides.length;
-                showSlide(newIndex);
+            // Функция для предыдущего слайда команды
+            function prevTeamSlide() {
+                let newIndex = (currentTeamSlide - 1 + teamSlides.length) % teamSlides.length;
+                showTeamSlide(newIndex);
                 if (isMobile) {
-                    updateSliderPosition();
+                    updateTeamSliderPosition();
                 }
             }
 
-            // Обновление позиции слайдера в мобильной версии
-            function updateSliderPosition() {
+            // Обновление позиции слайдера команды в мобильной версии
+            function updateTeamSliderPosition() {
                 teamSlider.scrollTo({
-                    left: currentSlide * window.innerWidth,
+                    left: currentTeamSlide * window.innerWidth,
                     behavior: 'smooth'
                 });
             }
 
-            // Инициализация слайдера
-            function initSlider() {
+            // Инициализация слайдера команды
+            function initTeamSlider() {
                 if (isMobile) {
                     // Мобильная версия
                     teamSlider.style.display = 'flex';
@@ -1789,23 +2029,23 @@
                     teamSlider.style.scrollBehavior = 'smooth';
                     teamSlider.style.WebkitOverflowScrolling = 'touch';
 
-                    slides.forEach((slide, index) => {
+                    teamSlides.forEach((slide, index) => {
                         slide.style.minWidth = '100%';
                         slide.style.scrollSnapAlign = 'start';
                         slide.style.opacity = '1';
                     });
 
                     // Обработчики для мобильных стрелок
-                    mobilePrevArrow.addEventListener('click', prevSlide);
-                    mobileNextArrow.addEventListener('click', nextSlide);
+                    teamMobilePrevArrow.addEventListener('click', prevTeamSlide);
+                    teamMobileNextArrow.addEventListener('click', nextTeamSlide);
 
                     // Обработчики для точек
-                    dots.forEach(dot => {
+                    teamDots.forEach(dot => {
                         dot.addEventListener('click', function() {
                             const slideIndex = parseInt(this.getAttribute('data-slide'));
-                            currentSlide = slideIndex;
-                            showSlide(slideIndex);
-                            updateSliderPosition();
+                            currentTeamSlide = slideIndex;
+                            showTeamSlide(slideIndex);
+                            updateTeamSliderPosition();
                         });
                     });
 
@@ -1820,52 +2060,52 @@
                         const slideWidth = teamSlider.clientWidth;
                         const newSlide = Math.round(scrollPosition / slideWidth);
                         
-                        if (newSlide !== currentSlide) {
-                            currentSlide = newSlide;
-                            showSlide(currentSlide);
+                        if (newSlide !== currentTeamSlide) {
+                            currentTeamSlide = newSlide;
+                            showTeamSlide(currentTeamSlide);
                         }
                     });
 
                     // Инициализация
-                    updateSliderPosition();
+                    updateTeamSliderPosition();
                 } else {
                     // Десктоп версия
-                    slides.forEach((slide, index) => {
+                    teamSlides.forEach((slide, index) => {
                         slide.style.position = 'absolute';
                         slide.style.opacity = '0';
                         slide.style.display = 'flex';
                     });
 
                     // Обработчики для стрелок
-                    if (prevArrow) prevArrow.addEventListener('click', prevSlide);
-                    if (nextArrow) nextArrow.addEventListener('click', nextSlide);
+                    if (teamPrevArrow) teamPrevArrow.addEventListener('click', prevTeamSlide);
+                    if (teamNextArrow) teamNextArrow.addEventListener('click', nextTeamSlide);
 
                     // Обработчики для точек
-                    dots.forEach(dot => {
+                    teamDots.forEach(dot => {
                         dot.addEventListener('click', function() {
                             const slideIndex = parseInt(this.getAttribute('data-slide'));
-                            showSlide(slideIndex);
+                            showTeamSlide(slideIndex);
                         });
                     });
 
                     // Автоматическая смена слайдов
-                    startSlideInterval();
+                    startTeamSlideInterval();
 
                     // Остановка при наведении
-                    teamSlider.addEventListener('mouseenter', stopSlideInterval);
-                    teamSlider.addEventListener('mouseleave', startSlideInterval);
+                    teamSlider.addEventListener('mouseenter', stopTeamSlideInterval);
+                    teamSlider.addEventListener('mouseleave', startTeamSlideInterval);
                 }
 
                 // Показываем первый слайд
-                showSlide(0);
+                showTeamSlide(0);
             }
 
-            function startSlideInterval() {
-                stopSlideInterval();
-                slideInterval = setInterval(nextSlide, 5000);
+            function startTeamSlideInterval() {
+                stopTeamSlideInterval();
+                slideInterval = setInterval(nextTeamSlide, 5000);
             }
 
-            function stopSlideInterval() {
+            function stopTeamSlideInterval() {
                 if (slideInterval) {
                     clearInterval(slideInterval);
                 }
@@ -1915,26 +2155,237 @@
                 let newSlide = Math.round((teamSlider.scrollLeft - momentum) / slideWidth);
                 
                 // Ограничиваем индекс слайда
-                newSlide = Math.max(0, Math.min(newSlide, slides.length - 1));
+                newSlide = Math.max(0, Math.min(newSlide, teamSlides.length - 1));
                 
-                if (newSlide !== currentSlide) {
-                    currentSlide = newSlide;
-                    showSlide(currentSlide);
+                if (newSlide !== currentTeamSlide) {
+                    currentTeamSlide = newSlide;
+                    showTeamSlide(currentTeamSlide);
                 }
                 
-                updateSliderPosition();
+                updateTeamSliderPosition();
                 teamSlider.style.scrollBehavior = 'smooth';
             }
 
-            // Инициализация слайдера
-            initSlider();
+            // Инициализация слайдера команды
+            initTeamSlider();
+
+            // Слайдер кейсов
+            const casesSlides = document.querySelectorAll('.cases-slide');
+            const casesDots = document.querySelectorAll('.cases-dot');
+            const casesPrevArrow = document.querySelector('.cases-arrow.prev');
+            const casesNextArrow = document.querySelector('.cases-arrow.next');
+            const casesMobilePrevArrow = document.querySelector('.mobile-cases-arrow.prev');
+            const casesMobileNextArrow = document.querySelector('.mobile-cases-arrow.next');
+            const casesSlider = document.querySelector('.cases-slider');
+            let currentCasesSlide = 0;
+            let isCasesDragging = false;
+            let casesStartPos = 0;
+            let casesCurrentTranslate = 0;
+            let casesPrevTranslate = 0;
+            let casesAnimationID = 0;
+            let casesVelocity = 0;
+            let casesLastTime = 0;
+            let casesLastPosition = 0;
+            let casesSlideInterval;
+
+            // Функция для показа слайда кейсов
+            function showCasesSlide(index) {
+                casesSlides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.opacity = '0';
+                });
+                casesDots.forEach(dot => dot.classList.remove('active'));
+                
+                casesSlides[index].classList.add('active');
+                casesSlides[index].style.opacity = '1';
+                casesDots[index].classList.add('active');
+                currentCasesSlide = index;
+            }
+
+            // Функция для следующего слайда кейсов
+            function nextCasesSlide() {
+                let newIndex = (currentCasesSlide + 1) % casesSlides.length;
+                showCasesSlide(newIndex);
+                if (isMobile) {
+                    updateCasesSliderPosition();
+                }
+            }
+
+            // Функция для предыдущего слайда кейсов
+            function prevCasesSlide() {
+                let newIndex = (currentCasesSlide - 1 + casesSlides.length) % casesSlides.length;
+                showCasesSlide(newIndex);
+                if (isMobile) {
+                    updateCasesSliderPosition();
+                }
+            }
+
+            // Обновление позиции слайдера кейсов в мобильной версии
+            function updateCasesSliderPosition() {
+                casesSlider.scrollTo({
+                    left: currentCasesSlide * window.innerWidth,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Инициализация слайдера кейсов
+            function initCasesSlider() {
+                if (isMobile) {
+                    // Мобильная версия
+                    casesSlider.style.display = 'flex';
+                    casesSlider.style.flexDirection = 'column';
+                    casesSlider.style.overflowY = 'auto';
+                    casesSlider.style.scrollSnapType = 'y mandatory';
+                    casesSlider.style.scrollBehavior = 'smooth';
+                    casesSlider.style.WebkitOverflowScrolling = 'touch';
+
+                    casesSlides.forEach((slide, index) => {
+                        slide.style.minHeight = '100%';
+                        slide.style.scrollSnapAlign = 'start';
+                        slide.style.opacity = '1';
+                    });
+
+                    // Обработчики для мобильных стрелок
+                    casesMobilePrevArrow.addEventListener('click', prevCasesSlide);
+                    casesMobileNextArrow.addEventListener('click', nextCasesSlide);
+
+                    // Обработчики для точек
+                    casesDots.forEach(dot => {
+                        dot.addEventListener('click', function() {
+                            const slideIndex = parseInt(this.getAttribute('data-slide'));
+                            currentCasesSlide = slideIndex;
+                            showCasesSlide(slideIndex);
+                            updateCasesSliderPosition();
+                        });
+                    });
+
+                    // Обработчики для touch-событий
+                    casesSlider.addEventListener('touchstart', casesTouchStart, { passive: true });
+                    casesSlider.addEventListener('touchmove', casesTouchMove, { passive: true });
+                    casesSlider.addEventListener('touchend', casesTouchEnd, { passive: true });
+
+                    // Обработчик изменения слайда при скролле
+                    casesSlider.addEventListener('scroll', function() {
+                        const scrollPosition = casesSlider.scrollTop;
+                        const slideHeight = casesSlider.clientHeight;
+                        const newSlide = Math.round(scrollPosition / slideHeight);
+                        
+                        if (newSlide !== currentCasesSlide) {
+                            currentCasesSlide = newSlide;
+                            showCasesSlide(currentCasesSlide);
+                        }
+                    });
+
+                    // Инициализация
+                    updateCasesSliderPosition();
+                } else {
+                    // Десктоп версия
+                    casesSlides.forEach((slide, index) => {
+                        slide.style.position = 'absolute';
+                        slide.style.opacity = '0';
+                        slide.style.display = 'flex';
+                    });
+
+                    // Обработчики для стрелок
+                    if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
+                    if (casesNextArrow) casesNextArrow.addEventListener('click', nextCasesSlide);
+
+                    // Обработчики для точек
+                    casesDots.forEach(dot => {
+                        dot.addEventListener('click', function() {
+                            const slideIndex = parseInt(this.getAttribute('data-slide'));
+                            showCasesSlide(slideIndex);
+                        });
+                    });
+
+                    // Автоматическая смена слайдов
+                    startCasesSlideInterval();
+
+                    // Остановка при наведении
+                    casesSlider.addEventListener('mouseenter', stopCasesSlideInterval);
+                    casesSlider.addEventListener('mouseleave', startCasesSlideInterval);
+                }
+
+                // Показываем первый слайд
+                showCasesSlide(0);
+            }
+
+            function startCasesSlideInterval() {
+                stopCasesSlideInterval();
+                casesSlideInterval = setInterval(nextCasesSlide, 5000);
+            }
+
+            function stopCasesSlideInterval() {
+                if (casesSlideInterval) {
+                    clearInterval(casesSlideInterval);
+                }
+            }
+
+            // Touch-обработчики для мобильной версии слайдера кейсов
+            function casesTouchStart(e) {
+                if (window.innerWidth > 768) return;
+                
+                isCasesDragging = true;
+                casesStartPos = e.touches[0].clientY;
+                casesCurrentTranslate = casesSlider.scrollTop;
+                casesPrevTranslate = casesCurrentTranslate;
+                casesVelocity = 0;
+                casesLastTime = performance.now();
+                casesLastPosition = casesStartPos;
+                casesSlider.style.scrollBehavior = 'auto';
+            }
+
+            function casesTouchMove(e) {
+                if (window.innerWidth > 768 || !isCasesDragging) return;
+                
+                const currentPosition = e.touches[0].clientY;
+                const diff = currentPosition - casesStartPos;
+                casesSlider.scrollTop = casesPrevTranslate - diff;
+                
+                // Расчет скорости для инерции
+                const time = performance.now();
+                const deltaTime = time - casesLastTime;
+                const deltaPosition = currentPosition - casesLastPosition;
+                
+                if (deltaTime > 0) {
+                    casesVelocity = deltaPosition / deltaTime;
+                }
+                
+                casesLastTime = time;
+                casesLastPosition = currentPosition;
+            }
+
+            function casesTouchEnd() {
+                if (window.innerWidth > 768 || !isCasesDragging) return;
+                isCasesDragging = false;
+                
+                // Применение инерции
+                const momentum = casesVelocity * 100;
+                const slideHeight = casesSlider.clientHeight;
+                let newSlide = Math.round((casesSlider.scrollTop - momentum) / slideHeight);
+                
+                // Ограничиваем индекс слайда
+                newSlide = Math.max(0, Math.min(newSlide, casesSlides.length - 1));
+                
+                if (newSlide !== currentCasesSlide) {
+                    currentCasesSlide = newSlide;
+                    showCasesSlide(currentCasesSlide);
+                }
+                
+                updateCasesSliderPosition();
+                casesSlider.style.scrollBehavior = 'smooth';
+            }
+
+            // Инициализация слайдера кейсов
+            initCasesSlider();
 
             // Обновление при изменении размера окна
             window.addEventListener('resize', function() {
                 const newIsMobile = window.matchMedia("(max-width: 768px)").matches;
                 if (newIsMobile !== isMobile) {
                     isMobile = newIsMobile;
-                    initSlider();
+                    initTeamSlider();
+                    initCasesSlider();
                 }
             });
         });
