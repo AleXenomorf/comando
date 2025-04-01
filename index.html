@@ -838,9 +838,9 @@
                 url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            padding: 20px;
+            padding: 120px 20px 20px;
             box-sizing: border-box;
         }
 
@@ -1620,6 +1620,11 @@
             .mobile-cases-arrow.next {
                 right: 5px;
             }
+            
+            /* Убираем 4 слайд в мобильной версии */
+            .cases-slide:nth-child(4) {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -1747,7 +1752,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 4 (увеличен в 1.5 раза) -->
+                    <!-- Слайд 4 (увеличен в 1.5 раза) - только для десктопа -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container" style="width: 45%; min-width: 450px; max-height: 750px;">
@@ -1755,9 +1760,6 @@
                             </div>
                             <div class="case-image-container" style="width: 45%; min-width: 450px; max-height: 750px;">
                                 <img src="https://alexenomorf.github.io/comando/photo4.2.jpg" alt="Кейс 4.2" class="case-image">
-                            </div>
-                            <div class="case-image-container" style="width: 45%; min-width: 450px; max-height: 750px;">
-                                <img src="https://alexenomorf.github.io/comando/photo4.3.jpg" alt="Кейс 4.3" class="case-image">
                             </div>
                         </div>
                     </div>
@@ -2090,11 +2092,19 @@
 
             function nextCasesSlide() {
                 let newIndex = (currentCasesSlide + 1) % casesSlides.length;
+                // Пропускаем 4 слайд в мобильной версии
+                if (isMobile && newIndex === 3) {
+                    newIndex = 0;
+                }
                 showCasesSlide(newIndex);
             }
 
             function prevCasesSlide() {
                 let newIndex = (currentCasesSlide - 1 + casesSlides.length) % casesSlides.length;
+                // Пропускаем 4 слайд в мобильной версии
+                if (isMobile && newIndex === 3) {
+                    newIndex = 2;
+                }
                 showCasesSlide(newIndex);
             }
 
@@ -2130,6 +2140,8 @@
                 casesDots.forEach(dot => {
                     dot.addEventListener('click', function() {
                         const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        // Пропускаем 4 слайд в мобильной версии
+                        if (slideIndex === 3) return;
                         currentCasesSlide = slideIndex;
                         showCasesSlide(slideIndex);
                     });
