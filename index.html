@@ -882,20 +882,21 @@
         }
 
         .case-image {
-            width: 100%;
-            max-width: 100%;
+            width: 30%;
+            max-width: 350px;
             height: auto;
-            max-height: none;
+            max-height: 250px;
             object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             transition: transform 0.3s ease;
             background: rgba(0,0,0,0.5);
             margin: 10px;
+            transform: scale(1.1);
         }
 
         .case-image:hover {
-            transform: scale(1.05);
+            transform: scale(1.15);
         }
 
         .cases-controls {
@@ -1517,15 +1518,12 @@
                 max-width: 350px;
                 height: auto;
                 max-height: none;
-                object-fit: contain;
+                transform: scale(1);
                 margin: 5px 0;
-                border-radius: 8px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-                background: rgba(0,0,0,0.5);
             }
 
             .case-image:hover {
-                transform: scale(1.03);
+                transform: scale(1.05);
             }
 
             .cases-controls {
