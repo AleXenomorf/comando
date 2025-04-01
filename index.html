@@ -844,12 +844,29 @@
             box-sizing: border-box;
         }
 
+        .cases-title {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: var(--text-shadow);
+            z-index: 10;
+        }
+
         .cases-slider {
             width: 100%;
             max-width: 1200px;
-            height: 80%;
+            height: calc(100% - 80px);
             position: relative;
             overflow: hidden;
+            margin-top: 60px;
         }
 
         .cases-slide {
@@ -858,24 +875,26 @@
             left: 0;
             width: 100%;
             height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            transition: opacity 0.5s ease;
         }
 
         .cases-slide.active {
             opacity: 1;
+            z-index: 1;
         }
 
         .cases-images {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             width: 100%;
+            height: 100%;
             padding: 0 20px;
             box-sizing: border-box;
             flex-wrap: wrap;
@@ -883,22 +902,22 @@
 
         .case-image-container {
             width: 30%;
-            max-width: 350px;
-            height: 250px;
+            min-width: 300px;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            margin: 10px;
+            margin: 0;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             background: rgba(0,0,0,0.5);
         }
 
         .case-image {
-            width: auto;
+            width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
@@ -1496,21 +1515,39 @@
             .cases-section {
                 padding: 20px 10px;
                 min-height: 100vh;
+                position: relative;
+            }
+
+            .cases-title {
+                position: relative;
+                top: auto;
+                margin-top: 0;
+                font-size: 28px;
+                padding: 0 15px 20px;
             }
 
             .cases-slider {
                 height: auto;
                 min-height: 70vh;
+                margin-top: 20px;
+                padding-bottom: 60px;
             }
 
             .cases-slide {
                 position: relative;
-                opacity: 1;
+                min-width: 100%;
+                height: auto;
+                min-height: auto;
+                padding: 0 15px;
                 display: flex;
                 flex-direction: column;
-                gap: 15px;
-                padding: 20px 0;
-                height: auto;
+                align-items: center;
+                justify-content: flex-start;
+                scroll-snap-align: start;
+                transform: none !important;
+                transition: none;
+                box-sizing: border-box;
+                opacity: 1 !important;
             }
 
             .cases-images {
@@ -1518,24 +1555,28 @@
                 align-items: center;
                 gap: 15px;
                 padding: 0 10px;
+                width: 100%;
+                height: auto;
             }
 
             .case-image-container {
-                width: 90%;
+                width: 100%;
                 max-width: 350px;
-                height: 200px;
+                height: 300px;
                 margin: 5px 0;
             }
 
             .case-image {
-                width: auto;
+                width: 100%;
                 height: 100%;
+                object-fit: cover;
             }
 
             .cases-controls {
                 position: relative;
                 bottom: auto;
                 margin-top: 20px;
+                margin-bottom: 20px;
             }
 
             .cases-arrow {
@@ -1651,6 +1692,7 @@
         
         <div class="fourth-image" id="cases">
             <div class="cases-section">
+                <h2 class="cases-title">Наши кейсы</h2>
                 <div class="cases-slider">
                     <!-- Слайд 1 -->
                     <div class="cases-slide active">
@@ -2062,14 +2104,14 @@
             // Инициализация слайдера кейсов
             if (isMobile) {
                 casesSlider.style.display = 'flex';
-                casesSlider.style.flexDirection = 'column';
-                casesSlider.style.overflowY = 'auto';
-                casesSlider.style.scrollSnapType = 'y mandatory';
+                casesSlider.style.flexDirection = 'row';
+                casesSlider.style.overflowX = 'auto';
+                casesSlider.style.scrollSnapType = 'x mandatory';
                 casesSlider.style.scrollBehavior = 'smooth';
                 casesSlider.style.WebkitOverflowScrolling = 'touch';
 
                 casesSlides.forEach((slide, index) => {
-                    slide.style.minHeight = '100%';
+                    slide.style.minWidth = '100%';
                     slide.style.scrollSnapAlign = 'start';
                     slide.style.opacity = '1';
                 });
