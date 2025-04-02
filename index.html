@@ -235,7 +235,7 @@
             position: absolute;
             left: 50%;
             top: 0;
-            transform-origin: 50% calc(clamp(50px, 5vw, 75px));
+            transform-origin: 50% calc(clamp(50px, 5vw, 75px);
             color: white;
             font-size: clamp(12px, 1vw, 16px);
             font-weight: bold;
@@ -1623,6 +1623,12 @@
                 -webkit-overflow-scrolling: touch;
             }
 
+            /* Скрытие 4 и 8 слайдов для мобильной версии */
+            .cases-slide:nth-child(4),
+            .cases-slide:nth-child(8) {
+                display: none !important;
+            }
+
             /* Центрирование для 5-го слайда в мобильной версии */
             .cases-slide:nth-child(5) .cases-images {
                 justify-content: center;
@@ -1643,28 +1649,12 @@
                 scroll-snap-align: center;
             }
 
-            /* Стили для 4-го слайда в мобильной версии (горизонтальный скролл) */
-            .cases-slide:nth-child(4) .case-image-container {
-                width: 95%;
-                min-width: 320px;
-                height: 500px;
-                margin: 0 10px;
-            }
-
             /* Стили для 5-го слайда в мобильной версии (уменьшен на 20%) */
             .cases-slide:nth-child(5) .case-image-container {
                 width: 80%;
                 min-width: 280px;
                 height: 500px;
                 margin: 0 auto;
-            }
-
-            /* Стили для 8-го слайда в мобильной версии (горизонтальный скролл) */
-            .cases-slide:nth-child(8) .case-image-container {
-                width: 95%;
-                min-width: 320px;
-                height: 500px;
-                margin: 0 10px;
             }
 
             .case-image {
@@ -1683,6 +1673,12 @@
                 justify-content: center;
                 gap: 10px;
                 width: 100%;
+            }
+
+            /* Скрытие точек для скрытых слайдов */
+            .cases-dot[data-slide="3"],
+            .cases-dot[data-slide="7"] {
+                display: none !important;
             }
 
             .cases-arrow {
@@ -2258,6 +2254,16 @@
 
             // Инициализация слайдера кейсов
             if (isMobile) {
+                // Скрываем 4 и 8 слайды для мобильной версии
+                document.querySelectorAll('.cases-slide:nth-child(4), .cases-slide:nth-child(8)').forEach(slide => {
+                    slide.style.display = 'none';
+                });
+                
+                // Скрываем соответствующие точки
+                document.querySelectorAll('.cases-dot[data-slide="3"], .cases-dot[data-slide="7"]').forEach(dot => {
+                    dot.style.display = 'none';
+                });
+
                 casesSlides.forEach((slide, index) => {
                     slide.style.position = 'absolute';
                     slide.style.opacity = '0';
@@ -2270,10 +2276,12 @@
                 casesMobileNextArrow.addEventListener('click', nextCasesSlide);
 
                 casesDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        showCasesSlide(slideIndex);
-                    });
+                    if (dot.style.display !== 'none') {
+                        dot.addEventListener('click', function() {
+                            const slideIndex = parseInt(this.getAttribute('data-slide'));
+                            showCasesSlide(slideIndex);
+                        });
+                    }
                 });
             } else {
                 casesSlides.forEach((slide, index) => {
