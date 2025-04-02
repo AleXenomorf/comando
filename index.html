@@ -134,11 +134,10 @@
         .third-image img,
         .fourth-image img,
         .fifth-image img {
-            width: 150%; /* Увеличение в 1.5 раза */
+            width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transform: translateX(-16.66%); /* Центрирование увеличенного изображения */
         }
 
         .text-block {
@@ -922,17 +921,26 @@
             background: rgba(0,0,0,0.5);
         }
 
+        /* Увеличенные размеры для слайдов 2, 3, 4 и 6 */
+        .cases-slide:nth-child(2) .case-image-container,
+        .cases-slide:nth-child(3) .case-image-container,
+        .cases-slide:nth-child(4) .case-image-container,
+        .cases-slide:nth-child(6) .case-image-container {
+            width: 60%;
+            min-width: 600px;
+            max-height: 800px;
+        }
+
         .case-image {
             width: 150%;
             height: auto;
             max-height: 100%;
             object-fit: contain;
             transition: transform 0.3s ease;
-            transform: translateX(-16.66%); /* Центрирование увеличенного изображения */
         }
 
         .case-image-container:hover .case-image {
-            transform: scale(1.05) translateX(-16.66%);
+            transform: scale(1.05);
         }
 
         .cases-controls {
@@ -1740,7 +1748,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 2 -->
+                    <!-- Слайд 2 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1755,7 +1763,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 3 -->
+                    <!-- Слайд 3 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1770,7 +1778,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 4 -->
+                    <!-- Слайд 4 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1791,7 +1799,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 6 -->
+                    <!-- Слайд 6 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
