@@ -917,6 +917,11 @@
             padding-left: 20px;
         }
 
+        /* Центрирование для 5-го слайда */
+        .cases-slide:nth-child(5) .cases-images {
+            justify-content: center;
+        }
+
         .case-image-container {
             width: 30%;
             min-width: 300px;
@@ -942,6 +947,14 @@
             width: 45%;
             min-width: 400px;
             max-height: 600px;
+        }
+
+        /* Стили для 5-го слайда */
+        .cases-slide:nth-child(5) .case-image-container {
+            width: 60%;
+            min-width: 500px;
+            max-height: 700px;
+            margin: 0 auto;
         }
 
         .case-image {
@@ -1603,10 +1616,15 @@
                 -webkit-overflow-scrolling: touch;
             }
 
+            /* Центрирование для 5-го слайда в мобильной версии */
+            .cases-slide:nth-child(5) .cases-images {
+                justify-content: center;
+            }
+
             .case-image-container {
-                width: 80%;
-                min-width: 250px;
-                height: 300px;
+                width: 90%;
+                min-width: 280px;
+                height: 400px;
                 margin: 5px 10px;
                 background: rgba(0,0,0,0.5);
                 display: flex;
@@ -1617,10 +1635,18 @@
                 scroll-snap-align: center;
             }
 
+            /* Стили для 5-го слайда в мобильной версии */
+            .cases-slide:nth-child(5) .case-image-container {
+                width: 90%;
+                min-width: 280px;
+                height: 500px;
+                margin: 0 auto;
+            }
+
             .case-image {
                 width: 100%;
                 height: 100%;
-                object-fit: cover;
+                object-fit: contain;
                 display: block !important;
             }
 
@@ -1807,7 +1833,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 5 -->
+                    <!-- Слайд 5 (центрированный) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
