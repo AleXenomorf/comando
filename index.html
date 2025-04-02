@@ -910,11 +910,8 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Горизонтальное расположение для слайдов 2, 3, 4 и 6 */
-        .cases-slide:nth-child(2) .cases-images,
-        .cases-slide:nth-child(3) .cases-images,
-        .cases-slide:nth-child(4) .cases-images,
-        .cases-slide:nth-child(6) .cases-images {
+        /* Горизонтальное расположение для слайдов 1, 2, 3, 4, 6 и 7 */
+        .cases-slide .cases-images {
             flex-direction: row;
             justify-content: flex-start;
             padding-left: 20px;
@@ -1593,33 +1590,37 @@
 
             .cases-images {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
                 gap: 15px;
                 width: 100%;
                 height: calc(100% - 60px);
                 padding: 0 10px;
                 box-sizing: border-box;
-                overflow-y: auto;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
             }
 
             .case-image-container {
-                width: 100%;
-                max-width: 350px;
-                height: auto;
-                min-height: 250px;
-                margin: 5px 0;
+                width: 80%;
+                min-width: 250px;
+                height: 300px;
+                margin: 5px 10px;
                 background: rgba(0,0,0,0.5);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 overflow: hidden;
+                flex-shrink: 0;
+                scroll-snap-align: center;
             }
 
             .case-image {
                 width: 100%;
-                height: auto;
-                object-fit: contain;
+                height: 100%;
+                object-fit: cover;
                 display: block !important;
             }
 
