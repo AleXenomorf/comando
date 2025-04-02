@@ -896,37 +896,23 @@
 
         .cases-images {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            gap: 10px;
+            gap: 20px;
             width: 100%;
             height: calc(100% - 60px);
             padding: 0 20px;
             box-sizing: border-box;
-            flex-wrap: nowrap;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Горизонтальное расположение для слайдов 1, 2, 3, 4, 6 и 7 */
-        .cases-slide .cases-images {
-            flex-direction: row;
-            justify-content: flex-start;
-            padding-left: 20px;
-        }
-
-        /* Центрирование для 5-го слайда */
-        .cases-slide:nth-child(5) .cases-images {
-            justify-content: center;
-        }
-
         .case-image-container {
             width: 30%;
             min-width: 300px;
-            height: auto;
-            max-height: 500px;
+            height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -939,29 +925,35 @@
             flex-shrink: 0;
         }
 
-        /* Увеличенные размеры для слайдов 2, 3, 4 и 6 */
+        /* Стили для слайдов 2, 3, 4 и 6 */
         .cases-slide:nth-child(2) .case-image-container,
         .cases-slide:nth-child(3) .case-image-container,
         .cases-slide:nth-child(4) .case-image-container,
         .cases-slide:nth-child(6) .case-image-container {
             width: 45%;
             min-width: 400px;
-            max-height: 600px;
+            height: 600px;
         }
 
-        /* Стили для 5-го слайда */
+        /* Стили для 5-го слайда (теперь такого же размера как 1 слайд) */
         .cases-slide:nth-child(5) .case-image-container {
-            width: 5%;
-            min-width: 500px;
-            max-height: 700px;
-            margin: 0 auto;
+            width: 30%;
+            min-width: 300px;
+            height: 500px;
+            margin: 0;
+        }
+
+        /* Стили для 8-го слайда (как 4 слайд) */
+        .cases-slide:nth-child(8) .case-image-container {
+            width: 45%;
+            min-width: 400px;
+            height: 600px;
         }
 
         .case-image {
             width: 100%;
-            height: auto;
-            max-height: 100%;
-            object-fit: contain;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
@@ -1833,7 +1825,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 5 (центрированный) -->
+                    <!-- Слайд 5 (теперь такого же размера как 1 слайд) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1865,6 +1857,21 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Новый слайд 8 (как 4 слайд) -->
+                    <div class="cases-slide">
+                        <div class="cases-images">
+                            <div class="case-image-container">
+                                <img src="https://alexenomorf.github.io/comando/8.1.jpg" alt="Кейс 8.1" class="case-image">
+                            </div>
+                            <div class="case-image-container">
+                                <img src="https://alexenomorf.github.io/comando/8.2.jpg" alt="Кейс 8.2" class="case-image">
+                            </div>
+                            <div class="case-image-container">
+                                <img src="https://alexenomorf.github.io/comando/8.3.jpg" alt="Кейс 8.3" class="case-image">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Стрелки для десктопной версии -->
@@ -1880,6 +1887,7 @@
                     <div class="cases-dot" data-slide="4"></div>
                     <div class="cases-dot" data-slide="5"></div>
                     <div class="cases-dot" data-slide="6"></div>
+                    <div class="cases-dot" data-slide="7"></div>
                 </div>
                 
                 <!-- Мобильные стрелки слайдера -->
