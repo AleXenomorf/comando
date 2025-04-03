@@ -951,15 +951,22 @@
 
         /* Стили для 5-го слайда - измененные пропорции */
         .cases-slide:nth-child(5) .case-image-container {
-            width: 50%;
-            min-width: 500px;
-            max-height: 700px;
-            margin: 0 auto;
+            width: 60%;
+            min-width: 400px;
+            max-width: 600px;
             height: auto;
+            max-height: 80vh;
+            margin: 0 auto;
             aspect-ratio: 3/4;
         }
 
-        /* Стили для 8-го слайда (как 4-й слайд) */
+        .cases-slide:nth-child(5) .case-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Стили для 8-го слайда (новый слайд) */
         .cases-slide:nth-child(8) .case-image-container {
             width: 45%;
             min-width: 400px;
@@ -1645,28 +1652,21 @@
                 scroll-snap-align: center;
             }
 
-            /* Стили для 4-го слайда в мобильной версии (горизонтальный скролл) */
-            .cases-slide:nth-child(4) .case-image-container {
-                width: 95%;
-                min-width: 320px;
-                height: 500px;
-                margin: 0 10px;
-            }
-
-            /* Стили для 5-го слайда в мобильной версии (уменьшен на 20%) */
-            .cases-slide:nth-child(5) .case-image-container {
-                width: 80%;
-                min-width: 280px;
-                height: 500px;
-                margin: 0 auto;
-            }
-
-            /* Стили для 8-го слайда в мобильной версии (горизонтальный скролл) */
+            /* Широкие контейнеры для 4-го и 8-го слайдов в мобильной версии */
+            .cases-slide:nth-child(4) .case-image-container,
             .cases-slide:nth-child(8) .case-image-container {
                 width: 95%;
-                min-width: 320px;
+                min-width: 350px;
                 height: 500px;
                 margin: 0 10px;
+            }
+
+            /* Стили для 5-го слайда в мобильной версии */
+            .cases-slide:nth-child(5) .case-image-container {
+                width: 95%;
+                min-width: 320px;
+                height: 500px;
+                margin: 0 auto;
             }
 
             .case-image {
