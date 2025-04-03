@@ -917,11 +917,6 @@
             padding-left: 20px;
         }
 
-        /* Центрирование для 5-го слайда */
-        .cases-slide:nth-child(5) .cases-images {
-            justify-content: center;
-        }
-
         .case-image-container {
             width: 30%;
             min-width: 300px;
@@ -944,35 +939,6 @@
         .cases-slide:nth-child(3) .case-image-container,
         .cases-slide:nth-child(4) .case-image-container,
         .cases-slide:nth-child(6) .case-image-container {
-            width: 45%;
-            min-width: 400px;
-            max-height: 600px;
-        }
-
-        /* Стили для 5-го слайда - измененные пропорции */
-        .cases-slide:nth-child(5) .case-image-container {
-            width: 60%;
-            min-width: 400px;
-            max-width: 600px;
-            height: auto;
-            max-height: none;
-            margin: 0 auto;
-            aspect-ratio: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cases-slide:nth-child(5) .case-image {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-        }
-
-        /* Стили для 8-го слайда (новый слайд) */
-        .cases-slide:nth-child(8) .case-image-container {
             width: 45%;
             min-width: 400px;
             max-height: 600px;
@@ -1211,9 +1177,9 @@
 
             .text-block p {
                 font-size: 14px;
-                line-height: 1.5;
-                margin-bottom: 12px;
                 text-align: center;
+                margin-bottom: 12px;
+                line-height: 1.5;
                 transform: none;
                 opacity: 1;
                 padding: 0 5px;
@@ -1637,12 +1603,6 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            /* Центрирование для 5-го слайда в мобильной версии */
-            .cases-slide:nth-child(5) .cases-images {
-                justify-content: center;
-            }
-
-            /* Увеличенные контейнеры для мобильной версии */
             .case-image-container {
                 width: 95%;
                 min-width: 320px;
@@ -1666,15 +1626,6 @@
                 height: auto;
                 max-height: none;
                 margin: 0 10px;
-            }
-
-            /* Стили для 5-го слайда в мобильной версии */
-            .cases-slide:nth-child(5) .case-image-container {
-                width: 95%;
-                min-width: 320px;
-                height: auto;
-                max-height: none;
-                margin: 0 auto;
             }
 
             .case-image {
@@ -1868,15 +1819,6 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 5 (центрированный) -->
-                    <div class="cases-slide">
-                        <div class="cases-images">
-                            <div class="case-image-container">
-                                <img src="https://alexenomorf.github.io/comando/5.1.jpg" alt="Кейс 5" class="case-image">
-                            </div>
-                        </div>
-                    </div>
-                    
                     <!-- Слайд 6 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
@@ -1930,7 +1872,6 @@
                     <div class="cases-dot" data-slide="4"></div>
                     <div class="cases-dot" data-slide="5"></div>
                     <div class="cases-dot" data-slide="6"></div>
-                    <div class="cases-dot" data-slide="7"></div>
                 </div>
                 
                 <!-- Мобильные стрелки слайдера -->
