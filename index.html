@@ -955,14 +955,15 @@
             min-width: 400px;
             max-width: 600px;
             height: auto;
-            max-height: 80vh;
+            max-height: none;
             margin: 0 auto;
-            aspect-ratio: 3/4;
+            aspect-ratio: auto;
         }
 
         .cases-slide:nth-child(5) .case-image {
             width: 100%;
-            height: 100%;
+            height: auto;
+            max-height: 80vh;
             object-fit: contain;
         }
 
@@ -1641,7 +1642,8 @@
             .case-image-container {
                 width: 95%;
                 min-width: 320px;
-                height: 500px;
+                height: auto;
+                max-height: none;
                 margin: 5px 10px;
                 background: rgba(0,0,0,0.5);
                 display: flex;
@@ -1657,7 +1659,8 @@
             .cases-slide:nth-child(8) .case-image-container {
                 width: 95%;
                 min-width: 350px;
-                height: 500px;
+                height: auto;
+                max-height: none;
                 margin: 0 10px;
             }
 
@@ -1665,13 +1668,15 @@
             .cases-slide:nth-child(5) .case-image-container {
                 width: 95%;
                 min-width: 320px;
-                height: 500px;
+                height: auto;
+                max-height: none;
                 margin: 0 auto;
             }
 
             .case-image {
                 width: 100%;
-                height: 100%;
+                height: auto;
+                max-height: 100%;
                 object-fit: contain;
                 display: block !important;
             }
