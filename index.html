@@ -239,7 +239,7 @@
             color: white;
             font-size: clamp(12px, 1vw, 16px);
             font-weight: bold;
-            height: calc(clamp(50px, 5vw, 75px);
+            height: calc(clamp(50px, 5vw, 75px));
             width: clamp(12px, 1vw, 15px);
             text-align: center;
             line-height: 1;
@@ -1732,13 +1732,6 @@
             .cases-slide:nth-child(5) {
                 display: none !important;
             }
-            
-            /* Перенумеруем точки управления слайдером */
-            .cases-dot[data-slide="5"],
-            .cases-dot[data-slide="6"],
-            .cases-dot[data-slide="7"] {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -2297,15 +2290,10 @@
                     });
                 });
             } else {
-                // Для десктопной версии скрываем 5-й слайд
-                casesSlides[4].style.display = 'none';
-                
                 casesSlides.forEach((slide, index) => {
-                    if (index !== 4) { // Пропускаем 5-й слайд (индекс 4)
-                        slide.style.position = 'absolute';
-                        slide.style.opacity = '0';
-                        slide.style.display = 'flex';
-                    }
+                    slide.style.position = 'absolute';
+                    slide.style.opacity = '0';
+                    slide.style.display = 'flex';
                 });
 
                 if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
