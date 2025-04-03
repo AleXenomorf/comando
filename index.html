@@ -921,6 +921,7 @@
         .cases-slide:nth-child(5) .cases-images {
             justify-content: center;
             overflow: visible;
+            padding-top: 50px; /* Добавлено для смещения фото вниз */
         }
 
         .case-image-container {
@@ -940,11 +941,12 @@
             flex-shrink: 0;
         }
 
-        /* Увеличенные размеры для слайдов 2, 3, 4 и 6 */
+        /* Увеличенные размеры для слайдов 2, 3, 4, 6 и 8 */
         .cases-slide:nth-child(2) .case-image-container,
         .cases-slide:nth-child(3) .case-image-container,
         .cases-slide:nth-child(4) .case-image-container,
-        .cases-slide:nth-child(6) .case-image-container {
+        .cases-slide:nth-child(6) .case-image-container,
+        .cases-slide:nth-child(8) .case-image-container {
             width: 45%;
             min-width: 400px;
             max-height: 600px;
@@ -1913,7 +1915,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 8 (новый слайд) -->
+                    <!-- Слайд 8 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
