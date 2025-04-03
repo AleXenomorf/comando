@@ -917,8 +917,8 @@
             padding-left: 20px;
         }
 
-        /* Центрирование для 7-го слайда */
-        .cases-slide:nth-child(7) .cases-images {
+        /* Центрирование для 5-го слайда */
+        .cases-slide:nth-child(5) .cases-images {
             justify-content: center;
         }
 
@@ -949,7 +949,25 @@
             max-height: 600px;
         }
 
-        /* Стили для 7-го слайда - центрированный */
+        /* Стили для 5-го слайда - измененные пропорции */
+        .cases-slide:nth-child(5) .case-image-container {
+            width: 60%;
+            min-width: 400px;
+            max-width: 600px;
+            height: auto;
+            max-height: none;
+            margin: 0 auto;
+            aspect-ratio: auto;
+        }
+
+        .cases-slide:nth-child(5) .case-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        /* Стили для 7-го слайда (центрированный) */
         .cases-slide:nth-child(7) .case-image-container {
             width: 60%;
             min-width: 400px;
@@ -1626,6 +1644,12 @@
                 -webkit-overflow-scrolling: touch;
             }
 
+            /* Центрирование для 5-го слайда в мобильной версии */
+            .cases-slide:nth-child(5) .cases-images {
+                justify-content: center;
+            }
+
+            /* Увеличенные контейнеры для мобильной версии */
             .case-image-container {
                 width: 95%;
                 min-width: 320px;
@@ -1641,8 +1665,9 @@
                 scroll-snap-align: center;
             }
 
-            /* Широкие контейнеры для 4-го слайда в мобильной версии */
-            .cases-slide:nth-child(4) .case-image-container {
+            /* Широкие контейнеры для 4-го и 8-го слайдов в мобильной версии */
+            .cases-slide:nth-child(4) .case-image-container,
+            .cases-slide:nth-child(8) .case-image-container {
                 width: 95%;
                 min-width: 350px;
                 height: auto;
@@ -1650,8 +1675,8 @@
                 margin: 0 10px;
             }
 
-            /* Стили для 7-го слайда в мобильной версии */
-            .cases-slide:nth-child(7) .case-image-container {
+            /* Стили для 5-го слайда в мобильной версии */
+            .cases-slide:nth-child(5) .case-image-container {
                 width: 95%;
                 min-width: 320px;
                 height: auto;
@@ -1710,13 +1735,6 @@
 
             .mobile-cases-arrow.next {
                 right: 5px;
-            }
-        }
-
-        /* Скрываем 5-й слайд только для десктопной версии */
-        @media (min-width: 769px) {
-            .cases-slide:nth-child(5) {
-                display: none !important;
             }
         }
     </style>
@@ -1857,7 +1875,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 5 (центрированный) - только для мобильной версии -->
+                    <!-- Слайд 5 (центрированный) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1916,6 +1934,7 @@
                     <div class="cases-dot" data-slide="1"></div>
                     <div class="cases-dot" data-slide="2"></div>
                     <div class="cases-dot" data-slide="3"></div>
+                    <div class="cases-dot" data-slide="4"></div>
                     <div class="cases-dot" data-slide="5"></div>
                     <div class="cases-dot" data-slide="6"></div>
                     <div class="cases-dot" data-slide="7"></div>
@@ -2221,14 +2240,6 @@
             let currentCasesSlide = 0;
             let casesSlideInterval;
 
-            // Удаление 5-го слайда для десктопной версии
-            if (!isMobile) {
-                const fifthSlide = document.querySelector('.cases-slide:nth-child(5)');
-                if (fifthSlide) {
-                    fifthSlide.remove();
-                }
-            }
-
             function showCasesSlide(index) {
                 casesSlides.forEach(slide => {
                     slide.classList.remove('active');
@@ -2236,28 +2247,19 @@
                 });
                 casesDots.forEach(dot => dot.classList.remove('active'));
                 
-                // Пропускаем 5-й слайд в десктопной версии
-                let adjustedIndex = index;
-                if (!isMobile && index >= 5) {
-                    adjustedIndex = index + 1;
-                }
-                
-                if (casesSlides[adjustedIndex]) {
-                    casesSlides[adjustedIndex].classList.add('active');
-                    casesSlides[adjustedIndex].style.opacity = '1';
-                }
-                
+                casesSlides[index].classList.add('active');
+                casesSlides[index].style.opacity = '1';
                 casesDots[index].classList.add('active');
                 currentCasesSlide = index;
             }
 
             function nextCasesSlide() {
-                let newIndex = (currentCasesSlide + 1) % (isMobile ? casesSlides.length : casesSlides.length - 1);
+                let newIndex = (currentCasesSlide + 1) % casesSlides.length;
                 showCasesSlide(newIndex);
             }
 
             function prevCasesSlide() {
-                let newIndex = (currentCasesSlide - 1 + (isMobile ? casesSlides.length : casesSlides.length - 1)) % (isMobile ? casesSlides.length : casesSlides.length - 1);
+                let newIndex = (currentCasesSlide - 1 + casesSlides.length) % casesSlides.length;
                 showCasesSlide(newIndex);
             }
 
