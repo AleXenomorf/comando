@@ -1011,11 +1011,6 @@
             right: 20px;
         }
 
-        /* Скрываем 5-й слайд (индекс 4) в десктопной версии */
-        .cases-slide:nth-child(5) {
-            display: none;
-        }
-
         @media (max-width: 768px), (orientation: portrait) {
             :root {
                 --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -1685,11 +1680,6 @@
             .mobile-cases-arrow.next {
                 right: 5px;
             }
-
-            /* Показываем 5-й слайд (индекс 4) только в мобильной версии */
-            .cases-slide:nth-child(5) {
-                display: flex;
-            }
         }
     </style>
 </head>
@@ -1829,7 +1819,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 5 (только для мобильной версии) -->
+                    <!-- Слайд 6 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1841,7 +1831,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 6 -->
+                    <!-- Слайд 7 -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1853,7 +1843,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 7 -->
+                    <!-- Слайд 8 (новый слайд) -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -1879,6 +1869,7 @@
                     <div class="cases-dot" data-slide="1"></div>
                     <div class="cases-dot" data-slide="2"></div>
                     <div class="cases-dot" data-slide="3"></div>
+                    <div class="cases-dot" data-slide="4"></div>
                     <div class="cases-dot" data-slide="5"></div>
                     <div class="cases-dot" data-slide="6"></div>
                 </div>
@@ -2242,9 +2233,6 @@
                     slide.style.opacity = '0';
                     slide.style.display = 'flex';
                 });
-
-                // Скрываем 5-й слайд (индекс 4) в десктопной версии
-                casesSlides[4].style.display = 'none';
 
                 if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
                 if (casesNextArrow) casesNextArrow.addEventListener('click', nextCasesSlide);
