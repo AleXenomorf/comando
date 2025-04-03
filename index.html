@@ -920,6 +920,7 @@
         /* Центрирование для 5-го слайда */
         .cases-slide:nth-child(5) .cases-images {
             justify-content: center;
+            overflow: visible;
         }
 
         .case-image-container {
@@ -951,13 +952,16 @@
 
         /* Стили для 5-го слайда - измененные пропорции */
         .cases-slide:nth-child(5) .case-image-container {
-            width: 48%; /* Уменьшено с 60% до 48% (на 20%) */
-            min-width: 320px; /* Уменьшено с 400px до 320px (на 20%) */
-            max-width: 480px; /* Уменьшено с 600px до 480px (на 20%) */
+            width: 80%;
+            min-width: 500px;
+            max-width: 800px;
             height: auto;
-            max-height: none;
+            max-height: 80vh;
             margin: 0 auto;
-            aspect-ratio: auto;
+            overflow: visible;
+            scroll-snap-align: none;
+            background: transparent;
+            box-shadow: none;
         }
 
         .cases-slide:nth-child(5) .case-image {
@@ -965,6 +969,7 @@
             height: auto;
             max-height: 80vh;
             object-fit: contain;
+            display: block;
         }
 
         /* Стили для 7-го слайда (центрированный) */
