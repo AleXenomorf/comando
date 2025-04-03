@@ -917,6 +917,11 @@
             padding-left: 20px;
         }
 
+        /* Центрирование для 5-го слайда */
+        .cases-slide:nth-child(5) .cases-images {
+            justify-content: center;
+        }
+
         .case-image-container {
             width: 30%;
             min-width: 300px;
@@ -942,6 +947,24 @@
             width: 45%;
             min-width: 400px;
             max-height: 600px;
+        }
+
+        /* Стили для 5-го слайда - измененные пропорции */
+        .cases-slide:nth-child(5) .case-image-container {
+            width: 60%;
+            min-width: 400px;
+            max-width: 600px;
+            height: auto;
+            max-height: none;
+            margin: 0 auto;
+            aspect-ratio: auto;
+        }
+
+        .cases-slide:nth-child(5) .case-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
         }
 
         /* Стили для 8-го слайда (новый слайд) */
@@ -1841,6 +1864,15 @@
                         </div>
                     </div>
                     
+                    <!-- Слайд 5 (центрированный) -->
+                    <div class="cases-slide">
+                        <div class="cases-images">
+                            <div class="case-image-container">
+                                <img src="https://alexenomorf.github.io/comando/5.1.jpg" alt="Кейс 5" class="case-image">
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Слайд 6 (увеличен в 2 раза) -->
                     <div class="cases-slide">
                         <div class="cases-images">
@@ -1893,6 +1925,8 @@
                     <div class="cases-dot" data-slide="3"></div>
                     <div class="cases-dot" data-slide="4"></div>
                     <div class="cases-dot" data-slide="5"></div>
+                    <div class="cases-dot" data-slide="6"></div>
+                    <div class="cases-dot" data-slide="7"></div>
                 </div>
                 
                 <!-- Мобильные стрелки слайдера -->
