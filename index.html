@@ -239,7 +239,7 @@
             color: white;
             font-size: clamp(12px, 1vw, 16px);
             font-weight: bold;
-            height: calc(clamp(50px, 5vw, 75px));
+            height: calc(clamp(50px, 5vw, 75px);
             width: clamp(12px, 1vw, 15px);
             text-align: center;
             line-height: 1;
@@ -1726,6 +1726,20 @@
                 right: 5px;
             }
         }
+
+        /* Скрываем 5-й слайд только для десктопной версии */
+        @media (min-width: 769px) {
+            .cases-slide:nth-child(5) {
+                display: none !important;
+            }
+            
+            /* Перенумеруем точки управления слайдером */
+            .cases-dot[data-slide="5"],
+            .cases-dot[data-slide="6"],
+            .cases-dot[data-slide="7"] {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1864,7 +1878,7 @@
                         </div>
                     </div>
                     
-                    <!-- Слайд 5 (центрированный) -->
+                    <!-- Слайд 5 (центрированный) - только для мобильной версии -->
                     <div class="cases-slide">
                         <div class="cases-images">
                             <div class="case-image-container">
@@ -2283,10 +2297,15 @@
                     });
                 });
             } else {
+                // Для десктопной версии скрываем 5-й слайд
+                casesSlides[4].style.display = 'none';
+                
                 casesSlides.forEach((slide, index) => {
-                    slide.style.position = 'absolute';
-                    slide.style.opacity = '0';
-                    slide.style.display = 'flex';
+                    if (index !== 4) { // Пропускаем 5-й слайд (индекс 4)
+                        slide.style.position = 'absolute';
+                        slide.style.opacity = '0';
+                        slide.style.display = 'flex';
+                    }
                 });
 
                 if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
