@@ -1059,118 +1059,6 @@
             right: 20px;
         }
 
-        /* Стили для слайдера программы */
-        .program-slider {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .program-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .program-slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
-
-        .program-content {
-            max-width: 600px;
-            background: var(--dark-bg);
-            padding: 40px;
-            border-radius: 16px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.1);
-            transform: translateX(-100%);
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .visible .program-content {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .program-slide h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(22px, 2.5vw, 32px);
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .program-slide p {
-            font-size: clamp(14px, 1.8vw, 18px);
-            line-height: 1.8;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .program-slider-controls {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            z-index: 10;
-        }
-
-        .program-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .program-dot.active {
-            background: var(--primary-color);
-            transform: scale(1.2);
-        }
-
-        .program-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 24px;
-            color: white;
-            transition: all 0.3s;
-        }
-
-        .program-arrow:hover {
-            background: var(--primary-color);
-        }
-
-        .program-arrow.prev {
-            left: 20px;
-        }
-
-        .program-arrow.next {
-            right: 20px;
-        }
-
         @media (max-width: 768px), (orientation: portrait) {
             :root {
                 --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -1855,97 +1743,6 @@
             .mobile-cases-arrow.next {
                 right: 5px;
             }
-
-            /* Стили для слайдера программы в мобильной версии */
-            .program-slider {
-                width: 100%;
-                height: auto;
-                min-height: 60vh;
-                position: relative;
-            }
-
-            .program-slide {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 0;
-                transition: opacity 0.5s ease;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 20px 15px;
-                box-sizing: border-box;
-            }
-
-            .program-slide.active {
-                opacity: 1;
-                z-index: 1;
-            }
-
-            .program-content {
-                max-width: 100%;
-                width: calc(100% - 30px);
-                padding: 25px 20px;
-                background: rgba(0, 0, 0, 0.7);
-                border-radius: 12px;
-                transform: none;
-                opacity: 1;
-            }
-
-            .program-slide h3 {
-                font-size: 22px;
-                margin-bottom: 15px;
-            }
-
-            .program-slide p {
-                font-size: 14px;
-                line-height: 1.5;
-                margin-bottom: 12px;
-            }
-
-            .program-slider-controls {
-                position: relative;
-                bottom: auto;
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
-
-            .program-arrow {
-                display: none;
-            }
-
-            .mobile-program-arrow {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 40px;
-                height: 40px;
-                background: rgba(0,0,0,0.7);
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                z-index: 20;
-                font-size: 20px;
-                color: white;
-                transition: all 0.3s;
-            }
-
-            .mobile-program-arrow:hover {
-                background: var(--primary-color);
-            }
-
-            .mobile-program-arrow.prev {
-                left: 5px;
-            }
-
-            .mobile-program-arrow.next {
-                right: 5px;
-            }
         }
     </style>
 </head>
@@ -2008,74 +1805,18 @@
         <div class="third-image" id="program">
             <img src="https://alexenomorf.github.io/comando/33.webp" alt="Программа">
             <div class="text-block" id="programBlock">
-                <div class="program-slider">
-                    <!-- Слайд 1 - Неделя 1 -->
-                    <div class="program-slide active">
-                        <div class="program-content">
-                            <h3>Неделя 1</h3>
-                            <p>Определяем уровень метаболизма каждого участника, учимся считать калории и фиксировать активность (не более 7-10 минут в день).</p>
-                            <p>На этой неделе вы научитесь основам подсчета калорий и поймете, как ваш организм реагирует на разные виды пищи.</p>
-                        </div>
+                <div class="text-content">
+                    <h2>Формат сопровождения участников</h2>
+                    <p><strong>Неделя 1:</strong> Определяем уровень метаболизма каждого участника, учимся считать калории и фиксировать активность (не более 7-10 минут в день).</p>
+                    <p><strong>Неделя 2:</strong> Выдача индивидуальных норм по калориям, белкам и активности (шагам) на основании результатов первой недели.</p>
+                    <p><strong>Неделя 3:</strong> Рекомпозиция продуктовой корзины, устранение дефицитов в питании, профилактика срывов (физиологических и психологических).</p>
+                    <p><strong>Неделя 4:</strong> Настройка режима дня, улучшение качества сна, восстановления и самочувствия.</p>
+                    <p><strong>Неделя 5 (бонусная):</strong> Выдача индивидуальных норм по калориям для поддержания результата и персональных рекомендаций!</p>
+                    <div class="consultation-button">
+                        <a href="https://t.me/Dorokhov_Andrey_S" target="_blank">
+                            🔥 Получить БЕСПЛАТНУЮ диагностическую консультацию от наставника проекта 🔥
+                        </a>
                     </div>
-                    
-                    <!-- Слайд 2 - Неделя 2 -->
-                    <div class="program-slide">
-                        <div class="program-content">
-                            <h3>Неделя 2</h3>
-                            <p>Выдача индивидуальных норм по калориям, белкам и активности (шагам) на основании результатов первой недели.</p>
-                            <p>Вы получите персонализированные рекомендации по питанию и активности, которые помогут вам достичь ваших целей.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Слайд 3 - Неделя 3 -->
-                    <div class="program-slide">
-                        <div class="program-content">
-                            <h3>Неделя 3</h3>
-                            <p>Рекомпозиция продуктовой корзины, устранение дефицитов в питании, профилактика срывов (физиологических и психологических).</p>
-                            <p>Мы поможем вам оптимизировать ваш рацион, чтобы вы получали все необходимые питательные вещества.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Слайд 4 - Неделя 4 -->
-                    <div class="program-slide">
-                        <div class="program-content">
-                            <h3>Неделя 4</h3>
-                            <p>Настройка режима дня, улучшение качества сна, восстановления и самочувствия.</p>
-                            <p>Вы узнаете, как сон и режим дня влияют на ваши результаты и как их оптимизировать.</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Слайд 5 - Неделя 5 (бонусная) -->
-                    <div class="program-slide">
-                        <div class="program-content">
-                            <h3>Неделя 5 (бонусная)</h3>
-                            <p>Выдача индивидуальных норм по калориям для поддержания результата и персональных рекомендаций!</p>
-                            <p>Вы получите все необходимые знания и инструменты для самостоятельного поддержания достигнутых результатов.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Стрелки для десктопной версии -->
-                <div class="program-arrow prev">❮</div>
-                <div class="program-arrow next">❯</div>
-                
-                <!-- Контролы слайдера -->
-                <div class="program-slider-controls">
-                    <div class="program-dot active" data-slide="0"></div>
-                    <div class="program-dot" data-slide="1"></div>
-                    <div class="program-dot" data-slide="2"></div>
-                    <div class="program-dot" data-slide="3"></div>
-                    <div class="program-dot" data-slide="4"></div>
-                </div>
-                
-                <!-- Мобильные стрелки слайдера -->
-                <div class="mobile-program-arrow prev">❮</div>
-                <div class="mobile-program-arrow next">❯</div>
-                
-                <div class="consultation-button">
-                    <a href="https://t.me/Dorokhov_Andrey_S" target="_blank">
-                        🔥 Получить БЕСПЛАТНУЮ диагностическую консультацию от наставника проекта 🔥
-                    </a>
                 </div>
             </div>
         </div>
@@ -2400,95 +2141,6 @@
                 });
             });
 
-            // Слайдер программы
-            const programSlides = document.querySelectorAll('.program-slide');
-            const programDots = document.querySelectorAll('.program-dot');
-            const programPrevArrow = document.querySelector('.program-arrow.prev');
-            const programNextArrow = document.querySelector('.program-arrow.next');
-            const programMobilePrevArrow = document.querySelector('.mobile-program-arrow.prev');
-            const programMobileNextArrow = document.querySelector('.mobile-program-arrow.next');
-            const programSlider = document.querySelector('.program-slider');
-            let currentProgramSlide = 0;
-            let isMobile = window.matchMedia("(max-width: 768px)").matches;
-            let programSlideInterval;
-
-            function showProgramSlide(index) {
-                programSlides.forEach(slide => {
-                    slide.classList.remove('active');
-                    slide.style.opacity = '0';
-                });
-                programDots.forEach(dot => dot.classList.remove('active'));
-                
-                programSlides[index].classList.add('active');
-                programSlides[index].style.opacity = '1';
-                programDots[index].classList.add('active');
-                currentProgramSlide = index;
-            }
-
-            function nextProgramSlide() {
-                let newIndex = (currentProgramSlide + 1) % programSlides.length;
-                showProgramSlide(newIndex);
-            }
-
-            function prevProgramSlide() {
-                let newIndex = (currentProgramSlide - 1 + programSlides.length) % programSlides.length;
-                showProgramSlide(newIndex);
-            }
-
-            function startProgramSlideInterval() {
-                stopProgramSlideInterval();
-                programSlideInterval = setInterval(nextProgramSlide, 5000);
-            }
-
-            function stopProgramSlideInterval() {
-                if (programSlideInterval) {
-                    clearInterval(programSlideInterval);
-                }
-            }
-
-            // Инициализация слайдера программы
-            if (isMobile) {
-                programSlides.forEach((slide, index) => {
-                    slide.style.position = 'absolute';
-                    slide.style.opacity = '0';
-                    slide.style.display = 'flex';
-                });
-
-                showProgramSlide(0);
-                
-                programMobilePrevArrow.addEventListener('click', prevProgramSlide);
-                programMobileNextArrow.addEventListener('click', nextProgramSlide);
-
-                programDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        showProgramSlide(slideIndex);
-                    });
-                });
-            } else {
-                programSlides.forEach((slide, index) => {
-                    slide.style.position = 'absolute';
-                    slide.style.opacity = '0';
-                    slide.style.display = 'flex';
-                });
-
-                if (programPrevArrow) programPrevArrow.addEventListener('click', prevProgramSlide);
-                if (programNextArrow) programNextArrow.addEventListener('click', nextProgramSlide);
-
-                programDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        showProgramSlide(slideIndex);
-                    });
-                });
-
-                startProgramSlideInterval();
-                programSlider.addEventListener('mouseenter', stopProgramSlideInterval);
-                programSlider.addEventListener('mouseleave', startProgramSlideInterval);
-            }
-
-            showProgramSlide(0);
-
             // Слайдер команды
             const teamSlides = document.querySelectorAll('.team-slide');
             const teamDots = document.querySelectorAll('.slider-dot');
@@ -2498,6 +2150,8 @@
             const teamMobileNextArrow = document.querySelector('.mobile-slider-arrow.next');
             const teamSlider = document.querySelector('.team-slider');
             let currentTeamSlide = 0;
+            let isMobile = window.matchMedia("(max-width: 768px)").matches;
+            let teamSlideInterval;
 
             function showTeamSlide(index) {
                 teamSlides.forEach(slide => {
