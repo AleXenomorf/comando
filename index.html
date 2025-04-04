@@ -685,15 +685,10 @@
             font-size: 24px;
             color: white;
             transition: all 0.3s;
-            opacity: 0;
         }
 
         .slider-arrow:hover {
             background: var(--primary-color);
-        }
-
-        .team-slider:hover .slider-arrow {
-            opacity: 1;
         }
 
         .slider-arrow.prev {
@@ -1050,11 +1045,6 @@
             font-size: 24px;
             color: white;
             transition: all 0.3s;
-            opacity: 0;
-        }
-
-        .cases-slider:hover .cases-arrow {
-            opacity: 1;
         }
 
         .cases-arrow:hover {
@@ -1128,7 +1118,27 @@
         }
 
         .program-slider-controls {
-            display: none; /* Скрываем пагинацию */
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .program-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .program-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
         }
 
         .program-arrow {
@@ -1147,11 +1157,6 @@
             font-size: 24px;
             color: white;
             transition: all 0.3s;
-            opacity: 0;
-        }
-
-        .program-slider:hover .program-arrow {
-            opacity: 1;
         }
 
         .program-arrow:hover {
@@ -1902,7 +1907,10 @@
             }
 
             .program-slider-controls {
-                display: none;
+                position: relative;
+                bottom: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
             }
 
             .program-arrow {
@@ -2050,6 +2058,15 @@
                 <!-- Стрелки для десктопной версии -->
                 <div class="program-arrow prev">❮</div>
                 <div class="program-arrow next">❯</div>
+                
+                <!-- Контролы слайдера -->
+                <div class="program-slider-controls">
+                    <div class="program-dot active" data-slide="0"></div>
+                    <div class="program-dot" data-slide="1"></div>
+                    <div class="program-dot" data-slide="2"></div>
+                    <div class="program-dot" data-slide="3"></div>
+                    <div class="program-dot" data-slide="4"></div>
+                </div>
                 
                 <!-- Мобильные стрелки слайдера -->
                 <div class="mobile-program-arrow prev">❮</div>
@@ -2385,6 +2402,7 @@
 
             // Слайдер программы
             const programSlides = document.querySelectorAll('.program-slide');
+            const programDots = document.querySelectorAll('.program-dot');
             const programPrevArrow = document.querySelector('.program-arrow.prev');
             const programNextArrow = document.querySelector('.program-arrow.next');
             const programMobilePrevArrow = document.querySelector('.mobile-program-arrow.prev');
@@ -2399,9 +2417,11 @@
                     slide.classList.remove('active');
                     slide.style.opacity = '0';
                 });
+                programDots.forEach(dot => dot.classList.remove('active'));
                 
                 programSlides[index].classList.add('active');
                 programSlides[index].style.opacity = '1';
+                programDots[index].classList.add('active');
                 currentProgramSlide = index;
             }
 
@@ -2417,7 +2437,7 @@
 
             function startProgramSlideInterval() {
                 stopProgramSlideInterval();
-                programSlideInterval = setInterval(nextProgramSlide, 3000); // Изменено на 3 секунды
+                programSlideInterval = setInterval(nextProgramSlide, 5000);
             }
 
             function stopProgramSlideInterval() {
@@ -2438,6 +2458,13 @@
                 
                 programMobilePrevArrow.addEventListener('click', prevProgramSlide);
                 programMobileNextArrow.addEventListener('click', nextProgramSlide);
+
+                programDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        showProgramSlide(slideIndex);
+                    });
+                });
             } else {
                 programSlides.forEach((slide, index) => {
                     slide.style.position = 'absolute';
@@ -2447,6 +2474,13 @@
 
                 if (programPrevArrow) programPrevArrow.addEventListener('click', prevProgramSlide);
                 if (programNextArrow) programNextArrow.addEventListener('click', nextProgramSlide);
+
+                programDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        showProgramSlide(slideIndex);
+                    });
+                });
 
                 startProgramSlideInterval();
                 programSlider.addEventListener('mouseenter', stopProgramSlideInterval);
@@ -2647,4 +2681,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
