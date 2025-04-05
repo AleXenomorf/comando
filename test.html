@@ -144,6 +144,13 @@
             display: none;
         }
 
+        .nav-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         #submitButton {
             background: #ff6600;
         }
@@ -152,98 +159,12 @@
             background: #e65c00;
         }
 
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 90%;
-            width: 500px;
-            color: #333;
-            text-align: center;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
-        }
-
-        .modal-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        .modal-text {
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .modal-button {
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-        }
-
-        .telegram-button {
-            background: #0088cc;
-            color: white;
-        }
-
-        .email-button {
-            background: #dd4b39;
-            color: white;
-        }
-
-        .close-button {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Мобильная версия */
         @media (max-width: 768px) {
             .test-container {
                 padding: 20px 15px;
@@ -281,19 +202,6 @@
             .progress-bar {
                 margin: 20px 0;
             }
-
-            .modal-content {
-                padding: 20px;
-                max-width: 95%;
-            }
-
-            .modal-buttons {
-                flex-direction: column;
-            }
-
-            .modal-button {
-                width: 100%;
-            }
         }
     </style>
 </head>
@@ -308,19 +216,19 @@
             <h2 class="question-title">Какой результат вы хотите получить в первую очередь?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Сбросить за месяц 2-5 кг лишнего веса">
+                    <input type="radio" name="q1" class="option-radio" value="1">
                     <span class="option-text">Сбросить за месяц 2-5 кг лишнего веса</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Восстановиться после родов/операции">
+                    <input type="radio" name="q1" class="option-radio" value="2">
                     <span class="option-text">Восстановиться после родов/операции</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Нормализовать питание и режим дня">
+                    <input type="radio" name="q1" class="option-radio" value="3">
                     <span class="option-text">Нормализовать питание и режим дня</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Получить энергию и улучшить самочувствие">
+                    <input type="radio" name="q1" class="option-radio" value="4">
                     <span class="option-text">Получить энергию и улучшить самочувствие</span>
                 </label>
             </div>
@@ -331,19 +239,19 @@
             <h2 class="question-title">Что мешает вам достичь желаемого результата?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Нет времени на сложные программы питания">
+                    <input type="radio" name="q2" class="option-radio" value="1">
                     <span class="option-text">Нет времени на сложные программы питания</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Пробовал(а) диеты, но результат не держится">
+                    <input type="radio" name="q2" class="option-radio" value="2">
                     <span class="option-text">Пробовал(а) диеты, но результат не держится</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Сложно соблюдать режим из-за работы/детей">
+                    <input type="radio" name="q2" class="option-radio" value="3">
                     <span class="option-text">Сложно соблюдать режим из-за работы/детей</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Не знаю, с чего начать">
+                    <input type="radio" name="q2" class="option-radio" value="4">
                     <span class="option-text">Не знаю, с чего начать</span>
                 </label>
             </div>
@@ -354,19 +262,19 @@
             <h2 class="question-title">Сколько времени в день вы готовы уделять себе?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="5-10 минут">
+                    <input type="radio" name="q3" class="option-radio" value="1">
                     <span class="option-text">5-10 минут</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="30-60 минут">
+                    <input type="radio" name="q3" class="option-radio" value="2">
                     <span class="option-text">30-60 минут</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="15-30 минут">
+                    <input type="radio" name="q3" class="option-radio" value="3">
                     <span class="option-text">15-30 минут</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="Более часа">
+                    <input type="radio" name="q3" class="option-radio" value="4">
                     <span class="option-text">Более часа</span>
                 </label>
             </div>
@@ -377,19 +285,19 @@
             <h2 class="question-title">Какой формат поддержки вам важен?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Личный куратор и постоянная обратная связь">
+                    <input type="radio" name="q4" class="option-radio" value="1">
                     <span class="option-text">Личный куратор и постоянная обратная связь</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Групповые тренировки и общение с участниками">
+                    <input type="radio" name="q4" class="option-radio" value="2">
                     <span class="option-text">Групповые тренировки и общение с участниками</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Автоматический контроль через приложение">
+                    <input type="radio" name="q4" class="option-radio" value="3">
                     <span class="option-text">Автоматический контроль через приложение</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Все вышеперечисленное">
+                    <input type="radio" name="q4" class="option-radio" value="4">
                     <span class="option-text">Все вышеперечисленное</span>
                 </label>
             </div>
@@ -397,85 +305,21 @@
 
         <div class="nav-buttons">
             <button class="nav-button hidden" id="prevButton">Назад</button>
-            <button class="nav-button" id="nextButton">Далее</button>
-            <button class="nav-button hidden" id="submitButton">Получить результат</button>
-        </div>
-    </div>
-
-    <!-- Модальное окно выбора способа отправки -->
-    <div class="modal" id="sendMethodModal">
-        <div class="modal-content">
-            <h3 class="modal-title">Отправить результаты</h3>
-            <p class="modal-text">Выберите способ отправки результатов теста:</p>
-            <div class="modal-buttons">
-                <button class="modal-button telegram-button" id="sendTelegram">Отправить в Telegram</button>
-                <button class="modal-button email-button" id="sendEmail">Отправить на Email</button>
-                <button class="modal-button close-button" id="closeModal">Закрыть</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно для ввода email -->
-    <div class="modal" id="emailModal">
-        <div class="modal-content">
-            <h3 class="modal-title">Отправить на Email</h3>
-            <form id="emailForm">
-                <div class="form-group">
-                    <label for="userEmail">Ваш Email</label>
-                    <input type="email" id="userEmail" required placeholder="example@mail.com">
-                </div>
-                <div class="form-group">
-                    <label for="userName">Ваше Имя</label>
-                    <input type="text" id="userName" required placeholder="Иван Иванов">
-                </div>
-                <div class="modal-buttons">
-                    <button type="submit" class="modal-button email-button">Отправить</button>
-                    <button type="button" class="modal-button close-button" id="cancelEmail">Отмена</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Модальное окно успешной отправки -->
-    <div class="modal" id="successModal">
-        <div class="modal-content">
-            <h3 class="modal-title">Результаты отправлены!</h3>
-            <p class="modal-text" id="successMessage">Спасибо за прохождение теста. Мы свяжемся с вами в ближайшее время.</p>
-            <div class="modal-buttons">
-                <button class="modal-button telegram-button" id="successTelegram">Открыть Telegram</button>
-                <button class="modal-button close-button" id="closeSuccess">Закрыть</button>
-            </div>
+            <button class="nav-button" id="nextButton" disabled>Далее</button>
+            <button class="nav-button hidden" id="submitButton" disabled>Получить результат</button>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Элементы теста
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
             const submitButton = document.getElementById('submitButton');
             const progressFill = document.getElementById('progressFill');
             
-            // Модальные окна
-            const sendMethodModal = document.getElementById('sendMethodModal');
-            const emailModal = document.getElementById('emailModal');
-            const successModal = document.getElementById('successModal');
-            
-            // Кнопки
-            const sendTelegramBtn = document.getElementById('sendTelegram');
-            const sendEmailBtn = document.getElementById('sendEmail');
-            const closeModalBtn = document.getElementById('closeModal');
-            const cancelEmailBtn = document.getElementById('cancelEmail');
-            const successTelegramBtn = document.getElementById('successTelegram');
-            const closeSuccessBtn = document.getElementById('closeSuccess');
-            
-            // Форма
-            const emailForm = document.getElementById('emailForm');
-            
             let currentQuestion = 0;
             const totalQuestions = questions.length;
-            let testResults = '';
             
             // Обновление прогресс-бара
             function updateProgress() {
@@ -489,11 +333,14 @@
                     question.classList.toggle('active', i === index);
                 });
                 
+                // Управление видимостью кнопок
                 prevButton.classList.toggle('hidden', index === 0);
                 nextButton.classList.toggle('hidden', index === totalQuestions - 1);
                 submitButton.classList.toggle('hidden', index !== totalQuestions - 1);
                 
+                // Проверка, выбран ли ответ для текущего вопроса
                 checkAnswerSelected();
+                
                 updateProgress();
             }
             
@@ -506,48 +353,6 @@
                     nextButton.disabled = !isAnswered;
                 } else {
                     submitButton.disabled = !isAnswered;
-                }
-            }
-            
-            // Собрать результаты теста
-            function collectResults() {
-                let results = "Результаты теста\n\n";
-                questions.forEach((question, index) => {
-                    const selectedOption = question.querySelector('input[type="radio"]:checked');
-                    if (selectedOption) {
-                        results += `Вопрос ${index+1}: ${question.querySelector('.question-title').textContent}\n`;
-                        results += `Ответ: ${selectedOption.value}\n\n`;
-                    }
-                });
-                results += `Дата: ${new Date().toLocaleString()}`;
-                return results;
-            }
-            
-            // Отправка на email через FormSubmit
-            async function sendEmailResults(email, name, results) {
-                const formData = {
-                    email: email,
-                    name: name,
-                    results: results,
-                    _subject: 'Новые результаты теста',
-                    _template: 'table'
-                };
-                
-                try {
-                    const response = await fetch('https://formsubmit.co/ajax/ВАШ_EMAIL@example.com', {
-                        method: 'POST',
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-                    
-                    const data = await response.json();
-                    return data.success === true;
-                } catch (error) {
-                    console.error('Ошибка отправки:', error);
-                    return false;
                 }
             }
             
@@ -567,83 +372,40 @@
                 }
             });
             
-            // Завершение теста
+            // Отправка результатов
             submitButton.addEventListener('click', function() {
-                testResults = collectResults();
-                sendMethodModal.style.display = 'flex';
+                // Собираем все ответы
+                const answers = [];
+                questions.forEach((question, index) => {
+                    const selectedOption = question.querySelector('input[type="radio"]:checked');
+                    if (selectedOption) {
+                        answers.push({
+                            question: question.querySelector('.question-title').textContent,
+                            answer: selectedOption.value
+                        });
+                    }
+                });
+
+                // Формируем сообщение для бота
+                let message = "📊 Результаты теста:\n\n";
+                answers.forEach((item, i) => {
+                    message += `❓ Вопрос ${i+1}: ${item.question}\n`;
+                    message += `✅ Ответ: ${item.answer}\n\n`;
+                });
+
+                // Открываем Telegram с сообщением
+                const telegramUrl = `https://t.me/xenomorf1?text=${encodeURIComponent(message)}`;
+                window.location.href = telegramUrl;
             });
             
-            // Выбор Telegram
-            sendTelegramBtn.addEventListener('click', function() {
-                sendMethodModal.style.display = 'none';
-                
-                // Создаем файл для скачивания
-                const blob = new Blob([testResults], { type: 'text/plain' });
-                const fileUrl = URL.createObjectURL(blob);
-                
-                const downloadLink = document.createElement('a');
-                downloadLink.href = fileUrl;
-                downloadLink.download = 'мои_результаты.txt';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-                
-                // Показываем сообщение об успехе
-                document.getElementById('successMessage').textContent = 
-                    'Файл с результатами скачан. Пожалуйста, отправьте его в Telegram @xenomorf1';
-                successModal.style.display = 'flex';
-                
-                // Освобождаем память
-                setTimeout(() => URL.revokeObjectURL(fileUrl), 1000);
-            });
-            
-            // Выбор Email
-            sendEmailBtn.addEventListener('click', function() {
-                sendMethodModal.style.display = 'none';
-                emailModal.style.display = 'flex';
-            });
-            
-            // Отмена ввода email
-            cancelEmailBtn.addEventListener('click', function() {
-                emailModal.style.display = 'none';
-                sendMethodModal.style.display = 'flex';
-            });
-            
-            // Закрытие модального окна
-            closeModalBtn.addEventListener('click', function() {
-                sendMethodModal.style.display = 'none';
-            });
-            
-            // Отправка формы email
-            emailForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('userEmail').value;
-                const name = document.getElementById('userName').value;
-                
-                emailModal.style.display = 'none';
-                
-                const success = await sendEmailResults(email, name, testResults);
-                
-                if (success) {
-                    document.getElementById('successMessage').textContent = 
-                        'Спасибо! Результаты успешно отправлены на вашу почту. Мы свяжемся с вами в ближайшее время.';
-                } else {
-                    document.getElementById('successMessage').textContent = 
-                        'Произошла ошибка при отправке. Пожалуйста, попробуйте другой способ.';
-                }
-                
-                successModal.style.display = 'flex';
-            });
-            
-            // Кнопка Telegram в окне успеха
-            successTelegramBtn.addEventListener('click', function() {
-                window.location.href = 'https://t.me/xenomorf1';
-            });
-            
-            // Закрытие окна успеха
-            closeSuccessBtn.addEventListener('click', function() {
-                successModal.style.display = 'none';
+            // Проверка выбранного ответа при изменении
+            questions.forEach(question => {
+                const options = question.querySelectorAll('input[type="radio"]');
+                options.forEach(option => {
+                    option.addEventListener('change', function() {
+                        checkAnswerSelected();
+                    });
+                });
             });
             
             // Подсветка выбранного варианта
@@ -652,14 +414,18 @@
                 
                 radio.addEventListener('change', function() {
                     if (this.checked) {
+                        // Снимаем выделение со всех вариантов в этом вопросе
                         const parentQuestion = this.closest('.question-slide');
                         parentQuestion.querySelectorAll('.option-item').forEach(opt => {
                             opt.classList.remove('selected');
                         });
+                        
+                        // Выделяем выбранный вариант
                         item.classList.add('selected');
                     }
                 });
                 
+                // Подсветка при клике на весь блок
                 item.addEventListener('click', function(e) {
                     if (e.target.tagName !== 'INPUT') {
                         radio.checked = true;
