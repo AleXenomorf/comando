@@ -167,21 +167,76 @@
 
         .modal-content {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 80%;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 90%;
+            width: 500px;
             color: #333;
             text-align: center;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .modal-text {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
         }
 
         .modal-button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 15px;
+            padding: 12px 25px;
+            border-radius: 50px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .telegram-button {
+            background: #0088cc;
+            color: white;
+        }
+
+        .email-button {
+            background: #dd4b39;
+            color: white;
+        }
+
+        .close-button {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
         }
 
         @keyframes fadeIn {
@@ -225,6 +280,19 @@
             
             .progress-bar {
                 margin: 20px 0;
+            }
+
+            .modal-content {
+                padding: 20px;
+                max-width: 95%;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+
+            .modal-button {
+                width: 100%;
             }
         }
     </style>
@@ -334,32 +402,80 @@
         </div>
     </div>
 
-    <!-- Модальное окно с инструкцией -->
-    <div class="modal" id="resultModal">
+    <!-- Модальное окно выбора способа отправки -->
+    <div class="modal" id="sendMethodModal">
         <div class="modal-content">
-            <h3>Ваши результаты готовы!</h3>
-            <p>Файл с результатами был скачан. Пожалуйста:</p>
-            <ol style="text-align: left; margin: 15px 0;">
-                <li>Откройте Telegram</li>
-                <li>Перейдите в чат с @xenomorf1</li>
-                <li>Отправьте скачанный файл "мои_результаты.txt"</li>
-            </ol>
-            <button class="modal-button" id="openTelegram">Открыть Telegram</button>
+            <h3 class="modal-title">Отправить результаты</h3>
+            <p class="modal-text">Выберите способ отправки результатов теста:</p>
+            <div class="modal-buttons">
+                <button class="modal-button telegram-button" id="sendTelegram">Отправить в Telegram</button>
+                <button class="modal-button email-button" id="sendEmail">Отправить на Email</button>
+                <button class="modal-button close-button" id="closeModal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для ввода email -->
+    <div class="modal" id="emailModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Отправить на Email</h3>
+            <form id="emailForm">
+                <div class="form-group">
+                    <label for="userEmail">Ваш Email</label>
+                    <input type="email" id="userEmail" required placeholder="example@mail.com">
+                </div>
+                <div class="form-group">
+                    <label for="userName">Ваше Имя</label>
+                    <input type="text" id="userName" required placeholder="Иван Иванов">
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="modal-button email-button">Отправить</button>
+                    <button type="button" class="modal-button close-button" id="cancelEmail">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно успешной отправки -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Результаты отправлены!</h3>
+            <p class="modal-text" id="successMessage">Спасибо за прохождение теста. Мы свяжемся с вами в ближайшее время.</p>
+            <div class="modal-buttons">
+                <button class="modal-button telegram-button" id="successTelegram">Открыть Telegram</button>
+                <button class="modal-button close-button" id="closeSuccess">Закрыть</button>
+            </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Элементы теста
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
             const submitButton = document.getElementById('submitButton');
             const progressFill = document.getElementById('progressFill');
-            const modal = document.getElementById('resultModal');
-            const openTelegramBtn = document.getElementById('openTelegram');
+            
+            // Модальные окна
+            const sendMethodModal = document.getElementById('sendMethodModal');
+            const emailModal = document.getElementById('emailModal');
+            const successModal = document.getElementById('successModal');
+            
+            // Кнопки
+            const sendTelegramBtn = document.getElementById('sendTelegram');
+            const sendEmailBtn = document.getElementById('sendEmail');
+            const closeModalBtn = document.getElementById('closeModal');
+            const cancelEmailBtn = document.getElementById('cancelEmail');
+            const successTelegramBtn = document.getElementById('successTelegram');
+            const closeSuccessBtn = document.getElementById('closeSuccess');
+            
+            // Форма
+            const emailForm = document.getElementById('emailForm');
             
             let currentQuestion = 0;
             const totalQuestions = questions.length;
+            let testResults = '';
             
             // Обновление прогресс-бара
             function updateProgress() {
@@ -393,6 +509,48 @@
                 }
             }
             
+            // Собрать результаты теста
+            function collectResults() {
+                let results = "Результаты теста\n\n";
+                questions.forEach((question, index) => {
+                    const selectedOption = question.querySelector('input[type="radio"]:checked');
+                    if (selectedOption) {
+                        results += `Вопрос ${index+1}: ${question.querySelector('.question-title').textContent}\n`;
+                        results += `Ответ: ${selectedOption.value}\n\n`;
+                    }
+                });
+                results += `Дата: ${new Date().toLocaleString()}`;
+                return results;
+            }
+            
+            // Отправка на email через FormSubmit
+            async function sendEmailResults(email, name, results) {
+                const formData = {
+                    email: email,
+                    name: name,
+                    results: results,
+                    _subject: 'Новые результаты теста',
+                    _template: 'table'
+                };
+                
+                try {
+                    const response = await fetch('https://formsubmit.co/ajax/ВАШ_EMAIL@example.com', {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    const data = await response.json();
+                    return data.success === true;
+                } catch (error) {
+                    console.error('Ошибка отправки:', error);
+                    return false;
+                }
+            }
+            
             // Переход к следующему вопросу
             nextButton.addEventListener('click', function() {
                 if (currentQuestion < totalQuestions - 1) {
@@ -409,30 +567,18 @@
                 }
             });
             
-            // Отправка результатов
+            // Завершение теста
             submitButton.addEventListener('click', function() {
-                // Собираем все ответы
-                const answers = [];
-                questions.forEach((question, index) => {
-                    const selectedOption = question.querySelector('input[type="radio"]:checked');
-                    if (selectedOption) {
-                        answers.push({
-                            question: question.querySelector('.question-title').textContent,
-                            answer: selectedOption.value
-                        });
-                    }
-                });
-
-                // Формируем содержимое файла
-                let fileContent = "Результаты теста\n\n";
-                answers.forEach((item, i) => {
-                    fileContent += `Вопрос ${i+1}: ${item.question}\n`;
-                    fileContent += `Ответ: ${item.answer}\n\n`;
-                });
-                fileContent += `Дата: ${new Date().toLocaleString()}`;
-
-                // Создаем и скачиваем файл
-                const blob = new Blob([fileContent], { type: 'text/plain' });
+                testResults = collectResults();
+                sendMethodModal.style.display = 'flex';
+            });
+            
+            // Выбор Telegram
+            sendTelegramBtn.addEventListener('click', function() {
+                sendMethodModal.style.display = 'none';
+                
+                // Создаем файл для скачивания
+                const blob = new Blob([testResults], { type: 'text/plain' });
                 const fileUrl = URL.createObjectURL(blob);
                 
                 const downloadLink = document.createElement('a');
@@ -441,27 +587,63 @@
                 document.body.appendChild(downloadLink);
                 downloadLink.click();
                 document.body.removeChild(downloadLink);
-
-                // Показываем модальное окно с инструкцией
-                modal.style.display = 'flex';
+                
+                // Показываем сообщение об успехе
+                document.getElementById('successMessage').textContent = 
+                    'Файл с результатами скачан. Пожалуйста, отправьте его в Telegram @xenomorf1';
+                successModal.style.display = 'flex';
                 
                 // Освобождаем память
                 setTimeout(() => URL.revokeObjectURL(fileUrl), 1000);
             });
             
-            // Кнопка открытия Telegram
-            openTelegramBtn.addEventListener('click', function() {
+            // Выбор Email
+            sendEmailBtn.addEventListener('click', function() {
+                sendMethodModal.style.display = 'none';
+                emailModal.style.display = 'flex';
+            });
+            
+            // Отмена ввода email
+            cancelEmailBtn.addEventListener('click', function() {
+                emailModal.style.display = 'none';
+                sendMethodModal.style.display = 'flex';
+            });
+            
+            // Закрытие модального окна
+            closeModalBtn.addEventListener('click', function() {
+                sendMethodModal.style.display = 'none';
+            });
+            
+            // Отправка формы email
+            emailForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('userEmail').value;
+                const name = document.getElementById('userName').value;
+                
+                emailModal.style.display = 'none';
+                
+                const success = await sendEmailResults(email, name, testResults);
+                
+                if (success) {
+                    document.getElementById('successMessage').textContent = 
+                        'Спасибо! Результаты успешно отправлены на вашу почту. Мы свяжемся с вами в ближайшее время.';
+                } else {
+                    document.getElementById('successMessage').textContent = 
+                        'Произошла ошибка при отправке. Пожалуйста, попробуйте другой способ.';
+                }
+                
+                successModal.style.display = 'flex';
+            });
+            
+            // Кнопка Telegram в окне успеха
+            successTelegramBtn.addEventListener('click', function() {
                 window.location.href = 'https://t.me/xenomorf1';
             });
             
-            // Проверка выбранного ответа при изменении
-            questions.forEach(question => {
-                const options = question.querySelectorAll('input[type="radio"]');
-                options.forEach(option => {
-                    option.addEventListener('change', function() {
-                        checkAnswerSelected();
-                    });
-                });
+            // Закрытие окна успеха
+            closeSuccessBtn.addEventListener('click', function() {
+                successModal.style.display = 'none';
             });
             
             // Подсветка выбранного варианта
