@@ -485,15 +485,34 @@
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
                     
-                    // Здесь должна быть реальная отправка в Telegram бота @marathonpro_bot
-                    // Вместо этого просто имитируем отправку
-                    console.log("Данные для отправки в Telegram бота:", {
-                        message: message,
-                        csvFile: `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`
+                    // Отправляем данные в Telegram бота @marathonpro_bot
+                    // (Замените на реальный API вашего бота)
+                    const botToken = '7044064135:AAGaPDaK13S52ZtJQbA3Hvdl6kA3hN40ccM'; // Пример токена
+                    const chatId = '1208941214'; // ID чата, куда отправлять
+                    
+                    // 1. Сначала отправляем текстовое сообщение
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: chatId,
+                            text: message,
+                            parse_mode: 'Markdown'
+                        })
                     });
                     
-                    // Имитируем задержку отправки
-                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    // 2. Затем отправляем CSV-файл
+                    const file = new File([blob], `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`, { type: 'text/csv' });
+                    const fileFormData = new FormData();
+                    fileFormData.append('chat_id', chatId);
+                    fileFormData.append('document', file);
+                    
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+                        method: 'POST',
+                        body: fileFormData
+                    });
                     
                     // Показываем сообщение об успехе
                     successMessage.style.display = 'block';
