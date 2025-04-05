@@ -152,8 +152,36 @@
             background: #e65c00;
         }
 
-        #downloadLink {
+        .modal {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 80%;
+            color: #333;
+            text-align: center;
+        }
+
+        .modal-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
         }
 
         @keyframes fadeIn {
@@ -161,7 +189,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Мобильная версия */
         @media (max-width: 768px) {
             .test-container {
                 padding: 20px 15px;
@@ -305,9 +332,20 @@
             <button class="nav-button" id="nextButton">Далее</button>
             <button class="nav-button hidden" id="submitButton">Получить результат</button>
         </div>
+    </div>
 
-        <!-- Скрытая ссылка для скачивания -->
-        <a id="downloadLink" download="мои_результаты.txt"></a>
+    <!-- Модальное окно с инструкцией -->
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <h3>Ваши результаты готовы!</h3>
+            <p>Файл с результатами был скачан. Пожалуйста:</p>
+            <ol style="text-align: left; margin: 15px 0;">
+                <li>Откройте Telegram</li>
+                <li>Перейдите в чат с @xenomorf1</li>
+                <li>Отправьте скачанный файл "мои_результаты.txt"</li>
+            </ol>
+            <button class="modal-button" id="openTelegram">Открыть Telegram</button>
+        </div>
     </div>
 
     <script>
@@ -317,7 +355,8 @@
             const nextButton = document.getElementById('nextButton');
             const submitButton = document.getElementById('submitButton');
             const progressFill = document.getElementById('progressFill');
-            const downloadLink = document.getElementById('downloadLink');
+            const modal = document.getElementById('resultModal');
+            const openTelegramBtn = document.getElementById('openTelegram');
             
             let currentQuestion = 0;
             const totalQuestions = questions.length;
@@ -334,14 +373,11 @@
                     question.classList.toggle('active', i === index);
                 });
                 
-                // Управление видимостью кнопок
                 prevButton.classList.toggle('hidden', index === 0);
                 nextButton.classList.toggle('hidden', index === totalQuestions - 1);
                 submitButton.classList.toggle('hidden', index !== totalQuestions - 1);
                 
-                // Проверка, выбран ли ответ для текущего вопроса
                 checkAnswerSelected();
-                
                 updateProgress();
             }
             
@@ -395,28 +431,27 @@
                 });
                 fileContent += `Дата: ${new Date().toLocaleString()}`;
 
-                // Создаем Blob-объект
+                // Создаем и скачиваем файл
                 const blob = new Blob([fileContent], { type: 'text/plain' });
                 const fileUrl = URL.createObjectURL(blob);
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = fileUrl;
+                downloadLink.download = 'мои_результаты.txt';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
 
-                // Для мобильных устройств
-                if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                    downloadLink.href = fileUrl;
-                    downloadLink.download = 'мои_результаты.txt';
-                    downloadLink.click();
-                    setTimeout(() => {
-                        window.location.href = 'https://t.me/xenomorf1'; 
-                        alert("Файл с результатами сохранен. Теперь отправьте его в Telegram @xenomorf1");
-                    }, 500);
-                } 
-                // Для десктопов
-                else {
-                    window.open(`https://t.me/share/url?url=${encodeURIComponent(fileUrl)}&text=Мои результаты теста`);
-                    window.location.href = 'https://t.me/xenomorf1';
-                }
-
+                // Показываем модальное окно с инструкцией
+                modal.style.display = 'flex';
+                
                 // Освобождаем память
                 setTimeout(() => URL.revokeObjectURL(fileUrl), 1000);
+            });
+            
+            // Кнопка открытия Telegram
+            openTelegramBtn.addEventListener('click', function() {
+                window.location.href = 'https://t.me/xenomorf1';
             });
             
             // Проверка выбранного ответа при изменении
@@ -435,18 +470,14 @@
                 
                 radio.addEventListener('change', function() {
                     if (this.checked) {
-                        // Снимаем выделение со всех вариантов в этом вопросе
                         const parentQuestion = this.closest('.question-slide');
                         parentQuestion.querySelectorAll('.option-item').forEach(opt => {
                             opt.classList.remove('selected');
                         });
-                        
-                        // Выделяем выбранный вариант
                         item.classList.add('selected');
                     }
                 });
                 
-                // Подсветка при клике на весь блок
                 item.addEventListener('click', function(e) {
                     if (e.target.tagName !== 'INPUT') {
                         radio.checked = true;
