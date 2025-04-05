@@ -346,6 +346,10 @@
                     <input type="text" id="lastName" required>
                 </div>
                 <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="example@mail.com">
+                </div>
+                <div class="form-group">
                     <label for="whatsapp">Номер WhatsApp (с кодом страны)</label>
                     <input type="tel" id="whatsapp" required placeholder="+79123456789">
                 </div>
@@ -404,8 +408,9 @@
                 } else {
                     const firstName = document.getElementById('firstName').value.trim();
                     const lastName = document.getElementById('lastName').value.trim();
+                    const email = document.getElementById('email').value.trim();
                     const whatsapp = document.getElementById('whatsapp').value.trim();
-                    isAnswered = firstName !== '' && lastName !== '' && whatsapp !== '';
+                    isAnswered = firstName !== '' && lastName !== '' && email !== '' && whatsapp !== '';
                 }
                 
                 if (currentQuestion < totalQuestions - 1) {
@@ -425,6 +430,7 @@
                 csv += `\nКонтактные данные\n`;
                 csv += `"Имя","${contactData.firstName.replace(/"/g, '""')}"\n`;
                 csv += `"Фамилия","${contactData.lastName.replace(/"/g, '""')}"\n`;
+                csv += `"Email","${contactData.email.replace(/"/g, '""')}"\n`;
                 csv += `"WhatsApp","${contactData.whatsapp.replace(/"/g, '""')}"\n`;
                 
                 return csv;
@@ -461,6 +467,7 @@
                 const contactData = {
                     firstName: document.getElementById('firstName').value.trim(),
                     lastName: document.getElementById('lastName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
                     whatsapp: document.getElementById('whatsapp').value.trim()
                 };
                 
@@ -473,6 +480,7 @@
                 // Формируем сообщение для Telegram
                 let message = `📋 *Новые результаты теста*\n\n` +
                               `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}\n` +
+                              `📧 *Email:* ${contactData.email}\n` +
                               `📱 *WhatsApp:* ${contactData.whatsapp}\n\n` +
                               `📝 *Ответы на вопросы:*\n\n`;
                 
@@ -521,6 +529,7 @@
                     // Очищаем форму
                     document.getElementById('firstName').value = '';
                     document.getElementById('lastName').value = '';
+                    document.getElementById('email').value = '';
                     document.getElementById('whatsapp').value = '';
                     document.querySelectorAll('input[type="radio"]').forEach(radio => {
                         radio.checked = false;
@@ -544,6 +553,7 @@
             
             document.getElementById('firstName').addEventListener('input', checkAnswerSelected);
             document.getElementById('lastName').addEventListener('input', checkAnswerSelected);
+            document.getElementById('email').addEventListener('input', checkAnswerSelected);
             document.getElementById('whatsapp').addEventListener('input', checkAnswerSelected);
             
             // Подсветка выбранных вариантов
