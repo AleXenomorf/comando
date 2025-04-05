@@ -190,21 +190,6 @@
             animation: fadeIn 0.5s ease;
         }
 
-        .download-link {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-        }
-
-        .download-link:hover {
-            background: var(--secondary-color);
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -377,8 +362,6 @@
         <div class="success-message" id="successMessage">
             <h3>✅ Спасибо! Ваши результаты отправлены</h3>
             <p>Мы свяжемся с вами в ближайшее время через WhatsApp</p>
-            <p>Вы можете скачать результаты теста в формате таблицы:</p>
-            <a href="#" class="download-link" id="downloadLink">Скачать результаты</a>
         </div>
     </div>
 
@@ -390,11 +373,9 @@
             const submitButton = document.getElementById('submitButton');
             const progressFill = document.getElementById('progressFill');
             const successMessage = document.getElementById('successMessage');
-            const downloadLink = document.getElementById('downloadLink');
             
             let currentQuestion = 0;
             const totalQuestions = questions.length;
-            let testResults = {};
             
             function updateProgress() {
                 const progress = ((currentQuestion + 1) / totalQuestions) * 100;
@@ -434,20 +415,6 @@
                 }
             }
             
-            nextButton.addEventListener('click', function() {
-                if (currentQuestion < totalQuestions - 1) {
-                    currentQuestion++;
-                    showQuestion(currentQuestion);
-                }
-            });
-            
-            prevButton.addEventListener('click', function() {
-                if (currentQuestion > 0) {
-                    currentQuestion--;
-                    showQuestion(currentQuestion);
-                }
-            });
-            
             function generateCSV(answers, contactData) {
                 let csv = "Вопрос,Ответ\n";
                 
@@ -463,12 +430,19 @@
                 return csv;
             }
             
-            function generateDownloadLink(csvContent) {
-                const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                downloadLink.href = url;
-                downloadLink.download = `Результаты теста ${new Date().toLocaleDateString()}.csv`;
-            }
+            nextButton.addEventListener('click', function() {
+                if (currentQuestion < totalQuestions - 1) {
+                    currentQuestion++;
+                    showQuestion(currentQuestion);
+                }
+            });
+            
+            prevButton.addEventListener('click', function() {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    showQuestion(currentQuestion);
+                }
+            });
             
             submitButton.addEventListener('click', async function() {
                 // Собираем ответы
@@ -490,12 +464,11 @@
                     whatsapp: document.getElementById('whatsapp').value.trim()
                 };
                 
-                // Сохраняем результаты для генерации CSV
-                testResults = { answers, contactData };
-                
                 // Генерируем CSV
                 const csvContent = generateCSV(answers, contactData);
-                generateDownloadLink(csvContent);
+                const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const formData = new FormData();
+                formData.append('document', blob, `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`);
                 
                 // Формируем сообщение для Telegram
                 let message = `📋 *Новые результаты теста*\n\n` +
@@ -508,20 +481,19 @@
                                `➔ ${item.answer}\n\n`;
                 });
                 
-                // Добавляем ссылку на скачивание CSV
-                message += `\n📥 *Скачать результаты в CSV:*\n` +
-                           `[Нажмите здесь, чтобы скачать файл](https://api.telegram.org/bot7044064135:AAGaPDaK13S52ZtJQbA3Hvdl6kA3hN40ccM/sendDocument?chat_id=1208941214&document=${encodeURIComponent(csvContent)})`;
-                
                 try {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
                     
-                    // Отправляем данные в Telegram через бота @marathonpro_bot
-                    // В реальном проекте вам нужно использовать API вашего бота
-                    // Здесь просто имитация отправки
+                    // Здесь должна быть реальная отправка в Telegram бота @marathonpro_bot
+                    // Вместо этого просто имитируем отправку
+                    console.log("Данные для отправки в Telegram бота:", {
+                        message: message,
+                        csvFile: `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`
+                    });
                     
                     // Имитируем задержку отправки
-                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    await new Promise(resolve => setTimeout(resolve, 1000));
                     
                     // Показываем сообщение об успехе
                     successMessage.style.display = 'block';
@@ -533,12 +505,6 @@
                     document.getElementById('whatsapp').value = '';
                     document.querySelectorAll('input[type="radio"]').forEach(radio => {
                         radio.checked = false;
-                    });
-                    
-                    // В реальном проекте здесь должен быть код отправки в Telegram
-                    console.log("Данные для отправки в Telegram:", {
-                        message: message,
-                        csv: csvContent
                     });
                     
                 } catch (error) {
