@@ -152,6 +152,10 @@
             background: #e65c00;
         }
 
+        #downloadLink {
+            display: none;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -209,19 +213,19 @@
             <h2 class="question-title">Какой результат вы хотите получить в первую очередь?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="1">
+                    <input type="radio" name="q1" class="option-radio" value="Сбросить за месяц 2-5 кг лишнего веса">
                     <span class="option-text">Сбросить за месяц 2-5 кг лишнего веса</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="2">
+                    <input type="radio" name="q1" class="option-radio" value="Восстановиться после родов/операции">
                     <span class="option-text">Восстановиться после родов/операции</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="3">
+                    <input type="radio" name="q1" class="option-radio" value="Нормализовать питание и режим дня">
                     <span class="option-text">Нормализовать питание и режим дня</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="4">
+                    <input type="radio" name="q1" class="option-radio" value="Получить энергию и улучшить самочувствие">
                     <span class="option-text">Получить энергию и улучшить самочувствие</span>
                 </label>
             </div>
@@ -232,19 +236,19 @@
             <h2 class="question-title">Что мешает вам достичь желаемого результата?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="1">
+                    <input type="radio" name="q2" class="option-radio" value="Нет времени на сложные программы питания">
                     <span class="option-text">Нет времени на сложные программы питания</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="2">
+                    <input type="radio" name="q2" class="option-radio" value="Пробовал(а) диеты, но результат не держится">
                     <span class="option-text">Пробовал(а) диеты, но результат не держится</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="3">
+                    <input type="radio" name="q2" class="option-radio" value="Сложно соблюдать режим из-за работы/детей">
                     <span class="option-text">Сложно соблюдать режим из-за работы/детей</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="4">
+                    <input type="radio" name="q2" class="option-radio" value="Не знаю, с чего начать">
                     <span class="option-text">Не знаю, с чего начать</span>
                 </label>
             </div>
@@ -255,19 +259,19 @@
             <h2 class="question-title">Сколько времени в день вы готовы уделять себе?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="1">
+                    <input type="radio" name="q3" class="option-radio" value="5-10 минут">
                     <span class="option-text">5-10 минут</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="2">
+                    <input type="radio" name="q3" class="option-radio" value="30-60 минут">
                     <span class="option-text">30-60 минут</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="3">
+                    <input type="radio" name="q3" class="option-radio" value="15-30 минут">
                     <span class="option-text">15-30 минут</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="4">
+                    <input type="radio" name="q3" class="option-radio" value="Более часа">
                     <span class="option-text">Более часа</span>
                 </label>
             </div>
@@ -278,19 +282,19 @@
             <h2 class="question-title">Какой формат поддержки вам важен?</h2>
             <div class="options-container">
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="1">
+                    <input type="radio" name="q4" class="option-radio" value="Личный куратор и постоянная обратная связь">
                     <span class="option-text">Личный куратор и постоянная обратная связь</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="2">
+                    <input type="radio" name="q4" class="option-radio" value="Групповые тренировки и общение с участниками">
                     <span class="option-text">Групповые тренировки и общение с участниками</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="3">
+                    <input type="radio" name="q4" class="option-radio" value="Автоматический контроль через приложение">
                     <span class="option-text">Автоматический контроль через приложение</span>
                 </label>
                 <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="4">
+                    <input type="radio" name="q4" class="option-radio" value="Все вышеперечисленное">
                     <span class="option-text">Все вышеперечисленное</span>
                 </label>
             </div>
@@ -301,6 +305,9 @@
             <button class="nav-button" id="nextButton">Далее</button>
             <button class="nav-button hidden" id="submitButton">Получить результат</button>
         </div>
+
+        <!-- Скрытая ссылка для скачивания -->
+        <a id="downloadLink" download="мои_результаты.txt"></a>
     </div>
 
     <script>
@@ -310,6 +317,7 @@
             const nextButton = document.getElementById('nextButton');
             const submitButton = document.getElementById('submitButton');
             const progressFill = document.getElementById('progressFill');
+            const downloadLink = document.getElementById('downloadLink');
             
             let currentQuestion = 0;
             const totalQuestions = questions.length;
@@ -367,7 +375,44 @@
             
             // Отправка результатов
             submitButton.addEventListener('click', function() {
-                window.location.href = 'https://t.me/tipamarafon1';
+                // Собираем все ответы
+                const answers = [];
+                questions.forEach((question, index) => {
+                    const selectedOption = question.querySelector('input[type="radio"]:checked');
+                    if (selectedOption) {
+                        answers.push({
+                            question: question.querySelector('.question-title').textContent,
+                            answer: selectedOption.value
+                        });
+                    }
+                });
+
+                // Формируем содержимое файла
+                let fileContent = "Результаты теста\n\n";
+                answers.forEach((item, i) => {
+                    fileContent += `Вопрос ${i+1}: ${item.question}\n`;
+                    fileContent += `Ответ: ${item.answer}\n\n`;
+                });
+                fileContent += `Дата: ${new Date().toLocaleString()}`;
+
+                // Создаем Blob-объект
+                const blob = new Blob([fileContent], { type: 'text/plain' });
+                const fileUrl = URL.createObjectURL(blob);
+
+                // Для мобильных устройств
+                if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                    downloadLink.href = fileUrl;
+                    downloadLink.download = 'мои_результаты.txt';
+                    downloadLink.click();
+                    alert("Файл с результатами сохранен. Теперь отправьте его в Telegram ведущему вручную.");
+                } 
+                // Для десктопов
+                else {
+                    window.open(`https://t.me/share/url?url=${encodeURIComponent(fileUrl)}&text=Мои результаты теста`);
+                }
+
+                // Освобождаем память
+                setTimeout(() => URL.revokeObjectURL(fileUrl), 100);
             });
             
             // Проверка выбранного ответа при изменении
