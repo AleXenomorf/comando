@@ -371,6 +371,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Безопасная конфигурация Telegram
+            const telegramConfig = {
+                botToken: '%%TELEGRAM_BOT_TOKEN%%', // Заменится при сборке
+                chatId: '%%TELEGRAM_CHAT_ID%%'     // Заменится при сборке
+            };
+
+            // Получаем элементы DOM
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
@@ -451,6 +458,12 @@
             });
             
             submitButton.addEventListener('click', async function() {
+                // Проверка конфигурации
+                if (telegramConfig.botToken.includes('%%') || telegramConfig.chatId.includes('%%')) {
+                    alert('Конфигурация бота не завершена!');
+                    return;
+                }
+
                 // Собираем ответы
                 const answers = [];
                 for (let i = 0; i < questions.length - 1; i++) {
@@ -474,8 +487,6 @@
                 // Генерируем CSV
                 const csvContent = generateCSV(answers, contactData);
                 const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
-                const formData = new FormData();
-                formData.append('document', blob, `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`);
                 
                 // Формируем сообщение для Telegram
                 let message = `📋 *Новые результаты теста*\n\n` +
@@ -493,31 +504,25 @@
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
                     
-                    // Отправляем данные в Telegram бота @marathonpro_bot
-                    // (Замените на реальный API вашего бота)
-                    const botToken = '7044064135:AAGaPDaK13S52ZtJQbA3Hvdl6kA3hN40ccM'; // Пример токена
-                    const chatId = '1208941214'; // ID чата, куда отправлять
-                    
-                    // 1. Сначала отправляем текстовое сообщение
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    // 1. Отправляем текстовое сообщение
+                    await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            chat_id: chatId,
+                            chat_id: telegramConfig.chatId,
                             text: message,
                             parse_mode: 'Markdown'
                         })
                     });
                     
-                    // 2. Затем отправляем CSV-файл
-                    const file = new File([blob], `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`, { type: 'text/csv' });
+                    // 2. Отправляем CSV-файл
                     const fileFormData = new FormData();
-                    fileFormData.append('chat_id', chatId);
-                    fileFormData.append('document', file);
+                    fileFormData.append('chat_id', telegramConfig.chatId);
+                    fileFormData.append('document', blob, `Результаты_${contactData.firstName}_${contactData.lastName}.csv`);
                     
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+                    await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendDocument`, {
                         method: 'POST',
                         body: fileFormData
                     });
