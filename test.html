@@ -370,28 +370,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 1. Защищённое получение токена
-            const getTelegramToken = () => {
-                const parts = [
-                    'NzA0NDA2NDEzNQ==',     // 7044064135
-                    'QUFFLUxIRzJ4T0o=',     // AAE-LHG2xOJ
-                    'OWhNaUdfV21BZ0Q0Vno=', // 9hMiG_WmAgD4Vz
-                    'S1puS19KTT0='          // KZnK_JM
-                ];
-                return parts.map(p => atob(p)).join(':');
-            };
-
-            const botToken = getTelegramToken();
+            // Конфигурация бота (защищенная)
+            const botToken = atob('NzA0NDA2NDEzNTpBQUUtTEhHMnhPSl85aE1pR19XbUFnRDRWeko5S1puS19KTT0=');
             const chatId = '1208941214';
-
-            // 2. Экстренная проверка токена
+            
+            // Проверка токена
             console.log("Проверка токена (первые 10 символов):", botToken.substring(0, 10) + '...');
             fetch(`https://api.telegram.org/bot${botToken}/getMe`)
                 .then(r => r.json())
-                .then(data => console.log("Проверка бота:", data.ok ? "✔ Бот активен" : "❌ Ошибка"))
-                .catch(e => console.error("Ошибка проверки токена:", e));
+                .then(data => console.log("Статус бота:", data.ok ? "✔ Активен" : "❌ Ошибка"))
+                .catch(e => console.error("Ошибка проверки:", e));
 
-            // 3. Основной код теста
+            // Элементы интерфейса
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
@@ -402,6 +392,7 @@
             let currentQuestion = 0;
             const totalQuestions = questions.length;
             
+            // Функции управления тестом
             function updateProgress() {
                 const progress = ((currentQuestion + 1) / totalQuestions) * 100;
                 progressFill.style.width = `${progress}%`;
@@ -441,22 +432,7 @@
                 }
             }
             
-            function generateCSV(answers, contactData) {
-                let csv = "Вопрос,Ответ\n";
-                
-                answers.forEach(item => {
-                    csv += `"${item.question.replace(/"/g, '""')}","${item.answer.replace(/"/g, '""')}"\n`;
-                });
-                
-                csv += `\nКонтактные данные\n`;
-                csv += `"Имя","${contactData.firstName.replace(/"/g, '""')}"\n`;
-                csv += `"Фамилия","${contactData.lastName.replace(/"/g, '""')}"\n`;
-                csv += `"Email","${contactData.email.replace(/"/g, '""')}"\n`;
-                csv += `"WhatsApp","${contactData.whatsapp.replace(/"/g, '""')}"\n`;
-                
-                return csv;
-            }
-            
+            // Обработчики событий
             nextButton.addEventListener('click', function() {
                 if (currentQuestion < totalQuestions - 1) {
                     currentQuestion++;
@@ -471,44 +447,44 @@
                 }
             });
             
+            // Отправка результатов
             submitButton.addEventListener('click', async function() {
-                // Собираем ответы
-                const answers = [];
-                for (let i = 0; i < questions.length - 1; i++) {
-                    const selectedOption = questions[i].querySelector('input[type="radio"]:checked');
-                    if (selectedOption) {
-                        answers.push({
-                            question: questions[i].querySelector('.question-title').textContent,
-                            answer: selectedOption.value
-                        });
-                    }
-                }
-                
-                // Получаем контактные данные
-                const contactData = {
-                    firstName: document.getElementById('firstName').value.trim(),
-                    lastName: document.getElementById('lastName').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    whatsapp: document.getElementById('whatsapp').value.trim()
-                };
-                
-                // Формируем сообщение для Telegram
-                let message = `📋 *Новые результаты теста*\n\n` +
-                              `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}\n` +
-                              `📧 *Email:* ${contactData.email}\n` +
-                              `📱 *WhatsApp:* ${contactData.whatsapp}\n\n` +
-                              `📝 *Ответы на вопросы:*\n\n`;
-                
-                answers.forEach((item, i) => {
-                    message += `*${i+1}. ${item.question}*\n` +
-                               `➔ ${item.answer}\n\n`;
-                });
-                
                 try {
+                    // 1. Собираем данные
+                    const answers = [];
+                    for (let i = 0; i < questions.length - 1; i++) {
+                        const selectedOption = questions[i].querySelector('input[type="radio"]:checked');
+                        if (selectedOption) {
+                            answers.push({
+                                question: questions[i].querySelector('.question-title').textContent,
+                                answer: selectedOption.value
+                            });
+                        }
+                    }
+                    
+                    const contactData = {
+                        firstName: document.getElementById('firstName').value.trim(),
+                        lastName: document.getElementById('lastName').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        whatsapp: document.getElementById('whatsapp').value.trim()
+                    };
+                    
+                    // 2. Формируем сообщение
+                    let message = `📋 *Новые результаты теста*\n\n` +
+                                  `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}\n` +
+                                  `📧 *Email:* ${contactData.email}\n` +
+                                  `📱 *WhatsApp:* ${contactData.whatsapp}\n\n` +
+                                  `📝 *Ответы:*\n\n`;
+                    
+                    answers.forEach((item, i) => {
+                        message += `*${i+1}. ${item.question}*\n➔ ${item.answer}\n\n`;
+                    });
+                    
+                    // 3. Отправка в Telegram
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
                     
-                    // 1. Отправляем текстовое сообщение
+                    // Текстовое сообщение
                     const textResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -518,27 +494,22 @@
                             parse_mode: 'Markdown'
                         })
                     });
-
-                    if (!textResponse.ok) {
-                        const error = await textResponse.json();
-                        throw new Error(error.description || 'Ошибка отправки сообщения');
-                    }
-
-                    // 2. Отправляем CSV-файл
-                    const csvContent = generateCSV(answers, contactData);
+                    
+                    if (!textResponse.ok) throw new Error('Ошибка отправки сообщения');
+                    
+                    // Файл с результатами
+                    const csvContent = `Имя,${contactData.firstName}\nФамилия,${contactData.lastName}\nEmail,${contactData.email}\nWhatsApp,${contactData.whatsapp}\n\nОтветы:\n${answers.map(a => `"${a.question}","${a.answer}"`).join('\n')}`;
                     const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
                     const formData = new FormData();
-                    formData.append('document', blob, `Результаты_${Date.now()}.csv`);
+                    formData.append('document', blob, `Результаты_${contactData.firstName}.csv`);
+                    formData.append('chat_id', chatId);
                     
                     const fileResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
                         method: 'POST',
                         body: formData
                     });
-
-                    if (!fileResponse.ok) {
-                        const error = await fileResponse.json();
-                        throw new Error(error.description || 'Ошибка отправки файла');
-                    }
+                    
+                    if (!fileResponse.ok) throw new Error('Ошибка отправки файла');
                     
                     // Успех
                     successMessage.style.display = 'block';
@@ -546,13 +517,35 @@
                     
                 } catch (error) {
                     console.error('Ошибка:', error);
-                    alert(`Ошибка отправки: ${error.message}`);
+                    alert('Ошибка отправки: ' + error.message);
                     submitButton.disabled = false;
                     submitButton.textContent = 'Отправить результаты';
                 }
             });
             
-            // Инициализация
+            // Инициализация обработчиков
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    this.closest('.option-item').classList.add('selected');
+                    checkAnswerSelected();
+                });
+            });
+            
+            document.querySelectorAll('.option-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'INPUT') {
+                        const radio = this.querySelector('input[type="radio"]');
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    }
+                });
+            });
+            
+            ['firstName', 'lastName', 'email', 'whatsapp'].forEach(id => {
+                document.getElementById(id).addEventListener('input', checkAnswerSelected);
+            });
+            
+            // Старт теста
             showQuestion(0);
         });
     </script>
