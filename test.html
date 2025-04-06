@@ -381,16 +381,16 @@
         <!-- Сообщение об ошибке -->
         <div class="error-message" id="errorMessage">
             <h3>❌ Ошибка при отправке</h3>
-            <p>Пожалуйста, попробуйте позже или свяжитесь с нами напрямую</p>
+            <p id="errorText">Пожалуйста, попробуйте позже или свяжитесь с нами напрямую</p>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Конфигурация Telegram (плейсхолдеры заменятся при деплое)
+            // Конфигурация Telegram
             const telegramConfig = {
                 botToken: '%%TELEGRAM_BOT_TOKEN%%',
-                chatId: 'TELEGRAM_CHAT_ID'
+                chatId: '%%TELEGRAM_CHAT_ID%%'
             };
 
             // Элементы DOM
@@ -401,6 +401,7 @@
             const progressFill = document.getElementById('progressFill');
             const successMessage = document.getElementById('successMessage');
             const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
             
             let currentQuestion = 0;
             const totalQuestions = questions.length;
@@ -445,23 +446,6 @@
                 }
             }
             
-            // Генерация CSV
-            function generateCSV(answers, contactData) {
-                let csv = "Вопрос,Ответ\n";
-                
-                answers.forEach(item => {
-                    csv += `"${item.question.replace(/"/g, '""')}","${item.answer.replace(/"/g, '""')}"\n`;
-                });
-                
-                csv += `\nКонтактные данные\n`;
-                csv += `"Имя","${contactData.firstName.replace(/"/g, '""')}"\n`;
-                csv += `"Фамилия","${contactData.lastName.replace(/"/g, '""')}"\n`;
-                csv += `"Email","${contactData.email.replace(/"/g, '""')}"\n`;
-                csv += `"WhatsApp","${contactData.whatsapp.replace(/"/g, '""')}"\n`;
-                
-                return csv;
-            }
-            
             // Навигация
             nextButton.addEventListener('click', function() {
                 if (currentQuestion < totalQuestions - 1) {
@@ -477,8 +461,16 @@
                 }
             });
             
-            // Отправка данных (ОСНОВНЫЕ ИЗМЕНЕНИЯ ЗДЕСЬ)
+            // Отправка данных
             submitButton.addEventListener('click', async function() {
+                // Проверка конфигурации
+                if (!telegramConfig.botToken || !telegramConfig.chatId) {
+                    errorText.textContent = "Ошибка конфигурации бота! Обновите страницу.";
+                    errorMessage.style.display = 'block';
+                    console.error("Bot token or chat ID missing!");
+                    return;
+                }
+                
                 // Собираем ответы
                 const answers = [];
                 for (let i = 0; i < questions.length - 1; i++) {
@@ -511,19 +503,26 @@
                                `➔ ${item.answer}\n\n`;
                 });
                 
+                // Проверка длины сообщения
+                if (message.length > 4096) {
+                    errorText.textContent = "Сообщение слишком длинное для Telegram (ограничение 4096 символов)";
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
                 try {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
                     successMessage.style.display = 'none';
                     errorMessage.style.display = 'none';
                     
-                    console.log("Пытаемся отправить в Telegram:", {
+                    console.log("Отправляем в Telegram:", {
                         botToken: telegramConfig.botToken?.slice(0, 10) + '...',
                         chatId: telegramConfig.chatId,
-                        message: message.slice(0, 50) + '...'
+                        messageLength: message.length
                     });
 
-                    // 1. Используем CORS proxy для обхода ограничений
+                    // Вариант 1: Прямой запрос через CORS Anywhere
                     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
                     const telegramUrl = `https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`;
                     
@@ -547,7 +546,7 @@
                         throw new Error(result.description || "Ошибка отправки сообщения");
                     }
 
-                    // Успех
+                    // Успешная отправка
                     successMessage.style.display = 'block';
                     submitButton.style.display = 'none';
                     
@@ -562,14 +561,20 @@
                     
                 } catch (error) {
                     console.error('Ошибка отправки:', error);
+                    
+                    // Вариант 2: Fallback через открытие Telegram
+                    const botUsername = 'YOUR_BOT_USERNAME'; // Замените на username вашего бота
+                    const fallbackUrl = `https://t.me/${botUsername}?start=payload_${encodeURIComponent(JSON.stringify({
+                        name: `${contactData.firstName} ${contactData.lastName}`,
+                        email: contactData.email,
+                        phone: contactData.whatsapp,
+                        answers: answers.map(a => `${a.question}: ${a.answer}`).join('\n')
+                    }))}`;
+                    
+                    errorText.innerHTML = `Ошибка прямой отправки. <a href="${fallbackUrl}" target="_blank">Нажмите здесь, чтобы отправить через Telegram</a>`;
                     errorMessage.style.display = 'block';
                     submitButton.disabled = false;
-                    submitButton.textContent = 'Отправить результаты';
-                    
-                    // Дополнительная проверка
-                    if (error.message.includes('CORS')) {
-                        alert("Ошибка CORS. Попробуйте обновить страницу.");
-                    }
+                    submitButton.textContent = 'Попробовать снова';
                 }
             });
             
