@@ -371,18 +371,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Функция для декодирования токена (разбита на части для обфускации)
+            // Декодирование токена (исправленная версия)
             function getTelegramToken() {
-                const part1 = atob('NzA0NDA2NDEzNQ=='); // 7044064135
-                const part2 = atob('QUFFLUxIRzJ4T0o='); // AAE-LHG2xOJ
-                const part3 = atob('OWhNaUdfV21BZ0Q0Vno='); // 9hMiG_WmAgD4Vz
-                const part4 = atob('S1puS19KTT0='); // KZnK_JM
-                return part1 + ':' + part2 + part3 + part4;
+                // Закодированный токен целиком (без разбиения на части!)
+                const encodedToken = 'NzA0NDA2NDEzNTpBQUUtTEhHMnhPSl85aE1pR19XbUFnRDRWeko5S1puS19KTT0=';
+                return atob(encodedToken); // Должно вернуть: 7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM
             }
 
-            // Конфигурация Telegram бота
+            // Проверка токена в консоли (убедитесь, что выводит правильный)
+            console.log("Проверка токена:", getTelegramToken());
+
             const botToken = getTelegramToken();
-            const chatId = '1208941214'; // Ваш chat ID
+            const chatId = '1208941214';
             
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
@@ -507,7 +507,7 @@
                     submitButton.textContent = 'Отправка...';
                     
                     // 1. Сначала отправляем текстовое сообщение
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    const textResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -518,17 +518,25 @@
                             parse_mode: 'Markdown'
                         })
                     });
-                    
+
+                    if (!textResponse.ok) {
+                        throw new Error('Ошибка отправки сообщения');
+                    }
+
                     // 2. Затем отправляем CSV-файл
                     const file = new File([blob], `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`, { type: 'text/csv' });
                     const fileFormData = new FormData();
                     fileFormData.append('chat_id', chatId);
                     fileFormData.append('document', file);
                     
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+                    const fileResponse = await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
                         method: 'POST',
                         body: fileFormData
                     });
+
+                    if (!fileResponse.ok) {
+                        throw new Error('Ошибка отправки файла');
+                    }
                     
                     // Показываем сообщение об успехе
                     successMessage.style.display = 'block';
