@@ -190,6 +190,16 @@
             animation: fadeIn 0.5s ease;
         }
 
+        .error-message {
+            display: none;
+            background: rgba(204, 0, 0, 0.2);
+            border: 1px solid #cc0000;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -367,27 +377,35 @@
             <h3>✅ Спасибо! Ваши результаты отправлены</h3>
             <p>Мы свяжемся с вами в ближайшее время через WhatsApp</p>
         </div>
+
+        <!-- Сообщение об ошибке -->
+        <div class="error-message" id="errorMessage">
+            <h3>❌ Ошибка при отправке</h3>
+            <p>Пожалуйста, попробуйте позже или свяжитесь с нами напрямую</p>
+        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Безопасная конфигурация Telegram
+            // Конфигурация Telegram (плейсхолдеры заменятся при деплое)
             const telegramConfig = {
-                botToken: '%%TELEGRAM_BOT_TOKEN%%', // Заменится при сборке
-                chatId: '%%TELEGRAM_CHAT_ID%%'     // Заменится при сборке
+                botToken: '%%TELEGRAM_BOT_TOKEN%%',
+                chatId: '%%TELEGRAM_CHAT_ID%%'
             };
 
-            // Получаем элементы DOM
+            // Элементы DOM
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
             const submitButton = document.getElementById('submitButton');
             const progressFill = document.getElementById('progressFill');
             const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
             
             let currentQuestion = 0;
             const totalQuestions = questions.length;
             
+            // Функции управления вопросами
             function updateProgress() {
                 const progress = ((currentQuestion + 1) / totalQuestions) * 100;
                 progressFill.style.width = `${progress}%`;
@@ -427,6 +445,7 @@
                 }
             }
             
+            // Генерация CSV
             function generateCSV(answers, contactData) {
                 let csv = "Вопрос,Ответ\n";
                 
@@ -443,6 +462,7 @@
                 return csv;
             }
             
+            // Навигация
             nextButton.addEventListener('click', function() {
                 if (currentQuestion < totalQuestions - 1) {
                     currentQuestion++;
@@ -457,13 +477,8 @@
                 }
             });
             
+            // Отправка данных
             submitButton.addEventListener('click', async function() {
-                // Проверка конфигурации
-                if (telegramConfig.botToken.includes('%%') || telegramConfig.chatId.includes('%%')) {
-                    alert('Конфигурация бота не завершена!');
-                    return;
-                }
-
                 // Собираем ответы
                 const answers = [];
                 for (let i = 0; i < questions.length - 1; i++) {
@@ -503,9 +518,17 @@
                 try {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
+                    successMessage.style.display = 'none';
+                    errorMessage.style.display = 'none';
                     
+                    console.log("Пытаемся отправить в Telegram:", {
+                        botToken: telegramConfig.botToken?.slice(0, 10) + '...',
+                        chatId: telegramConfig.chatId,
+                        message: message.slice(0, 50) + '...'
+                    });
+
                     // 1. Отправляем текстовое сообщение
-                    await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`, {
+                    const textResponse = await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -516,18 +539,33 @@
                             parse_mode: 'Markdown'
                         })
                     });
-                    
+
+                    const textResult = await textResponse.json();
+                    console.log("Ответ Telegram (текст):", textResult);
+
+                    if (!textResponse.ok) {
+                        throw new Error(textResult.description || "Ошибка отправки сообщения");
+                    }
+
                     // 2. Отправляем CSV-файл
                     const fileFormData = new FormData();
                     fileFormData.append('chat_id', telegramConfig.chatId);
                     fileFormData.append('document', blob, `Результаты_${contactData.firstName}_${contactData.lastName}.csv`);
+                    fileFormData.append('caption', 'Данные в формате CSV');
                     
-                    await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendDocument`, {
+                    const fileResponse = await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendDocument`, {
                         method: 'POST',
                         body: fileFormData
                     });
-                    
-                    // Показываем сообщение об успехе
+
+                    const fileResult = await fileResponse.json();
+                    console.log("Ответ Telegram (файл):", fileResult);
+
+                    if (!fileResponse.ok) {
+                        throw new Error(fileResult.description || "Ошибка отправки файла");
+                    }
+
+                    // Успех
                     successMessage.style.display = 'block';
                     submitButton.style.display = 'none';
                     
@@ -541,8 +579,8 @@
                     });
                     
                 } catch (error) {
-                    console.error('Ошибка:', error);
-                    alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
+                    console.error('Ошибка отправки:', error);
+                    errorMessage.style.display = 'block';
                     submitButton.disabled = false;
                     submitButton.textContent = 'Отправить результаты';
                 }
