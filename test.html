@@ -190,16 +190,6 @@
             animation: fadeIn 0.5s ease;
         }
 
-        .error-message {
-            display: none;
-            background: rgba(204, 0, 0, 0.2);
-            border: 1px solid #cc0000;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 20px;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -377,36 +367,20 @@
             <h3>✅ Спасибо! Ваши результаты отправлены</h3>
             <p>Мы свяжемся с вами в ближайшее время через WhatsApp</p>
         </div>
-
-        <!-- Сообщение об ошибке -->
-        <div class="error-message" id="errorMessage">
-            <h3>❌ Ошибка при отправке</h3>
-            <p id="errorText">Пожалуйста, попробуйте позже или свяжитесь с нами напрямую</p>
-        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Конфигурация Telegram
-            const telegramConfig = {
-                botToken: '%%TELEGRAM_BOT_TOKEN%%',
-                chatId: '%%TELEGRAM_CHAT_ID%%'
-            };
-
-            // Элементы DOM
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
             const nextButton = document.getElementById('nextButton');
             const submitButton = document.getElementById('submitButton');
             const progressFill = document.getElementById('progressFill');
             const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
-            const errorText = document.getElementById('errorText');
             
             let currentQuestion = 0;
             const totalQuestions = questions.length;
             
-            // Функции управления вопросами
             function updateProgress() {
                 const progress = ((currentQuestion + 1) / totalQuestions) * 100;
                 progressFill.style.width = `${progress}%`;
@@ -446,7 +420,22 @@
                 }
             }
             
-            // Навигация
+            function generateCSV(answers, contactData) {
+                let csv = "Вопрос,Ответ\n";
+                
+                answers.forEach(item => {
+                    csv += `"${item.question.replace(/"/g, '""')}","${item.answer.replace(/"/g, '""')}"\n`;
+                });
+                
+                csv += `\nКонтактные данные\n`;
+                csv += `"Имя","${contactData.firstName.replace(/"/g, '""')}"\n`;
+                csv += `"Фамилия","${contactData.lastName.replace(/"/g, '""')}"\n`;
+                csv += `"Email","${contactData.email.replace(/"/g, '""')}"\n`;
+                csv += `"WhatsApp","${contactData.whatsapp.replace(/"/g, '""')}"\n`;
+                
+                return csv;
+            }
+            
             nextButton.addEventListener('click', function() {
                 if (currentQuestion < totalQuestions - 1) {
                     currentQuestion++;
@@ -461,16 +450,7 @@
                 }
             });
             
-            // Отправка данных
             submitButton.addEventListener('click', async function() {
-                // Проверка конфигурации
-                if (!telegramConfig.botToken || !telegramConfig.chatId) {
-                    errorText.textContent = "Ошибка конфигурации бота! Обновите страницу.";
-                    errorMessage.style.display = 'block';
-                    console.error("Bot token or chat ID missing!");
-                    return;
-                }
-                
                 // Собираем ответы
                 const answers = [];
                 for (let i = 0; i < questions.length - 1; i++) {
@@ -491,6 +471,12 @@
                     whatsapp: document.getElementById('whatsapp').value.trim()
                 };
                 
+                // Генерируем CSV
+                const csvContent = generateCSV(answers, contactData);
+                const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+                const formData = new FormData();
+                formData.append('document', blob, `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`);
+                
                 // Формируем сообщение для Telegram
                 let message = `📋 *Новые результаты теста*\n\n` +
                               `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}\n` +
@@ -503,50 +489,40 @@
                                `➔ ${item.answer}\n\n`;
                 });
                 
-                // Проверка длины сообщения
-                if (message.length > 4096) {
-                    errorText.textContent = "Сообщение слишком длинное для Telegram (ограничение 4096 символов)";
-                    errorMessage.style.display = 'block';
-                    return;
-                }
-                
                 try {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
-                    successMessage.style.display = 'none';
-                    errorMessage.style.display = 'none';
                     
-                    console.log("Отправляем в Telegram:", {
-                        botToken: telegramConfig.botToken?.slice(0, 10) + '...',
-                        chatId: telegramConfig.chatId,
-                        messageLength: message.length
-                    });
-
-                    // Вариант 1: Прямой запрос через CORS Anywhere
-                    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-                    const telegramUrl = `https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`;
+                    // Отправляем данные в Telegram бота @marathonpro_bot
+                    // (Замените на реальный API вашего бота)
+                    const botToken = '7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM'; // Пример токена
+                    const chatId = '1208941214'; // ID чата, куда отправлять
                     
-                    const response = await fetch(proxyUrl + telegramUrl, {
+                    // 1. Сначала отправляем текстовое сообщение
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-Requested-With': 'XMLHttpRequest'
                         },
                         body: JSON.stringify({
-                            chat_id: telegramConfig.chatId,
+                            chat_id: chatId,
                             text: message,
                             parse_mode: 'Markdown'
                         })
                     });
-
-                    const result = await response.json();
-                    console.log("Ответ Telegram:", result);
-
-                    if (!response.ok) {
-                        throw new Error(result.description || "Ошибка отправки сообщения");
-                    }
-
-                    // Успешная отправка
+                    
+                    // 2. Затем отправляем CSV-файл
+                    const file = new File([blob], `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`, { type: 'text/csv' });
+                    const fileFormData = new FormData();
+                    fileFormData.append('chat_id', chatId);
+                    fileFormData.append('document', file);
+                    
+                    await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+                        method: 'POST',
+                        body: fileFormData
+                    });
+                    
+                    // Показываем сообщение об успехе
                     successMessage.style.display = 'block';
                     submitButton.style.display = 'none';
                     
@@ -560,21 +536,10 @@
                     });
                     
                 } catch (error) {
-                    console.error('Ошибка отправки:', error);
-                    
-                    // Вариант 2: Fallback через открытие Telegram
-                    const botUsername = 'YOUR_BOT_USERNAME'; // Замените на username вашего бота
-                    const fallbackUrl = `https://t.me/${botUsername}?start=payload_${encodeURIComponent(JSON.stringify({
-                        name: `${contactData.firstName} ${contactData.lastName}`,
-                        email: contactData.email,
-                        phone: contactData.whatsapp,
-                        answers: answers.map(a => `${a.question}: ${a.answer}`).join('\n')
-                    }))}`;
-                    
-                    errorText.innerHTML = `Ошибка прямой отправки. <a href="${fallbackUrl}" target="_blank">Нажмите здесь, чтобы отправить через Telegram</a>`;
-                    errorMessage.style.display = 'block';
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
                     submitButton.disabled = false;
-                    submitButton.textContent = 'Попробовать снова';
+                    submitButton.textContent = 'Отправить результаты';
                 }
             });
             
