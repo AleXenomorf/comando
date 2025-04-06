@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'test.html'  # Изменили с index.html на test.html
+      - 'test.html'
       - '.github/workflows/deploy.yml'
 
 jobs:
@@ -16,13 +16,12 @@ jobs:
 
       - name: Replace Secrets
         run: |
-          sed -i "s|%%TELEGRAM_BOT_TOKEN%%|${{ secrets.TELEGRAM_BOT_TOKEN }}|g" test.html  # Изменили здесь
-          sed -i "s|%%TELEGRAM_CHAT_ID%%|${{ secrets.TELEGRAM_CHAT_ID }}|g" test.html      # И здесь
+          sed -i "s|%%TELEGRAM_BOT_TOKEN%%|${{ secrets.TELEGRAM_BOT_TOKEN }}|g" test.html
+          sed -i "s|%%TELEGRAM_CHAT_ID%%|${{ secrets.TELEGRAM_CHAT_ID }}|g" test.html
           
           # Проверка замены
-          echo "Проверка замены в test.html:"
-          grep "botToken" test.html
-          grep "chatId" test.html
+          echo "Проверка замены:"
+          grep -E "botToken:|chatId:" test.html
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
