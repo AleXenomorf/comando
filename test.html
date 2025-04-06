@@ -477,7 +477,7 @@
                 }
             });
             
-            // Отправка данных
+            // Отправка данных (ОСНОВНЫЕ ИЗМЕНЕНИЯ ЗДЕСЬ)
             submitButton.addEventListener('click', async function() {
                 // Собираем ответы
                 const answers = [];
@@ -498,10 +498,6 @@
                     email: document.getElementById('email').value.trim(),
                     whatsapp: document.getElementById('whatsapp').value.trim()
                 };
-                
-                // Генерируем CSV
-                const csvContent = generateCSV(answers, contactData);
-                const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
                 
                 // Формируем сообщение для Telegram
                 let message = `📋 *Новые результаты теста*\n\n` +
@@ -527,11 +523,15 @@
                         message: message.slice(0, 50) + '...'
                     });
 
-                    // 1. Отправляем текстовое сообщение
-                    const textResponse = await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`, {
+                    // 1. Используем CORS proxy для обхода ограничений
+                    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                    const telegramUrl = `https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`;
+                    
+                    const response = await fetch(proxyUrl + telegramUrl, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
                         },
                         body: JSON.stringify({
                             chat_id: telegramConfig.chatId,
@@ -540,29 +540,11 @@
                         })
                     });
 
-                    const textResult = await textResponse.json();
-                    console.log("Ответ Telegram (текст):", textResult);
+                    const result = await response.json();
+                    console.log("Ответ Telegram:", result);
 
-                    if (!textResponse.ok) {
-                        throw new Error(textResult.description || "Ошибка отправки сообщения");
-                    }
-
-                    // 2. Отправляем CSV-файл
-                    const fileFormData = new FormData();
-                    fileFormData.append('chat_id', telegramConfig.chatId);
-                    fileFormData.append('document', blob, `Результаты_${contactData.firstName}_${contactData.lastName}.csv`);
-                    fileFormData.append('caption', 'Данные в формате CSV');
-                    
-                    const fileResponse = await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendDocument`, {
-                        method: 'POST',
-                        body: fileFormData
-                    });
-
-                    const fileResult = await fileResponse.json();
-                    console.log("Ответ Telegram (файл):", fileResult);
-
-                    if (!fileResponse.ok) {
-                        throw new Error(fileResult.description || "Ошибка отправки файла");
+                    if (!response.ok) {
+                        throw new Error(result.description || "Ошибка отправки сообщения");
                     }
 
                     // Успех
@@ -583,6 +565,11 @@
                     errorMessage.style.display = 'block';
                     submitButton.disabled = false;
                     submitButton.textContent = 'Отправить результаты';
+                    
+                    // Дополнительная проверка
+                    if (error.message.includes('CORS')) {
+                        alert("Ошибка CORS. Попробуйте обновить страницу.");
+                    }
                 }
             });
             
