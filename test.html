@@ -424,6 +424,22 @@
                 }
             }
             
+            function generateCSV(answers, contactData) {
+                let csv = "Вопрос,Ответ\n";
+                
+                answers.forEach(item => {
+                    csv += `"${item.question.replace(/"/g, '""')}","${item.answer.replace(/"/g, '""')}"\n`;
+                });
+                
+                csv += `\nКонтактные данные\n`;
+                csv += `"Имя","${contactData.firstName.replace(/"/g, '""')}"\n`;
+                csv += `"Фамилия","${contactData.lastName.replace(/"/g, '""')}"\n`;
+                csv += `"Email","${contactData.email.replace(/"/g, '""')}"\n`;
+                csv += `"WhatsApp","${contactData.whatsapp.replace(/"/g, '""')}"\n`;
+                
+                return csv;
+            }
+            
             nextButton.addEventListener('click', function() {
                 if (currentQuestion < totalQuestions - 1) {
                     currentQuestion++;
@@ -488,9 +504,11 @@
                         })
                     });
                     
+                    const result = await response.json();
+                    console.log("Full response:", result);
+                    
                     if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.description || 'Ошибка при отправке');
+                        throw new Error(result.description || 'Ошибка при отправке');
                     }
                     
                     // Показываем сообщение об успехе
@@ -498,8 +516,8 @@
                     submitButton.style.display = 'none';
                     
                 } catch (error) {
-                    console.error('Ошибка:', error);
-                    alert('Произошла ошибка: ' + error.message);
+                    console.error('Error details:', error);
+                    alert('Ошибка: ' + error.message);
                     submitButton.disabled = false;
                     submitButton.textContent = 'Отправить результаты';
                 }
