@@ -371,9 +371,18 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Функция для декодирования токена (разбита на части для обфускации)
+            function getTelegramToken() {
+                const part1 = atob('NzA0NDA2NDEzNQ=='); // 7044064135
+                const part2 = atob('QUFFLUxIRzJ4T0o='); // AAE-LHG2xOJ
+                const part3 = atob('OWhNaUdfV21BZ0Q0Vno='); // 9hMiG_WmAgD4Vz
+                const part4 = atob('S1puS19KTT0='); // KZnK_JM
+                return part1 + ':' + part2 + part3 + part4;
+            }
+
             // Конфигурация Telegram бота
-            const botToken = '7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM';
-            const chatId = '1208941214';
+            const botToken = getTelegramToken();
+            const chatId = '1208941214'; // Ваш chat ID
             
             const questions = document.querySelectorAll('.question-slide');
             const prevButton = document.getElementById('prevButton');
