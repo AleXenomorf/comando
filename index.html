@@ -706,9 +706,12 @@
         }
 
         .seventh-image {
-            background: transparent !important;
-            height: auto !important;
-            min-height: 100vh;
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            height: 100vh;
+            position: relative;
         }
 
         .contacts-container {
@@ -724,10 +727,6 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: var(--asphalt-bg);
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
             padding: 80px 20px;
             box-sizing: border-box;
         }
