@@ -115,7 +115,7 @@
             height: 100vh;
             background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                             url('https://alexenomorf.github.io/comando/22.jpg');
-            background-size: cover;
+            background-size: 100% 100%;
             background-position: center;
             position: relative;
         }
@@ -623,6 +623,7 @@
             object-fit: contain;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transform: translate(100px, -20px);
         }
 
         .team-member-info {
@@ -1352,6 +1353,7 @@
             .first-image {
                 background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
                                 url('https://alexenomorf.github.io/comando/4.jpg');
+                background-size: cover;
             }
             
             .content {
@@ -1757,6 +1759,7 @@
                 height: 100%;
                 object-fit: cover;
                 border-radius: 8px;
+                transform: none !important;
             }
 
             .team-member-info {
