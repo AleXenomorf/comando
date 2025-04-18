@@ -1391,6 +1391,9 @@
             position: relative;
             padding: 0 20px;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
@@ -1517,7 +1520,7 @@
         }
 
         /* Медиазапросы для мобильных устройств */
-        @media (max-width: 768px), (orientation: portrait) {
+        @media (max-width: 768px) and (orientation: portrait) {
             :root {
                 --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
                 --menu-width: 80%;
@@ -2529,37 +2532,57 @@
 
         /* Медиазапрос для ландшафтной ориентации на мобильных устройствах */
         @media (orientation: landscape) and (max-width: 900px) {
+            :root {
+                --menu-width: 250px;
+            }
+            
             .first-image {
                 background-attachment: scroll;
+                background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                                url('https://alexenomorf.github.io/comando/111.jpg');
             }
             
             .content {
-                top: 100px;
-                height: calc(100vh - 100px);
+                top: 150px;
+                height: calc(100vh - 150px);
+                padding-right: clamp(20px, 5vw, 100px);
             }
             
             .marathon-ring {
-                top: -100px;
-                right: 30px;
+                top: -80px;
+                right: clamp(20px, 5vw, 50px);
+                width: clamp(80px, 10vw, 120px);
+                height: clamp(80px, 10vw, 120px);
             }
             
+            .marathon-char {
+                transform-origin: 50% calc(clamp(40px, 5vw, 60px));
+                height: calc(clamp(40px, 5vw, 60px));
+                font-size: clamp(10px, 1vw, 14px);
+            }
+
+            .main-text {
+                max-width: clamp(300px, 60vw, 500px);
+                margin-right: clamp(20px, 5vw, 50px);
+            }
+
             .main-text h1 {
-                font-size: 28px;
+                font-size: clamp(24px, 4vw, 36px);
             }
-            
+
             .main-text h2 {
-                font-size: 22px;
+                font-size: clamp(20px, 3vw, 28px);
             }
-            
+
             .main-text h3 {
-                font-size: 18px;
+                font-size: clamp(16px, 2vw, 20px);
             }
-            
+
             .button-container button {
                 padding: 12px 24px;
-                font-size: 16px;
+                font-size: clamp(14px, 2vw, 18px);
             }
-            
+
             .second-image,
             .third-image,
             .fourth-image,
@@ -2569,58 +2592,215 @@
                 height: auto;
                 min-height: 100vh;
             }
-            
+
+            .second-image img,
+            .third-image img,
+            .fourth-image img,
+            .fifth-image img {
+                display: block;
+            }
+
             .text-content {
-                max-width: 80%;
-                margin: 0 auto;
+                max-width: 60%;
+                margin-left: 5%;
                 padding: 30px;
             }
-            
+
             .text-block h2 {
-                font-size: 28px;
+                font-size: clamp(22px, 3vw, 28px);
+            }
+
+            .text-block p {
+                font-size: clamp(14px, 1.8vw, 16px);
             }
             
-            .text-block p {
-                font-size: 16px;
+            .consultation-button {
+                padding: 12px 20px;
+                font-size: clamp(14px, 1.5vw, 16px);
+            }
+            
+            .program-selector {
+                left: 60%;
+                top: 30%;
+            }
+            
+            .program-text {
+                font-size: clamp(16px, 2vw, 18px);
+                padding: 12px 20px;
+            }
+            
+            .program-button {
+                padding: 14px 28px;
+                font-size: clamp(14px, 2vw, 16px);
+            }
+            
+            .nav-menu {
+                width: var(--menu-width);
+            }
+            
+            .menu-toggle {
+                left: 15px;
+                top: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+            
+            .team-section {
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+            
+            .team-title {
+                font-size: clamp(24px, 3vw, 28px);
             }
             
             .team-slider {
-                flex-direction: row;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                padding-bottom: 20px;
-            }
-            
-            .team-slide {
-                min-width: 80%;
-                padding: 0 10px;
+                padding-top: 60px;
+                padding-bottom: 60px;
             }
             
             .team-member-container {
                 flex-direction: row;
-                gap: 20px;
+                gap: 30px;
+                max-width: 90%;
             }
             
             .team-member-photo-container {
                 width: 40%;
-                height: 300px;
+                height: clamp(300px, 40vw, 400px);
             }
             
             .team-member-info {
                 width: 60%;
-                padding: 15px;
+                padding: 20px;
+            }
+            
+            .team-member-info h3 {
+                font-size: clamp(18px, 2.5vw, 22px);
+            }
+            
+            .team-member-info p {
+                font-size: clamp(12px, 1.5vw, 14px);
+            }
+            
+            .slider-arrow {
+                display: flex;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .mobile-slider-arrow {
+                display: none;
+            }
+            
+            .contacts-container {
+                min-height: 50vh;
+            }
+            
+            .contacts-title {
+                font-size: clamp(20px, 3vw, 24px);
+            }
+            
+            .social-links {
+                gap: 10px;
+            }
+            
+            .social-link {
+                width: 80px;
+                height: 80px;
+                font-size: 20px;
+            }
+            
+            .social-text {
+                font-size: 12px;
+            }
+            
+            .guarantee-text {
+                font-size: clamp(14px, 2vw, 16px);
+            }
+            
+            .cases-section {
+                padding: 80px 20px;
+            }
+            
+            .cases-title {
+                font-size: clamp(24px, 3vw, 28px);
             }
             
             .cases-slider {
-                min-height: 60vh;
+                margin-top: 60px;
+                padding-bottom: 60px;
             }
             
             .case-image-container {
                 min-width: 250px;
+                max-height: 400px;
+            }
+            
+            .cases-slide:nth-child(2) .case-image-container,
+            .cases-slide:nth-child(3) .case-image-container,
+            .cases-slide:nth-child(4) .case-image-container,
+            .cases-slide:nth-child(6) .case-image-container,
+            .cases-slide:nth-child(8) .case-image-container {
+                min-width: 300px;
+                max-height: 450px;
             }
             
             .cases-slide:nth-child(5) .case-image-container {
                 min-width: 400px;
+                max-width: 600px;
+            }
+            
+            .cases-arrow {
+                display: flex;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .mobile-cases-arrow {
+                display: none;
+            }
+            
+            .program-slider-container {
+                max-width: 90%;
+                left: 0;
+            }
+            
+            .program-slider {
+                height: 350px;
+            }
+            
+            .program-slide h3 {
+                font-size: clamp(20px, 3vw, 24px);
+            }
+            
+            .program-slide p {
+                font-size: clamp(14px, 1.8vw, 16px);
+            }
+            
+            .faq-slider-container {
+                max-width: 90%;
+            }
+            
+            .faq-slider {
+                height: 400px;
+            }
+            
+            .faq-slide h3 {
+                font-size: clamp(20px, 3vw, 24px);
+            }
+            
+            .faq-slide p {
+                font-size: clamp(14px, 1.8vw, 16px);
+            }
+            
+            .faq-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
             }
         }
     </style>
@@ -3171,7 +3351,7 @@
             }
 
             // Инициализация слайдера команды
-            if (isMobile) {
+            if (isMobile && window.matchMedia("(orientation: portrait)").matches) {
                 teamSlider.style.display = 'flex';
                 teamSlider.style.flexDirection = 'row';
                 teamSlider.style.overflowX = 'auto';
@@ -3265,7 +3445,7 @@
             }
 
             // Инициализация слайдера кейсов
-            if (isMobile) {
+            if (isMobile && window.matchMedia("(orientation: portrait)").matches) {
                 casesSlides.forEach((slide, index) => {
                     slide.style.position = 'absolute';
                     slide.style.opacity = '0';
