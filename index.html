@@ -2242,10 +2242,27 @@
                 padding: 0 5px; /* Уменьшенные отступы по бокам */
             }
             
+            /* Измененные стили для стрелок FAQ в мобильной версии */
             .faq-arrow {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+                background: transparent;
+                color: rgba(255,255,255,0.3);
+                transition: all 0.3s;
+            }
+            
+            .faq-arrow:hover {
+                background: transparent;
+                color: var(--primary-color);
+            }
+            
+            .faq-arrow.prev {
+                left: 5px;
+            }
+            
+            .faq-arrow.next {
+                right: 5px;
             }
             
             .faq-dot {
