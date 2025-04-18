@@ -127,6 +127,8 @@
             backface-visibility: hidden;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
+            background-attachment: scroll;
+            background-repeat: no-repeat;
         }
 
         .second-image,
@@ -1529,7 +1531,13 @@
             .first-image {
                 background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
                                 url('https://alexenomorf.github.io/comando/22.jpg');
-                background-attachment: fixed;
+                background-size: cover;
+                background-position: center;
+                background-attachment: scroll;
+                background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
                 background-size: cover;
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
@@ -1685,6 +1693,8 @@
                             var(--bg-image);
                 background-size: cover;
                 background-position: center;
+                background-attachment: scroll;
+                background-repeat: no-repeat;
                 padding: 20px 15px;
                 display: flex;
                 justify-content: center;
@@ -2540,6 +2550,9 @@
                 background-attachment: scroll;
                 background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
                                 url('https://alexenomorf.github.io/comando/111.jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
             }
             
             .content {
