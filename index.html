@@ -28,6 +28,7 @@
             line-height: 1.6;
             -webkit-text-size-adjust: 100%;
             -webkit-tap-highlight-color: transparent;
+            -webkit-overflow-scrolling: touch;
         }
 
         .nav-menu {
@@ -127,7 +128,7 @@
             backface-visibility: hidden;
             transform: translateZ(0);
             -webkit-transform: translateZ(0);
-            background-attachment: scroll;
+            background-attachment: fixed;
             background-repeat: no-repeat;
         }
 
@@ -1522,7 +1523,7 @@
         }
 
         /* Медиазапросы для мобильных устройств */
-        @media (max-width: 768px) and (orientation: portrait) {
+        @media (max-width: 768px) {
             :root {
                 --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
                 --menu-width: 80%;
@@ -1530,7 +1531,7 @@
             
             .first-image {
                 background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                                url('https://alexenomorf.github.io/comando/22.jpg');
+                                url('https://alexenomorf.github.io/comando/111.jpg');
                 background-size: cover;
                 background-position: center;
                 background-attachment: scroll;
