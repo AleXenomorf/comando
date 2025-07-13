@@ -513,110 +513,94 @@
             transform: translateX(100%);
         }
 
-        .program-selector {
-            position: absolute;
-            left: 800px;
-            top: 30%;
-            transform: translateY(-50%);
+        .price-section {
+            position: relative;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-            z-index: 10;
-            opacity: 0;
-            animation: fadeIn 1s ease-in-out 1s forwards;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            align-items: center;
+            padding-top: 50px;
         }
 
-        .program-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 22px;
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+        .price-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            text-align: center;
+            text-shadow: var(--text-shadow);
+        }
+
+        .price-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .price-box {
+            background: var(--dark-bg);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            width: calc(50% - 60px);
+            min-width: 400px;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .price-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 204, 0, 0.3);
+        }
+
+        .price-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 2vw, 28px);
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .price-box p {
+            font-size: clamp(16px, 1.5vw, 18px);
+            line-height: 1.6;
             margin-bottom: 15px;
-            background: rgba(0,0,0,0.7);
-            padding: 15px 25px;
-            border-radius: 12px;
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+            text-align: center;
+        }
+
+        .price-box .price {
+            font-size: clamp(20px, 2vw, 28px);
             font-weight: 700;
-            letter-spacing: 0.5px;
-            animation: pulse-text 2s infinite;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            color: var(--accent-color);
+            margin: 20px 0;
+            text-align: center;
         }
 
-        @keyframes pulse-text {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-        }
-
-        .program-button {
+        .price-box .price-button {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: 16px 32px;
-            border-radius: 50px;
-            display: inline-block;
-            transition: all 0.4s;
-            box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6);
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 18px;
             color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: clamp(16px, 1.5vw, 18px);
+            font-weight: 600;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            border-radius: 50px;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-            animation: pulse-btn-program 2s infinite;
-            -webkit-appearance: none;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            box-shadow: 0 4px 15px rgba(0, 204, 0, 0.4);
         }
 
-        @keyframes pulse-btn-program {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0.7);
-            }
-            70% {
-                transform: scale(1.05);
-                box-shadow: 0 0 0 15px rgba(0, 204, 0, 0);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0);
-            }
-        }
-
-        .program-button:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 30px rgba(0, 204, 0, 0.8);
-            animation: none;
-        }
-
-        .program-button:hover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.4),
-                transparent
-            );
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        .price-box .price-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 204, 0, 0.6);
         }
 
         .team-section {
@@ -1259,128 +1243,7 @@
             right: 20px;
         }
 
-        /* Стили для слайдера программы */
-        .program-slider-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        
-        .program-slider {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border-radius: 16px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(0, 204, 0, 0.3);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        
-        .program-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 30px;
-            box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        
-        .program-slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
-        
-        .program-slide h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .program-slide p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .program-slide strong {
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-        
-        .program-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        
-        .program-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .program-dot.active {
-            background: var(--primary-color);
-            transform: scale(1.2);
-        }
-        
-        .program-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 20px;
-            color: white;
-            transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .program-arrow:hover {
-            background: var(--primary-color);
-        }
-        
-        .program-arrow.prev {
-            left: 10px;
-        }
-        
-        .program-arrow.next {
-            right: 10px;
-        }
-
-        /* Обновленные стили для FAQ слайдера */
+        /* Обновленные стили для слайдера FAQ */
         .faq-slider-container {
             display: flex;
             flex-direction: column;
@@ -1797,51 +1660,45 @@
                 backface-visibility: hidden;
             }
             
-            .program-selector {
-                position: relative;
-                left: auto;
-                top: auto;
-                transform: none;
-                margin: 20px auto 0;
-                width: calc(100% - 40px);
-                max-width: 280px;
+            /* Стили для цен в мобильной версии */
+            .price-section {
+                padding-top: 30px;
+            }
+            
+            .price-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            
+            .price-container {
+                flex-direction: column;
                 align-items: center;
-                text-align: center;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            .program-text {
-                font-size: 16px;
-                margin-bottom: 10px;
-                padding: 12px 15px;
-                animation: none;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            .program-button {
-                padding: 12px 20px;
-                font-size: 14px;
                 width: 100%;
-                animation: none;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
+                padding: 0 15px;
             }
             
-            @keyframes pulse-mobile {
-                0% {
-                    transform: scale(1);
-                    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
-                }
-                70% {
-                    transform: scale(1.02);
-                    box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);
-                }
-                100% {
-                    transform: scale(1);
-                    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
-                }
+            .price-box {
+                width: 100%;
+                min-width: auto;
+                max-width: 400px;
+                margin-bottom: 20px;
+            }
+            
+            .price-box h3 {
+                font-size: 18px;
+            }
+            
+            .price-box p {
+                font-size: 14px;
+            }
+            
+            .price-box .price {
+                font-size: 18px;
+            }
+            
+            .price-box .price-button {
+                font-size: 14px;
+                padding: 10px 20px;
             }
             
             .nav-menu {
@@ -2351,76 +2208,6 @@
                 right: 5px;
             }
             
-            /* Адаптивные стили для слайдера программы */
-            .program-slider-container {
-                width: 100%;
-                max-width: 100%;
-                margin: 20px auto 0;
-                padding: 0 15px;
-                box-sizing: border-box;
-                position: relative;
-                left: -20px;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            .program-slider {
-                height: auto;
-                min-height: 400px;
-                max-height: 500px;
-                overflow-y: auto;
-                padding: 15px;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            .program-slide {
-                position: relative;
-                opacity: 0;
-                height: auto;
-                min-height: 300px;
-                padding: 20px 15px;
-                transform: none !important;
-                display: none;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            .program-slide.active {
-                opacity: 1;
-                display: flex;
-            }
-            
-            .program-slide h3 {
-                font-size: 20px;
-                margin-bottom: 15px;
-                line-height: 1.3;
-                text-align: center;
-            }
-            
-            .program-slide p {
-                font-size: 14px;
-                line-height: 1.5;
-                margin-bottom: 12px;
-                text-align: center;
-            }
-            
-            .program-controls {
-                margin-top: 15px;
-                margin-bottom: 10px;
-            }
-            
-            .program-arrow {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
-            }
-            
-            .program-dot {
-                width: 10px;
-                height: 10px;
-            }
-            
             /* Адаптивные стили для FAQ слайдера */
             .faq-slider-container {
                 width: 100%;
@@ -2629,21 +2416,6 @@
                 font-size: clamp(14px, 1.5vw, 16px);
             }
             
-            .program-selector {
-                left: 60%;
-                top: 30%;
-            }
-            
-            .program-text {
-                font-size: clamp(16px, 2vw, 18px);
-                padding: 12px 20px;
-            }
-            
-            .program-button {
-                padding: 14px 28px;
-                font-size: clamp(14px, 2vw, 16px);
-            }
-            
             .nav-menu {
                 width: var(--menu-width);
             }
@@ -2774,23 +2546,6 @@
                 display: none;
             }
             
-            .program-slider-container {
-                max-width: 90%;
-                left: 0;
-            }
-            
-            .program-slider {
-                height: 350px;
-            }
-            
-            .program-slide h3 {
-                font-size: clamp(20px, 3vw, 24px);
-            }
-            
-            .program-slide p {
-                font-size: clamp(14px, 1.8vw, 16px);
-            }
-            
             .faq-slider-container {
                 max-width: 90%;
             }
@@ -2822,7 +2577,7 @@
         <ul>
             <li><a href="#home">Главная</a></li>
             <li><a href="#advantages">Преимущества</a></li>
-            <li><a href="#program">Программа</a></li>
+            <li><a href="#price">Стоимость</a></li>
             <li><a href="#cases">Кейсы</a></li>
             <li><a href="#team">Команда</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -2866,67 +2621,43 @@
                     <p>ИИ-ассистент анализирует ваши данные, обеспечивая точность и минимизируя ошибки.</p>
                     <p>Еженедельные онлайн-сессии с наставником для обсуждения прогресса и получения ответов на вопросы.</p>
                 </div>
-                <div class="program-selector">
-                    <div class="program-text">Для жителей Костаная спец предложение!</div>
-                    <div class="program-text">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
-                    <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
-                    <div class="program-text">Для жителей других городов и стран!</div>
-                    <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
-                </div>
             </div>
         </div>
 
-        <div class="third-image" id="program">
-            <img src="https://alexenomorf.github.io/comando/33.webp" alt="Программа">
-            <div class="text-block" id="programBlock">
-                <div class="text-content">
-                    <h2>Формат сопровождения участников</h2>
+        <div class="third-image" id="price">
+            <img src="https://alexenomorf.github.io/comando/33.webp" alt="Стоимость">
+            <div class="price-section">
+                <h2 class="price-title">Стоимость участия</h2>
+                <div class="price-container">
+                    <!-- Блок 1 -->
+                    <div class="price-box">
+                        <h3>Базовый формат онлайн сопровождения</h3>
+                        <p>150.000 тенге за три месяца</p>
+                        <p>65.000 тенге - помесячная оплата</p>
+                        <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+                    </div>
                     
-                    <div class="program-slider-container">
-                        <div class="program-slider">
-                            <!-- Неделя 1 -->
-                            <div class="program-slide active">
-                                <h3>Неделя 1</h3>
-                                <p>Оценка метаболизма, обучение подсчету калорий и фиксации активности, начальная диагностика здоровья, постановка реалистичных целей.</p>
-                            </div>
-                            
-                            <!-- Неделя 2 -->
-                            <div class="program-slide">
-                                <h3>Неделя 2</h3>
-                                <p>Определение индивидуальных норм по калориям, белкам и активности, корректировка рациона, введение системы мониторинга прогресса.</p>
-                            </div>
-                            
-                            <!-- Неделя 3 -->
-                            <div class="program-slide">
-                                <h3>Неделя 3</h3>
-                                <p>Рекомпозиция продуктовой корзины, устранение дефицитов, профилактика срывов, работа с пищевыми привычками.</p>
-                            </div>
-                            
-                            <!-- Неделя 4 -->
-                            <div class="program-slide">
-                                <h3>Неделя 4</h3>
-                                <p>Настройка режима дня, улучшение сна и восстановления, оптимизация нетренировочной активности, работа с дисциплиной.</p>
-                            </div>
-                            
-                            <!-- Неделя 5 -->
-                            <div class="program-slide">
-                                <h3>Неделя 5 (бонусная)</h3>
-                                <p>Определение норм для поддержания результата, персональные рекомендации, анализ достижений, планирование дальнейших шагов.</p>
-                            </div>
-                            
-                            <!-- Стрелки слайдера -->
-                            <div class="program-arrow prev">❮</div>
-                            <div class="program-arrow next">❯</div>
-                        </div>
-                        
-                        <!-- Контролы слайдера -->
-                        <div class="program-controls">
-                            <div class="program-dot active" data-slide="0"></div>
-                            <div class="program-dot" data-slide="1"></div>
-                            <div class="program-dot" data-slide="2"></div>
-                            <div class="program-dot" data-slide="3"></div>
-                            <div class="program-dot" data-slide="4"></div>
-                        </div>
+                    <!-- Блок 2 -->
+                    <div class="price-box">
+                        <h3>Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
+                        <p>10.000 тенге</p>
+                        <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+                    </div>
+                    
+                    <!-- Блок 3 -->
+                    <div class="price-box">
+                        <h3>Мини-группа в фитнес клубе "Аврора"</h3>
+                        <p>200.000 тенге за три месяца</p>
+                        <p>80.000 тенге - помесячная оплата</p>
+                        <p>(абонемент в зал приобретается отдельно)</p>
+                        <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+                    </div>
+                    
+                    <!-- Блок 4 -->
+                    <div class="price-box">
+                        <h3>Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
+                        <p>15.000 тенге</p>
+                        <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
                     </div>
                 </div>
             </div>
@@ -3293,7 +3024,7 @@
             // Плавное появление блоков
             const textBlocks = [
                 document.getElementById('advantagesBlock'), 
-                document.getElementById('programBlock'),
+                document.getElementById('price'),
                 document.getElementById('cases'),
                 document.getElementById('team'),
                 document.getElementById('faq'),
@@ -3534,74 +3265,6 @@
             }
 
             showCasesSlide(0);
-
-            // Слайдер программы
-            const programSlides = document.querySelectorAll('.program-slide');
-            const programDots = document.querySelectorAll('.program-dot');
-            const programPrevArrow = document.querySelector('.program-arrow.prev');
-            const programNextArrow = document.querySelector('.program-arrow.next');
-            let currentProgramSlide = 0;
-            let programSlideInterval;
-
-            function showProgramSlide(index) {
-                programSlides.forEach(slide => slide.classList.remove('active'));
-                programDots.forEach(dot => dot.classList.remove('active'));
-                
-                programSlides[index].classList.add('active');
-                programDots[index].classList.add('active');
-                currentProgramSlide = index;
-            }
-
-            function nextProgramSlide() {
-                let newIndex = (currentProgramSlide + 1) % programSlides.length;
-                showProgramSlide(newIndex);
-            }
-
-            function prevProgramSlide() {
-                let newIndex = (currentProgramSlide - 1 + programSlides.length) % programSlides.length;
-                showProgramSlide(newIndex);
-            }
-
-            function startProgramSlideInterval() {
-                stopProgramSlideInterval();
-                programSlideInterval = setInterval(nextProgramSlide, 5000); // Увеличено до 5 секунд
-            }
-
-            function stopProgramSlideInterval() {
-                if (programSlideInterval) {
-                    clearInterval(programSlideInterval);
-                }
-            }
-
-            // Инициализация слайдера программы
-            programPrevArrow.addEventListener('click', () => {
-                prevProgramSlide();
-                stopProgramSlideInterval();
-                startProgramSlideInterval();
-            });
-            
-            programNextArrow.addEventListener('click', () => {
-                nextProgramSlide();
-                stopProgramSlideInterval();
-                startProgramSlideInterval();
-            });
-
-            programDots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    const slideIndex = parseInt(this.getAttribute('data-slide'));
-                    showProgramSlide(slideIndex);
-                    stopProgramSlideInterval();
-                    startProgramSlideInterval();
-                });
-            });
-
-            startProgramSlideInterval();
-            
-            const programSlider = document.querySelector('.program-slider');
-            programSlider.addEventListener('mouseenter', stopProgramSlideInterval);
-            programSlider.addEventListener('mouseleave', startProgramSlideInterval);
-
-            showProgramSlide(0);
 
             // Слайдер FAQ
             const faqSlides = document.querySelectorAll('.faq-slide');
