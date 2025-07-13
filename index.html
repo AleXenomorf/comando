@@ -1798,36 +1798,59 @@
             }
             
             .program-selector {
-                position: relative;
-                left: auto;
-                top: auto;
-                transform: none;
-                margin: 20px auto 0;
-                width: calc(100% - 40px);
-                max-width: 280px;
-                align-items: center;
-                text-align: center;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            .program-text {
-                font-size: 16px;
-                margin-bottom: 10px;
-                padding: 12px 15px;
-                animation: none;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
-            
-            .program-button {
-                padding: 12px 20px;
-                font-size: 14px;
-                width: 100%;
-                animation: none;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
+    position: absolute;
+    right: 100px; /* Отступ справа 100px */
+    top: 30%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out 1s forwards;
+}
+
+.program-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.program-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    color: white;
+    text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+    background: rgba(0,0,0,0.7);
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.program-button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    padding: 16px 32px;
+    border-radius: 50px;
+    display: inline-block;
+    transition: all 0.4s;
+    box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6);
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse-btn-program 2s infinite;
+    white-space: nowrap;
+}
             
             @keyframes pulse-mobile {
                 0% {
