@@ -575,6 +575,7 @@
             -webkit-tap-highlight-color: transparent;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            white-space: nowrap;
         }
 
         @keyframes pulse-btn-program {
@@ -2930,15 +2931,18 @@
                     <p>Еженедельные онлайн-сессии с наставником для обсуждения прогресса и получения ответов на вопросы.</p>
                     
                     <!-- Обновленный блок с кнопками -->
-                    <div class="program-text-container">
+                    <div style="display: flex; align-items: center; margin-top: 20px;">
                         <div class="program-text">Для жителей Костаная спец предложение!</div>
-                        <div class="program-text">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
-                        <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
+                        <button class="program-button" onclick="window.location.href='test.html'" style="margin-left: 100px;">ЗАБРОНИРОВАТЬ МЕСТО!</button>
                     </div>
                     
-                    <div class="program-text-container">
+                    <div style="display: flex; align-items: center; margin-top: 20px;">
+                        <div class="program-text">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-top: 20px;">
                         <div class="program-text">Для жителей других городов и стран!</div>
-                        <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
+                        <button class="program-button" onclick="window.location.href='test.html'" style="margin-left: 100px;">ЗАБРОНИРОВАТЬ МЕСТО!</button>
                     </div>
                 </div>
             </div>
