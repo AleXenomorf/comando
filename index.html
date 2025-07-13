@@ -260,28 +260,19 @@
             backface-visibility: hidden;
         }
 
-        .marathon-char {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            transform-origin: 50% calc(clamp(50px, 5vw, 75px));
-            color: white;
-            font-size: clamp(12px, 1vw, 16px);
-            font-weight: bold;
-            height: calc(clamp(50px, 5vw, 75px));
-            width: clamp(12px, 1vw, 15px);
-            text-align: center;
-            line-height: 1;
-            font-family: 'Montserrat', sans-serif;
-            transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        @keyframes rotateRing {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+       .marathon-char {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform-origin: 50% 70px;
+    color: white;
+    font-size: 14px; 
+    font-weight: bold;
+    height: 70px; 
+    width: 16px; 
+    text-align: center;
+    transform: rotate(calc(var(--char-index) * 22.5deg)) translateY(-10px); 
+}
 
         .main-text {
             text-align: left;
@@ -3277,7 +3268,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Анимация кольца
-            const text = "MIND FIT";
+            const text = "MIND FIT MIND FIT";
             const circle = document.getElementById('marathonCircle');
             
             circle.innerHTML = '';
