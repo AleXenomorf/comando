@@ -1519,28 +1519,41 @@
         }
 
         /* Медиазапросы для мобильных устройств */
-        @media (max-width: 768px) {
-            :root {
-                --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                --menu-width: 80%;
-            }
-            
-            .first-image {
-                background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                                url('https://alexenomorf.github.io/comando/111.jpg');
-                background-size: cover;
-                background-position: center;
-                background-attachment: scroll;
-                background-repeat: no-repeat;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: cover;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-                transform: translateZ(0);
-                -webkit-transform: translateZ(0);
-            }
+       @media (max-width: 768px) {
+    .program-selector {
+        position: relative;
+        right: auto;
+        left: auto;
+        top: auto;
+        transform: none;
+        margin: 20px auto 0;
+        width: calc(100% - 40px);
+        max-width: 280px;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .program-row {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .program-text {
+        font-size: 16px;
+        margin-bottom: 10px;
+        padding: 12px 15px;
+        animation: none;
+        white-space: normal;
+    }
+    
+    .program-button {
+        padding: 12px 20px;
+        font-size: 14px;
+        width: 100%;
+        animation: none;
+    }
+}
             
             .content {
                 padding-right: 0;
