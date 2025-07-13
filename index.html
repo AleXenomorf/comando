@@ -242,8 +242,8 @@
             position: absolute;
             top: -80px;
             right: clamp(20px, 5vw, 70px);
-            width: clamp(200px, 20vw, 300px); /* Увеличено для размещения текста */
-            height: clamp(200px, 20vw, 300px); /* Увеличено для размещения текста */
+            width: clamp(100px, 10vw, 150px);
+            height: clamp(100px, 10vw, 150px);
             z-index: 10;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -260,23 +260,27 @@
             backface-visibility: hidden;
         }
 
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         .marathon-char {
             position: absolute;
             left: 50%;
             top: 0;
-            transform-origin: 50% 100px; /* Увеличено расстояние от центра */
+            transform-origin: 50% calc(clamp(50px, 5vw, 75px));
             color: white;
-            font-size: 16px; 
+            font-size: clamp(12px, 1vw, 16px);
             font-weight: bold;
-            height: 100px; 
-            width: 20px; 
+            height: calc(clamp(50px, 5vw, 75px));
+            width: clamp(12px, 1vw, 15px);
             text-align: center;
-            transform: rotate(calc(var(--char-index) * 22.5deg)) translateY(-10px); 
+            line-height: 1;
+            font-family: 'Montserrat', sans-serif;
+            transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes rotateRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .main-text {
@@ -1557,8 +1561,8 @@
                 position: absolute;
                 top: -130px;
                 right: 20px;
-                width: 120px;
-                height: 120px;
+                width: 100px;
+                height: 100px;
                 margin-bottom: 20px;
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
@@ -1566,8 +1570,8 @@
             
             .marathon-char {
                 font-size: 12px;
-                transform-origin: 50% 60px;
-                height: 60px;
+                transform-origin: 50% 50px;
+                height: 50px;
                 width: 12px;
                 transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
                 -webkit-backface-visibility: hidden;
@@ -2561,14 +2565,14 @@
             .marathon-ring {
                 top: -80px;
                 right: clamp(20px, 5vw, 50px);
-                width: clamp(160px, 20vw, 240px);
-                height: clamp(160px, 20vw, 240px);
+                width: clamp(80px, 10vw, 120px);
+                height: clamp(80px, 10vw, 120px);
             }
             
             .marathon-char {
-                transform-origin: 50% 80px;
-                height: 80px;
-                font-size: clamp(12px, 1.5vw, 16px);
+                transform-origin: 50% calc(clamp(40px, 5vw, 60px));
+                height: calc(clamp(40px, 5vw, 60px));
+                font-size: clamp(10px, 1vw, 14px);
             }
 
             .main-text {
@@ -2842,11 +2846,12 @@
                 </div>
                 
                 <div class="main-text">
-                    <h1>Индивидуальное программирование</h1>
-                    <h2>тренировочного процесса и рациона питания</h2>
+                    <h1>Минус 2-5 кг за 30 дней</h1>
+                    <h2>без стресса, голода и изнурительных тренировок</h2>
+                    <h3>Получите тело, о котором мечтаете, с поддержкой профессионалов</h3>
                     <div class="button-container">
                         <a href="https://t.me/marafonpro_ADorohov" target="_blank">
-                            <button>Подать заявку</button>
+                            <button>Присоединиться к программе</button>
                         </a>
                     </div>
                 </div>
