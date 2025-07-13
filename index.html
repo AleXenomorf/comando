@@ -1518,6 +1518,57 @@
             right: 20px;
         }
 
+        /* Новые стили для расположения кнопок */
+        .program-text-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .program-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            background: rgba(0,0,0,0.7);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: pulse-text 2s infinite;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            margin-right: 100px; /* Добавлен отступ справа */
+        }
+        
+        .program-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 16px 32px;
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse-btn-program 2s infinite;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            white-space: nowrap;
+        }
+
         /* Медиазапросы для мобильных устройств */
         @media (max-width: 768px) {
             :root {
@@ -1827,6 +1878,18 @@
                 animation: none;
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
+            }
+            
+            /* Адаптивные стили для контейнера текста и кнопки */
+            .program-text-container {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .program-text {
+                margin-right: 0;
+                width: 100%;
             }
             
             @keyframes pulse-mobile {
@@ -2865,13 +2928,18 @@
                     <p>Участие в общем чате с единомышленниками для обмена опытом, поддержки и мотивации.</p>
                     <p>ИИ-ассистент анализирует ваши данные, обеспечивая точность и минимизируя ошибки.</p>
                     <p>Еженедельные онлайн-сессии с наставником для обсуждения прогресса и получения ответов на вопросы.</p>
-                </div>
-                <div class="program-selector">
-                    <div class="program-text">Для жителей Костаная спец предложение!</div>
-                    <div class="program-text">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
-                    <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
-                    <div class="program-text">Для жителей других городов и стран!</div>
-                    <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
+                    
+                    <!-- Обновленный блок с кнопками -->
+                    <div class="program-text-container">
+                        <div class="program-text">Для жителей Костаная спец предложение!</div>
+                        <div class="program-text">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
+                        <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
+                    </div>
+                    
+                    <div class="program-text-container">
+                        <div class="program-text">Для жителей других городов и стран!</div>
+                        <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
+                    </div>
                 </div>
             </div>
         </div>
