@@ -242,8 +242,8 @@
             position: absolute;
             top: -80px;
             right: clamp(20px, 5vw, 70px);
-            width: clamp(100px, 10vw, 150px);
-            height: clamp(100px, 10vw, 150px);
+            width: clamp(200px, 20vw, 300px);
+            height: clamp(200px, 20vw, 300px);
             z-index: 10;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -260,27 +260,23 @@
             backface-visibility: hidden;
         }
 
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .marathon-char {
             position: absolute;
             left: 50%;
             top: 0;
-            transform-origin: 50% calc(clamp(50px, 5vw, 75px));
+            transform-origin: 50% 150px;
             color: white;
-            font-size: clamp(12px, 1vw, 16px);
+            font-size: 16px; 
             font-weight: bold;
-            height: calc(clamp(50px, 5vw, 75px));
-            width: clamp(12px, 1vw, 15px);
+            height: 150px; 
+            width: 20px; 
             text-align: center;
-            line-height: 1;
-            font-family: 'Montserrat', sans-serif;
-            transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        @keyframes rotateRing {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            transform: rotate(calc(var(--char-index) * 22.5deg)) translateY(-10px); 
         }
 
         .main-text {
@@ -1561,8 +1557,8 @@
                 position: absolute;
                 top: -130px;
                 right: 20px;
-                width: 100px;
-                height: 100px;
+                width: 120px;
+                height: 120px;
                 margin-bottom: 20px;
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
@@ -1570,8 +1566,8 @@
             
             .marathon-char {
                 font-size: 12px;
-                transform-origin: 50% 50px;
-                height: 50px;
+                transform-origin: 50% 60px;
+                height: 60px;
                 width: 12px;
                 transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
                 -webkit-backface-visibility: hidden;
@@ -2565,14 +2561,14 @@
             .marathon-ring {
                 top: -80px;
                 right: clamp(20px, 5vw, 50px);
-                width: clamp(80px, 10vw, 120px);
-                height: clamp(80px, 10vw, 120px);
+                width: clamp(160px, 20vw, 240px);
+                height: clamp(160px, 20vw, 240px);
             }
             
             .marathon-char {
-                transform-origin: 50% calc(clamp(40px, 5vw, 60px));
-                height: calc(clamp(40px, 5vw, 60px));
-                font-size: clamp(10px, 1vw, 14px);
+                transform-origin: 50% 80px;
+                height: 80px;
+                font-size: clamp(12px, 1.5vw, 16px);
             }
 
             .main-text {
@@ -2846,12 +2842,11 @@
                 </div>
                 
                 <div class="main-text">
-                    <h1>Минус 2-5 кг за 30 дней</h1>
-                    <h2>без стресса, голода и изнурительных тренировок</h2>
-                    <h3>Получите тело, о котором мечтаете, с поддержкой профессионалов</h3>
+                    <h1>Индивидуальное программирование</h1>
+                    <h2>тренировочного процесса и рациона питания</h2>
                     <div class="button-container">
                         <a href="https://t.me/marafonpro_ADorohov" target="_blank">
-                            <button>Присоединиться к программе</button>
+                            <button>Подать заявку</button>
                         </a>
                     </div>
                 </div>
@@ -3277,7 +3272,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Анимация кольца
-            const text = "MINDFIT MINDFIT";
+            const text = "MIND FIT MIND FIT";
             const circle = document.getElementById('marathonCircle');
             
             circle.innerHTML = '';
