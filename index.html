@@ -513,103 +513,6 @@
             transform: translateX(100%);
         }
 
-        .price-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            margin: 100px auto 0;
-            padding: 0 20px;
-            box-sizing: border-box;
-        }
-
-        .price-column {
-            width: 48%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-box {
-            background: var(--dark-bg);
-            padding: 30px;
-            border-radius: 16px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .price-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .price-box p {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .price-box .price {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--accent-color);
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .price-box .note {
-            font-size: 14px;
-            color: #aaa;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .price-button {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.4s;
-            display: block;
-            width: 100%;
-            text-align: center;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 204, 0, 0.4);
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .price-button:hover {
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 204, 0, 0.6);
-        }
-
-        .price-title {
-            position: absolute;
-            top: 50px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 3vw, 42px);
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-shadow: var(--text-shadow);
-            z-index: 10;
-        }
-
         .team-section {
             width: 100%;
             height: 100%;
@@ -1250,142 +1153,158 @@
             right: 20px;
         }
 
-        /* Обновленные стили для слайдера FAQ */
-        .faq-slider-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-            padding: 0 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        
-        .faq-slider {
-            position: relative;
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border-radius: 16px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(0, 204, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        
-        .faq-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Стили для блока с ценами */
+        .pricing-section {
             width: 100%;
             height: 100%;
-            padding: 40px;
-            box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            position: relative;
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            text-align: center;
+            padding-top: 80px;
+            box-sizing: border-box;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
-        
-        .faq-slide.active {
-            opacity: 1;
-            z-index: 1;
-        }
-        
-        .faq-slide h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            text-align: center;
-            line-height: 1.3;
-            max-width: 90%;
-            padding: 0 20px;
-        }
-        
-        .faq-slide p {
-            font-size: 22px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: center;
-            max-width: 90%;
-            padding: 0 20px;
-        }
-        
-        .faq-slide strong {
-            color: var(--accent-color);
-            font-weight: 600;
-        }
-        
-        .faq-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            width: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-        
-        .faq-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        .faq-dot.active {
-            background: var(--primary-color);
-            transform: scale(1.2);
-        }
-        
-        .faq-arrow {
+
+        .pricing-title {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: var(--text-shadow);
             z-index: 10;
-            font-size: 24px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            height: calc(100% - 100px);
+            margin-top: 50px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-columns {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: space-between;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-left {
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+            gap: 20px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-right {
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+            gap: 20px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-box {
+            background: var(--dark-bg);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 2.5vw, 28px);
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-box p {
+            font-size: clamp(16px, 1.8vw, 20px);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-box .price {
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 700;
+            color: var(--accent-color);
+            margin: 20px 0;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-box .note {
+            font-size: clamp(14px, 1.5vw, 16px);
+            color: #ccc;
+            margin-bottom: 20px;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
-            transition: all 0.3s;
+            border: none;
+            padding: 12px 20px;
+            font-size: clamp(16px, 1.8vw, 20px);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            border-radius: 50px;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 204, 0, 0.4);
+            -webkit-appearance: none;
             -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
-        
-        .faq-arrow:hover {
-            background: var(--primary-color);
-        }
-        
-        .faq-arrow.prev {
-            left: 20px;
-        }
-        
-        .faq-arrow.next {
-            right: 20px;
+
+        .pricing-button:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 204, 0, 0.6);
         }
 
         /* Медиазапросы для мобильных устройств */
@@ -1667,43 +1586,51 @@
                 backface-visibility: hidden;
             }
             
-            .price-container {
-                flex-direction: column;
-                margin-top: 70px;
-                padding: 0 15px;
+            .program-selector {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin: 20px auto 0;
+                width: calc(100% - 40px);
+                max-width: 280px;
+                align-items: center;
+                text-align: center;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
             }
             
-            .price-column {
-                width: 100%;
-            }
-            
-            .price-box {
-                padding: 20px;
-                margin-bottom: 20px;
-            }
-            
-            .price-box h3 {
-                font-size: 20px;
-                margin-bottom: 15px;
-            }
-            
-            .price-box p {
+            .program-text {
                 font-size: 16px;
+                margin-bottom: 10px;
+                padding: 12px 15px;
+                animation: none;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
             }
             
-            .price-box .price {
-                font-size: 24px;
-                margin: 15px 0;
-            }
-            
-            .price-button {
+            .program-button {
                 padding: 12px 20px;
                 font-size: 14px;
+                width: 100%;
+                animation: none;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
             }
             
-            .price-title {
-                top: 30px;
-                font-size: 24px;
+            @keyframes pulse-mobile {
+                0% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+                }
+                70% {
+                    transform: scale(1.02);
+                    box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);
+                }
+                100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+                }
             }
             
             .nav-menu {
@@ -2213,6 +2140,61 @@
                 right: 5px;
             }
             
+            /* Адаптивные стили для блока с ценами */
+            .pricing-section {
+                padding-top: 60px;
+                padding-bottom: 40px;
+                height: auto;
+                min-height: 100vh;
+            }
+            
+            .pricing-title {
+                position: relative;
+                top: auto;
+                font-size: 28px;
+                margin-bottom: 20px;
+            }
+            
+            .pricing-container {
+                flex-direction: column;
+                height: auto;
+                margin-top: 20px;
+            }
+            
+            .pricing-columns {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .pricing-left, .pricing-right {
+                width: 100%;
+            }
+            
+            .pricing-box {
+                padding: 20px;
+            }
+            
+            .pricing-box h3 {
+                font-size: 20px;
+            }
+            
+            .pricing-box p {
+                font-size: 16px;
+            }
+            
+            .pricing-box .price {
+                font-size: 20px;
+            }
+            
+            .pricing-box .note {
+                font-size: 14px;
+            }
+            
+            .pricing-button {
+                padding: 12px;
+                font-size: 16px;
+            }
+            
             /* Адаптивные стили для FAQ слайдера */
             .faq-slider-container {
                 width: 100%;
@@ -2421,37 +2403,6 @@
                 font-size: clamp(14px, 1.5vw, 16px);
             }
             
-            .price-container {
-                flex-direction: row;
-                margin-top: 80px;
-            }
-            
-            .price-box {
-                padding: 20px;
-            }
-            
-            .price-box h3 {
-                font-size: clamp(18px, 2vw, 22px);
-            }
-            
-            .price-box p {
-                font-size: clamp(14px, 1.5vw, 16px);
-            }
-            
-            .price-box .price {
-                font-size: clamp(20px, 2.5vw, 24px);
-            }
-            
-            .price-button {
-                padding: 12px 20px;
-                font-size: clamp(14px, 1.5vw, 16px);
-            }
-            
-            .price-title {
-                top: 30px;
-                font-size: clamp(24px, 3vw, 28px);
-            }
-            
             .nav-menu {
                 width: var(--menu-width);
             }
@@ -2582,6 +2533,51 @@
                 display: none;
             }
             
+            /* Адаптивные стили для блока с ценами в ландшафтной ориентации */
+            .pricing-section {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+            
+            .pricing-title {
+                font-size: clamp(24px, 3vw, 28px);
+            }
+            
+            .pricing-container {
+                width: 95%;
+                max-width: 1200px;
+            }
+            
+            .pricing-columns {
+                flex-direction: row;
+            }
+            
+            .pricing-left, .pricing-right {
+                width: 48%;
+            }
+            
+            .pricing-box h3 {
+                font-size: clamp(18px, 2vw, 22px);
+            }
+            
+            .pricing-box p {
+                font-size: clamp(14px, 1.5vw, 16px);
+            }
+            
+            .pricing-box .price {
+                font-size: clamp(18px, 2vw, 22px);
+            }
+            
+            .pricing-box .note {
+                font-size: clamp(12px, 1.3vw, 14px);
+            }
+            
+            .pricing-button {
+                padding: 10px 15px;
+                font-size: clamp(14px, 1.5vw, 16px);
+            }
+            
+            /* Адаптивные стили для FAQ в ландшафтной ориентации */
             .faq-slider-container {
                 max-width: 90%;
             }
@@ -2613,7 +2609,7 @@
         <ul>
             <li><a href="#home">Главная</a></li>
             <li><a href="#advantages">Преимущества</a></li>
-            <li><a href="#price">Стоимость</a></li>
+            <li><a href="#pricing">Стоимость</a></li>
             <li><a href="#cases">Кейсы</a></li>
             <li><a href="#team">Команда</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -2657,48 +2653,56 @@
                     <p>ИИ-ассистент анализирует ваши данные, обеспечивая точность и минимизируя ошибки.</p>
                     <p>Еженедельные онлайн-сессии с наставником для обсуждения прогресса и получения ответов на вопросы.</p>
                 </div>
+                <div class="program-selector">
+                    <div class="program-text">Для жителей Костаная спец предложение!</div>
+                    <div class="program-text">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
+                    <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
+                    <div class="program-text">Для жителей других городов и стран!</div>
+                    <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
+                </div>
             </div>
         </div>
 
-        <div class="third-image" id="price">
-            <img src="https://alexenomorf.github.io/comando/33.webp" alt="Стоимость">
-            <div class="text-block" id="priceBlock">
-                <h2 class="price-title">Стоимость участия</h2>
-                <div class="price-container">
-                    <div class="price-column">
-                        <!-- Блок 1 -->
-                        <div class="price-box">
-                            <h3>Базовый формат онлайн сопровождения</h3>
-                            <p>Полное сопровождение в течение 3 месяцев</p>
-                            <div class="price">150.000 тенге</div>
-                            <p>65.000 тенге - помесячная оплата</p>
-                            <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+        <div class="third-image" id="pricing">
+            <div class="pricing-section">
+                <h2 class="pricing-title">Стоимость участия</h2>
+                <div class="pricing-container">
+                    <div class="pricing-columns">
+                        <div class="pricing-left">
+                            <div class="pricing-box">
+                                <h3>Базовый формат онлайн сопровождения</h3>
+                                <p>Полное сопровождение в течение 3 месяцев</p>
+                                <p class="price">150.000 тенге</p>
+                                <p>или</p>
+                                <p class="price">65.000 тенге - помесячная оплата</p>
+                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
+                            </div>
+                            
+                            <div class="pricing-box">
+                                <h3>Пробная неделя</h3>
+                                <p>С выдачей индивидуальной программы и полным сопровождением</p>
+                                <p class="price">10.000 тенге</p>
+                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
+                            </div>
                         </div>
                         
-                        <!-- Блок 2 -->
-                        <div class="price-box">
-                            <h3>Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
-                            <div class="price">10.000 тенге</div>
-                            <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
-                        </div>
-                    </div>
-                    
-                    <div class="price-column">
-                        <!-- Блок 3 -->
-                        <div class="price-box">
-                            <h3>Мини-группа в фитнес клубе "Аврора"</h3>
-                            <p>Полное сопровождение в течение 3 месяцев</p>
-                            <div class="price">200.000 тенге</div>
-                            <p>80.000 тенге - помесячная оплата</p>
-                            <p class="note">(абонемент в зал приобретается отдельно)</p>
-                            <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
-                        </div>
-                        
-                        <!-- Блок 4 -->
-                        <div class="price-box">
-                            <h3>Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
-                            <div class="price">15.000 тенге</div>
-                            <button class="price-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+                        <div class="pricing-right">
+                            <div class="pricing-box">
+                                <h3>Мини-группа в фитнес клубе "Аврора"</h3>
+                                <p>Групповые тренировки с персональным подходом</p>
+                                <p class="price">200.000 тенге за три месяца</p>
+                                <p>или</p>
+                                <p class="price">80.000 тенге - помесячная оплата</p>
+                                <p class="note">(абонемент в зал приобретается отдельно)</p>
+                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
+                            </div>
+                            
+                            <div class="pricing-box">
+                                <h3>Пробная неделя в зале</h3>
+                                <p>С выдачей индивидуальной программы и полным сопровождением</p>
+                                <p class="price">15.000 тенге</p>
+                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3066,7 +3070,7 @@
             // Плавное появление блоков
             const textBlocks = [
                 document.getElementById('advantagesBlock'), 
-                document.getElementById('priceBlock'),
+                document.getElementById('pricing'),
                 document.getElementById('cases'),
                 document.getElementById('team'),
                 document.getElementById('faq'),
