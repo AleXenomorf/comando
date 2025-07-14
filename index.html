@@ -1550,41 +1550,23 @@
         }
 
         .pricing-container {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-            gap: 30px;
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            box-sizing: border-box;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
 
         .pricing-column {
-            flex: 0 0 auto;
-            width: 280px;
-            min-width: 280px;
-            background: var(--dark-bg);
-            padding: 30px;
-            border-radius: 16px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: all 0.3s;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            scroll-snap-align: center;
-        }
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
 
         .pricing-column:hover {
             transform: translateY(-10px);
@@ -2675,19 +2657,23 @@
             }
 
             .pricing-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                width: 100%;
-                padding: 0 15px;
-            }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
 
             .pricing-column {
-                width: 100%;
-                max-width: 100%;
-                min-width: auto;
-                padding: 20px;
-            }
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
 
             .pricing-name {
                 font-size: 20px;
@@ -2988,15 +2974,23 @@
 
             /* Адаптивные стили для блока цен в ландшафтном режиме */
             .pricing-container {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
 
             .pricing-column {
-                width: 45%;
-                min-width: 250px;
-            }
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
         }
     </style>
 </head>
