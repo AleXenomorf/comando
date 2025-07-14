@@ -1551,20 +1551,25 @@
 
         .pricing-container {
             display: flex;
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 30px;
-            width: 100%;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 0 20px;
             box-sizing: border-box;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            overflow-x: visible;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
         .pricing-column {
             flex: 0 0 auto;
-            width: auto;
+            width: 280px;
             min-width: 280px;
             background: var(--dark-bg);
             padding: 30px;
@@ -1578,25 +1583,11 @@
             transition: all 0.3s;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            margin: 0 15px;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        @media (max-width: 1200px) {
-            .pricing-column {
-                transform: scale(0.85);
-            }
-        }
-
-        @media (max-width: 992px) {
-            .pricing-column {
-                transform: scale(0.8);
-            }
+            scroll-snap-align: center;
         }
 
         .pricing-column:hover {
-            transform: translateY(-10px) scale(0.95);
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
@@ -2696,8 +2687,6 @@
                 max-width: 100%;
                 min-width: auto;
                 padding: 20px;
-                margin: 0 0 20px 0;
-                transform: none;
             }
 
             .pricing-name {
