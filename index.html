@@ -1530,8 +1530,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding-top: 50px; /* Изменено с 80px на 50px */
+            justify-content: center;
+            padding-top: 50px;
             box-sizing: border-box;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -1541,18 +1541,17 @@
             font-family: 'Playfair Display', serif;
             font-size: clamp(28px, 3vw, 42px);
             color: var(--primary-color);
-            margin-bottom: 30px; /* Уменьшен отступ снизу */
+            margin-bottom: 30px;
             text-align: center;
             text-shadow: var(--text-shadow);
             position: relative;
-            top: -20px; /* Подняли заголовок выше */
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
 
         .pricing-container {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
             gap: 30px;
             width: 90%;
@@ -1562,13 +1561,16 @@
             box-sizing: border-box;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            align-items: flex-start; /* Выравнивание по верхнему краю */
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
         }
 
         .pricing-column {
-            flex: 1;
-            min-width: 250px;
-            max-width: 280px;
+            flex: 0 0 auto;
+            width: 280px;
+            min-width: 280px;
             background: var(--dark-bg);
             padding: 30px;
             border-radius: 16px;
@@ -1581,7 +1583,7 @@
             transition: all 0.3s;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            height: auto; /* Автоматическая высота */
+            scroll-snap-align: center;
         }
 
         .pricing-column:hover {
@@ -2661,15 +2663,15 @@
 
             /* Адаптивные стили для блока цен */
             .pricing-section {
-                padding-top: 30px; /* Уменьшено с 50px */
-                padding-bottom: 30px; /* Уменьшено с 50px */
+                padding-top: 30px;
+                padding-bottom: 30px;
             }
 
             .pricing-title {
                 font-size: 24px;
-                margin-bottom: 20px; /* Уменьшено с 30px */
+                margin-bottom: 20px;
                 position: relative;
-                top: -10px; /* Подняли заголовок выше */
+                top: -10px;
             }
 
             .pricing-container {
