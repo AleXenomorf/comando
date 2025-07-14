@@ -1518,6 +1518,123 @@
             right: 20px;
         }
 
+        /* Новые стили для блока цен */
+        .pricing-section {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 80px;
+            box-sizing: border-box;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            text-align: center;
+            text-shadow: var(--text-shadow);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-column {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background: var(--dark-bg);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-column:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .pricing-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-price {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: auto;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 204, 0, 0.7);
+        }
+
         /* Медиазапросы для мобильных устройств */
         @media (max-width: 768px) {
             :root {
@@ -2535,6 +2652,52 @@
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
             }
+
+            /* Адаптивные стили для блока цен */
+            .pricing-section {
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+
+            .pricing-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .pricing-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                width: 100%;
+                padding: 0 15px;
+            }
+
+            .pricing-column {
+                width: 100%;
+                max-width: 100%;
+                min-width: auto;
+                padding: 20px;
+            }
+
+            .pricing-name {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .pricing-price {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .pricing-desc {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+
+            .pricing-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
         }
 
         /* Медиазапрос для ландшафтной ориентации на мобильных устройствах */
@@ -2812,6 +2975,18 @@
                 height: 40px;
                 font-size: 20px;
             }
+
+            /* Адаптивные стили для блока цен в ландшафтном режиме */
+            .pricing-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .pricing-column {
+                width: 45%;
+                min-width: 250px;
+            }
         }
     </style>
 </head>
@@ -2822,7 +2997,7 @@
         <ul>
             <li><a href="#home">Главная</a></li>
             <li><a href="#advantages">Преимущества</a></li>
-            <li><a href="#program">Программа</a></li>
+            <li><a href="#pricing">Стоимость</a></li>
             <li><a href="#cases">Кейсы</a></li>
             <li><a href="#team">Команда</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -2876,57 +3051,39 @@
             </div>
         </div>
 
-        <div class="third-image" id="program">
-            <img src="https://alexenomorf.github.io/comando/33.webp" alt="Программа">
-            <div class="text-block" id="programBlock">
-                <div class="text-content">
-                    <h2>Формат сопровождения участников</h2>
+        <div class="third-image" id="pricing">
+            <div class="pricing-section">
+                <h2 class="pricing-title">Стоимость участия</h2>
+                <div class="pricing-container">
+                    <!-- Колонка 1 -->
+                    <div class="pricing-column">
+                        <h3 class="pricing-name">Базовый формат онлайн сопровождения</h3>
+                        <div class="pricing-price">150.000 тенге за три месяца</div>
+                        <div class="pricing-desc">65.000 тенге - помесячная оплата</div>
+                        <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+                    </div>
                     
-                    <div class="program-slider-container">
-                        <div class="program-slider">
-                            <!-- Неделя 1 -->
-                            <div class="program-slide active">
-                                <h3>Неделя 1</h3>
-                                <p>Оценка метаболизма, обучение подсчету калорий и фиксации активности, начальная диагностика здоровья, постановка реалистичных целей.</p>
-                            </div>
-                            
-                            <!-- Неделя 2 -->
-                            <div class="program-slide">
-                                <h3>Неделя 2</h3>
-                                <p>Определение индивидуальных норм по калориям, белкам и активности, корректировка рациона, введение системы мониторинга прогресса.</p>
-                            </div>
-                            
-                            <!-- Неделя 3 -->
-                            <div class="program-slide">
-                                <h3>Неделя 3</h3>
-                                <p>Рекомпозиция продуктовой корзины, устранение дефицитов, профилактика срывов, работа с пищевыми привычками.</p>
-                            </div>
-                            
-                            <!-- Неделя 4 -->
-                            <div class="program-slide">
-                                <h3>Неделя 4</h3>
-                                <p>Настройка режима дня, улучшение сна и восстановления, оптимизация нетренировочной активности, работа с дисциплиной.</p>
-                            </div>
-                            
-                            <!-- Неделя 5 -->
-                            <div class="program-slide">
-                                <h3>Неделя 5 (бонусная)</h3>
-                                <p>Определение норм для поддержания результата, персональные рекомендации, анализ достижений, планирование дальнейших шагов.</p>
-                            </div>
-                            
-                            <!-- Стрелки слайдера -->
-                            <div class="program-arrow prev">❮</div>
-                            <div class="program-arrow next">❯</div>
-                        </div>
-                        
-                        <!-- Контролы слайдера -->
-                        <div class="program-controls">
-                            <div class="program-dot active" data-slide="0"></div>
-                            <div class="program-dot" data-slide="1"></div>
-                            <div class="program-dot" data-slide="2"></div>
-                            <div class="program-dot" data-slide="3"></div>
-                            <div class="program-dot" data-slide="4"></div>
-                        </div>
+                    <!-- Колонка 2 -->
+                    <div class="pricing-column">
+                        <h3 class="pricing-name">Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
+                        <div class="pricing-price">10.000 тенге</div>
+                        <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+                    </div>
+                    
+                    <!-- Колонка 3 -->
+                    <div class="pricing-column">
+                        <h3 class="pricing-name">Мини-группа в фитнес клубе "Аврора"</h3>
+                        <div class="pricing-price">200.000 тенге за три месяца</div>
+                        <div class="pricing-desc">80.000 тенге - помесячная оплата</div>
+                        <div class="pricing-desc">(абонемент в зал приобретается отдельно)</div>
+                        <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+                    </div>
+                    
+                    <!-- Колонка 4 -->
+                    <div class="pricing-column">
+                        <h3 class="pricing-name">Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
+                        <div class="pricing-price">15.000 тенге</div>
+                        <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
                     </div>
                 </div>
             </div>
@@ -3293,7 +3450,7 @@
             // Плавное появление блоков
             const textBlocks = [
                 document.getElementById('advantagesBlock'), 
-                document.getElementById('programBlock'),
+                document.getElementById('pricing'),
                 document.getElementById('cases'),
                 document.getElementById('team'),
                 document.getElementById('faq'),
@@ -3534,74 +3691,6 @@
             }
 
             showCasesSlide(0);
-
-            // Слайдер программы
-            const programSlides = document.querySelectorAll('.program-slide');
-            const programDots = document.querySelectorAll('.program-dot');
-            const programPrevArrow = document.querySelector('.program-arrow.prev');
-            const programNextArrow = document.querySelector('.program-arrow.next');
-            let currentProgramSlide = 0;
-            let programSlideInterval;
-
-            function showProgramSlide(index) {
-                programSlides.forEach(slide => slide.classList.remove('active'));
-                programDots.forEach(dot => dot.classList.remove('active'));
-                
-                programSlides[index].classList.add('active');
-                programDots[index].classList.add('active');
-                currentProgramSlide = index;
-            }
-
-            function nextProgramSlide() {
-                let newIndex = (currentProgramSlide + 1) % programSlides.length;
-                showProgramSlide(newIndex);
-            }
-
-            function prevProgramSlide() {
-                let newIndex = (currentProgramSlide - 1 + programSlides.length) % programSlides.length;
-                showProgramSlide(newIndex);
-            }
-
-            function startProgramSlideInterval() {
-                stopProgramSlideInterval();
-                programSlideInterval = setInterval(nextProgramSlide, 5000); // Увеличено до 5 секунд
-            }
-
-            function stopProgramSlideInterval() {
-                if (programSlideInterval) {
-                    clearInterval(programSlideInterval);
-                }
-            }
-
-            // Инициализация слайдера программы
-            programPrevArrow.addEventListener('click', () => {
-                prevProgramSlide();
-                stopProgramSlideInterval();
-                startProgramSlideInterval();
-            });
-            
-            programNextArrow.addEventListener('click', () => {
-                nextProgramSlide();
-                stopProgramSlideInterval();
-                startProgramSlideInterval();
-            });
-
-            programDots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    const slideIndex = parseInt(this.getAttribute('data-slide'));
-                    showProgramSlide(slideIndex);
-                    stopProgramSlideInterval();
-                    startProgramSlideInterval();
-                });
-            });
-
-            startProgramSlideInterval();
-            
-            const programSlider = document.querySelector('.program-slider');
-            programSlider.addEventListener('mouseenter', stopProgramSlideInterval);
-            programSlider.addEventListener('mouseleave', startProgramSlideInterval);
-
-            showProgramSlide(0);
 
             // Слайдер FAQ
             const faqSlides = document.querySelectorAll('.faq-slide');
