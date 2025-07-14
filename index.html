@@ -513,6 +513,112 @@
             transform: translateX(100%);
         }
 
+        .program-selector {
+            position: absolute;
+            left: 800px;
+            top: 30%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 1s forwards;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .program-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: pulse-text 2s infinite;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes pulse-text {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .program-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 16px 32px;
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse-btn-program 2s infinite;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes pulse-btn-program {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(0, 204, 0, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0);
+            }
+        }
+
+        .program-button:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 204, 0, 0.8);
+            animation: none;
+        }
+
+        .program-button:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
         .team-section {
             width: 100%;
             height: 100%;
@@ -1153,158 +1259,263 @@
             right: 20px;
         }
 
-        /* Стили для блока с ценами */
-        .pricing-section {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            background: var(--asphalt-bg);
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+        /* Стили для слайдера программы */
+        .program-slider-container {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            padding-top: 80px;
-            box-sizing: border-box;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
-
-        .pricing-title {
+        
+        .program-slider {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(0, 204, 0, 0.3);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .program-slide {
             position: absolute;
-            top: 20px;
+            top: 0;
             left: 0;
             width: 100%;
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(28px, 3vw, 42px);
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            text-shadow: var(--text-shadow);
-            z-index: 10;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .pricing-container {
-            display: flex;
-            width: 90%;
-            max-width: 1200px;
-            height: calc(100% - 100px);
-            margin-top: 50px;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .pricing-columns {
-            display: flex;
-            width: 100%;
             height: 100%;
-            justify-content: space-between;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .pricing-left {
-            display: flex;
-            flex-direction: column;
-            width: 48%;
-            gap: 20px;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .pricing-right {
-            display: flex;
-            flex-direction: column;
-            width: 48%;
-            gap: 20px;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .pricing-box {
-            background: var(--dark-bg);
             padding: 30px;
-            border-radius: 16px;
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255,255,255,0.1);
-            flex: 1;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.5s ease;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
-
-        .pricing-box h3 {
+        
+        .program-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .program-slide h3 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(20px, 2.5vw, 28px);
+            font-size: 28px;
             color: var(--primary-color);
             margin-bottom: 20px;
             text-align: center;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
         }
-
-        .pricing-box p {
-            font-size: clamp(16px, 1.8vw, 20px);
+        
+        .program-slide p {
+            font-size: 18px;
             line-height: 1.6;
             margin-bottom: 15px;
             text-align: center;
+        }
+        
+        .program-slide strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .program-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
+        
+        .program-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .program-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        .program-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 20px;
+            color: white;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .program-arrow:hover {
+            background: var(--primary-color);
+        }
+        
+        .program-arrow.prev {
+            left: 10px;
+        }
+        
+        .program-arrow.next {
+            right: 10px;
+        }
 
-        .pricing-box .price {
-            font-size: clamp(20px, 2.5vw, 28px);
-            font-weight: 700;
-            color: var(--accent-color);
-            margin: 20px 0;
+        /* Обновленные стили для FAQ слайдера */
+        .faq-slider-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .faq-slider {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(0, 204, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .faq-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
-
-        .pricing-box .note {
-            font-size: clamp(14px, 1.5vw, 16px);
-            color: #ccc;
+        
+        .faq-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .faq-slide h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.3;
+            max-width: 90%;
+            padding: 0 20px;
+        }
+        
+        .faq-slide p {
+            font-size: 22px;
+            line-height: 1.6;
             margin-bottom: 20px;
             text-align: center;
+            max-width: 90%;
+            padding: 0 20px;
+        }
+        
+        .faq-slide strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .faq-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            width: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
-
-        .pricing-button {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: clamp(16px, 1.8vw, 20px);
-            font-weight: 700;
+        
+        .faq-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
             cursor: pointer;
-            transition: all 0.4s;
-            border-radius: 50px;
-            text-align: center;
-            text-transform: uppercase;
-            text-decoration: none;
-            display: block;
-            margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(0, 204, 0, 0.4);
-            -webkit-appearance: none;
+            transition: all 0.3s;
             -webkit-tap-highlight-color: transparent;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
         }
-
-        .pricing-button:hover {
-            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 204, 0, 0.6);
+        
+        .faq-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        .faq-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .faq-arrow:hover {
+            background: var(--primary-color);
+        }
+        
+        .faq-arrow.prev {
+            left: 20px;
+        }
+        
+        .faq-arrow.next {
+            right: 20px;
         }
 
         /* Медиазапросы для мобильных устройств */
@@ -2140,59 +2351,74 @@
                 right: 5px;
             }
             
-            /* Адаптивные стили для блока с ценами */
-            .pricing-section {
-                padding-top: 60px;
-                padding-bottom: 40px;
-                height: auto;
-                min-height: 100vh;
-            }
-            
-            .pricing-title {
-                position: relative;
-                top: auto;
-                font-size: 28px;
-                margin-bottom: 20px;
-            }
-            
-            .pricing-container {
-                flex-direction: column;
-                height: auto;
-                margin-top: 20px;
-            }
-            
-            .pricing-columns {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .pricing-left, .pricing-right {
+            /* Адаптивные стили для слайдера программы */
+            .program-slider-container {
                 width: 100%;
+                max-width: 100%;
+                margin: 20px auto 0;
+                padding: 0 15px;
+                box-sizing: border-box;
+                position: relative;
+                left: -20px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
             }
             
-            .pricing-box {
-                padding: 20px;
+            .program-slider {
+                height: auto;
+                min-height: 400px;
+                max-height: 500px;
+                overflow-y: auto;
+                padding: 15px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
             }
             
-            .pricing-box h3 {
+            .program-slide {
+                position: relative;
+                opacity: 0;
+                height: auto;
+                min-height: 300px;
+                padding: 20px 15px;
+                transform: none !important;
+                display: none;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .program-slide.active {
+                opacity: 1;
+                display: flex;
+            }
+            
+            .program-slide h3 {
                 font-size: 20px;
+                margin-bottom: 15px;
+                line-height: 1.3;
+                text-align: center;
             }
             
-            .pricing-box p {
-                font-size: 16px;
-            }
-            
-            .pricing-box .price {
-                font-size: 20px;
-            }
-            
-            .pricing-box .note {
+            .program-slide p {
                 font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 12px;
+                text-align: center;
             }
             
-            .pricing-button {
-                padding: 12px;
-                font-size: 16px;
+            .program-controls {
+                margin-top: 15px;
+                margin-bottom: 10px;
+            }
+            
+            .program-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            
+            .program-dot {
+                width: 10px;
+                height: 10px;
             }
             
             /* Адаптивные стили для FAQ слайдера */
@@ -2403,6 +2629,21 @@
                 font-size: clamp(14px, 1.5vw, 16px);
             }
             
+            .program-selector {
+                left: 60%;
+                top: 30%;
+            }
+            
+            .program-text {
+                font-size: clamp(16px, 2vw, 18px);
+                padding: 12px 20px;
+            }
+            
+            .program-button {
+                padding: 14px 28px;
+                font-size: clamp(14px, 2vw, 16px);
+            }
+            
             .nav-menu {
                 width: var(--menu-width);
             }
@@ -2533,51 +2774,23 @@
                 display: none;
             }
             
-            /* Адаптивные стили для блока с ценами в ландшафтной ориентации */
-            .pricing-section {
-                padding-top: 60px;
-                padding-bottom: 40px;
+            .program-slider-container {
+                max-width: 90%;
+                left: 0;
             }
             
-            .pricing-title {
-                font-size: clamp(24px, 3vw, 28px);
+            .program-slider {
+                height: 350px;
             }
             
-            .pricing-container {
-                width: 95%;
-                max-width: 1200px;
+            .program-slide h3 {
+                font-size: clamp(20px, 3vw, 24px);
             }
             
-            .pricing-columns {
-                flex-direction: row;
+            .program-slide p {
+                font-size: clamp(14px, 1.8vw, 16px);
             }
             
-            .pricing-left, .pricing-right {
-                width: 48%;
-            }
-            
-            .pricing-box h3 {
-                font-size: clamp(18px, 2vw, 22px);
-            }
-            
-            .pricing-box p {
-                font-size: clamp(14px, 1.5vw, 16px);
-            }
-            
-            .pricing-box .price {
-                font-size: clamp(18px, 2vw, 22px);
-            }
-            
-            .pricing-box .note {
-                font-size: clamp(12px, 1.3vw, 14px);
-            }
-            
-            .pricing-button {
-                padding: 10px 15px;
-                font-size: clamp(14px, 1.5vw, 16px);
-            }
-            
-            /* Адаптивные стили для FAQ в ландшафтной ориентации */
             .faq-slider-container {
                 max-width: 90%;
             }
@@ -2609,7 +2822,7 @@
         <ul>
             <li><a href="#home">Главная</a></li>
             <li><a href="#advantages">Преимущества</a></li>
-            <li><a href="#pricing">Стоимость</a></li>
+            <li><a href="#program">Программа</a></li>
             <li><a href="#cases">Кейсы</a></li>
             <li><a href="#team">Команда</a></li>
             <li><a href="#faq">FAQ</a></li>
@@ -2663,46 +2876,56 @@
             </div>
         </div>
 
-        <div class="third-image" id="pricing">
-            <div class="pricing-section">
-                <h2 class="pricing-title">Стоимость участия</h2>
-                <div class="pricing-container">
-                    <div class="pricing-columns">
-                        <div class="pricing-left">
-                            <div class="pricing-box">
-                                <h3>Базовый формат онлайн сопровождения</h3>
-                                <p>Полное сопровождение в течение 3 месяцев</p>
-                                <p class="price">150.000 тенге</p>
-                                <p>или</p>
-                                <p class="price">65.000 тенге - помесячная оплата</p>
-                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
+        <div class="third-image" id="program">
+            <img src="https://alexenomorf.github.io/comando/33.webp" alt="Программа">
+            <div class="text-block" id="programBlock">
+                <div class="text-content">
+                    <h2>Формат сопровождения участников</h2>
+                    
+                    <div class="program-slider-container">
+                        <div class="program-slider">
+                            <!-- Неделя 1 -->
+                            <div class="program-slide active">
+                                <h3>Неделя 1</h3>
+                                <p>Оценка метаболизма, обучение подсчету калорий и фиксации активности, начальная диагностика здоровья, постановка реалистичных целей.</p>
                             </div>
                             
-                            <div class="pricing-box">
-                                <h3>Пробная неделя</h3>
-                                <p>С выдачей индивидуальной программы и полным сопровождением</p>
-                                <p class="price">10.000 тенге</p>
-                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
+                            <!-- Неделя 2 -->
+                            <div class="program-slide">
+                                <h3>Неделя 2</h3>
+                                <p>Определение индивидуальных норм по калориям, белкам и активности, корректировка рациона, введение системы мониторинга прогресса.</p>
                             </div>
+                            
+                            <!-- Неделя 3 -->
+                            <div class="program-slide">
+                                <h3>Неделя 3</h3>
+                                <p>Рекомпозиция продуктовой корзины, устранение дефицитов, профилактика срывов, работа с пищевыми привычками.</p>
+                            </div>
+                            
+                            <!-- Неделя 4 -->
+                            <div class="program-slide">
+                                <h3>Неделя 4</h3>
+                                <p>Настройка режима дня, улучшение сна и восстановления, оптимизация нетренировочной активности, работа с дисциплиной.</p>
+                            </div>
+                            
+                            <!-- Неделя 5 -->
+                            <div class="program-slide">
+                                <h3>Неделя 5 (бонусная)</h3>
+                                <p>Определение норм для поддержания результата, персональные рекомендации, анализ достижений, планирование дальнейших шагов.</p>
+                            </div>
+                            
+                            <!-- Стрелки слайдера -->
+                            <div class="program-arrow prev">❮</div>
+                            <div class="program-arrow next">❯</div>
                         </div>
                         
-                        <div class="pricing-right">
-                            <div class="pricing-box">
-                                <h3>Мини-группа в фитнес клубе "Аврора"</h3>
-                                <p>Групповые тренировки с персональным подходом</p>
-                                <p class="price">200.000 тенге за три месяца</p>
-                                <p>или</p>
-                                <p class="price">80.000 тенге - помесячная оплата</p>
-                                <p class="note">(абонемент в зал приобретается отдельно)</p>
-                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
-                            </div>
-                            
-                            <div class="pricing-box">
-                                <h3>Пробная неделя в зале</h3>
-                                <p>С выдачей индивидуальной программы и полным сопровождением</p>
-                                <p class="price">15.000 тенге</p>
-                                <a href="https://t.me/marafonpro_ADorohov" target="_blank" class="pricing-button">ПОДАТЬ ЗАЯВКУ</a>
-                            </div>
+                        <!-- Контролы слайдера -->
+                        <div class="program-controls">
+                            <div class="program-dot active" data-slide="0"></div>
+                            <div class="program-dot" data-slide="1"></div>
+                            <div class="program-dot" data-slide="2"></div>
+                            <div class="program-dot" data-slide="3"></div>
+                            <div class="program-dot" data-slide="4"></div>
                         </div>
                     </div>
                 </div>
@@ -3070,7 +3293,7 @@
             // Плавное появление блоков
             const textBlocks = [
                 document.getElementById('advantagesBlock'), 
-                document.getElementById('pricing'),
+                document.getElementById('programBlock'),
                 document.getElementById('cases'),
                 document.getElementById('team'),
                 document.getElementById('faq'),
@@ -3311,6 +3534,74 @@
             }
 
             showCasesSlide(0);
+
+            // Слайдер программы
+            const programSlides = document.querySelectorAll('.program-slide');
+            const programDots = document.querySelectorAll('.program-dot');
+            const programPrevArrow = document.querySelector('.program-arrow.prev');
+            const programNextArrow = document.querySelector('.program-arrow.next');
+            let currentProgramSlide = 0;
+            let programSlideInterval;
+
+            function showProgramSlide(index) {
+                programSlides.forEach(slide => slide.classList.remove('active'));
+                programDots.forEach(dot => dot.classList.remove('active'));
+                
+                programSlides[index].classList.add('active');
+                programDots[index].classList.add('active');
+                currentProgramSlide = index;
+            }
+
+            function nextProgramSlide() {
+                let newIndex = (currentProgramSlide + 1) % programSlides.length;
+                showProgramSlide(newIndex);
+            }
+
+            function prevProgramSlide() {
+                let newIndex = (currentProgramSlide - 1 + programSlides.length) % programSlides.length;
+                showProgramSlide(newIndex);
+            }
+
+            function startProgramSlideInterval() {
+                stopProgramSlideInterval();
+                programSlideInterval = setInterval(nextProgramSlide, 5000); // Увеличено до 5 секунд
+            }
+
+            function stopProgramSlideInterval() {
+                if (programSlideInterval) {
+                    clearInterval(programSlideInterval);
+                }
+            }
+
+            // Инициализация слайдера программы
+            programPrevArrow.addEventListener('click', () => {
+                prevProgramSlide();
+                stopProgramSlideInterval();
+                startProgramSlideInterval();
+            });
+            
+            programNextArrow.addEventListener('click', () => {
+                nextProgramSlide();
+                stopProgramSlideInterval();
+                startProgramSlideInterval();
+            });
+
+            programDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    showProgramSlide(slideIndex);
+                    stopProgramSlideInterval();
+                    startProgramSlideInterval();
+                });
+            });
+
+            startProgramSlideInterval();
+            
+            const programSlider = document.querySelector('.program-slider');
+            programSlider.addEventListener('mouseenter', stopProgramSlideInterval);
+            programSlider.addEventListener('mouseleave', startProgramSlideInterval);
+
+            showProgramSlide(0);
 
             // Слайдер FAQ
             const faqSlides = document.querySelectorAll('.faq-slide');
