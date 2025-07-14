@@ -1097,7 +1097,7 @@
             box-sizing: border-box;
             flex-wrap: nowrap;
             overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
@@ -1129,7 +1129,7 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             background: rgba(0,0,0,0.5);
-            scroll-snap-align: start;
+            
             flex-shrink: 0;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -1155,7 +1155,7 @@
             max-height: 80vh;
             margin: 0 auto;
             overflow: visible;
-            scroll-snap-align: none;
+            
             background: transparent;
             box-shadow: none;
         }
@@ -2074,7 +2074,7 @@
                 display: flex;
                 flex-direction: row;
                 overflow-x: auto;
-                scroll-snap-type: x mandatory;
+                
                 scroll-behavior: smooth;
                 -webkit-overflow-scrolling: touch;
                 padding-bottom: 60px;
@@ -2092,7 +2092,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
-                scroll-snap-align: start;
+                
                 transform: none !important;
                 transition: none;
                 box-sizing: border-box;
@@ -2347,7 +2347,7 @@
                 padding: 0 10px;
                 box-sizing: border-box;
                 overflow-x: auto;
-                scroll-snap-type: x mandatory;
+                
                 scroll-behavior: smooth;
                 -webkit-overflow-scrolling: touch;
             }
@@ -2370,7 +2370,7 @@
                 justify-content: center;
                 overflow: hidden;
                 flex-shrink: 0;
-                scroll-snap-align: center;
+                
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
             }
@@ -2998,10 +2998,14 @@
 
 @media (max-width: 768px) {
   .pricing-table {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100%;
+  margin: 0 auto;
+}
   
 }
 
@@ -3020,26 +3024,24 @@
   transition: all 0.3s;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  scroll-snap-align: center;
+  
 }
 
 @media (max-width: 768px) {
   .pricing-table {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  width: 100%;
+  margin: 0 auto;
+}
   .pricing-column {
     width: 90% !important;
     margin-bottom: 20px;
   }
-}
-
-
-.pricing-column {
-  outline: 2px solid red;
-}
-</style>
+}</style>
 </head>
 <body>
 <!-- Навигационное меню -->
