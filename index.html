@@ -3054,7 +3054,22 @@
     margin: 0 auto 20px auto !important;
     display: block !important;
   }
-}</style>
+}
+
+@media (max-width: 1024px) {
+    .pricing-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .pricing-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+}
+</style>
 </head>
 <body>
 <!-- Навигационное меню -->
