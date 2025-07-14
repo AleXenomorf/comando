@@ -3045,6 +3045,13 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+/* Принудительный десктопный стиль */
+body {
+    min-width: 1400px;
+    overflow-x: auto;
+}
+
 .pricing-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -3054,6 +3061,10 @@
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
+}
+
+.container, .header, .footer {
+    min-width: 1200px;
 }
 </style>
 </head>
