@@ -1531,7 +1531,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
-            padding-top: 80px;
+            padding-top: 50px; /* Изменено с 80px на 50px */
             box-sizing: border-box;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -1541,9 +1541,11 @@
             font-family: 'Playfair Display', serif;
             font-size: clamp(28px, 3vw, 42px);
             color: var(--primary-color);
-            margin-bottom: 50px;
+            margin-bottom: 30px; /* Уменьшен отступ снизу */
             text-align: center;
             text-shadow: var(--text-shadow);
+            position: relative;
+            top: -20px; /* Подняли заголовок выше */
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
@@ -1560,6 +1562,7 @@
             box-sizing: border-box;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            align-items: flex-start; /* Выравнивание по верхнему краю */
         }
 
         .pricing-column {
@@ -1578,6 +1581,7 @@
             transition: all 0.3s;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            height: auto; /* Автоматическая высота */
         }
 
         .pricing-column:hover {
@@ -2657,13 +2661,15 @@
 
             /* Адаптивные стили для блока цен */
             .pricing-section {
-                padding-top: 50px;
-                padding-bottom: 50px;
+                padding-top: 30px; /* Уменьшено с 50px */
+                padding-bottom: 30px; /* Уменьшено с 50px */
             }
 
             .pricing-title {
                 font-size: 24px;
-                margin-bottom: 30px;
+                margin-bottom: 20px; /* Уменьшено с 30px */
+                position: relative;
+                top: -10px; /* Подняли заголовок выше */
             }
 
             .pricing-container {
