@@ -3067,6 +3067,59 @@
         max-width: 400px;
     }
 }
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    html, body {
+        font-size: 90%;
+    }
+
+    .first-image,
+    .second-image,
+    .third-image,
+    .fourth-image,
+    .fifth-image,
+    .sixth-image,
+    .seventh-image {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .main-text h1,
+    .main-text h2,
+    .main-text h3,
+    .text-block h2,
+    .text-block p {
+        font-size: 90%;
+    }
+
+    .button-container button,
+    .consultation-button,
+    .program-button {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .team-slider {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .team-slide {
+        min-width: 100%;
+        opacity: 1 !important;
+        position: relative !important;
+    }
+
+    .cases-images {
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+    }
+
+    .case-image-container {
+        min-width: 60vw;
+    }
+}
+
 </style>
 </head>
 <body>
