@@ -3068,15 +3068,18 @@
     }
 }
 
-.submit-button,
-.button,
-.button-primary {
-    transition: all 0.3s ease;
+a.submit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e91e63;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.submit-button:hover,
-.button:hover,
-.button-primary:hover {
+a.submit-button:hover {
     background-color: #c2185b;
     color: #fff;
 }
