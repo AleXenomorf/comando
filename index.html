@@ -3405,6 +3405,40 @@
     }
 }
 
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    .second-image img,
+    .third-image img,
+    .fourth-image img,
+    .fifth-image img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .second-image .text-block,
+    .third-image .text-block,
+    .fourth-image .text-block,
+    .fifth-image .text-block {
+        background: none !important;
+        padding: 40px 20px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh !important;
+    }
+
+    .text-content {
+        opacity: 1 !important;
+        transform: none !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        background: rgba(0, 0, 0, 0.6) !important;
+        padding: 30px 20px !important;
+    }
+}
+
 </style>
 </head>
 <body>
