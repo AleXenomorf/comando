@@ -148,7 +148,7 @@
             -webkit-transform: translateZ(0);
         }
 
-        
+        .second-image img,
         .third-image img,
         .fourth-image img,
         .fifth-image img {
@@ -1773,7 +1773,7 @@
                 backface-visibility: hidden;
             }
 
-            
+            .second-image img,
             .third-image img,
             .fourth-image img,
             .fifth-image img {
@@ -1806,13 +1806,6 @@
 
             .second-image .text-block {
                 --bg-image: url('https://alexenomorf.github.io/comando/01.jpg');
-                display: flex;
-                flex-direction: column;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
-                box-sizing: border-box;
             }
 
             .third-image .text-block {
@@ -2757,7 +2750,7 @@
                 min-height: 100vh;
             }
 
-            
+            .second-image img,
             .third-image img,
             .fourth-image img,
             .fifth-image img {
@@ -3403,70 +3396,6 @@
     h1, h2, h3, p, span {
         font-size: 90% !important;
     }
-}
-
-
-@media screen and (orientation: landscape) and (max-width: 1024px) {
-    .second-image img,
-    .third-image img,
-    .fourth-image img,
-    .fifth-image img {
-        display: block !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-    }
-
-    .second-image .text-block,
-    .third-image .text-block,
-    .fourth-image .text-block,
-    .fifth-image .text-block {
-        background: none !important;
-        padding: 40px 20px !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh !important;
-    }
-
-    .text-content {
-        opacity: 1 !important;
-        transform: none !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        background: rgba(0, 0, 0, 0.6) !important;
-        padding: 30px 20px !important;
-    }
-}
-
-
-@media screen and (orientation: landscape) and (max-width: 1024px) {
-    .second-image .text-block {
-        background: none !important;
-        min-height: 100vh !important;
-    }
-
-    .second-image img {
-        display: block !important;
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-    }
-
-    .text-content {
-        opacity: 1 !important;
-        transform: none !important;
-        margin: 0 auto !important;
-    }
-}
-
-
-.second-image {
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://alexenomorf.github.io/comando/01.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 </style>
@@ -4211,4 +4140,3 @@
     </script>
 </body>
 </html>
-
