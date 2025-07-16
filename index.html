@@ -3068,18 +3068,78 @@
     }
 }
 
-@media screen and (orientation: landscape) and (max-height: 500px) {
+@media screen and (orientation: landscape) {
     html, body {
         font-size: 100%;
-        overflow-x: hidden;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        width: 100%;
+        height: 100%;
     }
 
     * {
         box-sizing: border-box;
+        max-width: 100%;
     }
 
     body {
-        max-width: 100vw;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-text,
+    .text-block,
+    .text-content,
+    .pricing-column,
+    .team-slide,
+    .case-image-container,
+    .team-member-photo-container,
+    .team-member-info {
+        display: block !important;
+        opacity: 1 !important;
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .team-slider,
+    .cases-images {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        overflow: visible !important;
+    }
+
+    .team-slide,
+    .cases-slide {
+        flex: 1 1 33% !important;
+    }
+
+    .button-container button,
+    .consultation-button,
+    .program-button {
+        display: inline-block !important;
+        opacity: 1 !important;
+        font-size: 16px;
+        padding: 10px 20px;
+        margin: 10px auto;
+        width: auto;
+        max-width: 100%;
+    }
+
+    .nav-menu {
+        display: block !important;
+        width: 300px !important;
+        max-width: 90vw;
+    }
+
+    .pricing-container {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 30px;
+        justify-content: center;
     }
 
     .first-image,
@@ -3090,53 +3150,7 @@
     .sixth-image,
     .seventh-image {
         min-height: 100vh;
-        height: auto;
-        overflow: hidden;
-    }
-
-    .main-text,
-    .text-content,
-    .text-block,
-    .pricing-column,
-    .team-slide,
-    .case-image-container {
-        max-width: 100%;
-        width: 100%;
-        padding-left: 15px;
-        padding-right: 15px;
-        margin: 0 auto;
-    }
-
-    .team-slider,
-    .cases-images {
-        overflow-x: hidden;
-        flex-wrap: wrap;
-    }
-
-    .team-slide,
-    .case-image-container {
-        flex: 1 1 45%;
-        min-width: 45%;
-    }
-
-    .button-container button,
-    .consultation-button,
-    .program-button {
-        width: auto;
-        max-width: 100%;
-        font-size: 16px;
-        padding: 10px 20px;
-    }
-
-    .pricing-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
-    }
-
-    .nav-menu {
-        max-width: 100%;
+        height: auto !important;
     }
 }
 
