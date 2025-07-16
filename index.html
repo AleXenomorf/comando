@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
@@ -3300,18 +3301,19 @@
 
 @media screen and (orientation: landscape) and (max-height: 500px) {
     html, body {
-        font-size: 95%;
-        overflow-x: hidden;
-        padding: 0;
+        font-size: 90%;
+        overflow-x: hidden !important;
         margin: 0;
-        width: 100%;
+        padding: 0;
+        width: 100vw;
+        height: auto;
     }
 
     * {
         box-sizing: border-box;
-        max-width: 100%;
     }
 
+    section,
     .first-image,
     .second-image,
     .third-image,
@@ -3319,10 +3321,14 @@
     .fifth-image,
     .sixth-image,
     .seventh-image {
-        height: auto;
-        min-height: 100vh;
-        width: 100%;
-        overflow: hidden;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 100vw !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 10px 15px !important;
+        display: block !important;
+        position: static !important;
     }
 
     .main-text,
@@ -3331,54 +3337,64 @@
     .pricing-column,
     .case-image-container,
     .team-member-info {
-        padding: 10px 15px;
-        width: 100%;
-        max-width: 100%;
-        overflow-wrap: break-word;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 10px 15px !important;
         word-break: break-word;
+        white-space: normal;
+        position: static !important;
     }
 
     .team-slider,
     .cases-images {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        overflow-x: hidden;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px;
+        padding-bottom: 10px;
     }
 
     .team-slide,
     .case-image-container {
-        flex: 1 1 45%;
-        min-width: 45%;
-        max-width: 90vw;
+        flex: 0 0 85vw !important;
+        max-width: 85vw !important;
+        scroll-snap-align: start;
+        position: static !important;
     }
 
-    .team-member-photo-container {
-        max-width: 100%;
+    .team-member-photo-container img,
+    .case-image-container img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
     }
 
     .button-container button,
     .consultation-button,
     .program-button {
-        padding: 10px 20px;
-        font-size: 15px;
-        width: auto;
-        max-width: 100%;
-        display: inline-block;
-        margin: 10px auto;
+        font-size: 14px !important;
+        padding: 10px 20px !important;
+        width: 100% !important;
+        max-width: 300px;
+        display: block !important;
+        margin: 10px auto !important;
     }
 
     .pricing-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: center;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px !important;
     }
 
     .nav-menu {
-        max-width: 100%;
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    h1, h2, h3, p, span {
+        font-size: 90% !important;
     }
 }
 
@@ -3419,62 +3435,65 @@
 </div>
 <div class="second-image" id="advantages">
 <img alt="Преимущества" src="https://alexenomorf.github.io/comando/01.jpg"/>
-<div class="text-block" id="advantagesBlock">
-<div class="text-content">
-<h2>Преимущества работы с нами</h2>
-<p>Индивидуальный план тренировок с полным разбором каждого упражнения и его нюансов.</p>
-<p>Персонализированный подход по питанию в зависимости от цели участника.</p>
-<p>Полностью цифровой и структурированный подход: вы не просто получаете инструкции, а понимаете каждый шаг на пути к результату.</p>
-<p>Индивидуальный куратор сопровождает вас на каждом этапе, обеспечивая обратную связь и поддержку.</p>
-<p>Участие в общем чате с единомышленниками для обмена опытом, поддержки и мотивации.</p>
-<p>ИИ-ассистент анализирует ваши данные, обеспечивая точность и минимизируя ошибки.</p>
-<p>Еженедельные онлайн-сессии с наставником для обсуждения прогресса и получения ответов на вопросы.</p>
+<div class="text-block" id="advantagesBlock" style="text-align: left;">
+<div class="text-content" style="text-align: left;">
+<h2 style="text-align: left;">Преимущества работы с нами</h2>
+<p style="text-align: left;">Индивидуальный план тренировок с полным разбором каждого упражнения и его нюансов.</p>
+<p style="text-align: left;">Персонализированный подход по питанию в зависимости от цели участника.</p>
+<p style="text-align: left;">Полностью цифровой и структурированный подход: вы не просто получаете инструкции, а понимаете каждый шаг на пути к результату.</p>
+<p style="text-align: left;">Индивидуальный куратор сопровождает вас на каждом этапе, обеспечивая обратную связь и поддержку.</p>
+<p style="text-align: left;">Участие в общем чате с единомышленниками для обмена опытом, поддержки и мотивации.</p>
+<p style="text-align: left;">ИИ-ассистент анализирует ваши данные, обеспечивая точность и минимизируя ошибки.</p>
+<p style="text-align: left;">Еженедельные онлайн-сессии с наставником для обсуждения прогресса и получения ответов на вопросы.</p>
+
+<p>Для жителей Костаная спец предложение!<br/>
+Тренировки в мини-группе в фитнес-клубе "Аврора"!<br/>
+<strong>ЗАБРОНИРОВАТЬ МЕСТО!</strong><br/>
+Для жителей других городов и стран!<br/>
+<strong>ЗАБРОНИРОВАТЬ МЕСТО!</strong></p>
 </div>
-<div class="program-selector">
-<div class="program-text">Для жителей Костаная спец предложение!</div>
-<div class="program-text">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
+<div class="program-selector" style="text-align: left;">
+<div class="program-text" style="text-align: left;">Для жителей Костаная спец предложение!</div>
+<div class="program-text" style="text-align: left;">Тренировки в мини-группе в фитнес-клубе "Аврора"!</div>
 <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
-<div class="program-text">Для жителей других городов и стран!</div>
+<div class="program-text" style="text-align: left;">Для жителей других городов и стран!</div>
 <button class="program-button" onclick="window.location.href='test.html'">ЗАБРОНИРОВАТЬ МЕСТО!</button>
 </div>
 </div>
 </div>
 <div class="third-image" id="pricing">
-    <div class="pricing-section">
-        <h2 class="pricing-title">Стоимость участия</h2>
-        <div class="pricing-container">
-            <!-- Колонка 1 -->
-            <div class="pricing-column">
-                <h3 class="pricing-name">Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
-                <div class="pricing-price">15.000 тенге</div>
-                <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
-            </div>
-            
-            <!-- Колонка 2 -->
-            <div class="pricing-column">
-                <h3 class="pricing-name">Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
-                <div class="pricing-price">10.000 тенге</div>
-                <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
-            </div>
-            
-            <!-- Колонка 3 -->
-            <div class="pricing-column">
-                <h3 class="pricing-name">Базовый формат онлайн сопровождения</h3>
-                <div class="pricing-price">150.000 тенге за три месяца</div>
-                <div class="pricing-desc">65.000 тенге - помесячная оплата</div>
-                <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
-            </div>
-            
-            <!-- Колонка 4 -->
-            <div class="pricing-column">
-                <h3 class="pricing-name">Мини-группа в фитнес клубе "Аврора"</h3>
-                <div class="pricing-price">200.000 тенге за три месяца</div>
-                <div class="pricing-desc">80.000 тенге - помесячная оплата</div>
-                <div class="pricing-desc">(абонемент в зал приобретается отдельно)</div>
-                <button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
-            </div>
-        </div>
-    </div>
+<div class="pricing-section">
+<h2 class="pricing-title">Стоимость участия</h2>
+<div class="pricing-container">
+<!-- Колонка 1 -->
+<div class="pricing-column">
+<h3 class="pricing-name">Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
+<div class="pricing-price">15.000 тенге</div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+</div>
+<!-- Колонка 2 -->
+<div class="pricing-column">
+<h3 class="pricing-name">Пробная неделя с выдачей индивидуальной программы и полным сопровождением</h3>
+<div class="pricing-price">10.000 тенге</div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+</div>
+<!-- Колонка 3 -->
+<div class="pricing-column">
+<h3 class="pricing-name">Базовый формат онлайн сопровождения</h3>
+<div class="pricing-price">150.000 тенге за три месяца</div>
+<div class="pricing-desc">65.000 тенге - помесячная оплата</div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+</div>
+<!-- Колонка 4 -->
+<div class="pricing-column">
+<h3 class="pricing-name">Мини-группа в фитнес клубе "Аврора"</h3>
+<div class="pricing-price">200.000 тенге за три месяца</div>
+<div class="pricing-desc">80.000 тенге - помесячная оплата</div>
+<div class="pricing-desc">(абонемент в зал приобретается отдельно)</div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">ПОДАТЬ ЗАЯВКУ</button>
+</div>
+</div>
+</div>
 </div>
 <div class="fourth-image" id="cases">
 <div class="cases-section">
