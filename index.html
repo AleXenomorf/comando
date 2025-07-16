@@ -148,7 +148,7 @@
             -webkit-transform: translateZ(0);
         }
 
-        /* удалено: .second-image img, */
+        
         .third-image img,
         .fourth-image img,
         .fifth-image img {
@@ -1773,7 +1773,7 @@
                 backface-visibility: hidden;
             }
 
-            /* удалено: .second-image img, */
+            
             .third-image img,
             .fourth-image img,
             .fifth-image img {
@@ -2757,7 +2757,7 @@
                 min-height: 100vh;
             }
 
-            /* удалено: .second-image img, */
+            
             .third-image img,
             .fourth-image img,
             .fifth-image img {
@@ -3436,6 +3436,27 @@
         margin: 0 auto !important;
         background: rgba(0, 0, 0, 0.6) !important;
         padding: 30px 20px !important;
+    }
+}
+
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    .second-image .text-block {
+        background: none !important;
+        min-height: 100vh !important;
+    }
+
+    .second-image img {
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .text-content {
+        opacity: 1 !important;
+        transform: none !important;
+        margin: 0 auto !important;
     }
 }
 
