@@ -3398,6 +3398,55 @@
     }
 }
 
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    .second-image img {
+        display: none !important;
+    }
+}
+
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    .second-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        background-image: url('https://alexenomorf.github.io/comando/01.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .second-image .content-block {
+        display: flex;
+        flex-direction: column;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .second-image .text-block,
+    .second-image .buttons-block {
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .second-image .buttons-block a {
+        display: inline-block;
+        margin: 5px 0;
+        background: #00ff00;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        border-radius: 6px;
+    }
+}
+
 </style>
 </head>
 <body>
