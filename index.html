@@ -1538,7 +1538,6 @@
         }
 
         .pricing-title {
-    margin-top: -50px;
             font-family: 'Playfair Display', serif;
             font-size: clamp(28px, 3vw, 42px);
             color: var(--primary-color);
@@ -1551,11 +1550,8 @@
         }
 
         .pricing-container {
-    margin-top: -100px;
-    transform: translateX(100px);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     width: 100%;
     max-width: 1400px;
@@ -2648,7 +2644,6 @@
             }
 
             .pricing-title {
-    margin-top: -50px;
                 font-size: 24px;
                 margin-bottom: 20px;
                 position: relative;
@@ -2656,11 +2651,8 @@
             }
 
             .pricing-container {
-    margin-top: -100px;
-    transform: translateX(100px);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     width: 100%;
     max-width: 1400px;
@@ -2970,11 +2962,8 @@
 
             /* Адаптивные стили для блока цен в ландшафтном режиме */
             .pricing-container {
-    margin-top: -100px;
-    transform: translateX(100px);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
     width: 100%;
     max-width: 1400px;
@@ -3049,8 +3038,6 @@
             
             /* Оптимизация для блока цен */
             .pricing-container {
-    margin-top: -100px;
-    transform: translateX(100px);
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
                 padding: 0 10px;
@@ -3225,8 +3212,6 @@
 
 @media (max-width: 768px) {
     .pricing-container {
-    margin-top: -100px;
-    transform: translateX(100px);
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -3237,8 +3222,6 @@
 
 @media (max-width: 768px) {
     .pricing-container {
-    margin-top: -100px;
-    transform: translateX(100px);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -3399,8 +3382,6 @@
     }
 
     .pricing-container {
-    margin-top: -100px;
-    transform: translateX(100px);
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -3494,22 +3475,6 @@
         background-position: center !important;
         background-repeat: repeat !important;
         background-attachment: scroll !important;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .pricing-title {
-        margin-top: 0 !important;
-        text-align: center;
-    }
-    .pricing-container {
-        transform: none !important;
-        margin-top: 0 !important;
-        grid-template-columns: 1fr !important;
-        padding-left: 10px;
-        padding-right: 10px;
-        justify-items: center;
     }
 }
 
