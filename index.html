@@ -3448,9 +3448,64 @@
 }
 
 
+/* ВОССТАНОВЛЕНИЕ ФОНА в портретной версии */
+@media screen and (orientation: portrait) {
+    .second-image {
+        background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                          url('https://alexenomorf.github.io/comando/01.jpg') !important;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+    }
+    .second-image img {
+        display: block !important;
+    }
+}
+
+/* ОБРАБОТКА LANDSCAPE */
 @media screen and (orientation: landscape) {
     .second-image img {
         display: none !important;
+    }
+
+    .second-image {
+        background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                          url('https://alexenomorf.github.io/comando/01.jpg') !important;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .second-image .text-block {
+        position: relative !important;
+        padding: 20px !important;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 16px;
+        width: 90%;
+        max-width: 700px;
+        margin: auto;
+    }
+
+    .second-image .text-content {
+        margin: 0 auto;
+        padding: 30px 20px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 12px;
+        text-align: center;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .second-image .text-content h2,
+    .second-image .text-content p {
+        text-align: center !important;
+        transform: none !important;
+        opacity: 1 !important;
     }
 }
 
