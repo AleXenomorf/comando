@@ -3450,7 +3450,7 @@
 
 @media screen and (orientation: portrait), screen and (orientation: landscape) {
     .second-image {
-        background: var(--asphalt-bg) !important;
+        
         background-image:
             linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
             url('https://www.transparenttextures.com/patterns/asfalt-dark.png') !important;
@@ -3461,6 +3461,20 @@
     }
     .second-image img {
         display: none !important;
+    }
+}
+
+
+@media screen and (orientation: portrait), screen and (orientation: landscape) {
+    .second-image {
+        background-color: #2e2e2e !important;
+        background-image:
+            linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+            url('https://www.transparenttextures.com/patterns/asfalt-dark.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: scroll !important;
     }
 }
 
