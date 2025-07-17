@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
@@ -1550,17 +1549,30 @@
         }
 
         .pricing-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
 
-        
+        .pricing-column {
+            background: var(--dark-bg);
+            padding: 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
 
         .pricing-column:hover {
             transform: translateY(-10px);
@@ -1898,6 +1910,12 @@
                 backface-visibility: hidden;
             }
             
+            .consultation-button:hover {
+                transform: translateY(-3px) scale(1.03);
+                box-shadow: 0 8px 25px rgba(0, 204, 0, 0.6);
+                animation: none;
+            }
+            
             .program-selector {
                 position: relative;
                 left: auto;
@@ -1945,6 +1963,11 @@
                 }
             }
             
+            @keyframes blink-mobile {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.9; }
+            }
+
             .nav-menu {
                 width: 80%;
                 max-width: 300px;
@@ -2327,7 +2350,6 @@
                 justify-content: flex-start;
                 align-items: center;
                 padding-top: 20px;
-                box-sizing: border-box;
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
             }
@@ -2651,17 +2673,17 @@
             }
 
             .pricing-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 0 10px;
+            }
 
-            
+            .pricing-column {
+                width: 90%;
+                max-width: 400px;
+            }
 
             .pricing-name {
                 font-size: 20px;
@@ -2719,12 +2741,14 @@
             }
 
             .main-text {
+                text-align: left;
                 max-width: clamp(300px, 60vw, 500px);
                 margin-right: clamp(20px, 5vw, 50px);
             }
 
             .main-text h1 {
                 font-size: clamp(24px, 4vw, 36px);
+                line-height: 1.3;
             }
 
             .main-text h2 {
@@ -2962,82 +2986,7 @@
 
             /* Адаптивные стили для блока цен в ландшафтном режиме */
             .pricing-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-            
-        }
-
-        /* Специальные стили для горизонтальной ориентации с небольшой высотой */
-        @media screen and (orientation: landscape) and (max-height: 500px) {
-            html, body {
-                font-size: 95%;
-                overflow-x: hidden;
-            }
-
-            * {
-                box-sizing: border-box;
-                max-width: 100vw;
-            }
-
-            .main-text,
-            .text-content,
-            .text-block,
-            .team-slide,
-            .case-image-container {
-                padding-left: 10px;
-                padding-right: 10px;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .button-container button,
-            .consultation-button,
-            .program-button {
-                font-size: 15px;
-                padding: 10px 18px;
-                width: auto;
-                max-width: 90%;
-            }
-
-            .team-slider,
-            .cases-images {
-                flex-wrap: wrap;
-                overflow-x: hidden;
-                gap: 16px;
-                justify-content: center;
-            }
-
-            .team-slide,
-            .cases-slide {
-                flex: 1 1 45%;
-                min-width: 45%;
-            }
-
-            .first-image,
-            .second-image,
-            .third-image,
-            .fourth-image,
-            .fifth-image,
-            .sixth-image,
-            .seventh-image {
-                height: auto;
-                min-height: 100vh;
-            }
-
-            .nav-menu {
-                max-width: 90vw;
-                width: 100%;
-            }
-            
-            /* Оптимизация для блока цен */
-            .pricing-container {
+                display: grid;
                 grid-template-columns: repeat(2, 1fr);
                 gap: 20px;
                 padding: 0 10px;
@@ -3046,99 +2995,105 @@
             .pricing-column {
                 padding: 20px;
             }
-            
-            /* Оптимизация для слайдеров */
-            .team-slider,
-            .cases-slider,
-            .faq-slider,
-            .program-slider {
+        }
+
+        /* Специальные стили для горизонтальной ориентации с небольшой высотой */
+        @media screen and (orientation: landscape) and (max-height: 500px) {
+            html, body {
+                font-size: 90%;
+                overflow-x: hidden !important;
+                margin: 0;
+                padding: 0;
+                width: 100vw;
                 height: auto;
-                min-height: 300px;
-                max-height: 400px;
             }
-            
-            /* Оптимизация для контактов */
-            .contacts-content {
-                padding: 10px;
+
+            * {
+                box-sizing: border-box;
             }
-            
-            .social-links {
-                gap: 5px;
+
+            section,
+            .first-image,
+            .second-image,
+            .third-image,
+            .fourth-image,
+            .fifth-image,
+            .sixth-image,
+            .seventh-image {
+                width: 100vw !important;
+                max-width: 100vw !important;
+                min-width: 100vw !important;
+                height: auto !important;
+                overflow: visible !important;
+                padding: 10px 15px !important;
+                display: block !important;
+                position: static !important;
             }
-            
-            .social-link {
-                width: 60px;
-                height: 60px;
-                font-size: 16px;
-            }
-            
-            .social-text {
-                font-size: 10px;
-            }
-            
-            /* Уменьшение отступов */
+
+            .main-text,
             .text-content,
-            .team-member-info,
-            .faq-slide,
-            .program-slide {
-                padding: 15px;
+            .text-block,
+            .pricing-column,
+            .case-image-container,
+            .team-member-info {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 10px 15px !important;
+                word-break: break-word;
+                white-space: normal;
+                position: static !important;
             }
-            
-            /* Уменьшение шрифтов */
-            h1, h2, h3 {
-                font-size: 90% !important;
+
+            .team-slider,
+            .cases-images {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 15px;
+                padding-bottom: 10px;
             }
-            
-            p {
-                font-size: 85% !important;
+
+            .team-slide,
+            .case-image-container {
+                flex: 0 0 85vw !important;
+                max-width: 85vw !important;
+                scroll-snap-align: start;
+                position: static !important;
             }
-            
-            /* Оптимизация кнопок */
+
+            .team-member-photo-container img,
+            .case-image-container img {
+                width: 100% !important;
+                height: auto !important;
+                object-fit: contain !important;
+            }
+
             .button-container button,
             .consultation-button,
-            .program-button,
-            .pricing-button {
-                padding: 8px 16px;
-                font-size: 14px;
+            .program-button {
+                font-size: 14px !important;
+                padding: 10px 20px !important;
+                width: 100% !important;
+                max-width: 300px;
+                display: block !important;
+                margin: 10px auto !important;
             }
-            
-            /* Оптимизация заголовков */
-            .team-title,
-            .cases-title,
-            .pricing-title,
-            .faq-title {
-                font-size: 20px !important;
-                margin-bottom: 15px !important;
+
+            .pricing-container {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
             }
-            
-            /* Оптимизация изображений */
-            .team-member-photo-container,
-            .case-image-container {
-                height: 250px;
+
+            .nav-menu {
+                width: 100% !important;
+                max-width: 100% !important;
             }
-            
-            /* Оптимизация текстовых блоков */
-            .text-block p {
-                margin-bottom: 10px;
-            }
-            
-            /* Оптимизация слайдеров */
-            .team-slider-controls,
-            .cases-controls,
-            .faq-controls,
-            .program-controls {
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-            
-            /* Оптимизация стрелок */
-            .slider-arrow,
-            .cases-arrow,
-            .faq-arrow,
-            .program-arrow {
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
+
+            h1, h2, h3, p, span {
+                font-size: 90% !important;
             }
         }
 
@@ -3339,7 +3294,7 @@
     .team-member-info {
         width: 100% !important;
         max-width: 100% !important;
-        padding: 10px 15px !important;
+        padding: 15px !important;
         word-break: break-word;
         white-space: normal;
         position: static !important;
@@ -3372,9 +3327,10 @@
 
     .button-container button,
     .consultation-button,
-    .program-button {
+    .program-button,
+    .pricing-button {
         font-size: 14px !important;
-        padding: 10px 20px !important;
+        padding: 8px 16px !important;
         width: 100% !important;
         max-width: 300px;
         display: block !important;
@@ -3395,55 +3351,6 @@
 
     h1, h2, h3, p, span {
         font-size: 90% !important;
-    }
-}
-
-
-@media screen and (orientation: landscape) and (max-width: 1024px) {
-    .second-image img {
-        display: none !important;
-    }
-}
-
-
-@media screen and (orientation: landscape) and (max-width: 1024px) {
-    .second-image {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 40px 20px;
-        background-image: url('https://alexenomorf.github.io/comando/01.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
-
-    .second-image .content-block {
-        display: flex;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.75);
-        padding: 20px;
-        border-radius: 10px;
-        width: 100%;
-        max-width: 800px;
-    }
-
-    .second-image .text-block,
-    .second-image .buttons-block {
-        color: white;
-        margin-bottom: 20px;
-    }
-
-    .second-image .buttons-block a {
-        display: inline-block;
-        margin: 5px 0;
-        background: #00ff00;
-        padding: 10px;
-        text-decoration: none;
-        color: black;
-        font-weight: bold;
-        border-radius: 6px;
     }
 }
 
@@ -3809,7 +3716,6 @@
 <!-- Стрелки слайдера -->
 <div class="faq-arrow prev">❮</div>
 <div class="faq-arrow next">❯</div>
-</div>
 </div>
 </div>
 </div>
@@ -4189,4 +4095,3 @@
     </script>
 </body>
 </html>
-
