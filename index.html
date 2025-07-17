@@ -3412,7 +3412,7 @@
         justify-content: center;
         align-items: center;
         padding: 40px 20px;
-        background-image: url('https://alexenomorf.github.io/comando/01.jpg');
+        
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -3448,26 +3448,10 @@
 }
 
 
-@media screen and (orientation: portrait) {
+@media screen and (orientation: portrait), screen and (orientation: landscape) {
     .second-image {
         background: var(--asphalt-bg) !important;
-        background-image: 
-            linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-            url('https://www.transparenttextures.com/patterns/asfalt-dark.png') !important;
-        background-size: cover !important;
-        background-position: center !important;
-        background-repeat: no-repeat !important;
-        background-attachment: scroll !important;
-    }
-    .second-image img {
-        display: none !important;
-    }
-}
-
-@media screen and (orientation: landscape) {
-    .second-image {
-        background: var(--asphalt-bg) !important;
-        background-image: 
+        background-image:
             linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
             url('https://www.transparenttextures.com/patterns/asfalt-dark.png') !important;
         background-size: cover !important;
