@@ -4648,7 +4648,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     if (window.innerWidth <= 768) {
         const el = document.querySelector(".left-text");
-        if (el) el.style.display = "none";
+        if (el) el.remove();
     }
 });
 </script></body>
