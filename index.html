@@ -3518,11 +3518,19 @@
 }
   
 
+
 .main-text h2:first-child {
     position: absolute;
     top: 0px;
     left: 100px;
     z-index: 11;
+}
+
+@media (max-width: 768px) {
+    .main-text h2:first-child {
+        top: 50px;
+        left: 100px;
+    }
 }
 </style>
 </head>
