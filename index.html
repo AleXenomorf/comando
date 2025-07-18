@@ -4644,5 +4644,12 @@
             window.addEventListener('orientationchange', handleResize);
         });
   </script>
-</body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.innerWidth <= 768) {
+        const el = document.querySelector(".left-text");
+        if (el) el.style.display = "none";
+    }
+});
+</script></body>
 </html>
