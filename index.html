@@ -3532,6 +3532,20 @@
         left: 100px;
     }
 }
+
+@media (max-width: 768px) {
+    .marathon-ring {
+        width: 80px;
+        height: 80px;
+        top: -100px;
+    }
+
+    .marathon-char {
+        font-size: 12px;
+        transform-origin: 50% 40px !important;
+        transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px) !important;
+    }
+}
 </style>
 </head>
 <body>
