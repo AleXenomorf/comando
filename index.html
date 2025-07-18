@@ -3572,6 +3572,50 @@
     z-index: 10;
     white-space: nowrap;
 }
+
+/* Убираем анимации с основных заголовков */
+.main-text h1,
+.main-text h2,
+.main-text h3 {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Убираем анимации у блока с предложениями */
+.program-text,
+.program-selector,
+.program-button {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Выделение слова Костаная */
+.highlight-kostanay {
+    color: #00ff00;
+    font-weight: 900;
+    text-shadow: 0 0 8px #00ff00;
+}
+
+/* Современный стиль выделения основных надписей */
+.main-text h1,
+.main-text h2,
+.main-text h3,
+.mindfit-text {
+    color: #BB86FC !important; /* Яркий фиолетово-сиреневый */
+    text-shadow: 0 0 10px rgba(187, 134, 252, 0.9), 0 0 20px rgba(187, 134, 252, 0.5);
+}
+
+/* Вернуть зелёный цвет и стиль как у Костаная */
+.main-text h1,
+.main-text h2,
+.main-text h3,
+.mindfit-text {
+    color: #00ff00 !important;
+    font-weight: 900;
+    text-shadow: 0 0 8px #00ff00;
+}
 </style>
 </head>
 <body>
@@ -3679,12 +3723,12 @@
 </div>
 <div class="program-selector" style="text-align: left;">
 <div class="program-text" style="text-align: left;">
-<div>
-        Для жителей Костаная спец предложение
-       </div>
-<div>
+
+        Для жителей <span class="highlight-kostanay">Костаная</span> спец предложение
+       
+
         Тренировки в мини-группе в фитнес-клубе "Аврора!"
-       </div>
+       
 </div>
 <button class="program-button" onclick="window.location.href='test.html'">
        ЗАБРОНИРОВАТЬ МЕСТО!
