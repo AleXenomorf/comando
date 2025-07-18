@@ -3546,6 +3546,32 @@
         transform: rotate(calc(var(--char-index) * 22deg)) translateY(-10px) !important;
     }
 }
+
+/* Отключаем анимацию и прячем marathon-ring */
+.marathon-ring {
+    display: none !important;
+    animation: none !important;
+}
+
+/* Стиль для MIND FIT */
+.mindfit-text {
+    position: absolute;
+    top: -80px;
+    right: clamp(20px, 5vw, 70px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 32px);
+    color: #fff;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
+                 -1px -1px 0 #000, 
+                 1px -1px 0 #000, 
+                 -1px 1px 0 #000, 
+                 1px 1px 0 #000;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards, pulse-text 2s infinite 1s;
+    z-index: 10;
+    white-space: nowrap;
+}
 </style>
 </head>
 <body>
@@ -3600,6 +3626,8 @@
 <div class="image-container" id="imageContainer">
 <div class="first-image" id="home">
 <div class="content">
+<div class="mindfit-text">MIND FIT</div>
+
 <div class="marathon-ring">
 <div class="marathon-circle" id="marathonCircle">
 </div>
