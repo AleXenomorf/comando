@@ -3546,6 +3546,31 @@
         transform: rotate(calc(var(--char-index) * 22deg)) translateY(-10px) !important;
     }
 }
+
+
+.mind-fit-static {
+    text-align: center;
+    margin-top: 50px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.mind-fit-static h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 48px);
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 768px) {
+    .mind-fit-static {
+        margin-top: 30px;
+    }
+
+    .mind-fit-static h2 {
+        font-size: clamp(20px, 6vw, 36px);
+    }
+}
 </style>
 </head>
 <body>
@@ -3600,10 +3625,7 @@
 <div class="image-container" id="imageContainer">
 <div class="first-image" id="home">
 <div class="content">
-<div class="marathon-ring">
-<div class="marathon-circle" id="marathonCircle">
-</div>
-</div>
+
 <div class="main-text"><h2>начни делать, чтоб не бояться</h2>
 <h1>
        Индивидуальное программирование
@@ -4514,5 +4536,5 @@
             window.addEventListener('orientationchange', handleResize);
         });
   </script>
-</body>
+<div class="mind-fit-static"><h2>MIND FIT</h2></div></body>
 </html>
