@@ -115,9 +115,7 @@
             overflow-x: hidden;
         }
 
-        .image-container.menu-open {
-            margin-left: var(--menu-width);
-        }
+        .image-container
 
         .first-image {
             width: 100%;
@@ -268,19 +266,7 @@
             to { transform: rotate(360deg); }
         }
 
-        .marathon-char {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform-origin: 50% 75px; /* уменьшено в 2 раза */
-    color: white;
-    font-size: 16px; 
-    font-weight: bold;
-    height: 75px; /* уменьшено в 2 раза */
-    width: 20px; 
-    text-align: center;
-    transform: rotate(calc(var(--char-index) * 22.5deg)) translateY(-10px); 
-}
+        
 
         .main-text {
             text-align: left;
@@ -428,33 +414,9 @@
             }
         }
         
-        .consultation-button {
-            margin-top: 30px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            padding: clamp(12px, 1.5vw, 16px) clamp(16px, 2vw, 28px);
-            border-radius: 50px;
-            display: inline-block;
-            transition: all 0.4s;
-            transform: translateX(-20px);
-            opacity: 0;
-            transition: all 0.6s ease-out 1.2s;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 204, 0, 0.4);
-            animation: pulse 2s infinite 2s;
-            border: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            -webkit-appearance: none;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
         
-        .visible .consultation-button {
-            transform: translateX(0);
-            opacity: 1;
-        }
+        
+        .visible 
         
         .consultation-button a {
             color: white;
@@ -881,20 +843,7 @@
             backface-visibility: hidden;
         }
 
-        .faq-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
+        
 
         .contacts-title {
             font-family: 'Playfair Display', serif;
@@ -907,17 +856,7 @@
             backface-visibility: hidden;
         }
 
-        .faq-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(24px, 3vw, 36px);
-            color: #00ff00;
-            margin-bottom: 40px;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
-            position: relative;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
+        
 
         .contacts-title::after,
         .faq-title::after {
@@ -1263,45 +1202,11 @@
         }
 
         /* Стили для слайдера программы */
-        .program-slider-container {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
         
-        .program-slider {
-            position: relative;
-            width: 100%;
-            height: 400px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            border-radius: 16px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(0, 204, 0, 0.3);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
         
-        .program-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 30px;
-            box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
+        
+        
+        
         
         .program-slide.active {
             opacity: 1;
@@ -1328,48 +1233,16 @@
             font-weight: 600;
         }
         
-        .program-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
         
-        .program-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
-        }
+        
+        
         
         .program-dot.active {
             background: var(--primary-color);
             transform: scale(1.2);
         }
         
-        .program-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 20px;
-            color: white;
-            transition: all 0.3s;
-            -webkit-tap-highlight-color: transparent;
-        }
+        
         
         .program-arrow:hover {
             background: var(--primary-color);
@@ -1672,15 +1545,7 @@
                 backface-visibility: hidden;
             }
             
-            .marathon-char {
-                font-size: 12px;
-                transform-origin: 50% 60px;
-                height: 60px;
-                width: 12px;
-                transform: rotate(calc(var(--char-index) * 30deg)) translateY(-10px);
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
+            
 
             .main-text {
                 text-align: center;
@@ -1880,20 +1745,7 @@
                 backface-visibility: hidden;
             }
             
-            .consultation-button {
-                padding: 12px 16px;
-                margin: 20px auto 0;
-                display: block;
-                width: calc(100% - 40px);
-                max-width: 100%;
-                text-align: center;
-                animation: pulse-mobile 2s infinite 2s;
-                border-radius: 30px;
-                font-size: 14px;
-                box-sizing: border-box;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
+            
             
             .consultation-button a {
                 font-size: 14px;
@@ -2460,39 +2312,11 @@
             }
             
             /* Адаптивные стили для слайдера программы */
-            .program-slider-container {
-                width: 100%;
-                max-width: 100%;
-                margin: 20px auto 0;
-                padding: 0 15px;
-                box-sizing: border-box;
-                position: relative;
-                left: -20px;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
             
-            .program-slider {
-                height: auto;
-                min-height: 400px;
-                max-height: 500px;
-                overflow-y: auto;
-                padding: 15px;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
             
-            .program-slide {
-                position: relative;
-                opacity: 0;
-                height: auto;
-                min-height: 300px;
-                padding: 20px 15px;
-                transform: none !important;
-                display: none;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
+            
+            
+            
             
             .program-slide.active {
                 opacity: 1;
@@ -2513,21 +2337,11 @@
                 text-align: center;
             }
             
-            .program-controls {
-                margin-top: 15px;
-                margin-bottom: 10px;
-            }
             
-            .program-arrow {
-                width: 35px;
-                height: 35px;
-                font-size: 18px;
-            }
             
-            .program-dot {
-                width: 10px;
-                height: 10px;
-            }
+            
+            
+            
             
             /* Адаптивные стили для FAQ слайдера */
             .faq-slider-container {
@@ -2636,13 +2450,7 @@
                 backface-visibility: hidden;
             }
             
-            .faq-title {
-                padding: 0 5px;
-                width: calc(100% - 10px);
-                margin: 0 auto 20px;
-                -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-            }
+            
 
             /* Адаптивные стили для блока цен */
             .pricing-section {
@@ -2723,11 +2531,7 @@
                 height: clamp(160px, 20vw, 240px);
             }
             
-            .marathon-char {
-                transform-origin: 50% 80px;
-                height: 80px;
-                font-size: clamp(12px, 1.5vw, 16px);
-            }
+            
 
             .main-text {
                 max-width: clamp(300px, 60vw, 500px);
@@ -2782,10 +2586,7 @@
                 font-size: clamp(14px, 1.8vw, 16px);
             }
             
-            .consultation-button {
-                padding: 12px 20px;
-                font-size: clamp(14px, 1.5vw, 16px);
-            }
+            
             
             .program-selector {
                 left: 60%;
@@ -2932,14 +2733,9 @@
                 display: none;
             }
             
-            .program-slider-container {
-                max-width: 90%;
-                left: 0;
-            }
             
-            .program-slider {
-                height: 350px;
-            }
+            
+            
             
             .program-slide h3 {
                 font-size: clamp(20px, 3vw, 24px);
@@ -3067,11 +2863,7 @@
             .team-slider,
             .cases-slider,
             .faq-slider,
-            .program-slider {
-                height: auto;
-                min-height: 300px;
-                max-height: 400px;
-            }
+            
             
             /* Оптимизация для контактов */
             .contacts-content {
@@ -3096,9 +2888,7 @@
             .text-content,
             .team-member-info,
             .faq-slide,
-            .program-slide {
-                padding: 15px;
-            }
+            
             
             /* Уменьшение шрифтов */
             h1, h2, h3 {
@@ -3122,10 +2912,7 @@
             .team-title,
             .cases-title,
             .pricing-title,
-            .faq-title {
-                font-size: 20px !important;
-                margin-bottom: 15px !important;
-            }
+            
             
             /* Оптимизация изображений */
             .team-member-photo-container,
@@ -3142,53 +2929,19 @@
             .team-slider-controls,
             .cases-controls,
             .faq-controls,
-            .program-controls {
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
+            
             
             /* Оптимизация стрелок */
             .slider-arrow,
             .cases-arrow,
             .faq-arrow,
-            .program-arrow {
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-            }
+            
         }
 
-.btn {
-  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  border-radius: 50px;
-  margin-top: auto;
-  transition: all 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  text-decoration: none;
-}
+
 
 @media (max-width: 768px) {
-  .pricing-table {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  width: 100%;
-  margin: 0 auto;
-}
+  
   
 }
 
@@ -3211,15 +2964,7 @@
 }
 
 @media (max-width: 768px) {
-  .pricing-table {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  width: 100%;
-  margin: 0 auto;
-}
+  
   .pricing-column {
     width: 90% !important;
     margin-bottom: 20px;
@@ -3441,21 +3186,10 @@
         background-attachment: fixed;
     }
 
-    .second-image .content-block {
-        display: flex;
-        flex-direction: column;
-        background: rgba(0, 0, 0, 0.75);
-        padding: 20px;
-        border-radius: 10px;
-        width: 100%;
-        max-width: 800px;
-    }
+    .second-image 
 
     .second-image .text-block,
-    .second-image .buttons-block {
-        color: white;
-        margin-bottom: 20px;
-    }
+    .second-image 
 
     .second-image .buttons-block a {
         display: inline-block;
@@ -3540,11 +3274,7 @@
         top: -100px;
     }
 
-    .marathon-char {
-        font-size: 14px;
-        transform-origin: 50% 65px !important;
-        transform: rotate(calc(var(--char-index) * 22deg)) translateY(-10px) !important;
-    }
+    
 }
 
 /* Отключаем анимацию и прячем marathon-ring */
@@ -3554,24 +3284,7 @@
 }
 
 /* Стиль для  */
-.mindfit-text {
-    position: absolute;
-    top: -80px;
-    right: clamp(20px, 5vw, 70px);
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(20px, 3vw, 32px);
-    color: #fff;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
-                 -1px -1px 0 #000, 
-                 1px -1px 0 #000, 
-                 -1px 1px 0 #000, 
-                 1px 1px 0 #000;
-    opacity: 0;
-    animation: fadeIn 1s ease-in-out forwards, pulse-text 2s infinite 1s;
-    z-index: 10;
-    white-space: nowrap;
-}
+
 
 /* Убираем анимации с основных заголовков */
 .main-text h1,
@@ -3602,20 +3315,13 @@
 .main-text h1,
 .main-text h2,
 .main-text h3,
-.mindfit-text {
-    color: #BB86FC !important; /* Яркий фиолетово-сиреневый */
-    text-shadow: 0 0 10px rgba(187, 134, 252, 0.9), 0 0 20px rgba(187, 134, 252, 0.5);
-}
+
 
 /* Вернуть зелёный цвет и стиль как у Костаная */
 .main-text h1,
 .main-text h2,
 .main-text h3,
-.mindfit-text {
-    color: #00ff00 !important;
-    font-weight: 900;
-    text-shadow: 0 0 8px #00ff00;
-}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
@@ -3635,26 +3341,15 @@
     }
 
     /* Поднять "начни делать, чтоб не бояться" вверх с отступом 10px */
-    .left-text {
-        top: 10px !important;
-        transform: none !important;
-    }
+    
 }
 
 @media (max-width: 768px) {
-    .left-text {
-        top: 10px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        text-align: center;
-        width: 100%;
-    }
+    
 }
 
 @media (max-width: 768px) {
-    .left-text {
-        display: none !important;
-    }
+    
 }
 
 .social-link:hover img {
@@ -3662,21 +3357,15 @@
 }
 
 @media (min-width: 769px) {
-    .mindfit-text {
-        font-size: clamp(40px, 6vw, 64px) !important;
-    }
+    
 }
 
 @media (max-width: 768px) {
-    .left-text {
-        display: none !important;
-    }
+    
 }
 
 @media (min-width: 769px) {
-    .mindfit-text {
-        font-size: clamp(32px, 4.8vw, 51.2px) !important;
-    }
+    
 }
 </style>
 </head>
@@ -3732,7 +3421,6 @@
 <div class="image-container" id="imageContainer">
 <div class="first-image" id="home">
 <div class="content">
-
 <div class="marathon-ring">
 <div class="marathon-circle" id="marathonCircle">
 </div>
