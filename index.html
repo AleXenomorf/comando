@@ -732,7 +732,7 @@
 
         .slider-arrow {
             position: absolute;
-            top: 50%;
+            top: calc(50% + 150px);
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
@@ -1172,7 +1172,7 @@
 
         .cases-arrow {
             position: absolute;
-            top: 50%;
+            top: calc(50% + 150px);
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
@@ -1365,7 +1365,7 @@
         
         .faq-arrow {
             position: absolute;
-            top: 50%;
+            top: calc(50% + 150px);
             transform: translateY(-50%);
             width: 50px;
             height: 50px;
@@ -2062,7 +2062,7 @@
 
             .mobile-slider-arrow {
                 position: absolute;
-                top: 50%;
+                top: calc(50% + 150px);
                 transform: translateY(-50%);
                 width: 40px;
                 height: 40px;
@@ -2282,7 +2282,7 @@
 
             .mobile-cases-arrow {
                 position: absolute;
-                top: 50%;
+                top: calc(50% + 150px);
                 transform: translateY(-50%);
                 width: 40px;
                 height: 40px;
@@ -3468,10 +3468,52 @@
   }
 }
 </style>
-</head>
+<style>
+.mobile-main-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-main-button {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 110;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .program-button {
+    background: linear-gradient(45deg, #063923, #00aa00);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+    animation: pulse-btn-program 2s infinite;
+  }
+
+  .program-button:hover {
+    background: linear-gradient(45deg, #00aa00, #063923);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 204, 0, 0.7);
+  }
+
+  @keyframes pulse-btn-program {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0,204,0,0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0); }
+  }
+}
+</style></head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
-     </div>
+     <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div></div>
 <!-- Навигационное меню -->
 <div class="nav-menu" id="navMenu">
 <button class="close-menu" id="closeMenu">
@@ -3542,17 +3584,17 @@
 <div class="text-block" id="advantagesBlock" style="text-align: left;">
 <div class="text-content" style="text-align: left;">
 <h2 style="text-align: left;">
-        Преимущества<br>работы с нами
-    </br></h2>
+        Преимущества<br/>работы с нами
+    </h2>
 <p style="text-align: left;">
-        Индивидуальный план тренировок с полным разбором<br>каждого упражнения и его нюансов.
-    </br></p>
+        Индивидуальный план тренировок с полным разбором<br/>каждого упражнения и его нюансов.
+    </p>
 <p style="text-align: left;">
-        Персонализированный подход по питанию<br>в зависимости от цели участника.
-    </br></p>
+        Персонализированный подход по питанию<br/>в зависимости от цели участника.
+    </p>
 <p style="text-align: left;">
-        Полностью цифровой и структурированный подход:<br>вы не просто получаете инструкции, а понимаете<br>каждый шаг на пути к результату.
-    </br></br></p>
+        Полностью цифровой и структурированный подход:<br/>вы не просто получаете инструкции, а понимаете<br/>каждый шаг на пути к результату.
+    </p>
 <p style="text-align: left;">
         Индивидуальный куратор сопровождает вас<br/>на каждом этапе, обеспечивая обратную связь<br/>и поддержку.
     </p>
