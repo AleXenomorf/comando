@@ -3555,28 +3555,7 @@
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0); }
   }
 }
-</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/>
-<style id="desktop-scale-v2">
-/* ===== Desktop-fit (width-based) scaling without breaking fixed UI ===== */
-@media (min-width: 1024px) {
-  html, body { overflow-x: hidden; }
-  #desktop-scale-outer {
-    position: relative;
-    margin: 0 auto;
-    /* width/height set by JS based on scaled content */
-  }
-  /* Keep nav/menu fixed above scaled content */
-  .nav-menu, .menu-toggle, .menu-overlay {
-    will-change: transform;
-  }
-  /* Ensure images/videos shrink gracefully inside the scaled area too */
-  img, video, canvas {
-    max-width: 100%;
-    height: auto;
-  }
-}
-</style>
-</head>
+</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/></head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
      <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div></div>
@@ -4542,97 +4521,5 @@ document.addEventListener("DOMContentLoaded", function () {
         if (el) el.remove();
     }
 });
-</script>
-<script id="desktop-scale-v2-script">
-(function () {
-  var BASE_WIDTH = 1920;   // base design width; change if your desktop mockup differs
-  var MAX_SCALE = 1;       // do not upscale above 100%
-  var DESKTOP_MIN = 1024;
-
-  var container;   // .image-container element to scale
-  var outer;       // wrapper that defines the scaled box size
-
-  function ensureWrapper() {
-    container = document.querySelector('.image-container');
-    if (!container) return false;
-
-    // If already wrapped, reuse
-    if (container.parentElement && container.parentElement.id === 'desktop-scale-outer') {
-      outer = container.parentElement;
-      return true;
-    }
-
-    outer = document.createElement('div');
-    outer.id = 'desktop-scale-outer';
-    // Insert wrapper before container and move container inside
-    container.parentNode.insertBefore(outer, container);
-    outer.appendChild(container);
-    return true;
-  }
-
-  function measureNaturalRect(el) {
-    // Temporarily clear transform to get natural size
-    var prev = el.style.transform;
-    el.style.transform = 'none';
-    // Force reflow
-    el.getBoundingClientRect();
-    var rect = el.getBoundingClientRect();
-    el.style.transform = prev;
-    return rect;
-  }
-
-  function applyScale() {
-    if (!container || !outer) return;
-
-    var w = window.innerWidth;
-
-    if (w < DESKTOP_MIN) {
-      // Reset on mobile/tablet – no scaling there
-      container.style.transform = '';
-      container.style.transformOrigin = '';
-      outer.style.width = '';
-      outer.style.height = '';
-      return;
-    }
-
-    // Scale by width only to preserve proportions and not cut any content
-    var s = Math.min(w / BASE_WIDTH, MAX_SCALE);
-
-    // Apply transform
-    container.style.transformOrigin = 'top left';
-    container.style.transform = 'scale(' + s + ')';
-
-    // Measure natural (unscaled) size to compute wrapper box
-    var prev = container.style.transform;
-    container.style.transform = 'none';
-    var rect = container.getBoundingClientRect();
-    container.style.transform = prev;
-
-    outer.style.width  = (rect.width  * s) + 'px';
-    outer.style.height = (rect.height * s) + 'px';
-  }
-
-  function onReady(fn) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fn);
-    } else {
-      fn();
-    }
-  }
-
-  onReady(function () {
-    if (!ensureWrapper()) return;
-    // Initial apply
-    applyScale();
-    // Re-apply on resize
-    window.addEventListener('resize', applyScale);
-    // Re-apply after late image loads or dynamic content
-    var ro = new ResizeObserver(applyScale);
-    ro.observe(container);
-    setTimeout(applyScale, 500);
-    setTimeout(applyScale, 1500);
-  });
-})();
-</script>
-</body>
+</script></body>
 </html>
