@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест: Какая программа вам подходит?</title>
+    <title>Оставьте свои контактные данные</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -37,16 +37,12 @@
         }
 
         .question-slide {
-            display: none;
+            display: block;
             animation: fadeIn 0.5s ease;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .question-slide.active {
-            display: block;
         }
 
         .question-header {
@@ -61,12 +57,6 @@
             color: var(--primary-color);
         }
 
-        .question-step {
-            font-size: 14px;
-            color: #ccc;
-            margin-bottom: 5px;
-        }
-
         .question-title {
             font-family: 'Playfair Display', serif;
             font-size: 24px;
@@ -74,47 +64,6 @@
             margin-bottom: 30px;
             text-align: center;
             text-shadow: var(--text-shadow);
-        }
-
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .option-item {
-            background: #fff;
-            border-radius: 10px;
-            padding: 15px 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid #000;
-            display: flex;
-            align-items: center;
-            color: #333;
-        }
-
-        .option-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.3);
-        }
-
-        .option-item.selected {
-            background: var(--primary-color);
-            color: white;
-            border-color: white;
-        }
-
-        .option-radio {
-            margin-right: 15px;
-            min-width: 20px;
-            min-height: 20px;
-            accent-color: var(--primary-color);
-        }
-
-        .option-text {
-            font-size: 16px;
-            font-weight: 500;
         }
 
         .form-group {
@@ -137,46 +86,24 @@
             box-sizing: border-box;
         }
 
-        .checkbox-group {
-            margin-bottom: 15px;
+        .info-block {
+            background: rgba(0, 204, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
         }
 
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: white;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-
-        .checkbox-input {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary-color);
-        }
-
-        .progress-bar {
-            height: 5px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
-            margin: 30px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--primary-color);
-            width: 0%;
-            transition: width 0.5s ease;
+        .info-block p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.5;
         }
 
         .nav-buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             margin-top: 30px;
-            gap: 15px;
         }
 
         .nav-button {
@@ -189,7 +116,6 @@
             font-size: 16px;
             font-weight: 600;
             transition: all 0.3s;
-            flex: 1;
             text-align: center;
         }
 
@@ -197,10 +123,6 @@
             background: var(--secondary-color);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 204, 0, 0.4);
-        }
-
-        .nav-button.hidden {
-            display: none;
         }
 
         .nav-button:disabled {
@@ -229,20 +151,6 @@
             animation: fadeIn 0.5s ease;
         }
 
-        .info-block {
-            background: rgba(0, 204, 0, 0.1);
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .info-block p {
-            margin: 0;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -264,213 +172,26 @@
                 padding: 20px 15px;
             }
             
-            .option-item {
-                padding: 12px 15px;
-            }
-            
-            .option-text {
-                font-size: 14px;
-            }
-            
             .nav-button {
                 padding: 10px 15px;
                 font-size: 14px;
-            }
-            
-            .nav-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .progress-bar {
-                margin: 20px 0;
             }
         }
     </style>
 </head>
 <body>
     <div class="test-container">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <!-- Вопрос 1 -->
-        <div class="question-slide active" id="question1">
-            <div class="question-header">
-                <div class="question-icon"><i class="fas fa-bullseye"></i></div>
-                <div>
-                    <div class="question-step">Шаг 1 из 6</div>
-                    <h2 class="question-title">Какой результат вы хотите получить в первую очередь?</h2>
-                </div>
-            </div>
-            <div class="options-container">
-                <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Сбросить за месяц 2-5 кг лишнего веса">
-                    <span class="option-text">Сбросить за месяц 2-5 кг лишнего веса</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Восстановиться после родов/операции">
-                    <span class="option-text">Восстановиться после родов/операции</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Нормализовать питание и режим дня">
-                    <span class="option-text">Нормализовать питание и режим дня</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q1" class="option-radio" value="Получить энергию и улучшить самочувствие">
-                    <span class="option-text">Получить энергию и улучшить самочувствие</span>
-                </label>
-            </div>
-        </div>
-
-        <!-- Вопрос 2 -->
-        <div class="question-slide" id="question2">
-            <div class="question-header">
-                <div class="question-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                <div>
-                    <div class="question-step">Шаг 2 из 6</div>
-                    <h2 class="question-title">Что мешает вам достичь желаемого результата?</h2>
-                </div>
-            </div>
-            <div class="options-container">
-                <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Нет времени на сложные программы питания">
-                    <span class="option-text">Нет времени на сложные программы питания</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Пробовал(а) диеты, но результат не держится">
-                    <span class="option-text">Пробовал(а) диеты, но результат не держится</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Сложно соблюдать режим из-за работы/детей">
-                    <span class="option-text">Сложно соблюдать режим из-за работы/детей</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Не знаю, с чего начать">
-                    <span class="option-text">Не знаю, с чего начать</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q2" class="option-radio" value="Всё перепробовал(а), ничего не работает — нет сил начинать снова">
-                    <span class="option-text">Всё перепробовал(а), ничего не работает — нет сил начинать снова</span>
-                </label>
-            </div>
-        </div>
-
-        <!-- Вопрос 3 -->
-        <div class="question-slide" id="question3">
-            <div class="question-header">
-                <div class="question-icon"><i class="far fa-clock"></i></div>
-                <div>
-                    <div class="question-step">Шаг 3 из 6</div>
-                    <h2 class="question-title">Сколько времени в день вы готовы уделять себе?</h2>
-                </div>
-            </div>
-            <div class="options-container">
-                <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="5-10 минут">
-                    <span class="option-text">5-10 минут</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="30-60 минут">
-                    <span class="option-text">30-60 минут</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="15-30 минут">
-                    <span class="option-text">15-30 минут</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q3" class="option-radio" value="Более часа">
-                    <span class="option-text">Более часа</span>
-                </label>
-            </div>
-        </div>
-
-        <!-- Вопрос 4 -->
-        <div class="question-slide" id="question4">
-            <div class="question-header">
-                <div class="question-icon"><i class="fas fa-hands-helping"></i></div>
-                <div>
-                    <div class="question-step">Шаг 4 из 6</div>
-                    <h2 class="question-title">Какой формат поддержки вам важен?</h2>
-                </div>
-            </div>
-            <div class="options-container">
-                <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Личный куратор и постоянная обратная связь">
-                    <span class="option-text">Личный куратор и постоянная обратная связь</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Групповые тренировки и общение с участниками">
-                    <span class="option-text">Групповые тренировки и общение с участниками</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Автоматический контроль через приложение">
-                    <span class="option-text">Автоматический контроль через приложение</span>
-                </label>
-                <label class="option-item">
-                    <input type="radio" name="q4" class="option-radio" value="Все вышеперечисленное">
-                    <span class="option-text">Все вышеперечисленное</span>
-                </label>
-            </div>
-        </div>
-
-        <!-- Вопрос 5 (дополнительная информация) -->
-        <div class="question-slide" id="question5">
-            <div class="question-header">
-                <div class="question-icon"><i class="fas fa-info-circle"></i></div>
-                <div>
-                    <div class="question-step">Шаг 5 из 6</div>
-                    <h2 class="question-title">Несколько дополнительных вопросов</h2>
-                </div>
-            </div>
-            <div class="options-container">
-                <div class="form-group">
-                    <label for="age">Ваш возраст</label>
-                    <select id="age" class="form-control" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 2px solid #ddd; font-size: 16px; box-sizing: border-box; background: white; color: #333;">
-                        <option value="">Выберите возраст</option>
-                        <option value="18-25">18-25 лет</option>
-                        <option value="26-35">26-35 лет</option>
-                        <option value="36-45">36-45 лет</option>
-                        <option value="45+">45+ лет</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>Цель на ближайшие 3 месяца (можно выбрать несколько)</label>
-                    <div class="checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" class="checkbox-input" name="goals" value="Похудение">
-                            <span>Похудение</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" class="checkbox-input" name="goals" value="Тонус и энергия">
-                            <span>Тонус и энергия</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" class="checkbox-input" name="goals" value="Восстановление после родов">
-                            <span>Восстановление после родов</span>
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" class="checkbox-input" name="goals" value="Выход из зажора / питание">
-                            <span>Выход из зажора / питание</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Вопрос 6 (контактные данные) -->
+        <!-- Форма контактных данных -->
         <div class="question-slide" id="question6">
             <div class="question-header">
                 <div class="question-icon"><i class="fas fa-user"></i></div>
                 <div>
-                    <div class="question-step">Шаг 6 из 6</div>
                     <h2 class="question-title">Оставьте свои контактные данные</h2>
                 </div>
             </div>
             
             <div class="info-block">
-                <p><i class="fas fa-info-circle"></i> На основе ваших ответов мы подготовим короткие гайды, в которых расскажем, что подойдёт именно вам. Оставьте данные — пришлём в WhatsApp или на почту.</p>
+                <p><i class="fas fa-info-circle"></i> Оставьте свои данные, и мы свяжемся с вами в ближайшее время.</p>
             </div>
             
             <div class="options-container">
@@ -494,14 +215,12 @@
         </div>
 
         <div class="nav-buttons">
-            <button class="nav-button hidden" id="prevButton">Назад</button>
-            <button class="nav-button" id="nextButton" disabled>Далее</button>
-            <button class="nav-button hidden" id="submitButton">Отправить результаты</button>
+            <button class="nav-button" id="submitButton">Отправить результаты</button>
         </div>
 
         <!-- Сообщение об успешной отправке -->
         <div class="success-message" id="successMessage">
-            <h3>✅ Спасибо! Ваши результаты отправлены</h3>
+            <h3>✅ Спасибо! Ваши данные отправлены</h3>
             <p>Мы свяжемся с вами в ближайшее время через WhatsApp</p>
         </div>
     </div>
@@ -512,116 +231,23 @@
             const botToken = '7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM';
             const chatId = '1208941214';
             
-            const questions = document.querySelectorAll('.question-slide');
-            const prevButton = document.getElementById('prevButton');
-            const nextButton = document.getElementById('nextButton');
             const submitButton = document.getElementById('submitButton');
-            const progressFill = document.getElementById('progressFill');
             const successMessage = document.getElementById('successMessage');
             
-            let currentQuestion = 0;
-            const totalQuestions = questions.length;
-            
-            function updateProgress() {
-                const progress = ((currentQuestion + 1) / totalQuestions) * 100;
-                progressFill.style.width = `${progress}%`;
+            function checkFormFilled() {
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const whatsapp = document.getElementById('whatsapp').value.trim();
+                return firstName !== '' && lastName !== '' && email !== '' && whatsapp !== '';
             }
             
-            function showQuestion(index) {
-                questions.forEach((question, i) => {
-                    question.classList.toggle('active', i === index);
-                });
-                
-                prevButton.classList.toggle('hidden', index === 0);
-                nextButton.classList.toggle('hidden', index === totalQuestions - 1);
-                submitButton.classList.toggle('hidden', index !== totalQuestions - 1);
-                
-                checkAnswerSelected();
-                updateProgress();
+            function updateSubmitButton() {
+                submitButton.disabled = !checkFormFilled();
             }
-            
-            function checkAnswerSelected() {
-                let isAnswered = false;
-                
-                if (currentQuestion < totalQuestions - 2) {
-                    // Для обычных вопросов с радио-кнопками
-                    const currentOptions = questions[currentQuestion].querySelectorAll('input[type="radio"]');
-                    isAnswered = Array.from(currentOptions).some(option => option.checked);
-                } 
-                else if (currentQuestion === totalQuestions - 2) {
-                    // Для вопроса с дополнительной информацией (возраст и цели)
-                    const ageSelected = document.getElementById('age').value !== '';
-                    const goalsSelected = document.querySelectorAll('input[name="goals"]:checked').length > 0;
-                    isAnswered = true; // Эти поля не обязательные
-                }
-                else {
-                    // Для последнего вопроса с контактными данными
-                    const firstName = document.getElementById('firstName').value.trim();
-                    const lastName = document.getElementById('lastName').value.trim();
-                    const email = document.getElementById('email').value.trim();
-                    const whatsapp = document.getElementById('whatsapp').value.trim();
-                    isAnswered = firstName !== '' && lastName !== '' && email !== '' && whatsapp !== '';
-                }
-                
-                if (currentQuestion < totalQuestions - 1) {
-                    nextButton.disabled = !isAnswered;
-                } else {
-                    submitButton.disabled = !isAnswered;
-                }
-            }
-            
-            function generateCSV(answers, additionalData, contactData) {
-                let csv = "Вопрос,Ответ\n";
-                
-                answers.forEach(item => {
-                    csv += `"${item.question.replace(/"/g, '""')}","${item.answer.replace(/"/g, '""')}"\n`;
-                });
-                
-                csv += `\nДополнительная информация\n`;
-                csv += `"Возраст","${additionalData.age.replace(/"/g, '""')}"\n`;
-                csv += `"Цели","${additionalData.goals.join(', ').replace(/"/g, '""')}"\n`;
-                
-                csv += `\nКонтактные данные\n`;
-                csv += `"Имя","${contactData.firstName.replace(/"/g, '""')}"\n`;
-                csv += `"Фамилия","${contactData.lastName.replace(/"/g, '""')}"\n`;
-                csv += `"Email","${contactData.email.replace(/"/g, '""')}"\n`;
-                csv += `"WhatsApp","${contactData.whatsapp.replace(/"/g, '""')}"\n`;
-                
-                return csv;
-            }
-            
-            nextButton.addEventListener('click', function() {
-                if (currentQuestion < totalQuestions - 1) {
-                    currentQuestion++;
-                    showQuestion(currentQuestion);
-                }
-            });
-            
-            prevButton.addEventListener('click', function() {
-                if (currentQuestion > 0) {
-                    currentQuestion--;
-                    showQuestion(currentQuestion);
-                }
-            });
             
             submitButton.addEventListener('click', async function() {
-                // Собираем ответы
-                const answers = [];
-                for (let i = 0; i < questions.length - 2; i++) {
-                    const selectedOption = questions[i].querySelector('input[type="radio"]:checked');
-                    if (selectedOption) {
-                        answers.push({
-                            question: questions[i].querySelector('.question-title').textContent,
-                            answer: selectedOption.value
-                        });
-                    }
-                }
-                
-                // Собираем дополнительную информацию
-                const additionalData = {
-                    age: document.getElementById('age').value || 'Не указано',
-                    goals: Array.from(document.querySelectorAll('input[name="goals"]:checked')).map(el => el.value)
-                };
+                if (!checkFormFilled()) return;
                 
                 // Получаем контактные данные
                 const contactData = {
@@ -631,31 +257,17 @@
                     whatsapp: document.getElementById('whatsapp').value.trim()
                 };
                 
-                // Генерируем CSV
-                const csvContent = generateCSV(answers, additionalData, contactData);
-                const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
-                const formData = new FormData();
-                formData.append('document', blob, `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`);
-                
                 // Формируем сообщение для Telegram
-                let message = `📋 *Новые результаты теста*\n\n` +
+                let message = `📋 *Новые контактные данные*\n\n` +
                               `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}\n` +
                               `📧 *Email:* ${contactData.email}\n` +
-                              `📱 *WhatsApp:* ${contactData.whatsapp}\n` +
-                              `🎂 *Возраст:* ${additionalData.age}\n` +
-                              `🎯 *Цели:* ${additionalData.goals.join(', ') || 'Не указаны'}\n\n` +
-                              `📝 *Ответы на вопросы:*\n\n`;
-                
-                answers.forEach((item, i) => {
-                    message += `*${i+1}. ${item.question}*\n` +
-                               `➔ ${item.answer}\n\n`;
-                });
+                              `📱 *WhatsApp:* ${contactData.whatsapp}\n`;
                 
                 try {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
                     
-                    // 1. Сначала отправляем текстовое сообщение
+                    // Отправляем сообщение в Telegram
                     await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                         method: 'POST',
                         headers: {
@@ -668,17 +280,6 @@
                         })
                     });
                     
-                    // 2. Затем отправляем CSV-файл
-                    const file = new File([blob], `Результаты теста ${contactData.firstName} ${contactData.lastName}.csv`, { type: 'text/csv' });
-                    const fileFormData = new FormData();
-                    fileFormData.append('chat_id', chatId);
-                    fileFormData.append('document', file);
-                    
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
-                        method: 'POST',
-                        body: fileFormData
-                    });
-                    
                     // Показываем сообщение об успехе
                     successMessage.style.display = 'block';
                     submitButton.style.display = 'none';
@@ -688,13 +289,6 @@
                     document.getElementById('lastName').value = '';
                     document.getElementById('email').value = '';
                     document.getElementById('whatsapp').value = '';
-                    document.getElementById('age').value = '';
-                    document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                        radio.checked = false;
-                    });
-                    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-                        cb.checked = false;
-                    });
                     
                 } catch (error) {
                     console.error('Ошибка:', error);
@@ -704,47 +298,14 @@
                 }
             });
             
-            // Обработчики изменений
-            for (let i = 0; i < questions.length - 2; i++) {
-                const options = questions[i].querySelectorAll('input[type="radio"]');
-                options.forEach(option => {
-                    option.addEventListener('change', checkAnswerSelected);
-                });
-            }
-            
-            document.getElementById('age').addEventListener('change', checkAnswerSelected);
-            document.querySelectorAll('input[name="goals"]').forEach(checkbox => {
-                checkbox.addEventListener('change', checkAnswerSelected);
-            });
-            
-            document.getElementById('firstName').addEventListener('input', checkAnswerSelected);
-            document.getElementById('lastName').addEventListener('input', checkAnswerSelected);
-            document.getElementById('email').addEventListener('input', checkAnswerSelected);
-            document.getElementById('whatsapp').addEventListener('input', checkAnswerSelected);
-            
-            // Подсветка выбранных вариантов
-            document.querySelectorAll('.option-item').forEach(item => {
-                const radio = item.querySelector('input[type="radio"]');
-                
-                radio.addEventListener('change', function() {
-                    if (this.checked) {
-                        this.closest('.question-slide').querySelectorAll('.option-item').forEach(opt => {
-                            opt.classList.remove('selected');
-                        });
-                        item.classList.add('selected');
-                    }
-                });
-                
-                item.addEventListener('click', function(e) {
-                    if (e.target.tagName !== 'INPUT') {
-                        radio.checked = true;
-                        radio.dispatchEvent(new Event('change'));
-                    }
-                });
-            });
+            // Обработчики изменений полей формы
+            document.getElementById('firstName').addEventListener('input', updateSubmitButton);
+            document.getElementById('lastName').addEventListener('input', updateSubmitButton);
+            document.getElementById('email').addEventListener('input', updateSubmitButton);
+            document.getElementById('whatsapp').addEventListener('input', updateSubmitButton);
             
             // Инициализация
-            showQuestion(0);
+            updateSubmitButton();
         });
     </script>
 </body>
