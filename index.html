@@ -3442,6 +3442,85 @@
     margin-left: 500px !important;
   }
 }
+
+.consultation-section {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: var(--asphalt-bg);
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.consultation-content {
+    max-width: 800px;
+    background: var(--dark-bg);
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.consultation-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 42px);
+    color: #00ff00;
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: var(--text-shadow);
+}
+
+.consultation-section p {
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.consultation-button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: clamp(12px, 1.5vw, 16px) clamp(20px, 2.5vw, 36px);
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+}
+
+.consultation-button:hover {
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 204, 0, 0.7);
+}
+
+@media (max-width: 768px) {
+    .consultation-section {
+        min-height: auto;
+        padding: 60px 20px;
+    }
+
+    .consultation-content {
+        padding: 30px 20px;
+        width: calc(100% - 40px);
+    }
+
+    .consultation-button {
+        width: 100%;
+        max-width: 280px;
+    }
+}
 </style>
 <style>
 @media screen and (max-width: 768px) {
@@ -3620,51 +3699,48 @@
     background-attachment: fixed !important;
   }
 }
-</style><style>/* SCALE ENGINE v2 — CSS (anchor top-left, base 1024) */
-:root { --basew: 1024; } /* базовая ширина макета */
+</style><style>/* SCALE ENGINE — CSS */
+:root { --basew: 1440; } /* базовая ширина макета — поменяй при необходимости */
 
-#scale-root { position: relative; width: 100vw; overflow: clip; }
-#scale-inner { width: var(--basew); margin: 0 auto; transform-origin: top left; }
+#scale-root { position: relative; width: 100vw; overflow-x: hidden; }
+#scale-inner { width: var(--basew); margin: 0 auto; transform-origin: top center; }
 
+/* Масштабирование включено только на десктопном диапазоне 769–1024px */
 @media (min-width: 769px) and (max-width: 1024px) {
   html, body { overflow-x: hidden; }
 
-  /* Привязка фиксированных к макету */
-  .nav-menu, .menu-toggle, .menu-overlay,
-  .slider-arrow, .cases-arrow, .faq-arrow,
-  .mobile-slider-arrow {
+  /* Привязываем "фиксированные" элементы к макету, чтобы они не уезжали */
+  .nav-menu,
+  .menu-toggle,
+  .menu-overlay,
+  .slider-arrow,
+  .cases-arrow,
+  .faq-arrow {
     position: absolute !important;
   }
 
-  /* Ключевые блоки "приклеиваем" к секциям, чтобы не гуляли */
-  .content, .program-selector, .button-container,
-  .team-slider-controls, .cases-controls, .faq-controls,
-  .pricing-container, .marathon-ring {
-    position: absolute !important;
-  }
-
-  /* Убираем parallax при скейле */
+  /* Фон первого экрана не фиксируем при скейле */
   .first-image { background-attachment: scroll !important; }
 
-  /* Фикс ключевых размеров/шрифтов на базовые px, чтобы не было двойной адаптивности */
+  /* Заморозка размеров, которые были завязаны на vw/vh/clamp — чтобы не было двойного уменьшения */
   .main-text h1 { font-size: 48px !important; }
   .main-text h2 { font-size: 38px !important; }
   .main-text h3 { font-size: 24px !important; }
+
   .text-block h2 { font-size: 42px !important; }
   .text-block p  { font-size: 18px !important; }
+
   .button-container button { font-size: 22px !important; padding: 16px 36px !important; }
   .program-text { font-size: 22px !important; }
   .program-button { font-size: 18px !important; padding: 16px 32px !important; }
-  .team-title, .cases-title, .pricing-title { font-size: 42px !important; }
 
-  /* На время скейла запрещаем внутренние translate/scale, которые смещают элементы относительно контейнера */
-  .pricing-container { transform: none !important; margin-top: 0 !important; }
+  .team-title, .cases-title, .pricing-title { font-size: 42px !important; }
 }
 
+/* Выше 1024px — возвращаем обычное поведение */
 @media (min-width: 1025px) {
   .nav-menu, .menu-toggle, .menu-overlay,
-  .slider-arrow, .cases-arrow, .faq-arrow,
-  .mobile-slider-arrow {
+  .slider-arrow, .cases-arrow, .faq-arrow {
     position: fixed !important;
   }
   .first-image { background-attachment: fixed !important; }
@@ -3677,7 +3753,7 @@
 <button class="close-menu" id="closeMenu">
     ×
    </button>
-<ul>
+<ul><li><a href="#consultation">Консультация</a></li>
 <li>
 <a href="#home">
       Главная
@@ -3840,6 +3916,16 @@
        </button>
 </div>
 </div>
+</div>
+</div>
+
+<div class="consultation-section" id="consultation">
+<div class="consultation-content">
+<h2>Бесплатная диагностическая консультация</h2>
+<p>От наставника проекта! На ней разберут вашу текущую ситуацию и составят план работы на 3 месяца вперед.</p>
+<button class="consultation-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">
+            Запись на консультацию
+        </button>
 </div>
 </div>
 <div class="fourth-image" id="cases">
@@ -4635,22 +4721,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script></div></div></div><script>
-/* SCALE ENGINE v2 — JS (top-left origin, base 1024) */
+/* SCALE ENGINE — JS */
 (function(){
-  var BASE_W = 1024; // базовая ширина
+  var BASE_W = 1440; // <-- поменяй под ширину своего исходного десктопного макета
   var MIN_W = 769, MAX_W = 1024;
   var root = document.getElementById('scale-root');
   var inner = document.getElementById('scale-inner');
 
+  // Если автор задал кастом через CSS var(--basew)
+  try {
+    var cssBaseW = getComputedStyle(document.documentElement).getPropertyValue('--basew').trim();
+    if (cssBaseW) {
+      var parsed = parseFloat(cssBaseW);
+      if (!isNaN(parsed) && parsed > 0) BASE_W = parsed;
+    }
+  } catch(e){}
+
   function applyScale(){
     var w = window.innerWidth || document.documentElement.clientWidth;
+    // Масштабируем только в заданном десктопном промежутке
     if (w >= MIN_W && w <= MAX_W) {
       var s = w / BASE_W;
       if (s > 1) s = 1;
       inner.style.transform = 'scale(' + s + ')';
+      // Ставим корневой контейнер на визуальную высоту, чтобы прокрутка была корректной
+      // getBoundingClientRect уже возвращает размеры С УЧЕТОМ transform
       var rect = inner.getBoundingClientRect();
       root.style.height = rect.height + 'px';
-      root.style.overflow = 'clip';
+      root.style.overflow = 'hidden';
     } else {
       inner.style.transform = '';
       root.style.height = '';
