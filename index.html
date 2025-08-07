@@ -10,6 +10,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
+:root {
+    --safe-area-padding: clamp(10px, 2vw, 30px);
+    --max-content-width: 1400px;
+    --mobile-breakpoint: 768px;
+}
+
+/* Container wrapper for safe padding */
+.container-wrapper {
+    width: 100%;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+    padding-left: var(--safe-area-padding);
+    padding-right: var(--safe-area-padding);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    :root {
+        --safe-area-padding: clamp(8px, 3vw, 20px);
+    }
+    
+    body, html {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+    
+    .text-content, 
+    .team-member-info, 
+    .cases-slide, 
+    .faq-slide,
+    .pricing-column {
+        width: calc(100% - var(--safe-area-padding) * 2) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding: var(--safe-area-padding) !important;
+    }
+}
+
+/* Buttons */
+.button-container button,
+.program-button,
+.pricing-button {
+    white-space: normal !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Images */
+.case-image-container,
+.team-member-photo-container {
+    max-width: 100% !important;
+    height: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Sliders */
+.team-slider,
+.cases-slider,
+.faq-slider {
+    width: calc(100% - var(--safe-area-padding) * 2) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 var(--safe-area-padding) !important;
+}
+
    :root {
             --primary-color: #063923;
             --secondary-color: #00aa00;
@@ -3442,6 +3514,160 @@
     margin-left: 500px !important;
   }
 }
+
+/* Общая оптимизация для адаптивности */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Блок стоимости участия — сохраняем расположение, но без выхода за границы */
+.pricing-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(15px, 2vw, 30px);
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.pricing-column {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0,0.65);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    min-height: 200px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.pricing-name, .pricing-price, .pricing-desc {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+}
+
+/* Мобильная версия — одна колонка */
+@media (max-width: 768px) {
+    .pricing-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Исправление блока стоимости участия — добавлены отступы */
+.pricing-container {
+    padding: 40px; /* отступы со всех сторон */
+    box-sizing: border-box;
+}
+
+/* Фикс для фото участников в мобильной версии — показывать головы */
+@media (max-width: 768px) {
+    .team-member-photo-container {
+        height: auto !important;
+        max-height: none !important;
+    }
+    .team-member-photo {
+        width: 100%;
+        height: auto;
+        object-fit: contain !important; /* чтобы не обрезало лица */
+    }
+}
+
+/* Фиксированная высота фото участников, чтобы не были слишком большими */
+@media (max-width: 768px) {
+    .team-member-photo-container {
+        height: 320px !important; /* фиксированная высота */
+        overflow: hidden;
+        display: flex;
+        align-items: flex-start; /* привязка к верхней границе */
+        justify-content: center;
+    }
+    .team-member-photo {
+        height: 100%;
+        width: auto;
+        object-fit: cover !important; /* заполняем контейнер, сохраняя пропорции */
+    }
+}
+
+/* ===== Revert button look to original ===== */
+.button-container button,
+.program-button,
+.pricing-button {
+    white-space: nowrap !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border-radius: 50px !important;
+    box-shadow: 0 4px 20px rgba(0, 204, 0, 0.5) !important;
+}
+
+/* ===== Pricing section: fix shifting blocks & edges ===== */
+.pricing-title {
+    margin-top: 0 !important;
+}
+
+.pricing-container {
+    margin-top: 0 !important;
+    transform: none !important;
+    max-width: var(--max-content-width) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--safe-area-padding) !important;
+    padding-right: var(--safe-area-padding) !important;
+    gap: clamp(15px, 2vw, 30px) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    box-sizing: border-box;
+}
+
+.pricing-column,
+.pricing-name,
+.pricing-price,
+.pricing-desc {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+/* Mobile: keep two columns -> switch to one; keep buttons intact */
+@media (max-width: 768px) {
+    .pricing-container {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Fix layout shift at 1024px */
+@media (max-width: 1200px) {
+    .pricing-container {
+        grid-template-columns: 1fr 1fr !important;
+        padding-left: var(--safe-area-padding) !important;
+        padding-right: var(--safe-area-padding) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        transform: none !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .pricing-container {
+        grid-template-columns: 1fr !important;
+        justify-items: center;
+    }
+    .pricing-column {
+        width: 100%;
+        max-width: 600px;
+    }
+}
 </style>
 <style>
 @media screen and (max-width: 768px) {
@@ -3555,303 +3781,61 @@
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0); }
   }
 }
-</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/><style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            scroll-behavior: smooth;
-        }
-        .header {
-            position: absolute;
-            top: 2.5vw;
-            left: calc(10vw - 100px);
-            display: flex;
-            align-items: center;
-            gap: 1.5vw;
-            z-index: 20;
-        }
-        .logo img {
-            width: 8vw;
-            height: auto;
-        }
-        .nav-link {
-            font-size: 1.2vw;
-            font-weight: bold;
-            text-decoration: none;
-            color: black;
-        }
-        .container {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: repeat(10, auto);
-        }
-        .item {
-            width: 100%;
-            position: relative;
-        }
-        .item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .logo-overlay {
-            position: absolute;
-            top: 15vw;
-            left: calc(15vw - 100px);
-            width: 30vw;
-        }
-        .logo-overlay img {
-            width: 100%;
-            height: auto;
-        }
-        .results-text {
-            position: absolute;
-            top: 20px; 
-            left: 50%;
-            transform: translateX(-50%);
-            font-weight: bold;
-            font-size: 2.5vw; 
-            display: flex;
-            gap: 1vw; 
-            z-index: 10;
-        }
-        .results { color: #FFFFFF; }
-        .students { color: #22ECE1; }
-        .slider-wrapper {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 800px;
-            height: 80%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .swiper {
-            width: 100%;
-            height: 100%;
-        }
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        .swiper-slide img {
-            width: 40%;
-            max-height: 100%;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            object-fit: cover; 
-            object-position: top; 
-        }
-        .swiper-button-next,
-        .swiper-button-prev {
-            color: #22ECE1;
-        }
-        .scroll-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #22ECE1;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-        }
-        .scroll-to-top.show {
-            display: block;
-        }
-        .join-button {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 260px;
-            height: 50px;
-            background-color: #22ECE1; 
-            border: none;
-            border-radius: 25px; 
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            cursor: pointer;
-            z-index: 10;
-            bottom: 10px;
-        }
-        .join-button:hover {
-            background-color: #1cc7b8; 
-            transform: translateX(-50%) scale(1.05); 
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        .logos-container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            gap: 20px; 
-            z-index: 10;
-        }
-        .icon-link {
-            color: white; 
-            font-size: 50px; 
-            text-decoration: none;
-            transition: color 0.3s, transform 0.3s; 
-        }
-        .icon-link:hover {
-            color: #22ECE1; 
-            transform: scale(1.1); 
-        }
-        @media (min-width: 769px) {
-            .logos-container {
-                gap: 100px; 
-            }
-        }
-        @media (max-width: 768px) {
-            .icon-link {
-                font-size: 30px; 
-            }
-        }
-        @media (max-width: 1024px) {
-            .header .nav-link {
-                display: none;
-            }
-            .header {
-                left: 10vw; 
-            }
-            .logo img {
-                width: 12vw;
-            }
-            .logo-overlay {
-                left: calc(20vw - 50px);
-                top: 20vw; 
-            }
-            .logo-overlay img {
-                width: 80%; 
-            }
-            .results-text {
-                font-size: 3.5vw;
-                top: 15px;
-            }
-            .slider-wrapper {
-                width: 90%;
-                height: 70%;
-            }
-            .swiper-slide img {
-                width: 45%;
-            }
-        }
-        @media (max-width: 768px) {
-            .header {
-                top: 5vw;
-                left: 5vw;
-                gap: 3vw;
-            }
-            .logo img {
-                width: 15vw;
-            }
-            .results-text {
-                font-size: 6vw; 
-                top: 10px; 
-            }
-            .slider-wrapper {
-                width: 95%;
-                height: 80%; 
-            }
-            .swiper-slide img {
-                width: 80%; 
-                max-height: 80%; 
-                object-fit: contain; 
-            }
-            .scroll-to-top {
-                font-size: 14px;
-                padding: 8px;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .scroll-to-top::before {
-                content: "↑"; 
-                font-size: 20px;
-            }
-            .logo-overlay {
-                display: none;
-            }
-            .header .logo {
-                display: none;
-            }
-            .swiper-slide {
-                flex-direction: column;
-                gap: 20px; 
-            }
-        }
-        @media (orientation: portrait) and (max-width: 768px) {
-            .header .logo,
-            .logo-overlay {
-                display: none;
-            }
-            .swiper-slide {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .swiper-slide img {
-                width: 80%;
-                max-height: 80%;
-            }
-        }
-        @media (orientation: landscape) and (max-width: 768px) {
-            .header .logo,
-            .logo-overlay {
-                display: block;
-            }
-            .header .logo img {
-                width: 12vw;
-            }
-            .logo-overlay {
-                left: calc(20vw - 50px);
-                top: 20vw;
-            }
-            .logo-overlay img {
-                width: 80%;
-            }
-            .swiper-slide {
-                flex-direction: row; 
-                gap: 10px; 
-            }
-            .swiper-slide img {
-                width: 40%; 
-                max-height: 100%; 
-            }
-            .results-text {
-                font-size: 1.67vw; 
-                top: 25px; 
-            }
-            .slider-wrapper {
-                top: 55%; 
-            }
-            .join-button {
-                width: 200px;
-                height: 40px;
-                font-size: 14px;
-                bottom: 0;
-                margin-bottom: 0;
-            }
-        }
-    </style></head>
+</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/>
+<!-- BEGIN final desktop-only proportional scaling (scales the WHOLE page) -->
+<style id="final-desktop-scale-css">
+  @media (min-width: 1024px) {
+    html { overflow-x: hidden; } /* страховка от горизонтального скролла */
+  }
+</style>
+<script id="final-desktop-scale-js">
+(function(){
+  var MIN_DESKTOP = 1024;   // применяем только на десктопе
+  var BASE_WIDTH = null;    // базовая ширина — считаем один раз при загрузке
+  var measured = false;
+
+  function measureBase() {
+    // Перед измерением сбрасываем zoom, чтобы получить натуральную ширину
+    var prev = document.documentElement.style.zoom;
+    document.documentElement.style.zoom = "1";
+    // Берём максимально надёжную ширину документа
+    var w1 = document.documentElement.scrollWidth;
+    var w2 = document.documentElement.offsetWidth;
+    var w3 = document.body ? document.body.scrollWidth : 0;
+    var w4 = document.body ? document.body.offsetWidth : 0;
+    BASE_WIDTH = Math.max(w1, w2, w3, w4, 1200); // нижний порог
+    // Возвращаем zoom в исходное
+    document.documentElement.style.zoom = prev || "";
+    measured = true;
+  }
+
+  function applyScale() {
+    var vw = window.innerWidth || document.documentElement.clientWidth;
+    if (vw < MIN_DESKTOP) {
+      // Мобильная/планшетная ширина — ничего не меняем
+      document.documentElement.style.zoom = "";
+      return;
+    }
+    if (!measured || !BASE_WIDTH || BASE_WIDTH < 320) measureBase();
+    var s = vw / BASE_WIDTH;
+    if (s > 1) s = 1; // не увеличиваем
+    // ВАЖНО: масштабируем именно <html>, чтобы вместе уменьшались и фон body, и все наложенные элементы
+    document.documentElement.style.zoom = String(s);
+  }
+
+  window.addEventListener('load', function(){
+    measureBase();
+    applyScale();
+    // Повторные измерения после подзагрузок изображений/шрифтов
+    setTimeout(function(){ measured=false; applyScale(); }, 300);
+    setTimeout(function(){ measured=false; applyScale(); }, 1200);
+  }, {passive:true});
+
+  window.addEventListener('resize', applyScale, {passive:true});
+})();
+</script>
+<!-- END final desktop-only proportional scaling -->
+</head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
      <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div></div>
@@ -3861,6 +3845,7 @@
     ×
    </button>
 <ul>
+<li><a href="#consultation">Консультация</a></li>
 <li>
 <a href="#home">
       Главная
@@ -4026,6 +4011,50 @@
 </div>
 </div>
 <div class="fourth-image" id="cases">
+<section class="consultation-section" id="consultation" style="width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--asphalt-bg);
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+        url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+    text-align: center;
+    padding: 50px 20px;
+    box-sizing: border-box;">
+<h2 style="font-family: 'Playfair Display', serif;
+               font-size: clamp(28px, 3vw, 42px);
+               color: #00ff00;
+               margin-bottom: 20px;
+               text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);">
+        Бесплатная диагностическая консультация от наставника проекта!
+    </h2>
+<p style="font-size: clamp(16px, 2vw, 20px);
+              max-width: 800px;
+              margin-bottom: 40px;
+              color: #fff;
+              line-height: 1.6;">
+        На ней разберут вашу текущую ситуацию и составят план работы на 3 месяца вперед.
+    </p>
+<a href="#contacts" style="text-decoration: none;">
+<button style="background: linear-gradient(45deg, #063923, #00aa00);
+                       color: white;
+                       border: none;
+                       padding: 16px 36px;
+                       font-size: clamp(16px, 2vw, 22px);
+                       font-weight: 700;
+                       cursor: pointer;
+                       border-radius: 50px;
+                       box-shadow: 0 4px 20px rgba(0, 204, 0, 0.5);
+                       text-transform: uppercase;
+                       letter-spacing: 1.5px;
+                       transition: all 0.4s;">
+            Запись на консультацию
+        </button>
+</a>
+</section>
 <div class="cases-section">
 <h2 class="cases-title">
       Наши кейсы
@@ -4817,5 +4846,16 @@ document.addEventListener("DOMContentLoaded", function () {
         if (el) el.remove();
     }
 });
+</script><script>
+function handleResizing() {
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if (vw < 768) {
+        document.documentElement.style.setProperty('--safe-area-padding', '8px');
+    } else {
+        document.documentElement.style.setProperty('--safe-area-padding', 'clamp(10px, 2vw, 30px)');
+    }
+}
+window.addEventListener('resize', handleResizing);
+window.addEventListener('load', handleResizing);
 </script></body>
 </html>
