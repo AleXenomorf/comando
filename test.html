@@ -1,17 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оставьте свои контактные данные</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #00cc00;
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>
+   Фитнес-услуги
+  </title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+<style>
+   :root {
+            --primary-color: #063923;
             --secondary-color: #00aa00;
+            --accent-color: #00E676;
             --dark-bg: rgba(0, 0, 0, 0.7);
             --text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            --menu-width: 250px;
+            --asphalt-bg: #333333;
         }
         
         body, html {
@@ -19,294 +25,4501 @@
             padding: 0;
             font-family: 'Montserrat', sans-serif;
             color: #fff;
-            background: #333;
-            height: 100%;
+            overflow-x: hidden;
+            background: #000;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-menu {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--menu-width);
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(5px);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .menu-toggle {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 101;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-toggle:hover {
+            background: var(--primary-color);
+        }
+
+        .nav-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 80px 0 0 0;
+        }
+
+        .nav-menu li {
+            padding: 15px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .nav-menu li:hover {
+            background: rgba(0, 204, 0, 0.2);
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #00ff00;
+            transform: translateX(5px);
+        }
+
+        .image-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-left: 0;
+            transition: margin-left 0.3s;
             overflow-x: hidden;
         }
 
-        .test-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        .image-container
+
+        .first-image {
+            width: 100%;
+            height: 100vh;
+            background-image: 
+                            url('https://alexenomorf.github.io/comando/2.0 (1).jpg');
+            background-size: cover;
+            background-position: center;
             position: relative;
-            min-height: 100vh;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .second-image,
+        .third-image,
+        .fourth-image,
+        .fifth-image,
+        .sixth-image,
+        .seventh-image {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        .second-image img,
+        .third-image img,
+        .fourth-image img,
+        .fifth-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .text-block {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .question-slide {
-            display: block;
-            animation: fadeIn 0.5s ease;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        .text-content {
+            max-width: 600px;
+            margin-left: 50px;
+            background: var(--dark-bg);
+            padding: 40px;
+            border-radius: 16px;
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            -webkit-overflow-scrolling: touch;
         }
 
-        .question-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+        .visible .text-content {
+            transform: translateX(0);
+            opacity: 1;
         }
 
-        .question-icon {
-            font-size: 24px;
-            margin-right: 15px;
-            color: var(--primary-color);
-        }
-
-        .question-title {
+        .text-block h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            text-align: center;
+            font-size: clamp(24px, 3vw, 42px);
+            color: #00ff00;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             text-shadow: var(--text-shadow);
         }
 
-        .form-group {
+        .text-block p {
+            font-size: clamp(16px, 2vw, 18px);
+            line-height: 1.8;
             margin-bottom: 20px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
+            font-weight: 400;
         }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: white;
-            font-weight: 600;
+        .visible p:nth-child(2) { transition-delay: 0.2s; }
+        .visible p:nth-child(3) { transition-delay: 0.4s; }
+        .visible p:nth-child(4) { transition-delay: 0.6s; }
+        .visible p:nth-child(5) { transition-delay: 0.8s; }
+
+        .visible p {
+            transform: translateX(0);
+            opacity: 1;
         }
 
-        .form-group input {
+        .content {
+            position: absolute;
+            top: 200px;
+            left: 0;
             width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 2px solid #ddd;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        .info-block {
-            background: rgba(0, 204, 0, 0.1);
-            border-left: 4px solid var(--primary-color);
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .info-block p {
-            margin: 0;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
-        .nav-buttons {
+            height: calc(100vh - 200px);
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            margin-top: 30px;
+            align-items: flex-end;
+            padding-right: clamp(20px, 15vw, 220px);
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .nav-button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
+       .marathon-ring {
+    position: absolute;
+    top: -80px;
+    right: clamp(20px, 5vw, 70px);
+    width: clamp(100px, 10vw, 150px); /* уменьшено в 2 раза */
+    height: clamp(100px, 10vw, 150px); /* уменьшено в 2 раза */
+    z-index: 10;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+        .marathon-circle {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: rotateRing 20s linear infinite;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        
+
+        .main-text {
+            text-align: left;
+            z-index: 10;
+            max-width: clamp(300px, 60vw, 600px);
+            margin-right: clamp(20px, 10vw, 100px);
+            margin-top: 50px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .main-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 5vw, 48px);
+            margin: 0;
+            color: #fff;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards, pulse-text 2s infinite 1s;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
+                        -1px -1px 0 #000, 
+                        1px -1px 0 #000, 
+                        -1px 1px 0 #000, 
+                        1px 1px 0 #000;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .main-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 4vw, 38px);
+            margin: 15px 0 0;
+            color: #fff;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 0.5s forwards, pulse-text 2s infinite 1.5s;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
+                        -1px -1px 0 #000, 
+                        1px -1px 0 #000, 
+                        -1px 1px 0 #000, 
+                        1px 1px 0 #000;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .main-text h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(16px, 2.5vw, 24px);
+            margin: clamp(15px, 3vw, 30px) 0 clamp(20px, 4vw, 40px);
+            color: #fff;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 0.75s forwards, pulse-text 2s infinite 2s;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
             font-weight: 600;
-            transition: all 0.3s;
-            text-align: center;
-        }
-
-        .nav-button:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.4);
-        }
-
-        .nav-button:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        #submitButton {
-            background: #ff6600;
-        }
-
-        #submitButton:hover {
-            background: #e65c00;
-        }
-
-        .success-message {
-            display: none;
-            background: rgba(0, 204, 0, 0.2);
-            border: 1px solid var(--primary-color);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            margin-top: 20px;
-            animation: fadeIn 0.5s ease;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
+                        -1px -1px 0 #000, 
+                        1px -1px 0 #000, 
+                        -1px 1px 0 #000, 
+                        1px 1px 0 #000;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes pulse-text {
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 204, 0, 0.7); }
+            50% { transform: scale(1.03); text-shadow: 0 0 20px rgba(0, 204, 0, 0.9); }
+            100% { transform: scale(1); text-shadow: 0 0 10px rgba(0, 204, 0, 0.7); }
+        }
+
+        .button-container {
+            position: relative;
+            left: 0;
+            z-index: 10;
+            white-space: nowrap;
+            margin-top: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .button-container a {
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .button-container button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: clamp(12px, 1.5vw, 16px) clamp(20px, 2.5vw, 36px);
+            font-size: clamp(16px, 2vw, 22px);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 1.5s forwards, 
+                       pulse-btn 2s infinite 2s;
+            display: block;
+            text-align: center;
+            white-space: nowrap;
+            margin: 0;
+            text-shadow: var(--text-shadow);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1.5px;
+            border-radius: 50px;
+            box-shadow: 0 4px 20px rgba(0, 204, 0, 0.5);
+            text-transform: uppercase;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        .button-container button:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 204, 0, 0.7);
+        }
+
+        @keyframes pulse-btn {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(0, 204, 0, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0);
+            }
+        }
+        
+        
+        
+        .visible 
+        
+        .consultation-button a {
+            color: white;
+            text-decoration: none;
+            font-size: clamp(14px, 1.5vw, 16px);
+            font-weight: 600;
+            display: block;
+            position: relative;
+            z-index: 2;
+            animation: blink 2s infinite;
+            letter-spacing: 0.5px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .consultation-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 204, 0, 0.6);
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+            }
+            70% {
+                transform: scale(1.02);
+                box-shadow: 0 0 0 15px rgba(0, 230, 118, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+            }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+        
+        .consultation-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: all 0.6s;
+        }
+        
+        .consultation-button:hover::before {
+            transform: translateX(100%);
+        }
+
+        .program-selector {
+            position: absolute;
+            left: 800px;
+            top: 30%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out 1s forwards;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .program-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: pulse-text 2s infinite;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes pulse-text {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .program-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 16px 32px;
+            border-radius: 50px;
+            display: inline-block;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6);
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse-btn-program 2s infinite;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes pulse-btn-program {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(0, 204, 0, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 204, 0, 0);
+            }
+        }
+
+        .program-button:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 30px rgba(0, 204, 0, 0.8);
+            animation: none;
+        }
+
+        .program-button:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .team-section {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .team-title {
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            color: #00ff00;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: var(--text-shadow);
+            z-index: 10;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .team-slider {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            padding-top: 120px;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .team-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 50px 50px;
+            box-sizing: border-box;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .team-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .team-member-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 1200px;
+            gap: 50px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .team-member-photo-container {
+            width: clamp(300px, 30vw, 400px);
+            height: clamp(450px, 50vw, 600px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .team-member-photo {
+            height: 100%;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .team-member-info {
+            width: clamp(300px, 40vw, 500px);
+            background: var(--dark-bg);
+            padding: clamp(20px, 3vw, 40px);
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .team-member-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 2.5vw, 32px);
+            color: #00ff00;
+            margin-bottom: 20px;
+        }
+
+        .team-member-info p {
+            font-size: clamp(14px, 1.5vw, 18px);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .team-slider-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .slider-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: calc(50% + 150px);
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .slider-arrow:hover {
+            background: var(--primary-color);
+        }
+
+        .slider-arrow.prev {
+            left: 20px;
+        }
+
+        .slider-arrow.next {
+            right: 20px;
+        }
+
+        .sixth-image {
+            background: transparent !important;
+            height: 50vh !important;
+        }
+
+        .seventh-image {
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            height: 100vh;
+            position: relative;
+        }
+
+        .contacts-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: transparent !important;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .faq-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            padding: 80px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .sword-light {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0.2) 60%,
+                rgba(255, 255, 255, 0) 80%,
+                rgba(255, 255, 255, 0.15) 100%
+            );
+            background-size: 200% 200%;
+            animation: swordGlow 6s linear infinite;
+            z-index: 1;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes swordGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .contacts-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        
+
+        .contacts-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 3vw, 36px);
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            position: relative;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        
+
+        .contacts-title::after,
+        .faq-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            max-width: 600px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-link.instagram { background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); }
+        .social-link.telegram { background: linear-gradient(45deg, #0088cc, #00aced); }
+        .social-link.vk { background: linear-gradient(45deg, #4a76a8, #5b88bd); }
+        .social-link.premium { background: linear-gradient(45deg, #ffd700, #ffbf00); }
+
+        .social-text {
+            font-size: 14px;
+            margin-top: 8px;
+            color: #eee;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            font-weight: 500;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        /* Новый стиль для гарантии */
+        .guarantee-text {
+            margin-top: 50px;
+            font-size: clamp(16px, 2vw, 20px);
+            color: #00ff00;
+            text-align: center;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 204, 0, 0.7);
+            animation: blink-guarantee 2s infinite;
+            padding: 0 20px;
+            max-width: 800px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @keyframes blink-guarantee {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Обновленные стили для кейсов */
+        .cases-section {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 120px 20px 20px;
+            box-sizing: border-box;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .cases-title {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            color: #00ff00;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: var(--text-shadow);
+            z-index: 10;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .cases-slider {
+            width: 100%;
+            max-width: 1200px;
+            height: calc(100% - 150px);
+            position: relative;
+            overflow: hidden;
+            margin-top: 100px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .cases-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 20px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .cases-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .cases-images {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            height: calc(100% - 60px);
+            padding: 0 20px;
+            box-sizing: border-box;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Горизонтальное расположение для слайдов 1, 2, 3, 4, 6 и 7 */
+        .cases-slide .cases-images {
+            flex-direction: row;
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+
+        /* Центрирование для 5-го слайда */
+        .cases-slide:nth-child(5) .cases-images {
+            justify-content: center;
+            overflow: visible;
+            padding-top: 50px; /* Добавлено для смещения фото вниз */
+        }
+
+        .case-image-container {
+            width: 30%;
+            min-width: 300px;
+            height: auto;
+            max-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin: 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.5);
+            
+            flex-shrink: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        /* Увеличенные размеры для слайдов 2, 3, 4, 6 и 8 */
+        .cases-slide:nth-child(2) .case-image-container,
+        .cases-slide:nth-child(3) .case-image-container,
+        .cases-slide:nth-child(4) .case-image-container,
+        .cases-slide:nth-child(6) .case-image-container,
+        .cases-slide:nth-child(8) .case-image-container {
+            width: 45%;
+            min-width: 400px;
+            max-height: 600px;
+        }
+
+        /* Стили для 5-го слайда - измененные пропорции */
+        .cases-slide:nth-child(5) .case-image-container {
+            width: 80%;
+            min-width: 500px;
+            max-width: 800px;
+            height: auto;
+            max-height: 80vh;
+            margin: 0 auto;
+            overflow: visible;
+            
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .cases-slide:nth-child(5) .case-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Стили для 7-го слайда (центрированный) */
+        .cases-slide:nth-child(7) .case-image-container {
+            width: 60%;
+            min-width: 400px;
+            max-width: 600px;
+            height: auto;
+            max-height: none;
+            margin: 0 auto;
+            aspect-ratio: auto;
+        }
+
+        .cases-slide:nth-child(7) .case-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .case-image {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .case-image-container:hover .case-image {
+            transform: scale(1.05);
+        }
+
+        .cases-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 10;
+            margin-top: 20px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .cases-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cases-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .cases-arrow {
+            position: absolute;
+            top: calc(50% + 150px);
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cases-arrow:hover {
+            background: var(--primary-color);
+        }
+
+        .cases-arrow.prev {
+            left: 20px;
+        }
+
+        .cases-arrow.next {
+            right: 20px;
+        }
+
+        /* Стили для слайдера программы */
+        
+        
+        
+        
+        
+        
+        .program-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .program-slide h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .program-slide p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .program-slide strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        
+        
+        
+        
+        .program-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        
+        
+        .program-arrow:hover {
+            background: var(--primary-color);
+        }
+        
+        .program-arrow.prev {
+            left: 10px;
+        }
+        
+        .program-arrow.next {
+            right: 10px;
+        }
+
+        /* Обновленные стили для FAQ слайдера */
+        .faq-slider-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .faq-slider {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-radius: 16px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(0, 204, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .faq-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .faq-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        .faq-slide h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: #00ff00;
+            margin-bottom: 30px;
+            text-align: center;
+            line-height: 1.3;
+            max-width: 90%;
+            padding: 0 20px;
+        }
+        
+        .faq-slide p {
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 90%;
+            padding: 0 20px;
+        }
+        
+        .faq-slide strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .faq-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        .faq-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .faq-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        .faq-arrow {
+            position: absolute;
+            top: calc(50% + 150px);
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .faq-arrow:hover {
+            background: var(--primary-color);
+        }
+        
+        .faq-arrow.prev {
+            left: 20px;
+        }
+        
+        .faq-arrow.next {
+            right: 20px;
+        }
+
+        /* Обновленные стили для блока цен */
+        .pricing-section {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--asphalt-bg);
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 50px;
+            box-sizing: border-box;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-title {
+    margin-top: -50px;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            color: #00ff00;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: var(--text-shadow);
+            position: relative;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-container {
+    margin-top: -100px;
+    transform: translateX(100px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+        
+
+        .pricing-column:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .pricing-name {
+            font-family: 'Bungee', cursive;
+            font-size: 20px;
+            color: #00ff00;
+            margin-bottom: 20px;
+            font-weight: 700;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-price {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-button {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 50px;
+            margin-top: auto;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 204, 0, 0.7);
+        }
+
+        /* Медиазапросы для мобильных устройств */
         @media (max-width: 768px) {
-            .test-container {
-                padding: 20px 15px;
-                justify-content: flex-start;
-                min-height: auto;
+            :root {
+                --text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                --menu-width: 80%;
             }
             
-            .question-title {
-                font-size: 20px;
+            .first-image {
+                background-image: 
+                                url('https://alexenomorf.github.io/comando/2.0 (1).jpg');
+                background-size: cover;
+                background-position: center;
+                background-attachment: scroll;
+                background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+            
+            .content {
+                padding-right: 0;
+                align-items: center;
+                justify-content: center;
+                padding-top: 0;
+                top: 150px;
+                height: calc(100vh - 150px);
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .marathon-ring {
+                position: absolute;
+                top: -130px;
+                right: 20px;
+                width: 120px;
+                height: 120px;
                 margin-bottom: 20px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
             }
             
-            .question-slide {
+            
+
+            .main-text {
+                text-align: center;
+                max-width: 100%;
+                margin: 0;
+                padding: 0 15px;
+                width: 100%;
+                box-sizing: border-box;
+                margin-top: 0;
+                padding-top: 50px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .main-text h1 {
+                font-size: 24px;
+                line-height: 1.3;
+                padding: 0 10px;
+                animation: fadeIn 1s ease-in-out forwards, pulse-text-mobile 2s infinite 1s;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
+                            -1px -1px 0 #000, 
+                            1px -1px 0 #000, 
+                            -1px 1px 0 #000, 
+                            1px 1px 0 #000;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .main-text h2 {
+                font-size: 20px;
+                margin-top: 10px;
+                padding: 0 10px;
+                animation: fadeIn 1s ease-in-out 0.5s forwards, pulse-text-mobile 2s infinite 1.5s;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
+                            -1px -1px 0 #000, 
+                            1px -1px 0 #000, 
+                            -1px 1px 0 #000, 
+                            1px 1px 0 #000;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .main-text h3 {
+                font-size: 16px;
+                margin: 15px 0 20px;
+                padding: 0 10px;
+                animation: fadeIn 1s ease-in-out 0.75s forwards, pulse-text-mobile 2s infinite 2s;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
+                            -1px -1px 0 #000, 
+                            1px -1px 0 #000, 
+                            -1px 1px 0 #000, 
+                            1px 1px 0 #000;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            @keyframes pulse-text-mobile {
+                0% { transform: scale(1); text-shadow: 0 0 5px rgba(0, 204, 0, 0.7); }
+                50% { transform: scale(1.03); text-shadow: 0 0 10px rgba(0, 204, 0, 0.9); }
+                100% { transform: scale(1); text-shadow: 0 0 5px rgba(0, 204, 0, 0.7); }
+            }
+
+            .button-container {
+                left: 0;
+                justify-content: center;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 70px;
+                padding: 0 15px;
+                box-sizing: border-box;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .button-container button {
+                padding: 14px 20px;
+                font-size: 16px;
+                width: 100%;
+                max-width: 280px;
+                white-space: normal;
+                line-height: 1.3;
+                margin-top: 0;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .second-image,
+            .third-image,
+            .fourth-image,
+            .fifth-image,
+            .sixth-image,
+            .seventh-image {
+                height: auto;
+                min-height: 100vh;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .second-image img,
+            .third-image img,
+            .fourth-image img,
+            .fifth-image img {
+                display: none;
+            }
+
+            .second-image .text-block,
+            .third-image .text-block,
+            .fourth-image .text-block,
+            .fifth-image .text-block,
+            .sixth-image .text-block,
+            .seventh-image .text-block {
+                position: relative;
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                            var(--bg-image);
+                background-size: cover;
+                background-position: center;
+                background-attachment: scroll;
+                background-repeat: no-repeat;
                 padding: 20px 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+            }
+
+            .second-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/01.jpg');
+            }
+
+            .third-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/33.webp');
             }
             
-            .nav-button {
+            .fourth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/cases-bg.jpg');
+            }
+            
+            .fifth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/team-bg.jpg');
+            }
+            
+            .sixth-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/contacts-bg.jpg');
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                            var(--bg-image) !important;
+                background-size: cover !important;
+                background-position: center !important;
+                min-height: 50vh !important;
+            }
+            
+            .seventh-image .text-block {
+                --bg-image: url('https://alexenomorf.github.io/comando/faq-bg.jpg');
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                            var(--bg-image) !important;
+                background-size: cover !important;
+                background-position: center !important;
+                min-height: 100vh !important;
+            }
+
+            .text-content {
+                max-width: 100%;
+                margin: 0;
+                padding: 25px 20px;
+                background: rgba(0, 0, 0, 0.65);
+                transform: none;
+                opacity: 1;
+                border-radius: 12px;
+                width: calc(100% - 40px);
+                box-sizing: border-box;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .text-block h2 {
+                font-size: 24px;
+                margin-bottom: 15px;
+                text-align: center;
+                line-height: 1.3;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .text-block p {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 12px;
+                text-align: center;
+                transform: none;
+                opacity: 1;
+                padding: 0 5px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            
+            
+            .consultation-button a {
+                font-size: 14px;
+                white-space: normal;
+                text-align: center;
+                animation: blink-mobile 2s infinite;
+                line-height: 1.3;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .program-selector {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin: 20px auto 0;
+                width: calc(100% - 40px);
+                max-width: 280px;
+                align-items: center;
+                text-align: center;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .program-text {
+                font-size: 16px;
+                margin-bottom: 10px;
+                padding: 12px 15px;
+                animation: none;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .program-button {
+                padding: 12px 20px;
+                font-size: 14px;
+                width: 100%;
+                animation: none;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            @keyframes pulse-mobile {
+                0% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.7);
+                }
+                70% {
+                    transform: scale(1.02);
+                    box-shadow: 0 0 0 10px rgba(0, 230, 118, 0);
+                }
+                100% {
+                    transform: scale(1);
+                    box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
+                }
+            }
+            
+            .nav-menu {
+                width: 80%;
+                max-width: 300px;
+                background: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(10px);
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .menu-toggle {
+                left: 15px;
+                top: 15px;
+                width: 45px;
+                height: 45px;
+                font-size: 28px;
+                background: rgba(0, 204, 0, 0.7);
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .nav-menu ul {
+                margin-top: 70px;
+            }
+            
+            .nav-menu li {
+                padding: 15px 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+            
+            .nav-menu a {
+                font-size: 16px;
+                font-weight: 500;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .nav-menu li:hover {
+                background: rgba(0, 204, 0, 0.3);
+            }
+            
+            .nav-menu a:hover {
+                transform: translateX(5px);
+            }
+            
+            .close-menu {
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                font-size: 28px;
+                color: white;
+                background: none;
+                border: none;
+                cursor: pointer;
+                display: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .nav-menu.active .close-menu {
+                display: block;
+            }
+            
+            .menu-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 99;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .menu-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            @keyframes slideIn {
+                from { transform: translateX(-100%); }
+                to { transform: translateX(0); }
+            }
+            
+            @keyframes slideOut {
+                from { transform: translateX(0); }
+                to { transform: translateX(-100%); }
+            }
+            
+            .nav-menu {
+                animation: slideOut 0.3s forwards;
+            }
+            
+            .nav-menu.active {
+                animation: slideIn 0.3s forwards;
+            }
+
+            .team-section {
+                background: var(--asphalt-bg);
+                background-image: 
+                    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                    url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+                padding-top: 30px;
+                padding-bottom: 80px;
+                height: auto;
+                overflow: hidden;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-title {
+                position: relative;
+                top: auto;
+                margin-top: 0;
+                font-size: 28px;
+                padding: 0 15px 20px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-slider {
+                padding-top: 0;
+                height: auto;
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 60px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-slide {
+                position: relative;
+                min-width: 100%;
+                height: auto;
+                min-height: auto;
+                padding: 0 15px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                
+                transform: none !important;
+                transition: none;
+                box-sizing: border-box;
+                opacity: 1 !important;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-member-container {
+                flex-direction: column;
+                width: 100%;
+                gap: 20px;
+                max-width: 100%;
+                padding: 0;
+                height: auto;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-member-photo-container {
+                width: 100%;
+                height: 300px;
+                max-height: none;
+                border-radius: 8px;
+                overflow: hidden;
+                background: rgba(0,0,0,0.3);
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-member-photo {
+                display: block !important;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-member-info {
+                width: 100%;
+                height: auto;
+                padding: 20px;
+                border-radius: 8px;
+                margin-top: 0;
+                box-sizing: border-box;
+                overflow-y: auto;
+                max-height: none;
+                background: rgba(0,0,0,0.7);
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .team-member-info h3 {
+                font-size: 22px;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .team-member-info p {
+                font-size: 14px;
+                text-align: center;
+                margin-bottom: 12px;
+                line-height: 1.5;
+            }
+
+            .team-slider-controls {
+                position: relative;
+                bottom: auto;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 10px;
+                z-index: 20;
+                background: rgba(0,0,0,0.7);
                 padding: 10px 15px;
+                border-radius: 30px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+                margin-top: 20px;
+                margin-bottom: 20px;
+                width: fit-content;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .slider-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.3);
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+
+            .slider-dot.active {
+                background: var(--primary-color);
+                transform: scale(1.2);
+            }
+
+            .slider-arrow {
+                display: none;
+            }
+
+            .mobile-slider-arrow {
+                position: absolute;
+                top: calc(50% + 150px);
+                transform: translateY(-50%);
+                width: 40px;
+                height: 40px;
+                background: rgba(0,0,0,0.7);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 20;
+                font-size: 20px;
+                color: white;
+                transition: all 0.3s;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .mobile-slider-arrow:hover {
+                background: var(--primary-color);
+            }
+
+            .mobile-slider-arrow.prev {
+                left: 15px;
+            }
+
+            .mobile-slider-arrow.next {
+                right: 15px;
+            }
+            
+            .team-slider::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .team-slider {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+            .contacts-container {
+                min-height: 50vh;
+            }
+            
+            .contacts-content {
+                padding: 10px;
+            }
+            
+            .contacts-title {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .social-links {
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .social-link {
+                width: 70px;
+                height: 70px;
+                font-size: 18px;
+            }
+            
+            .social-text {
+                font-size: 11px;
+                margin-top: 4px;
+            }
+            
+            /* Адаптивный стиль для гарантии */
+            .guarantee-text {
+                margin-top: 30px;
+                font-size: 14px;
+                padding: 0 15px;
+                animation: blink-guarantee-mobile 2s infinite;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            @keyframes blink-guarantee-mobile {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.7; }
+            }
+
+            .cases-section {
+                padding: 20px 10px;
+                min-height: 100vh;
+                position: relative;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .cases-title {
+                position: relative;
+                top: auto;
+                margin-top: 0;
+                font-size: 28px;
+                padding: 0 15px 20px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .cases-slider {
+                height: auto;
+                min-height: 70vh;
+                margin-top: 20px;
+                padding-bottom: 60px;
+                position: relative;
+                overflow: hidden;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .cases-slide {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 20px;
+                box-sizing: border-box;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .cases-slide.active {
+                opacity: 1;
+                z-index: 1;
+            }
+
+            .cases-images {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 15px;
+                width: 100%;
+                height: calc(100% - 60px);
+                padding: 0 10px;
+                box-sizing: border-box;
+                overflow-x: auto;
+                
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Центрирование для 5-го слайда в мобильной версии */
+            .cases-slide:nth-child(5) .cases-images {
+                justify-content: center;
+            }
+
+            /* Увеличенные контейнеры для мобильной версии */
+            .case-image-container {
+                width: 95%;
+                min-width: 320px;
+                height: auto;
+                max-height: none;
+                margin: 5px 10px;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                flex-shrink: 0;
+                
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            /* Широкие контейнеры для 4-го и 8-го слайдов в мобильной версии */
+            .cases-slide:nth-child(4) .case-image-container,
+            .cases-slide:nth-child(8) .case-image-container {
+                width: 95%;
+                min-width: 350px;
+                height: auto;
+                max-height: none;
+                margin: 0 10px;
+            }
+
+            /* Стили для 5-го слайда в мобильной версии */
+            .cases-slide:nth-child(5) .case-image-container {
+                width: 95%;
+                min-width: 320px;
+                height: auto;
+                max-height: none;
+                margin: 0 auto;
+            }
+
+            .case-image {
+                width: 100%;
+                height: auto;
+                max-height: 100%;
+                object-fit: contain;
+                display: block !important;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .cases-controls {
+                position: relative;
+                bottom: auto;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                width: 100%;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+
+            .cases-arrow {
+                display: none;
+            }
+
+            .mobile-cases-arrow {
+                position: absolute;
+                top: calc(50% + 150px);
+                transform: translateY(-50%);
+                width: 40px;
+                height: 40px;
+                background: rgba(0,0,0,0.7);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 20;
+                font-size: 20px;
+                color: white;
+                transition: all 0.3s;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            .mobile-cases-arrow:hover {
+                background: var(--primary-color);
+            }
+
+            .mobile-cases-arrow.prev {
+                left: 5px;
+            }
+
+            .mobile-cases-arrow.next {
+                right: 5px;
+            }
+            
+            /* Адаптивные стили для слайдера программы */
+            
+            
+            
+            
+            
+            
+            .program-slide.active {
+                opacity: 1;
+                display: flex;
+            }
+            
+            .program-slide h3 {
+                font-size: 20px;
+                margin-bottom: 15px;
+                line-height: 1.3;
+                text-align: center;
+            }
+            
+            .program-slide p {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 12px;
+                text-align: center;
+            }
+            
+            
+            
+            
+            
+            
+            
+            /* Адаптивные стили для FAQ слайдера */
+            .faq-slider-container {
+                width: 100%;
+                max-width: 100%;
+                margin: 20px auto 0;
+                padding: 0 5px;
+                box-sizing: border-box;
+                position: relative;
+                left: 0;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .faq-slider {
+                height: auto;
+                min-height: 400px;
+                max-height: 500px;
+                overflow-y: auto;
+                padding: 15px 5px;
+                width: calc(100% - 10px);
+                margin: 0 auto;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .faq-slide {
+                position: relative;
+                opacity: 0;
+                height: auto;
+                min-height: 300px;
+                padding: 20px 5px;
+                transform: none !important;
+                display: none;
+                text-align: center;
+                width: 100%;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            .faq-slide.active {
+                opacity: 1;
+                display: flex;
+            }
+            
+            .faq-slide h3 {
+                font-size: 20px;
+                margin-bottom: 15px;
+                line-height: 1.3;
+                padding: 0 5px;
+                width: 100%;
+            }
+            
+            .faq-slide p {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 12px;
+                text-align: center;
+                max-width: 100%;
+                padding: 0 5px;
+                width: 100%;
+            }
+            
+            .faq-controls {
+                margin-top: 15px;
+                margin-bottom: 10px;
+                width: 100%;
+                padding: 0 5px;
+            }
+            
+            /* Измененные стили для стрелок FAQ в мобильной версии */
+            .faq-arrow {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+                background: transparent;
+                color: rgba(255,255,255,0.3);
+                transition: all 0.3s;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            .faq-arrow:hover {
+                background: transparent;
+                color: #00ff00;
+            }
+            
+            .faq-arrow.prev {
+                left: 5px;
+            }
+            
+            .faq-arrow.next {
+                right: 5px;
+            }
+            
+            .faq-dot {
+                width: 10px;
+                height: 10px;
+            }
+            
+            /* Специальные стили для мобильного FAQ */
+            .seventh-image .text-content {
+                width: calc(100% - 10px);
+                margin: 0 auto;
+                padding: 20px 5px;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+            }
+            
+            
+
+            /* Адаптивные стили для блока цен */
+            .pricing-section {
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+
+            .pricing-title {
+    margin-top: -50px;
+                font-size: 24px;
+                margin-bottom: 20px;
+                position: relative;
+                top: -10px;
+            }
+
+            .pricing-container {
+    margin-top: -100px;
+    transform: translateX(100px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+            
+
+            .pricing-name {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .pricing-price {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+
+            .pricing-desc {
+                font-size: 14px;
+                margin-bottom: 15px;
+            }
+
+            .pricing-button {
+                padding: 10px 20px;
                 font-size: 14px;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="test-container">
-        <!-- Форма контактных данных -->
-        <div class="question-slide" id="question6">
-            <div class="question-header">
-                <div class="question-icon"><i class="fas fa-user"></i></div>
-                <div>
-                    <h2 class="question-title">Оставьте свои контактные данные</h2>
-                </div>
-            </div>
-            
-            <div class="info-block">
-                <p><i class="fas fa-info-circle"></i> Оставьте свои данные, и мы свяжемся с вами в ближайшее время.</p>
-            </div>
-            
-            <div class="options-container">
-                <div class="form-group">
-                    <label for="firstName">Имя</label>
-                    <input type="text" id="firstName" required>
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Фамилия</label>
-                    <input type="text" id="lastName" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" required placeholder="example@mail.com">
-                </div>
-                <div class="form-group">
-                    <label for="whatsapp">Номер WhatsApp (с кодом страны)</label>
-                    <input type="tel" id="whatsapp" required placeholder="+79123456789">
-                </div>
-            </div>
-        </div>
 
-        <div class="nav-buttons">
-            <button class="nav-button" id="submitButton">Отправить результаты</button>
-        </div>
-
-        <!-- Сообщение об успешной отправке -->
-        <div class="success-message" id="successMessage">
-            <h3>✅ Спасибо! Ваши данные отправлены</h3>
-            <p>Мы свяжемся с вами в ближайшее время через WhatsApp</p>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Конфигурация Telegram бота
-            const botToken = '7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM';
-            const chatId = '1208941214';
-            
-            const submitButton = document.getElementById('submitButton');
-            const successMessage = document.getElementById('successMessage');
-            
-            function checkFormFilled() {
-                const firstName = document.getElementById('firstName').value.trim();
-                const lastName = document.getElementById('lastName').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const whatsapp = document.getElementById('whatsapp').value.trim();
-                return firstName !== '' && lastName !== '' && email !== '' && whatsapp !== '';
+        /* Медиазапрос для ландшафтной ориентации на мобильных устройствах */
+        @media (orientation: landscape) and (max-width: 900px) {
+            :root {
+                --menu-width: 250px;
             }
             
-            function updateSubmitButton() {
-                submitButton.disabled = !checkFormFilled();
+            .first-image {
+                background-attachment: scroll;
+                background-image: 
+                                url('https://alexenomorf.github.io/comando/2.0 (1).jpg');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
             }
             
-            submitButton.addEventListener('click', async function() {
-                if (!checkFormFilled()) return;
+            .content {
+                top: 150px;
+                height: calc(100vh - 150px);
+                padding-right: clamp(20px, 5vw, 100px);
+            }
+            
+            .marathon-ring {
+                top: -80px;
+                right: clamp(20px, 5vw, 50px);
+                width: clamp(160px, 20vw, 240px);
+                height: clamp(160px, 20vw, 240px);
+            }
+            
+            
+
+            .main-text {
+                max-width: clamp(300px, 60vw, 500px);
+                margin-right: clamp(20px, 5vw, 50px);
+            }
+
+            .main-text h1 {
+                font-size: clamp(24px, 4vw, 36px);
+            }
+
+            .main-text h2 {
+                font-size: clamp(20px, 3vw, 28px);
+            }
+
+            .main-text h3 {
+                font-size: clamp(16px, 2vw, 20px);
+            }
+
+            .button-container button {
+                padding: 12px 24px;
+                font-size: clamp(14px, 2vw, 18px);
+            }
+
+            .second-image,
+            .third-image,
+            .fourth-image,
+            .fifth-image,
+            .sixth-image,
+            .seventh-image {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .second-image img,
+            .third-image img,
+            .fourth-image img,
+            .fifth-image img {
+                display: block;
+            }
+
+            .text-content {
+                max-width: 60%;
+                margin-left: 5%;
+                padding: 30px;
+            }
+
+            .text-block h2 {
+                font-size: clamp(22px, 3vw, 28px);
+            }
+
+            .text-block p {
+                font-size: clamp(14px, 1.8vw, 16px);
+            }
+            
+            
+            
+            .program-selector {
+                left: 60%;
+                top: 30%;
+            }
+            
+            .program-text {
+                font-size: clamp(16px, 2vw, 18px);
+                padding: 12px 20px;
+            }
+            
+            .program-button {
+                padding: 14px 28px;
+                font-size: clamp(14px, 2vw, 16px);
+            }
+            
+            .nav-menu {
+                width: var(--menu-width);
+            }
+            
+            .menu-toggle {
+                left: 15px;
+                top: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+            
+            .team-section {
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+            
+            .team-title {
+                font-size: clamp(24px, 3vw, 28px);
+            }
+            
+            .team-slider {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+            
+            .team-member-container {
+                flex-direction: row;
+                gap: 30px;
+                max-width: 90%;
+            }
+            
+            .team-member-photo-container {
+                width: 40%;
+                height: clamp(300px, 40vw, 400px);
+            }
+            
+            .team-member-info {
+                width: 60%;
+                padding: 20px;
+            }
+            
+            .team-member-info h3 {
+                font-size: clamp(18px, 2.5vw, 22px);
+            }
+            
+            .team-member-info p {
+                font-size: clamp(12px, 1.5vw, 14px);
+            }
+            
+            .slider-arrow {
+                display: flex;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .mobile-slider-arrow {
+                display: none;
+            }
+            
+            .contacts-container {
+                min-height: 50vh;
+            }
+            
+            .contacts-title {
+                font-size: clamp(20px, 3vw, 24px);
+            }
+            
+            .social-links {
+                gap: 10px;
+            }
+            
+            .social-link {
+                width: 80px;
+                height: 80px;
+                font-size: 20px;
+            }
+            
+            .social-text {
+                font-size: 12px;
+            }
+            
+            .guarantee-text {
+                font-size: clamp(14px, 2vw, 16px);
+            }
+            
+            .cases-section {
+                padding: 80px 20px;
+            }
+            
+            .cases-title {
+                font-size: clamp(24px, 3vw, 28px);
+            }
+            
+            .cases-slider {
+                margin-top: 60px;
+                padding-bottom: 60px;
+            }
+            
+            .case-image-container {
+                min-width: 250px;
+                max-height: 400px;
+            }
+            
+            .cases-slide:nth-child(2) .case-image-container,
+            .cases-slide:nth-child(3) .case-image-container,
+            .cases-slide:nth-child(4) .case-image-container,
+            .cases-slide:nth-child(6) .case-image-container,
+            .cases-slide:nth-child(8) .case-image-container {
+                min-width: 300px;
+                max-height: 450px;
+            }
+            
+            .cases-slide:nth-child(5) .case-image-container {
+                min-width: 400px;
+                max-width: 600px;
+            }
+            
+            .cases-arrow {
+                display: flex;
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+            
+            .mobile-cases-arrow {
+                display: none;
+            }
+            
+            
+            
+            
+            
+            .program-slide h3 {
+                font-size: clamp(20px, 3vw, 24px);
+            }
+            
+            .program-slide p {
+                font-size: clamp(14px, 1.8vw, 16px);
+            }
+            
+            .faq-slider-container {
+                max-width: 90%;
+            }
+            
+            .faq-slider {
+                height: 400px;
+            }
+            
+            .faq-slide h3 {
+                font-size: clamp(20px, 3vw, 24px);
+            }
+            
+            .faq-slide p {
+                font-size: clamp(14px, 1.8vw, 16px);
+            }
+            
+            .faq-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            /* Адаптивные стили для блока цен в ландшафтном режиме */
+            .pricing-container {
+    margin-top: -100px;
+    transform: translateX(100px);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+            
+        }
+
+        /* Специальные стили для горизонтальной ориентации с небольшой высотой */
+        @media screen and (orientation: landscape) and (max-height: 500px) {
+            html, body {
+                font-size: 95%;
+                overflow-x: hidden;
+            }
+
+            * {
+                box-sizing: border-box;
+                max-width: 100vw;
+            }
+
+            .main-text,
+            .text-content,
+            .text-block,
+            .team-slide,
+            .case-image-container {
+                padding-left: 10px;
+                padding-right: 10px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .button-container button,
+            .consultation-button,
+            .program-button {
+                font-size: 15px;
+                padding: 10px 18px;
+                width: auto;
+                max-width: 90%;
+            }
+
+            .team-slider,
+            .cases-images {
+                flex-wrap: wrap;
+                overflow-x: hidden;
+                gap: 16px;
+                justify-content: center;
+            }
+
+            .team-slide,
+            .cases-slide {
+                flex: 1 1 45%;
+                min-width: 45%;
+            }
+
+            .first-image,
+            .second-image,
+            .third-image,
+            .fourth-image,
+            .fifth-image,
+            .sixth-image,
+            .seventh-image {
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .nav-menu {
+                max-width: 90vw;
+                width: 100%;
+            }
+            
+            /* Оптимизация для блока цен */
+            .pricing-container {
+    margin-top: -100px;
+    transform: translateX(100px);
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                padding: 0 10px;
+            }
+            
+            .pricing-column {
+                padding: 20px;
+            }
+            
+            /* Оптимизация для слайдеров */
+            .team-slider,
+            .cases-slider,
+            .faq-slider,
+            
+            
+            /* Оптимизация для контактов */
+            .contacts-content {
+                padding: 10px;
+            }
+            
+            .social-links {
+                gap: 5px;
+            }
+            
+            .social-link {
+                width: 60px;
+                height: 60px;
+                font-size: 16px;
+            }
+            
+            .social-text {
+                font-size: 10px;
+            }
+            
+            /* Уменьшение отступов */
+            .text-content,
+            .team-member-info,
+            .faq-slide,
+            
+            
+            /* Уменьшение шрифтов */
+            h1, h2, h3 {
+                font-size: 90% !important;
+            }
+            
+            p {
+                font-size: 85% !important;
+            }
+            
+            /* Оптимизация кнопок */
+            .button-container button,
+            .consultation-button,
+            .program-button,
+            .pricing-button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            /* Оптимизация заголовков */
+            .team-title,
+            .cases-title,
+            .pricing-title,
+            
+            
+            /* Оптимизация изображений */
+            .team-member-photo-container,
+            .case-image-container {
+                height: 250px;
+            }
+            
+            /* Оптимизация текстовых блоков */
+            .text-block p {
+                margin-bottom: 10px;
+            }
+            
+            /* Оптимизация слайдеров */
+            .team-slider-controls,
+            .cases-controls,
+            .faq-controls,
+            
+            
+            /* Оптимизация стрелок */
+            .slider-arrow,
+            .cases-arrow,
+            .faq-arrow,
+            
+        }
+
+
+
+@media (max-width: 768px) {
+  
+  
+}
+
+.pricing-column {
+  flex: 0 0 auto;
+  width: 280px;
+  background: var(--dark-bg);
+  padding: 30px;
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  
+}
+
+@media (max-width: 768px) {
+  
+  .pricing-column {
+    width: 90% !important;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+    .pricing-container {
+    margin-top: -100px;
+    transform: translateX(100px);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 10px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .pricing-container {
+    margin-top: -100px;
+    transform: translateX(100px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .pricing-column {
+        width: 90%;
+        max-width: 400px;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    html, body {
+        font-size: 95%;
+        overflow-x: hidden;
+    }
+
+    * {
+        box-sizing: border-box;
+        max-width: 100vw;
+    }
+
+    .main-text,
+    .text-content,
+    .text-block,
+    .pricing-column,
+    .team-slide,
+    .case-image-container {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .button-container button,
+    .consultation-button,
+    .program-button {
+        font-size: 15px;
+        padding: 10px 18px;
+        width: auto;
+        max-width: 90%;
+    }
+
+    .team-slider,
+    .cases-images {
+        flex-wrap: wrap;
+        overflow-x: hidden;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    .team-slide,
+    .cases-slide {
+        flex: 1 1 45%;
+        min-width: 45%;
+    }
+
+    .first-image,
+    .second-image,
+    .third-image,
+    .fourth-image,
+    .fifth-image,
+    .sixth-image,
+    .seventh-image {
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .nav-menu {
+        max-width: 90vw;
+        width: 100%;
+    }
+}
+
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    html, body {
+        font-size: 90%;
+        overflow-x: hidden !important;
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: auto;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    section,
+    .first-image,
+    .second-image,
+    .third-image,
+    .fourth-image,
+    .fifth-image,
+    .sixth-image,
+    .seventh-image {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        min-width: 100vw !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 10px 15px !important;
+        display: block !important;
+        position: static !important;
+    }
+
+    .main-text,
+    .text-content,
+    .text-block,
+    .pricing-column,
+    .case-image-container,
+    .team-member-info {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 10px 15px !important;
+        word-break: break-word;
+        white-space: normal;
+        position: static !important;
+    }
+
+    .team-slider,
+    .cases-images {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px;
+        padding-bottom: 10px;
+    }
+
+    .team-slide,
+    .case-image-container {
+        flex: 0 0 85vw !important;
+        max-width: 85vw !important;
+        scroll-snap-align: start;
+        position: static !important;
+    }
+
+    .team-member-photo-container img,
+    .case-image-container img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+
+    .button-container button,
+    .consultation-button,
+    .program-button {
+        font-size: 14px !important;
+        padding: 10px 20px !important;
+        width: 100% !important;
+        max-width: 300px;
+        display: block !important;
+        margin: 10px auto !important;
+    }
+
+    .pricing-container {
+    margin-top: -100px;
+    transform: translateX(100px);
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 20px !important;
+    }
+
+    .nav-menu {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    h1, h2, h3, p, span {
+        font-size: 90% !important;
+    }
+}
+
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    .second-image img {
+        display: none !important;
+    }
+}
+
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    .second-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+        
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .second-image 
+
+    .second-image .text-block,
+    .second-image 
+
+    .second-image .buttons-block a {
+        display: inline-block;
+        margin: 5px 0;
+        background: #00ff00;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        border-radius: 6px;
+    }
+}
+
+
+@media screen and (orientation: portrait), screen and (orientation: landscape) {
+    .second-image {
+        background: var(--asphalt-bg) !important;
+        background-image:
+            linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+            url('https://www.transparenttextures.com/patterns/asfalt-dark.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: scroll !important;
+    }
+    .second-image img {
+        display: none !important;
+    }
+}
+
+
+@media screen and (orientation: portrait), screen and (orientation: landscape) {
+    .second-image {
+        background-color: #2e2e2e !important;
+        background-image:
+            linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+            url('https://www.transparenttextures.com/patterns/asfalt-dark.png') !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: repeat !important;
+        background-attachment: scroll !important;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .pricing-container {
+        transform: none !important;
+        margin: 0 auto !important;
+        grid-template-columns: 1fr !important;
+        justify-items: center !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    .pricing-title {
+        margin-top: 0 !important;
+        text-align: center !important;
+    }
+}
+  
+
+
+.main-text h2:first-child {
+    position: absolute;
+    top: 0px;
+    left: 100px;
+    z-index: 11;
+}
+
+@media (max-width: 768px) {
+    .main-text h2:first-child {
+        top: 50px;
+        left: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .marathon-ring {
+        width: 120px;
+        height: 120px;
+        top: -100px;
+    }
+
+    
+}
+
+/* Отключаем анимацию и прячем marathon-ring */
+.marathon-ring {
+    display: none !important;
+    animation: none !important;
+}
+
+/* Стиль для  */
+
+
+/* Убираем анимации с основных заголовков */
+.main-text h1,
+.main-text h2,
+.main-text h3 {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Убираем анимации у блока с предложениями */
+.program-text,
+.program-selector,
+.program-button {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Выделение слова Костаная */
+.highlight-kostanay {
+    color: #00ff00;
+    font-weight: 900;
+    text-shadow: 0 0 8px #00ff00;
+}
+
+/* Современный стиль выделения основных надписей */
+.main-text h1,
+.main-text h2,
+.main-text h3,
+
+
+/* Вернуть зелёный цвет и стиль как у Костаная */
+.main-text h1,
+.main-text h2,
+.main-text h3,
+
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.bold-header {
+    font-family: 'Anton', sans-serif !important;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    /* Опустить блоки на 59px вниз */
+    .main-text h2,
+    .main-text h3,
+    .button-container {
+        margin-top: 59px !important;
+    }
+
+    /* Поднять "начни делать, чтоб не бояться" вверх с отступом 10px */
+    
+}
+
+@media (max-width: 768px) {
+    
+}
+
+@media (max-width: 768px) {
+    
+}
+
+.social-link:hover img {
+    transform: scale(1.2);
+}
+
+@media (min-width: 769px) {
+    
+}
+
+@media (max-width: 768px) {
+    
+}
+
+@media (min-width: 769px) {
+    
+}
+
+
+@media screen and (max-width: 768px) {
+    .first-image {
+        display: none !important;
+    }
+    .mobile-only {
+        display: block !important;
+    }
+}
+@media screen and (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .first-image {
+        display: none !important;
+    }
+    .mobile-only {
+        display: block !important;
+    }
+}
+@media screen and (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+  .pricing-container {
+    display: flex;
+    flex-direction: column;
+    transform: none;
+    gap: 30px;
+  }
+
+  .pricing-container .pricing-column {
+    order: unset;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .pricing-container {
+    display: flex;
+    flex-direction: column;
+    transform: none;
+    gap: 30px;
+  }
+
+  .pricing-container .pricing-column {
+    order: unset;
+  }
+
+  .pricing-column:nth-child(1) { order: 1; } /* Базовый формат */
+  .pricing-column:nth-child(3) { order: 2; } /* Пробная неделя 15к */
+  .pricing-column:nth-child(2) { order: 3; } /* Мини-группа */
+  .pricing-column:nth-child(4) { order: 4; } /* Пробная неделя 10к */
+}
+
+@media (max-width: 768px) {
+    .mobile-main-button {
+        margin-top: 120px;
+        text-align: center;
+    }
+}
+
+@media (min-width: 1024px) {
+  .faq-text-content-shifted {
+    margin-left: 500px !important;
+  }
+}
+</style>
+<style>
+@media screen and (max-width: 768px) {
+    .first-image {
+        display: none !important;
+    }
+    .mobile-only {
+        display: block !important;
+    }
+}
+@media screen and (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+</style>
+<style>
+@media (max-width: 768px) {
+  .mobile-overlay-text {
+    position: absolute;
+    top: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-family: sans-serif;
+    text-align: center;
+    width: 90%;
+    height: 90vh;
+    padding: 0;
+    text-shadow:
+      -1px -1px 2px black,
+      1px -1px 2px black,
+      -1px 1px 2px black,
+      1px 1px 2px black,
+      0 0 4px rgba(255,255,255,0.6),
+      0 0 8px rgba(255,255,255,0.2);
+  }
+
+  .mobile-overlay-text .headline {
+    font-size: clamp(20px, 4vw, 32px);
+    font-weight: 900;
+    margin-bottom: 6vh;
+  }
+
+  .mobile-overlay-text .branding {
+    font-size: clamp(36px, 7vw, 64px);
+    font-weight: 1000;
+    margin-top: 23vh;
+    margin-bottom: 5vh;
+  }
+
+  .mobile-overlay-text .description {
+    font-size: clamp(27px, 6.75vw, 54px);
+    line-height: 1.3;
+    font-weight: 800;
+    margin-top: auto;
+    margin-bottom: 3vh;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-overlay-text {
+    display: none;
+  }
+}
+</style>
+<style>
+.mobile-main-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-main-button {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 110;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .program-button {
+    background: linear-gradient(45deg, #063923, #00aa00);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
+    animation: pulse-btn-program 2s infinite;
+  }
+
+  .program-button:hover {
+    background: linear-gradient(45deg, #00aa00, #063923);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 204, 0, 0.7);
+  }
+
+  @keyframes pulse-btn-program {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0,204,0,0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0); }
+  }
+}
+</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/></head>
+<body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
+
+     <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div></div>
+<!-- Навигационное меню -->
+<div class="nav-menu" id="navMenu">
+<button class="close-menu" id="closeMenu">
+    ×
+   </button>
+<ul>
+<li>
+<a href="#home">
+      Главная
+     </a>
+</li>
+<li>
+<a href="#advantages">
+      Преимущества
+     </a>
+</li>
+<li>
+<a href="#pricing">
+      Стоимость
+     </a>
+</li>
+<li>
+<a href="#cases">
+      Кейсы
+     </a>
+</li>
+<li>
+<a href="#team">
+      Команда
+     </a>
+</li>
+<li>
+<a href="#faq">
+      FAQ
+     </a>
+</li>
+<li>
+<a href="#contacts">
+      Контакты
+     </a>
+</li>
+</ul>
+</div>
+<div class="menu-overlay" id="menuOverlay">
+</div>
+<button class="menu-toggle" id="menuToggle">
+   ☰
+  </button>
+<div class="image-container" id="imageContainer">
+<div class="first-image" id="home">
+<div class="content">
+<div class="marathon-ring">
+<div class="marathon-circle" id="marathonCircle">
+</div>
+</div>
+<div class="main-text">
+<div class="button-container">
+<a href="https://t.me/marafonpro_ADorohov" target="_blank">
+<button style="position: absolute; top: 150px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
+         Подать заявку
+        </button>
+</a>
+</div>
+</div>
+</div>
+</div>
+<div class="second-image" id="advantages">
+<div class="text-block" id="advantagesBlock" style="text-align: left;">
+<div class="text-content" style="text-align: left;">
+<h2 style="text-align: left;">
+        Преимущества<br/>работы с нами
+    </h2>
+<p style="text-align: left;">
+        Индивидуальный план тренировок с полным разбором<br/>каждого упражнения и его нюансов.
+    </p>
+<p style="text-align: left;">
+        Персонализированный подход по питанию<br/>в зависимости от цели участника.
+    </p>
+<p style="text-align: left;">
+        Полностью цифровой и структурированный подход:<br/>вы не просто получаете инструкции, а понимаете<br/>каждый шаг на пути к результату.
+    </p>
+<p style="text-align: left;">
+        Индивидуальный куратор сопровождает вас<br/>на каждом этапе, обеспечивая обратную связь<br/>и поддержку.
+    </p>
+<p style="text-align: left;">
+        Участие в общем чате с единомышленниками<br/>для обмена опытом, поддержки и мотивации.
+    </p>
+<p style="text-align: left;">
+        ИИ-ассистент анализирует ваши данные,<br/>обеспечивая точность и минимизируя ошибки.
+    </p>
+<p style="text-align: left;">
+        Еженедельные онлайн-сессии с наставником<br/>для обсуждения прогресса и получения<br/>ответов на вопросы.
+    </p>
+</div>
+<div class="program-selector" style="text-align: left;">
+<div class="program-text" style="text-align: left;">Для жителей <span class="highlight-kostanay">Костаная</span> спец предложение!<br/>Тренировки в мини-группе в фитнес-клубе "Аврора!"</div>
+<button class="program-button" onclick="window.location.href='test.html'">
+       ЗАБРОНИРОВАТЬ МЕСТО!
+      </button>
+<div class="program-text" style="text-align: left;">
+       Для жителей других городов и стран!
+      </div>
+<button class="program-button" onclick="window.location.href='test.html'">
+       ЗАБРОНИРОВАТЬ МЕСТО!
+      </button>
+</div>
+</div>
+</div>
+<div class="third-image" id="pricing">
+<div class="pricing-section">
+<h2 class="pricing-title">
+      Стоимость участия
+     </h2>
+<div class="pricing-container">
+<div class="pricing-column">
+<h3 class="pricing-name bold-header">
+        Базовый формат онлайн сопровождения
+       </h3>
+<div class="pricing-price">
+        150.000 тенге за три месяца
+       </div>
+<div class="pricing-desc">
+        65.000 тенге - помесячная оплата
+       </div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">
+        ПОДАТЬ ЗАЯВКУ
+       </button>
+</div>
+<div class="pricing-column">
+<h3 class="pricing-name bold-header">
+        Мини-группа в фитнес клубе "Аврора"
+       </h3>
+<div class="pricing-price">
+        200.000 тенге за три месяца
+       </div>
+<div class="pricing-desc">
+        80.000 тенге - помесячная оплата
+       </div>
+<div class="pricing-desc">
+        (абонемент в зал приобретается отдельно)
+       </div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">
+        ПОДАТЬ ЗАЯВКУ
+       </button>
+</div>
+<div class="pricing-column">
+<h3 class="pricing-name bold-header">
+        Пробная неделя с выдачей индивидуальной программы и полным сопровождением
+       </h3>
+<div class="pricing-price">
+        10.000 тенге
+       </div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">
+        ПОДАТЬ ЗАЯВКУ
+       </button>
+</div>
+<div class="pricing-column">
+<h3 class="pricing-name bold-header">
+        Пробная неделя с выдачей индивидуальной программы и полным сопровождением
+       </h3>
+<div class="pricing-price">
+        15.000 тенге
+       </div>
+<button class="pricing-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">
+        ПОДАТЬ ЗАЯВКУ
+       </button>
+</div>
+</div>
+</div>
+</div>
+<div class="fourth-image" id="cases">
+<div class="cases-section">
+<h2 class="cases-title">
+      Наши кейсы
+     </h2>
+<div class="cases-slider">
+<!-- Слайд 1 -->
+<div class="cases-slide active">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 1.1" class="case-image" src="https://alexenomorf.github.io/comando/photo1.1.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 1.2" class="case-image" src="https://alexenomorf.github.io/comando/photo1.2.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 1.3" class="case-image" src="https://alexenomorf.github.io/comando/photo1.3.jpg"/>
+</div>
+</div>
+</div>
+<!-- Слайд 2 (увеличен в 2 раза) -->
+<div class="cases-slide">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 2.1" class="case-image" src="https://alexenomorf.github.io/comando/photo2.1.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 2.2" class="case-image" src="https://alexenomorf.github.io/comando/photo2.2.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 2.3" class="case-image" src="https://alexenomorf.github.io/comando/photo2.3.jpg"/>
+</div>
+</div>
+</div>
+<!-- Слайд 3 (увеличен в 2 раза) -->
+<div class="cases-slide">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 3.1" class="case-image" src="https://alexenomorf.github.io/comando/photo3.1.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 3.2" class="case-image" src="https://alexenomorf.github.io/comando/photo3.2.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 3.3" class="case-image" src="https://alexenomorf.github.io/comando/photo3.3.jpg"/>
+</div>
+</div>
+</div>
+<!-- Слайд 4 (увеличен в 2 раза) -->
+<div class="cases-slide">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 4.1" class="case-image" src="https://alexenomorf.github.io/comando/photo4.1.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 4.2" class="case-image" src="https://alexenomorf.github.io/comando/photo4.2.jpg"/>
+</div>
+</div>
+</div>
+<!-- Слайд 5 (центрированный) -->
+<div class="cases-slide">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 5" class="case-image" src="https://alexenomorf.github.io/comando/5.1.jpg"/>
+</div>
+</div>
+</div>
+<!-- Слайд 6 (увеличен в 2 раза) -->
+<div class="cases-slide">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 6" class="case-image" src="https://alexenomorf.github.io/comando/6.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 6.1" class="case-image" src="https://alexenomorf.github.io/comando/6.1.jpg"/>
+</div>
+</div>
+</div>
+<!-- Слайд 7 (центрированный) -->
+<div class="cases-slide">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 7" class="case-image" src="https://alexenomorf.github.io/comando/7.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 7.1" class="case-image" src="https://alexenomorf.github.io/comando/7.1.jpg"/>
+</div>
+</div>
+</div>
+<!-- Слайд 8 (увеличен в 2 раза) -->
+<div class="cases-slide">
+<div class="cases-images">
+<div class="case-image-container">
+<img alt="Кейс 8.1" class="case-image" src="https://alexenomorf.github.io/comando/8.1.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 8.2" class="case-image" src="https://alexenomorf.github.io/comando/8.2.jpg"/>
+</div>
+<div class="case-image-container">
+<img alt="Кейс 8.3" class="case-image" src="https://alexenomorf.github.io/comando/8.3.jpg"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Стрелки для десктопной версии -->
+<div class="cases-arrow prev">
+      ❮
+     </div>
+<div class="cases-arrow next">
+      ❯
+     </div>
+<!-- Контролы слайдера -->
+<div class="cases-controls">
+<div class="cases-dot active" data-slide="0">
+</div>
+<div class="cases-dot" data-slide="1">
+</div>
+<div class="cases-dot" data-slide="2">
+</div>
+<div class="cases-dot" data-slide="3">
+</div>
+<div class="cases-dot" data-slide="4">
+</div>
+<div class="cases-dot" data-slide="5">
+</div>
+<div class="cases-dot" data-slide="6">
+</div>
+<div class="cases-dot" data-slide="7">
+</div>
+</div>
+<!-- Мобильные стрелки слайдера -->
+<div class="mobile-cases-arrow prev">
+      ❮
+     </div>
+<div class="mobile-cases-arrow next">
+      ❯
+     </div>
+</div>
+</div>
+<div class="fifth-image" id="team">
+<div class="team-section">
+<h2 class="team-title">
+      Наша команда
+     </h2>
+<div class="team-slider">
+<!-- Слайд 1 - Андрей Дорохов -->
+<div class="team-slide active">
+<div class="team-member-container">
+<div class="team-member-photo-container">
+<img alt="Андрей Дорохов" class="team-member-photo" src="https://alexenomorf.github.io/comando/4.jpg"/>
+</div>
+<div class="team-member-info">
+<h3>
+          Андрей Дорохов
+         </h3>
+<p>
+          Наставник проекта с более чем 15-летним опытом.
+         </p>
+<p>
+          Мастер спорта международного класса по жиму штанги лежа, чемпион и рекордсмен Азии и Казахстана.
+         </p>
+<p>
+          Более 300 клиентов достигли желаемой формы под его руководством.
+         </p>
+</div>
+</div>
+</div>
+<!-- Слайд 2 - Дорохова Татьяна -->
+<div class="team-slide">
+<div class="team-member-container">
+<div class="team-member-photo-container">
+<img alt="Дорохова Татьяна" class="team-member-photo" src="https://alexenomorf.github.io/comando/11.JPG"/>
+</div>
+<div class="team-member-info">
+<h3>
+          Дорохова Татьяна
+         </h3>
+<p>
+          Старший куратор, специалист по гипертрофийному и реабилитационному фитнесу.
+         </p>
+<p>
+          Доказательный нутрициолог с государственным дипломом РФ.
+         </p>
+<p>
+          Серебряный призер чемпионатов Казахстана по жиму штанги лежа.
+         </p>
+</div>
+</div>
+</div>
+<!-- Слайд 3 - Руслан Самсонов -->
+<div class="team-slide">
+<div class="team-member-container">
+<div class="team-member-photo-container">
+<img alt="Руслан Самсонов" class="team-member-photo" src="https://alexenomorf.github.io/comando/33.jpg"/>
+</div>
+<div class="team-member-info">
+<h3>
+          Руслан Самсонов
+         </h3>
+<p>
+          Старший куратор с 6-летним опытом тренерской работы.
+         </p>
+<p>
+          Специалист по онлайн сопровождению клиентов в фитнесе.
+         </p>
+<p>
+          Эксперт в области физического воспитания и гипертрофийного тренинга.
+         </p>
+</div>
+</div>
+</div>
+<!-- Слайд 4 - Милана -->
+<div class="team-slide">
+<div class="team-member-container">
+<div class="team-member-photo-container">
+<img alt="Милана" class="team-member-photo" src="https://alexenomorf.github.io/comando/photo_2025-06-25_11-35-02.jpg"/>
+</div>
+<div class="team-member-info">
+<h3>
+          Милана Козлова
+         </h3>
+<p>
+          Куратор с опытом тренерской деятельности более 2 лет.
+         </p>
+<p>
+          Дипломированный специалист по силовому тренингу и нутрициологии.
+         </p>
+<p>
+          Помогает клиентам достигать своих целей с помощью индивидуального подхода.
+         </p>
+</div>
+</div>
+</div>
+<!-- Слайд 5 - Ким Артемий -->
+<div class="team-slide">
+<div class="team-member-container">
+<div class="team-member-photo-container">
+<img alt="Ким Артемий" class="team-member-photo" src="https://alexenomorf.github.io/comando/photo_2025-06-25_19-23-14.jpg"/>
+</div>
+<div class="team-member-info">
+<h3>
+          Ким Артемий
+         </h3>
+<p>
+          Куратор с 2-летним опытом в фитнес-проектах SMC и MindFit.
+         </p>
+<p>
+          Эксперт по гипертрофийному тренингу, снижению веса и восстановительному фитнесу.
+         </p>
+<p>
+          Специализируется на работе с новичками и людьми, которые ранее уже пробовали, но не смогли удержаться в системе.
+         </p>
+<p>
+          Работает во всех форматах: индивидуальное онлайн-сопровождение, групповые программы и бот-поддержка.
+         </p>
+<p>
+          Ставит на первое место мягкость, адаптацию под клиента и устойчивый результат без давления.
+         </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Стрелки для десктопной версии -->
+<div class="slider-arrow prev">
+      ❮
+     </div>
+<div class="slider-arrow next">
+      ❯
+     </div>
+<!-- Контролы слайдера -->
+<div class="team-slider-controls">
+<div class="slider-dot active" data-slide="0">
+</div>
+<div class="slider-dot" data-slide="1">
+</div>
+<div class="slider-dot" data-slide="2">
+</div>
+<div class="slider-dot" data-slide="3">
+</div>
+<div class="slider-dot" data-slide="4">
+</div>
+</div>
+<!-- Мобильные стрелки слайдера -->
+<div class="mobile-slider-arrow prev">
+      ❮
+     </div>
+<div class="mobile-slider-arrow next">
+      ❯
+     </div>
+</div>
+</div>
+<!-- Новый раздел FAQ -->
+<div class="seventh-image" id="faq">
+<div class="faq-container">
+<div class="text-block" id="faqBlock">
+<div class="text-content faq-text-content-shifted">
+<h2>
+        Часто задаваемые вопросы
+       </h2>
+<div class="faq-slider-container">
+<div class="faq-slider">
+<!-- Вопрос 1 -->
+<div class="faq-slide active">
+<h3 style=" font-family: 'Pacifico', cursive;">
+           Нужно ли готовить отдельно для себя и семьи?
+          </h3>
+<p>
+           Нет, все блюда можно адаптировать под общий рацион, учитывая калорийность.
+          </p>
+</div>
+<!-- Вопрос 2 -->
+<div class="faq-slide">
+<h3 style=" font-family: 'Pacifico', cursive;">
+           У меня нет времени на тренировки!
+          </h3>
+<p>
+           Для похудения достаточно соблюдать дефицит калорий; тренировки желательны, но не обязательны.
+          </p>
+</div>
+<!-- Вопрос 3 -->
+<div class="faq-slide">
+<h3 style=" font-family: 'Pacifico', cursive;">
+           А если я не люблю считать калории?
+          </h3>
+<p>
+           Предлагаем простые и удобные инструменты для минимизации затрат времени на подсчет калорий, так чтоб это занимало не более 10 минут в день.
+          </p>
+</div>
+<!-- Вопрос 4 -->
+<div class="faq-slide">
+<h3 style=" font-family: 'Pacifico', cursive;">
+           А если я ем сладкое каждый день?
+          </h3>
+<p>
+           Можно включать сладкое в рацион, соблюдая общий калораж.
+          </p>
+</div>
+<!-- Вопрос 5 -->
+<div class="faq-slide">
+<h3 style=" font-family: 'Pacifico', cursive;">
+           У меня сидячая работа, смогу ли я похудеть?
+          </h3>
+<p>
+           Да, при правильной организации питания и режима дня снижение веса возможно даже при минимальной активности.
+          </p>
+</div>
+<!-- Вопрос 6 -->
+<div class="faq-slide">
+<h3 style=" font-family: 'Pacifico', cursive;">
+           Я не хочу голодать!
+          </h3>
+<p>
+           Питание составлено так, чтобы вы чувствовали сытость и удовольствие от еды.
+          </p>
+</div>
+<!-- Вопрос 7 -->
+<div class="faq-slide">
+<h3 style=" font-family: 'Pacifico', cursive;">
+           А вдруг у меня ничего не получится?
+          </h3>
+<p>
+           Мы сопровождаем каждого клиента на всех этапах, обеспечивая поддержку и мотивацию.
+          </p>
+</div>
+</div>
+<!-- Контролы слайдера -->
+<div class="faq-controls">
+<div class="faq-dot active" data-slide="0">
+</div>
+<div class="faq-dot" data-slide="1">
+</div>
+<div class="faq-dot" data-slide="2">
+</div>
+<div class="faq-dot" data-slide="3">
+</div>
+<div class="faq-dot" data-slide="4">
+</div>
+<div class="faq-dot" data-slide="5">
+</div>
+<div class="faq-dot" data-slide="6">
+</div>
+</div>
+<!-- Стрелки слайдера -->
+<div class="faq-arrow prev">
+         ❮
+        </div>
+<div class="faq-arrow next">
+         ❯
+        </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sixth-image" id="contacts">
+<div class="contacts-container">
+<div class="sword-light">
+</div>
+<div class="contacts-content">
+<h2 class="contacts-title">
+       Наши контакты
+      </h2>
+<div class="social-links">
+<a class="social-link instagram" href="https://instagram.com/dorohov.health" target="_blank">
+<i class="fab fa-instagram">
+</i>
+<span class="social-text">
+         Instagram
+        </span>
+</a>
+<a class="social-link telegram" href="https://t.me/tipamarafon1" target="_blank">
+<i class="fab fa-telegram-plane">
+</i>
+<span class="social-text">
+         Telegram
+        </span>
+</a>
+<a class="social-link vk" href="https://m.vk.com/id89833047" target="_blank">
+<i class="fab fa-vk">
+</i>
+<span class="social-text">
+         ВКонтакте
+        </span>
+</a>
+<a class="social-link premium" href="https://t.me/tribute/app?startapp=smGt" target="_blank">
+<i class="fas fa-crown">
+</i>
+<span class="social-text">
+         Premium
+        </span>
+</a>
+<a class="social-link" href="https://www.youtube.com/" target="_blank" title="YouTube">
+<img alt="YouTube" src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" style="width: 32px; height: 32px; transition: transform 0.3s;"/>
+<span style="margin-left: 8px; font-size: 16px; color: #fff;">YouTube</span></a>
+</div>
+<!-- Добавленный текст с гарантией -->
+<div class="guarantee-text">
+       100% гарантия возврата при отсутствии результата — при полном соблюдении плана
+      </div>
+</div>
+</div>
+</div>
+</div>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+            // Анимация кольца
+            const text = "MINDFIT MINDFIT";
+            const circle = document.getElementById('marathonCircle');
+            
+            circle.innerHTML = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const charElem = document.createElement('div');
+                charElem.className = 'marathon-char';
+                charElem.textContent = text[i];
+                charElem.style.setProperty('--char-index', i);
+                circle.appendChild(charElem);
+            }
+
+            // Плавное появление блоков
+            const textBlocks = [
+                document.getElementById('advantagesBlock'), 
+                document.getElementById('pricing'),
+                document.getElementById('cases'),
+                document.getElementById('team'),
+                document.getElementById('faq'),
+                document.getElementById('contacts')
+            ];
+            
+            function checkVisibility() {
+                textBlocks.forEach(block => {
+                    if (!block) return;
+                    
+                    const rect = block.getBoundingClientRect();
+                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                    
+                    if (rect.top <= windowHeight * 0.7 && rect.bottom >= windowHeight * 0.3) {
+                        block.classList.add('visible');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkVisibility);
+            checkVisibility();
+
+            // Управление меню
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const closeMenu = document.getElementById('closeMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const imageContainer = document.getElementById('imageContainer');
+
+            function toggleMenu() {
+                navMenu.classList.toggle('active');
+                menuOverlay.classList.toggle('active');
+                imageContainer.classList.toggle('menu-open');
+                document.body.classList.toggle('no-scroll');
+            }
+
+            menuToggle.addEventListener('click', toggleMenu);
+            closeMenu.addEventListener('click', toggleMenu);
+            menuOverlay.addEventListener('click', toggleMenu);
+
+            // Плавная прокрутка к разделам
+            document.querySelectorAll('.nav-menu a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        toggleMenu();
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Слайдер команды
+            const teamSlides = document.querySelectorAll('.team-slide');
+            const teamDots = document.querySelectorAll('.slider-dot');
+            const teamPrevArrow = document.querySelector('.slider-arrow.prev');
+            const teamNextArrow = document.querySelector('.slider-arrow.next');
+            const teamMobilePrevArrow = document.querySelector('.mobile-slider-arrow.prev');
+            const teamMobileNextArrow = document.querySelector('.mobile-slider-arrow.next');
+            const teamSlider = document.querySelector('.team-slider');
+            let currentTeamSlide = 0;
+            let isMobile = window.matchMedia("(max-width: 768px)").matches;
+            let teamSlideInterval;
+
+            function showTeamSlide(index) {
+                teamSlides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.opacity = '0';
+                });
+                teamDots.forEach(dot => dot.classList.remove('active'));
                 
-                // Получаем контактные данные
-                const contactData = {
-                    firstName: document.getElementById('firstName').value.trim(),
-                    lastName: document.getElementById('lastName').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    whatsapp: document.getElementById('whatsapp').value.trim()
-                };
-                
-                // Формируем сообщение для Telegram
-                let message = `📋 *Новые контактные данные*\n\n` +
-                              `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}\n` +
-                              `📧 *Email:* ${contactData.email}\n` +
-                              `📱 *WhatsApp:* ${contactData.whatsapp}\n`;
-                
-                try {
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Отправка...';
-                    
-                    // Отправляем сообщение в Telegram
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: message,
-                            parse_mode: 'Markdown'
-                        })
-                    });
-                    
-                    // Показываем сообщение об успехе
-                    successMessage.style.display = 'block';
-                    submitButton.style.display = 'none';
-                    
-                    // Очищаем форму
-                    document.getElementById('firstName').value = '';
-                    document.getElementById('lastName').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('whatsapp').value = '';
-                    
-                } catch (error) {
-                    console.error('Ошибка:', error);
-                    alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Отправить результаты';
+                teamSlides[index].classList.add('active');
+                teamSlides[index].style.opacity = '1';
+                teamDots[index].classList.add('active');
+                currentTeamSlide = index;
+            }
+
+            function nextTeamSlide() {
+                let newIndex = (currentTeamSlide + 1) % teamSlides.length;
+                showTeamSlide(newIndex);
+            }
+
+            function prevTeamSlide() {
+                let newIndex = (currentTeamSlide - 1 + teamSlides.length) % teamSlides.length;
+                showTeamSlide(newIndex);
+            }
+
+            function startTeamSlideInterval() {
+                stopTeamSlideInterval();
+                teamSlideInterval = setInterval(nextTeamSlide, 4000); // Установлено 4 секунды
+            }
+
+            function stopTeamSlideInterval() {
+                if (teamSlideInterval) {
+                    clearInterval(teamSlideInterval);
                 }
+            }
+
+            // Инициализация слайдера команды
+            if (isMobile && window.matchMedia("(orientation: portrait)").matches) {
+                teamSlider.style.display = 'flex';
+                teamSlider.style.flexDirection = 'row';
+                teamSlider.style.overflowX = 'auto';
+                teamSlider.style.scrollSnapType = 'x mandatory';
+                teamSlider.style.scrollBehavior = 'smooth';
+                teamSlider.style.WebkitOverflowScrolling = 'touch';
+
+                teamSlides.forEach((slide, index) => {
+                    slide.style.minWidth = '100%';
+                    slide.style.scrollSnapAlign = 'start';
+                    slide.style.opacity = '1';
+                });
+
+                teamMobilePrevArrow.addEventListener('click', prevTeamSlide);
+                teamMobileNextArrow.addEventListener('click', nextTeamSlide);
+
+                teamDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        currentTeamSlide = slideIndex;
+                        showTeamSlide(slideIndex);
+                    });
+                });
+            } else {
+                teamSlides.forEach((slide, index) => {
+                    slide.style.position = 'absolute';
+                    slide.style.opacity = '0';
+                    slide.style.display = 'flex';
+                });
+
+                if (teamPrevArrow) teamPrevArrow.addEventListener('click', prevTeamSlide);
+                if (teamNextArrow) teamNextArrow.addEventListener('click', nextTeamSlide);
+
+                teamDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        showTeamSlide(slideIndex);
+                    });
+                });
+
+                startTeamSlideInterval();
+                teamSlider.addEventListener('mouseenter', stopTeamSlideInterval);
+                teamSlider.addEventListener('mouseleave', startTeamSlideInterval);
+            }
+
+            showTeamSlide(0);
+
+            // Слайдер кейсов
+            const casesSlides = document.querySelectorAll('.cases-slide');
+            const casesDots = document.querySelectorAll('.cases-dot');
+            const casesPrevArrow = document.querySelector('.cases-arrow.prev');
+            const casesNextArrow = document.querySelector('.cases-arrow.next');
+            const casesMobilePrevArrow = document.querySelector('.mobile-cases-arrow.prev');
+            const casesMobileNextArrow = document.querySelector('.mobile-cases-arrow.next');
+            const casesSlider = document.querySelector('.cases-slider');
+            let currentCasesSlide = 0;
+            let casesSlideInterval;
+
+            function showCasesSlide(index) {
+                casesSlides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.opacity = '0';
+                });
+                casesDots.forEach(dot => dot.classList.remove('active'));
+                
+                casesSlides[index].classList.add('active');
+                casesSlides[index].style.opacity = '1';
+                casesDots[index].classList.add('active');
+                currentCasesSlide = index;
+            }
+
+            function nextCasesSlide() {
+                let newIndex = (currentCasesSlide + 1) % casesSlides.length;
+                showCasesSlide(newIndex);
+            }
+
+            function prevCasesSlide() {
+                let newIndex = (currentCasesSlide - 1 + casesSlides.length) % casesSlides.length;
+                showCasesSlide(newIndex);
+            }
+
+            function startCasesSlideInterval() {
+                stopCasesSlideInterval();
+                casesSlideInterval = setInterval(nextCasesSlide, 2000); // Изменено на 2 секунды
+            }
+
+            function stopCasesSlideInterval() {
+                if (casesSlideInterval) {
+                    clearInterval(casesSlideInterval);
+                }
+            }
+
+            // Инициализация слайдера кейсов
+            if (isMobile && window.matchMedia("(orientation: portrait)").matches) {
+                casesSlides.forEach((slide, index) => {
+                    slide.style.position = 'absolute';
+                    slide.style.opacity = '0';
+                    slide.style.display = 'flex';
+                });
+
+                showCasesSlide(0);
+                
+                casesMobilePrevArrow.addEventListener('click', prevCasesSlide);
+                casesMobileNextArrow.addEventListener('click', nextCasesSlide);
+
+                casesDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        showCasesSlide(slideIndex);
+                    });
+                });
+            } else {
+                casesSlides.forEach((slide, index) => {
+                    slide.style.position = 'absolute';
+                    slide.style.opacity = '0';
+                    slide.style.display = 'flex';
+                });
+
+                if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
+                if (casesNextArrow) casesNextArrow.addEventListener('click', nextCasesSlide);
+
+                casesDots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const slideIndex = parseInt(this.getAttribute('data-slide'));
+                        showCasesSlide(slideIndex);
+                    });
+                });
+
+                startCasesSlideInterval();
+                casesSlider.addEventListener('mouseenter', stopCasesSlideInterval);
+                casesSlider.addEventListener('mouseleave', startCasesSlideInterval);
+            }
+
+            showCasesSlide(0);
+
+            // Слайдер FAQ
+            const faqSlides = document.querySelectorAll('.faq-slide');
+            const faqDots = document.querySelectorAll('.faq-dot');
+            const faqPrevArrow = document.querySelector('.faq-arrow.prev');
+            const faqNextArrow = document.querySelector('.faq-arrow.next');
+            let currentFaqSlide = 0;
+            let faqSlideInterval;
+
+            function showFaqSlide(index) {
+                faqSlides.forEach(slide => slide.classList.remove('active'));
+                faqDots.forEach(dot => dot.classList.remove('active'));
+                
+                faqSlides[index].classList.add('active');
+                faqDots[index].classList.add('active');
+                currentFaqSlide = index;
+            }
+
+            function nextFaqSlide() {
+                let newIndex = (currentFaqSlide + 1) % faqSlides.length;
+                showFaqSlide(newIndex);
+            }
+
+            function prevFaqSlide() {
+                let newIndex = (currentFaqSlide - 1 + faqSlides.length) % faqSlides.length;
+                showFaqSlide(newIndex);
+            }
+
+            function startFaqSlideInterval() {
+                stopFaqSlideInterval();
+                faqSlideInterval = setInterval(nextFaqSlide, 4000); // Изменено на 4 секунды
+            }
+
+            function stopFaqSlideInterval() {
+                if (faqSlideInterval) {
+                    clearInterval(faqSlideInterval);
+                }
+            }
+
+            // Инициализация слайдера FAQ
+            faqPrevArrow.addEventListener('click', () => {
+                prevFaqSlide();
+                stopFaqSlideInterval();
+                startFaqSlideInterval();
             });
             
-            // Обработчики изменений полей формы
-            document.getElementById('firstName').addEventListener('input', updateSubmitButton);
-            document.getElementById('lastName').addEventListener('input', updateSubmitButton);
-            document.getElementById('email').addEventListener('input', updateSubmitButton);
-            document.getElementById('whatsapp').addEventListener('input', updateSubmitButton);
+            faqNextArrow.addEventListener('click', () => {
+                nextFaqSlide();
+                stopFaqSlideInterval();
+                startFaqSlideInterval();
+            });
+
+            faqDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    showFaqSlide(slideIndex);
+                    stopFaqSlideInterval();
+                    startFaqSlideInterval();
+                });
+            });
+
+            startFaqSlideInterval();
             
-            // Инициализация
-            updateSubmitButton();
+            const faqSlider = document.querySelector('.faq-slider');
+            faqSlider.addEventListener('mouseenter', stopFaqSlideInterval);
+            faqSlider.addEventListener('mouseleave', startFaqSlideInterval);
+
+            showFaqSlide(0);
+
+            // Обновление при изменении размера окна
+            function handleResize() {
+                const newIsMobile = window.matchMedia("(max-width: 768px)").matches;
+                if (newIsMobile !== isMobile) {
+                    isMobile = newIsMobile;
+                    location.reload();
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            window.addEventListener('orientationchange', handleResize);
         });
-    </script>
-</body>
+  </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.innerWidth <= 768) {
+        const el = document.querySelector(".left-text");
+        if (el) el.remove();
+    }
+});
+</script></body>
 </html>
