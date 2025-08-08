@@ -10,6 +10,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
 <style>
+.consultation-section {
+  width: 100%;
+  background: var(--asphalt-bg);
+  background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)), url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  padding: 100px 20px 60px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.consultation-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  background: rgba(0,0,0,0.65);
+  border-radius: 24px;
+  padding: 48px 24px 40px 24px;
+  box-shadow: 0 8px 40px rgba(0, 204, 0, 0.07);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.consultation-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 4vw, 38px);
+  color: #00ff00;
+  margin-bottom: 22px;
+  font-weight: 700;
+  text-shadow: var(--text-shadow);
+}
+.consultation-desc {
+  font-size: clamp(16px, 2vw, 22px);
+  color: #fff;
+  margin-bottom: 38px;
+  line-height: 1.7;
+}
+.consultation-signup-btn {
+  display: inline-block;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 18px 44px;
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 800;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0, 204, 0, 0.25);
+  transition: all 0.23s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  outline: none;
+}
+.consultation-signup-btn:hover {
+  background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+  color: #fff;
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 204, 0, 0.35);
+}
+@media (max-width: 768px) {
+  .consultation-section {
+    padding: 40px 6vw 28px 6vw;
+  }
+  .consultation-content {
+    padding: 20px 10px 24px 10px;
+    border-radius: 14px;
+  }
+  .consultation-signup-btn {
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
    :root {
             --primary-color: #063923;
             --secondary-color: #00aa00;
@@ -3729,6 +3801,19 @@
 </div>
 </div>
 </div>
+<section class="consultation-section" id="consultation">
+  <div class="consultation-content">
+    <h2 class="consultation-title">
+      Бесплатная диагностическая консультация от наставника проекта!
+    </h2>
+    <p class="consultation-desc">
+      На консультации разберут вашу текущую ситуацию и составят план работы на 3 месяца вперед.
+    </p>
+    <a href="#contacts" class="consultation-signup-btn">
+      Запись на консультацию
+    </a>
+  </div>
+</section>
 <div class="fourth-image" id="cases">
 <div class="cases-section">
 <h2 class="cases-title">
@@ -4523,3 +4608,4 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script></body>
 </html>
+
