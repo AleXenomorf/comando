@@ -3442,85 +3442,6 @@
     margin-left: 500px !important;
   }
 }
-
-.consultation-section {
-    width: 100%;
-    min-height: 100vh;
-    position: relative;
-    background: var(--asphalt-bg);
-    background-image: 
-        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
-        url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.consultation-content {
-    max-width: 800px;
-    background: var(--dark-bg);
-    padding: 40px;
-    border-radius: 16px;
-    text-align: center;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.consultation-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(24px, 3vw, 42px);
-    color: #00ff00;
-    margin-bottom: 25px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-shadow: var(--text-shadow);
-}
-
-.consultation-section p {
-    font-size: clamp(16px, 2vw, 18px);
-    line-height: 1.8;
-    margin-bottom: 30px;
-}
-
-.consultation-button {
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    border: none;
-    padding: clamp(12px, 1.5vw, 16px) clamp(20px, 2.5vw, 36px);
-    font-size: clamp(16px, 2vw, 22px);
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 50px;
-    transition: all 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 5px 15px rgba(0, 204, 0, 0.5);
-}
-
-.consultation-button:hover {
-    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 204, 0, 0.7);
-}
-
-@media (max-width: 768px) {
-    .consultation-section {
-        min-height: auto;
-        padding: 60px 20px;
-    }
-
-    .consultation-content {
-        padding: 30px 20px;
-        width: calc(100% - 40px);
-    }
-
-    .consultation-button {
-        width: 100%;
-        max-width: 280px;
-    }
-}
 </style>
 <style>
 @media screen and (max-width: 768px) {
@@ -3634,118 +3555,8 @@
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0); }
   }
 }
-</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/><style>
-/* Desktop wrapper scaling only between 769px and 1024px; mobile untouched */
-@media (min-width: 769px) and (max-width: 1024px) {
-  html, body { overflow-x: hidden; }
-  .desktop-wrapper {
-    width: 1024px;
-    margin: 0 auto;
-    transform-origin: top center;
-    transform: scale(calc(100vw / 1024));
-  }
-}
-
-/* Above 1024px — no scaling */
-@media (min-width: 1025px) {
-  .desktop-wrapper {
-    width: 100%;
-    transform: none;
-  }
-}
-</style><style>
-/* DESKTOP LOCK MODE 769–1024: scale entire page and pin positions */
-@media (min-width: 769px) and (max-width: 1024px) {
-  :root { --basew: 1024; --scale: calc(100vw / var(--basew)); }
-  html, body { overflow-x: hidden; }
-
-  .desktop-wrapper {
-    width: 1024px !important;
-    min-width: 1024px !important;
-    margin: 0 auto !important;
-    position: relative !important;
-    transform-origin: top center !important;
-    transform: scale(var(--scale)) !important;
-  }
-
-  /* Elements that were fixed to viewport should be tied to the wrapper during scaling */
-  .nav-menu,
-  .menu-toggle,
-  .menu-overlay {
-    position: absolute !important;
-  }
-
-  /* Prevent background from detaching during scale */
-  .first-image {
-    background-attachment: scroll !important;
-  }
-}
-
-/* Above 1024px — no scaling, normal desktop */
-@media (min-width: 1025px) {
-  .desktop-wrapper {
-    width: 100% !important;
-    min-width: 0 !important;
-    transform: none !important;
-  }
-
-  .nav-menu,
-  .menu-toggle,
-  .menu-overlay {
-    position: fixed !important;
-  }
-
-  .first-image {
-    background-attachment: fixed !important;
-  }
-}
-</style><style>/* SCALE ENGINE — CSS */
-:root { --basew: 1440; } /* базовая ширина макета — поменяй при необходимости */
-
-#scale-root { position: relative; width: 100vw; overflow-x: hidden; }
-#scale-inner { width: var(--basew); margin: 0 auto; transform-origin: top center; }
-
-/* Масштабирование включено только на десктопном диапазоне 769–1024px */
-@media (min-width: 769px) and (max-width: 1024px) {
-  html, body { overflow-x: hidden; }
-
-  /* Привязываем "фиксированные" элементы к макету, чтобы они не уезжали */
-  .nav-menu,
-  .menu-toggle,
-  .menu-overlay,
-  .slider-arrow,
-  .cases-arrow,
-  .faq-arrow {
-    position: absolute !important;
-  }
-
-  /* Фон первого экрана не фиксируем при скейле */
-  .first-image { background-attachment: scroll !important; }
-
-  /* Заморозка размеров, которые были завязаны на vw/vh/clamp — чтобы не было двойного уменьшения */
-  .main-text h1 { font-size: 48px !important; }
-  .main-text h2 { font-size: 38px !important; }
-  .main-text h3 { font-size: 24px !important; }
-
-  .text-block h2 { font-size: 42px !important; }
-  .text-block p  { font-size: 18px !important; }
-
-  .button-container button { font-size: 22px !important; padding: 16px 36px !important; }
-  .program-text { font-size: 22px !important; }
-  .program-button { font-size: 18px !important; padding: 16px 32px !important; }
-
-  .team-title, .cases-title, .pricing-title { font-size: 42px !important; }
-}
-
-/* Выше 1024px — возвращаем обычное поведение */
-@media (min-width: 1025px) {
-  .nav-menu, .menu-toggle, .menu-overlay,
-  .slider-arrow, .cases-arrow, .faq-arrow {
-    position: fixed !important;
-  }
-  .first-image { background-attachment: fixed !important; }
-}</style></head>
-<body><div id="scale-root"><div id="scale-inner"><div class="desktop-wrapper"><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
+</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/></head>
+<body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
      <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div></div>
 <!-- Навигационное меню -->
@@ -3753,7 +3564,7 @@
 <button class="close-menu" id="closeMenu">
     ×
    </button>
-<ul><li><a href="#consultation">Консультация</a></li>
+<ul>
 <li>
 <a href="#home">
       Главная
@@ -3916,16 +3727,6 @@
        </button>
 </div>
 </div>
-</div>
-</div>
-
-<div class="consultation-section" id="consultation">
-<div class="consultation-content">
-<h2>Бесплатная диагностическая консультация</h2>
-<p>От наставника проекта! На ней разберут вашу текущую ситуацию и составят план работы на 3 месяца вперед.</p>
-<button class="consultation-button" onclick="window.location.href='https://t.me/marafonpro_ADorohov'">
-            Запись на консультацию
-        </button>
 </div>
 </div>
 <div class="fourth-image" id="cases">
@@ -4359,7 +4160,7 @@
          Premium
         </span>
 </a>
-<a class="social-link" href="https://youtube.com/channel/UCrXnve5nCt48c648aRjPMEw?si=3-8ORdIbutNKBIWp" target="_blank" title="YouTube">
+<a class="social-link" href="https://www.youtube.com/" target="_blank" title="YouTube">
 <img alt="YouTube" src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" style="width: 32px; height: 32px; transition: transform 0.3s;"/>
 <span style="margin-left: 8px; font-size: 16px; color: #fff;">YouTube</span></a>
 </div>
@@ -4720,87 +4521,5 @@ document.addEventListener("DOMContentLoaded", function () {
         if (el) el.remove();
     }
 });
-</script></div></div></div><script>
-/* SCALE ENGINE — JS */
-(function(){
-  var BASE_W = 1440; // <-- поменяй под ширину своего исходного десктопного макета
-  var MIN_W = 769, MAX_W = 1024;
-  var root = document.getElementById('scale-root');
-  var inner = document.getElementById('scale-inner');
-
-  // Если автор задал кастом через CSS var(--basew)
-  try {
-    var cssBaseW = getComputedStyle(document.documentElement).getPropertyValue('--basew').trim();
-    if (cssBaseW) {
-      var parsed = parseFloat(cssBaseW);
-      if (!isNaN(parsed) && parsed > 0) BASE_W = parsed;
-    }
-  } catch(e){}
-
-  function applyScale(){
-    var w = window.innerWidth || document.documentElement.clientWidth;
-    // Масштабируем только в заданном десктопном промежутке
-    if (w >= MIN_W && w <= MAX_W) {
-      var s = w / BASE_W;
-      if (s > 1) s = 1;
-      inner.style.transform = 'scale(' + s + ')';
-      // Ставим корневой контейнер на визуальную высоту, чтобы прокрутка была корректной
-      // getBoundingClientRect уже возвращает размеры С УЧЕТОМ transform
-      var rect = inner.getBoundingClientRect();
-      root.style.height = rect.height + 'px';
-      root.style.overflow = 'hidden';
-    } else {
-      inner.style.transform = '';
-      root.style.height = '';
-      root.style.overflow = '';
-    }
-  }
-
-  window.addEventListener('resize', applyScale, { passive: true });
-  window.addEventListener('orientationchange', applyScale);
-  document.addEventListener('DOMContentLoaded', applyScale);
-  applyScale();
-})();
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const slides = document.querySelectorAll('.cases-slide');
-    const dots = document.querySelectorAll('.cases-dot');
-    const prev = document.querySelector('.cases-arrow.prev');
-    const next = document.querySelector('.cases-arrow.next');
-    let index = 0;
-
-    function showSlide(i) {
-      slides.forEach((slide, idx) => {
-        slide.classList.toggle('active', idx === i);
-        if (dots[idx]) dots[idx].classList.toggle('active', idx === i);
-      });
-    }
-
-    if (prev && next) {
-      prev.addEventListener('click', () => {
-        index = (index - 1 + slides.length) % slides.length;
-        showSlide(index);
-      });
-
-      next.addEventListener('click', () => {
-        index = (index + 1) % slides.length;
-        showSlide(index);
-      });
-    }
-
-    if (dots.length) {
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-          index = i;
-          showSlide(index);
-        });
-      });
-    }
-
-    showSlide(index);
-  });
-</script>
-
-</body>
+</script></body>
 </html>
