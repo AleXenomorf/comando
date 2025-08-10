@@ -215,7 +215,7 @@
         </div>
 
         <div class="nav-buttons">
-            <button class="nav-button" id="submitButton">Отправить результаты</button>
+            <button class="nav-button" id="submitButton" disabled>Отправить результаты</button>
         </div>
 
         <!-- Сообщение об успешной отправке -->
@@ -227,29 +227,33 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Конфигурация Telegram бота
+            // Конфигурация Telegram бота (⚠ держать на фронте небезопасно)
             const botToken = '7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM';
             const chatId = '1208941214';
             
-            // Конфигурация Google Forms
+            // Конфигурация Google Forms — ИСПРАВЛЕННЫЙ endpoint
             const googleFormsConfig = {
-                formUrl: 'https://docs.google.com/forms/d/e/1i3dShjPyjIb4e0gJIRZAMV5v7f6lHvGXmo3zgFEcgG4/formResponse',
+                formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse',
                 fieldIds: {
                     firstName: 'entry.575542865',
-                    lastName: 'entry.1529853970',
-                    email: 'entry.63446999',
-                    whatsapp: 'entry.826076263'
+                    lastName:  'entry.1529853970',
+                    email:     'entry.63446999',
+                    whatsapp:  'entry.826076263'
                 }
             };
             
-            const submitButton = document.getElementById('submitButton');
+            const submitButton   = document.getElementById('submitButton');
             const successMessage = document.getElementById('successMessage');
+            const firstNameEl = document.getElementById('firstName');
+            const lastNameEl  = document.getElementById('lastName');
+            const emailEl     = document.getElementById('email');
+            const whatsappEl  = document.getElementById('whatsapp');
             
             function checkFormFilled() {
-                const firstName = document.getElementById('firstName').value.trim();
-                const lastName = document.getElementById('lastName').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const whatsapp = document.getElementById('whatsapp').value.trim();
+                const firstName = firstNameEl.value.trim();
+                const lastName  = lastNameEl.value.trim();
+                const email     = emailEl.value.trim();
+                const whatsapp  = whatsappEl.value.trim();
                 return firstName !== '' && lastName !== '' && email !== '' && whatsapp !== '';
             }
             
@@ -258,73 +262,76 @@
             }
             
             async function sendToGoogleForms(data) {
-                return new Promise((resolve) => {
-                    // Метод 1: Отправка через Image (работает даже с CORS)
-                    const img = new Image();
-                    const params = new URLSearchParams();
-                    params.append(googleFormsConfig.fieldIds.firstName, data.firstName);
-                    params.append(googleFormsConfig.fieldIds.lastName, data.lastName);
-                    params.append(googleFormsConfig.fieldIds.email, data.email);
-                    params.append(googleFormsConfig.fieldIds.whatsapp, data.whatsapp);
-                    
-                    const url = `${googleFormsConfig.formUrl}?${params.toString()}`;
-                    img.src = url;
-                    
-                    // Метод 2: Открытие в новой вкладке для визуальной проверки
-                    window.open(url, '_blank');
-                    
-                    console.log('Данные отправлены по URL:', url);
-                    resolve();
+                const formData = new URLSearchParams();
+                formData.append(googleFormsConfig.fieldIds.firstName, data.firstName);
+                formData.append(googleFormsConfig.fieldIds.lastName,  data.lastName);
+                formData.append(googleFormsConfig.fieldIds.email,     data.email);
+                formData.append(googleFormsConfig.fieldIds.whatsapp,  data.whatsapp);
+                // служебные поля (работает и без fbzx)
+                formData.append('fvv', '1');
+                formData.append('pageHistory', '0');
+                formData.append('submit', 'Submit');
+                
+                await fetch(googleFormsConfig.formUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData.toString(),
+                });
+            }
+
+            async function sendToTelegram(message) {
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                const body = new URLSearchParams();
+                body.append('chat_id', chatId);
+                body.append('text', message);
+                body.append('parse_mode', 'Markdown');
+                // Используем no-cors и form-urlencoded, чтобы избежать preflight/CORS-ошибок
+                await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body.toString(),
                 });
             }
             
             submitButton.addEventListener('click', async function() {
                 if (!checkFormFilled()) return;
                 
-                // Получаем контактные данные
                 const contactData = {
-                    firstName: document.getElementById('firstName').value.trim(),
-                    lastName: document.getElementById('lastName').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    whatsapp: document.getElementById('whatsapp').value.trim()
+                    firstName: firstNameEl.value.trim(),
+                    lastName:  lastNameEl.value.trim(),
+                    email:     emailEl.value.trim(),
+                    whatsapp:  whatsappEl.value.trim()
                 };
                 
-                // Формируем сообщение для Telegram
-                let message = `📋 *Новые контактные данные*\n\n` +
-                              `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}\n` +
-                              `📧 *Email:* ${contactData.email}\n` +
-                              `📱 *WhatsApp:* ${contactData.whatsapp}\n`;
+                const message = [
+                    '📋 *Новые контактные данные*',
+                    '',
+                    `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}`,
+                    `📧 *Email:* ${contactData.email}`,
+                    `📱 *WhatsApp:* ${contactData.whatsapp}`
+                ].join('\n');
                 
                 try {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Отправка...';
                     
-                    // 1. Отправляем сообщение в Telegram
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: message,
-                            parse_mode: 'Markdown'
-                        })
-                    });
+                    // 1) Telegram
+                    await sendToTelegram(message);
                     
-                    // 2. Отправляем данные в Google Forms
+                    // 2) Google Forms
                     await sendToGoogleForms(contactData);
                     
-                    // Показываем сообщение об успехе
+                    // Успех
                     successMessage.style.display = 'block';
                     submitButton.style.display = 'none';
                     
-                    // Очищаем форму
-                    document.getElementById('firstName').value = '';
-                    document.getElementById('lastName').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('whatsapp').value = '';
-                    
+                    // Очистка
+                    firstNameEl.value = '';
+                    lastNameEl.value  = '';
+                    emailEl.value     = '';
+                    whatsappEl.value  = '';
                 } catch (error) {
                     console.error('Ошибка:', error);
                     alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
@@ -333,11 +340,11 @@
                 }
             });
             
-            // Обработчики изменений полей формы
-            document.getElementById('firstName').addEventListener('input', updateSubmitButton);
-            document.getElementById('lastName').addEventListener('input', updateSubmitButton);
-            document.getElementById('email').addEventListener('input', updateSubmitButton);
-            document.getElementById('whatsapp').addEventListener('input', updateSubmitButton);
+            // Обработчики изменений
+            firstNameEl.addEventListener('input', updateSubmitButton);
+            lastNameEl .addEventListener('input', updateSubmitButton);
+            emailEl    .addEventListener('input', updateSubmitButton);
+            whatsappEl .addEventListener('input', updateSubmitButton);
             
             // Инициализация
             updateSubmitButton();
