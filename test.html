@@ -1,161 +1,354 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Контакты — DEBUG</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <style>
-    body{font-family:'Montserrat',sans-serif;background:#1f1f1f;color:#fff;margin:0;padding:0}
-    .wrap{max-width:860px;margin:0 auto;padding:24px}
-    .card{background:#2a2a2a;border-radius:14px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.3)}
-    h1{font-size:22px;margin:0 0 12px}
-    label{display:block;margin:12px 0 6px}
-    input,button,textarea{font-family:inherit;font-size:16px}
-    input,textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #555;background:#181818;color:#fff}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .row .col{display:block}
-    .actions{margin-top:16px;display:flex;gap:12px}
-    button{background:#00cc00;border:none;color:#111;padding:10px 16px;border-radius:999px;font-weight:700;cursor:pointer}
-    button.secondary{background:#888;color:#111}
-    pre{background:#0f0f0f;border-radius:10px;padding:12px;overflow:auto;max-height:260px}
-    .ok{color:#8dff8d}
-    .err{color:#ffb3b3}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оставьте свои контактные данные</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00cc00;
+            --secondary-color: #00aa00;
+            --dark-bg: rgba(0, 0, 0, 0.7);
+            --text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            background: #333;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .question-slide {
+            display: block;
+            animation: fadeIn 0.5s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+
+        .question-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: var(--text-shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .info-block {
+            background: rgba(0, 204, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-block p {
+            margin: 0;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .nav-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 204, 0, 0.4);
+        }
+
+        .nav-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        #submitButton {
+            background: #ff6600;
+        }
+
+        #submitButton:hover {
+            background: #e65c00;
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(0, 204, 0, 0.2);
+            border: 1px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .test-container {
+                padding: 20px 15px;
+                justify-content: flex-start;
+                min-height: auto;
+            }
+            
+            .question-title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .question-slide {
+                padding: 20px 15px;
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h1>Отладка отправки в Proxy + Google Forms</h1>
-      <div class="row">
-        <div class="col">
-          <label>Имя</label><input id="firstName" placeholder="Иван">
+    <div class="test-container">
+        <!-- Форма контактных данных -->
+        <div class="question-slide" id="question6">
+            <div class="question-header">
+                <div class="question-icon"><i class="fas fa-user"></i></div>
+                <div>
+                    <h2 class="question-title">Оставьте свои контактные данные</h2>
+                </div>
+            </div>
+            
+            <div class="info-block">
+                <p><i class="fas fa-info-circle"></i> Оставьте свои данные, и мы свяжемся с вами в ближайшее время.</p>
+            </div>
+            
+            <div class="options-container">
+                <div class="form-group">
+                    <label for="firstName">Имя</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Фамилия</label>
+                    <input type="text" id="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="example@mail.com">
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">Номер WhatsApp (с кодом страны)</label>
+                    <input type="tel" id="whatsapp" required placeholder="+79123456789">
+                </div>
+            </div>
         </div>
-        <div class="col">
-          <label>Фамилия</label><input id="lastName" placeholder="Иванов">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <label>Email</label><input id="email" type="email" placeholder="ivan@example.com">
-        </div>
-        <div class="col">
-          <label>WhatsApp</label><input id="whatsapp" placeholder="+77001234567">
-        </div>
-      </div>
 
-      <div class="row" style="margin-top:16px">
-        <div class="col">
-          <label>PROXY_URL</label><input id="proxyUrl" placeholder="https://<your-proxy-endpoint>">
+        <div class="nav-buttons">
+            <button class="nav-button" id="submitButton" disabled>Отправить результаты</button>
         </div>
-        <div class="col">
-          <label>APP_KEY (если задан в прокси)</label><input id="appKey" placeholder="<your_app_key>">
+
+        <!-- Сообщение об успешной отправке -->
+        <div class="success-message" id="successMessage">
+            <h3>✅ Спасибо! Ваши данные отправлены</h3>
+            <p>Мы свяжемся с вами в ближайшее время через WhatsApp</p>
         </div>
-      </div>
-
-      <div class="actions">
-        <button id="testProxy">Тест: только Proxy</button>
-        <button id="sendAll">Отправить (Proxy + Google Forms)</button>
-        <button class="secondary" id="clearLog">Очистить лог</button>
-      </div>
-
-      <h3>Лог</h3>
-      <pre id="log"></pre>
     </div>
-  </div>
 
-  <script>
-    const logEl = document.getElementById('log');
-    function log(msg, type='') {
-      const line = document.createElement('div');
-      line.className = type === 'err' ? 'err' : type === 'ok' ? 'ok' : '';
-      line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
-      logEl.appendChild(line);
-      logEl.scrollTop = logEl.scrollHeight;
-    }
-    function getVals() {
-      return {
-        firstName: document.getElementById('firstName').value.trim() || 'Test',
-        lastName:  document.getElementById('lastName').value.trim() || 'User',
-        email:     document.getElementById('email').value.trim() || 'test@example.com',
-        whatsapp:  document.getElementById('whatsapp').value.trim() || '+70000000000',
-        PROXY_URL: document.getElementById('proxyUrl').value.trim(),
-        APP_KEY:   document.getElementById('appKey').value.trim()
-      };
-    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Конфигурация Telegram бота (⚠ держать на фронте небезопасно)
+            const botToken = '7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM';
+            const chatId = '1208941214';
+            
+            // Конфигурация Google Forms — ИСПРАВЛЕННЫЙ endpoint
+            const googleFormsConfig = {
+                formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse',
+                fieldIds: {
+                    firstName: 'entry.575542865',
+                    lastName:  'entry.1529853970',
+                    email:     'entry.63446999',
+                    whatsapp:  'entry.826076263'
+                }
+            };
+            
+            const submitButton   = document.getElementById('submitButton');
+            const successMessage = document.getElementById('successMessage');
+            const firstNameEl = document.getElementById('firstName');
+            const lastNameEl  = document.getElementById('lastName');
+            const emailEl     = document.getElementById('email');
+            const whatsappEl  = document.getElementById('whatsapp');
+            
+            function checkFormFilled() {
+                const firstName = firstNameEl.value.trim();
+                const lastName  = lastNameEl.value.trim();
+                const email     = emailEl.value.trim();
+                const whatsapp  = whatsappEl.value.trim();
+                return firstName !== '' && lastName !== '' && email !== '' && whatsapp !== '';
+            }
+            
+            function updateSubmitButton() {
+                submitButton.disabled = !checkFormFilled();
+            }
+            
+            async function sendToGoogleForms(data) {
+                const formData = new URLSearchParams();
+                formData.append(googleFormsConfig.fieldIds.firstName, data.firstName);
+                formData.append(googleFormsConfig.fieldIds.lastName,  data.lastName);
+                formData.append(googleFormsConfig.fieldIds.email,     data.email);
+                formData.append(googleFormsConfig.fieldIds.whatsapp,  data.whatsapp);
+                // служебные поля (работает и без fbzx)
+                formData.append('fvv', '1');
+                formData.append('pageHistory', '0');
+                formData.append('submit', 'Submit');
+                
+                await fetch(googleFormsConfig.formUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData.toString(),
+                });
+            }
 
-    const googleForms = {
-      formUrl: "https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse",
-      fieldIds: {
-        firstName: "entry.575542865",
-        lastName:  "entry.1529853970",
-        email:     "entry.63446999",
-        whatsapp:  "entry.826076263"
-      }
-    };
-
-    async function sendToGoogleForms(data) {
-      const formData = new URLSearchParams();
-      formData.append(googleForms.fieldIds.firstName, data.firstName);
-      formData.append(googleForms.fieldIds.lastName,  data.lastName);
-      formData.append(googleForms.fieldIds.email,     data.email);
-      formData.append(googleForms.fieldIds.whatsapp,  data.whatsapp);
-      formData.append('fvv', '1'); formData.append('pageHistory','0'); formData.append('submit','Submit');
-
-      const resp = await fetch(googleForms.formUrl, {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
-      });
-      log('Google Forms отправлено (no-cors, статус скрыт браузером).', 'ok');
-      return resp;
-    }
-
-    async function sendToProxy(PROXY_URL, APP_KEY, message) {
-      log(`POST ${PROXY_URL}`);
-      try {
-        const resp = await fetch(PROXY_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(APP_KEY ? {'X-App-Key': APP_KEY} : {})
-          },
-          body: JSON.stringify({
-            chat_id: "1208941214",
-            text: message,
-            parse_mode: 'Markdown'
-          })
+            async function sendToTelegram(message) {
+                const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+                const body = new URLSearchParams();
+                body.append('chat_id', chatId);
+                body.append('text', message);
+                body.append('parse_mode', 'Markdown');
+                // Используем no-cors и form-urlencoded, чтобы избежать preflight/CORS-ошибок
+                await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: body.toString(),
+                });
+            }
+            
+            submitButton.addEventListener('click', async function() {
+                if (!checkFormFilled()) return;
+                
+                const contactData = {
+                    firstName: firstNameEl.value.trim(),
+                    lastName:  lastNameEl.value.trim(),
+                    email:     emailEl.value.trim(),
+                    whatsapp:  whatsappEl.value.trim()
+                };
+                
+                const message = [
+                    '📋 *Новые контактные данные*',
+                    '',
+                    `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}`,
+                    `📧 *Email:* ${contactData.email}`,
+                    `📱 *WhatsApp:* ${contactData.whatsapp}`
+                ].join('\n');
+                
+                try {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Отправка...';
+                    
+                    // 1) Telegram
+                    await sendToTelegram(message);
+                    
+                    // 2) Google Forms
+                    await sendToGoogleForms(contactData);
+                    
+                    // Успех
+                    successMessage.style.display = 'block';
+                    submitButton.style.display = 'none';
+                    
+                    // Очистка
+                    firstNameEl.value = '';
+                    lastNameEl.value  = '';
+                    emailEl.value     = '';
+                    whatsappEl.value  = '';
+                } catch (error) {
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Отправить результаты';
+                }
+            });
+            
+            // Обработчики изменений
+            firstNameEl.addEventListener('input', updateSubmitButton);
+            lastNameEl .addEventListener('input', updateSubmitButton);
+            emailEl    .addEventListener('input', updateSubmitButton);
+            whatsappEl .addEventListener('input', updateSubmitButton);
+            
+            // Инициализация
+            updateSubmitButton();
         });
-        const text = await resp.text().catch(()=>'');
-        log(`Proxy ответ: ${resp.status} ${resp.statusText} — ${text.slice(0,300)}`, resp.ok ? 'ok' : 'err');
-        return { ok: resp.ok, status: resp.status, text };
-      } catch (e) {
-        log('Fetch error: ' + String(e), 'err');
-        return { ok:false, status:0, text:String(e) };
-      }
-    }
-
-    document.getElementById('testProxy').onclick = async ()=>{
-      const v = getVals();
-      if (!v.PROXY_URL) return alert('Укажи PROXY_URL');
-      const message = "Тестовое сообщение через прокси (кнопка Тест)";
-      await sendToProxy(v.PROXY_URL, v.APP_KEY, message);
-    };
-
-    document.getElementById('sendAll').onclick = async ()=>{
-      const v = getVals();
-      if (!v.PROXY_URL) return alert('Укажи PROXY_URL');
-      const message = `📋 *Новые контактные данные*\n\n👤 *Имя:* ${v.firstName} ${v.lastName}\n📧 *Email:* ${v.email}\n📱 *WhatsApp:* ${v.whatsapp}`;
-      const r = await sendToProxy(v.PROXY_URL, v.APP_KEY, message);
-      if (r.ok) {
-        await sendToGoogleForms(v);
-        log('Готово ✅', 'ok');
-      } else {
-        log('Остановлено из-за ошибки прокси.', 'err');
-      }
-    };
-
-    document.getElementById('clearLog').onclick = ()=>{ logEl.innerHTML = ''; };
-  </script>
+    </script>
 </body>
 </html>
