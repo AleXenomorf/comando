@@ -258,17 +258,35 @@
             }
             
             async function sendToGoogleForms(data) {
-                const formData = new URLSearchParams();
-                formData.append(googleFormsConfig.fieldIds.firstName, data.firstName);
-                formData.append(googleFormsConfig.fieldIds.lastName, data.lastName);
-                formData.append(googleFormsConfig.fieldIds.email, data.email);
-                formData.append(googleFormsConfig.fieldIds.whatsapp, data.whatsapp);
+                const params = new URLSearchParams();
+                params.append(googleFormsConfig.fieldIds.firstName, data.firstName);
+                params.append(googleFormsConfig.fieldIds.lastName, data.lastName);
+                params.append(googleFormsConfig.fieldIds.email, data.email);
+                params.append(googleFormsConfig.fieldIds.whatsapp, data.whatsapp);
                 
-                await fetch(googleFormsConfig.formUrl, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
-                });
+                const url = `${googleFormsConfig.formUrl}?${params.toString()}`;
+                
+                // Три метода отправки для максимальной надежности
+                try {
+                    // Метод 1: Стандартный fetch
+                    await fetch(url, { 
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    });
+                    
+                    // Метод 2: Открытие в новой вкладке (для тестирования)
+                    window.open(url, '_blank');
+                    
+                    // Метод 3: Через image (обход CORS)
+                    new Image().src = url;
+                    
+                    console.log('Данные отправлены по URL:', url);
+                } catch (error) {
+                    console.error('Ошибка отправки:', error);
+                }
             }
             
             submitButton.addEventListener('click', async function() {
