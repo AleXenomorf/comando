@@ -89,6 +89,7 @@
       margin-bottom: 10px;
       color: #fff;
     }
+    .services-group legend small { font-weight: 600; opacity: .9; display: block; margin-top: 2px; }
     .services-list { display: grid; grid-template-columns: 1fr; gap: 8px; }
     .service-item {
       display: flex; align-items: flex-start; gap: 10px;
@@ -166,8 +167,17 @@
           <input type="tel" id="whatsapp" required placeholder="+79123456789">
         </div>
 
+        <!-- PROMO moved here -->
+        <div class="form-group">
+          <label for="promo">Промокод</label>
+          <input type="text" id="promo" placeholder="например: FIT2025" />
+        </div>
+
         <fieldset class="services-group">
-          <legend>Выберите услугу (обязательно)</legend>
+          <legend>
+            Пожалуйста, выберите хотя бы одну услугу
+            <small>выберите 1 вариант</small>
+          </legend>
           <div class="services-list" id="servicesList">
             <div class="service-item">
               <input type="checkbox" id="srv1" value="Для жителей Костаная — клуб «Аврора»">
@@ -198,11 +208,6 @@
             Пожалуйста, выберите хотя бы одну услугу.
           </div>
         </fieldset>
-
-        <div class="form-group">
-          <label for="promo">Промокод (только цифры)</label>
-          <input type="text" id="promo" inputmode="numeric" pattern="\\d*" placeholder="например, 123456" />
-        </div>
       </div>
     </div>
 
@@ -222,10 +227,6 @@
       const botToken = '7044064135:AAE-LHG2xOJ_9hMiG_WmAgD4VzJ9KZnK_JM';
       const chatId = '1208941214';
 
-      // Google Forms: используем обнаруженные IDs
-      // Имя: entry.575542865, Фамилия: entry.1529853970, Email: entry.63446999, WhatsApp: entry.826076263
-      // Оставшиеся 2 поля используем так: услуги -> entry.1735060909, промокод -> entry.3032165
-      // Если окажется наоборот — достаточно просто поменять эти две строки местами.
       const googleFormsConfig = {
         formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse',
         fieldIds: {
@@ -278,23 +279,19 @@
         const formData = new URLSearchParams();
         const ids = googleFormsConfig.fieldIds;
 
-        // Обязательные поля
         formData.append(ids.firstName, data.firstName);
         formData.append(ids.lastName,  data.lastName);
         formData.append(ids.email,     data.email);
         formData.append(ids.whatsapp,  data.whatsapp);
 
-        // Услуги — добавляем КАЖДУЮ выбранную отдельно
         for (const s of data.services) {
           formData.append(ids.services, s);
         }
 
-        // Промокод — только цифры
         if (data.promo) {
           formData.append(ids.promo, data.promo);
         }
 
-        // служебные поля (работает и без fbzx)
         formData.append('fvv', '1');
         formData.append('pageHistory', '0');
         formData.append('submit', 'Submit');
@@ -325,14 +322,14 @@
         if (!checkFormFilled()) { toggleServicesError(); return; }
 
         const services = servicesList.filter(cb => cb.checked).map(cb => cb.value);
-        const promoNumeric = (promoEl.value || '').replace(/\\D+/g, ''); // оставляем только цифры
+        const promoValue = (promoEl.value || '').trim(); // любые символы
 
         const contactData = {
           firstName: firstNameEl.value.trim(),
           lastName:  lastNameEl.value.trim(),
           email:     emailEl.value.trim(),
           whatsapp:  whatsappEl.value.trim(),
-          promo:     promoNumeric,
+          promo:     promoValue,
           services
         };
 
@@ -342,8 +339,8 @@
           `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}`,
           `📧 *Email:* ${contactData.email}`,
           `📱 *WhatsApp:* ${contactData.whatsapp}`,
-          `🧾 *Услуги:* ${services.join(', ') || '—'}`,
-          contactData.promo ? `🏷️ *Промокод:* ${contactData.promo}` : ''
+          `🏷️ *Промокод:* ${contactData.promo || '—'}`,
+          `🧾 *Услуги:* ${services.join(', ') || '—'}`
         ].filter(Boolean).join('\\n');
 
         try {
@@ -356,7 +353,6 @@
           successMessage.style.display = 'block';
           submitButton.style.display = 'none';
 
-          // Очистка
           [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => el.value = '');
           servicesList.forEach(cb => cb.checked = false);
         } catch (error) {
@@ -367,7 +363,6 @@
         }
       });
 
-      // Инициализация
       toggleServicesError();
       updateSubmitButton();
     });
