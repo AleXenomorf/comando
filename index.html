@@ -4730,65 +4730,57 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-<!-- MINIMAL CTA PATCH: safe href wiring only -->
+<!-- GHPAGES CTA WIRING: keeps your layout/text, only sets hrefs safely -->
 <script>
 (function(){
-  // Use a simple relative path without spaces to avoid 404 on many hosts
-  var FORM_PATH = "form.html";
+  // Build a relative URL to form.html that works under project pages (username.github.io/repo/)
+  var formURL = new URL('form.html', document.baseURI).toString();
 
-  function norm(s){ return (s||"").replace(/\s+/g," ").trim().toLowerCase(); }
+  function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  function lower(s){ return norm(s).toLowerCase(); }
 
-  // Find all links/buttons with the exact label
-  var nodes = Array.from(document.querySelectorAll("a, button, [role='button']"))
+  // Candidate CTAs: exact label "ЗАБРОНИРОВАТЬ МЕСТО!"
+  var nodes = Array.from(document.querySelectorAll('a,button,[role="button"]'))
     .filter(function(el){
-      var t = (el.textContent || el.value || "").replace(/\s+/g," ").trim();
-      return t === "ЗАБРОНИРОВАТЬ МЕСТО!";
+      var t = norm(el.textContent || el.value || '');
+      return t === 'ЗАБРОНИРОВАТЬ МЕСТО!';
     });
 
-  // Helper: detect which block we are inside by scanning ancestors' text
+  // Determine context by scanning ancestors for key phrases
   function detect(el){
-    var cur = el, depth = 0, txt;
+    var cur = el, depth = 0;
     while(cur && depth < 8){
-      txt = norm(cur.textContent || "");
-      if (txt.includes(norm("Для жителей Костаная")) || txt.includes(norm("Аврора"))) return "kostanay";
-      if (txt.includes(norm("Для жителей других городов и стран"))) return "global";
-      depth++; cur = cur.parentElement;
+      var t = lower(cur.textContent || '');
+      // Костанай / Аврора
+      if (t.includes('костан') || t.includes('аврора')) return 'kostanay';
+      // Другие города/страны / онлайн
+      if (t.includes('других город') || t.includes('других стран') || t.includes('онлайн')) return 'global';
+      cur = cur.parentElement; depth++;
     }
     return null;
   }
 
-  function build(ps){
-    try{
-      var u = new URL(FORM_PATH, document.baseURI);
-      u.searchParams.set("ps", ps);
-      u.searchParams.set("utm_source", "site");
-      u.searchParams.set("utm_medium", "button");
-      u.searchParams.set("utm_campaign", ps);
-      u.searchParams.set("cta", "ЗАБРОНИРОВАТЬ МЕСТО!");
-      return u.toString();
-    }catch(e){ return FORM_PATH; }
-  }
-
   nodes.forEach(function(el){
     var ps = detect(el);
-    if(!ps) return; // only touch the two target blocks
+    if(!ps) return; // touch only the two target CTAs
 
-    var href = build(ps);
+    var url = new URL(formURL);
+    url.searchParams.set('ps', ps);
+    url.searchParams.set('utm_source', 'site');
+    url.searchParams.set('utm_medium', 'button');
+    url.searchParams.set('utm_campaign', ps);
+    url.searchParams.set('cta', 'ЗАБРОНИРОВАТЬ МЕСТО!');
 
-    if (el.tagName && el.tagName.toLowerCase() === "a"){
-      el.setAttribute("href", href);
-      el.setAttribute("target", "_blank");
-      el.setAttribute("rel", "noopener");
+    if (el.tagName && el.tagName.toLowerCase() === 'a'){
+      el.setAttribute('href', url.toString());
+      el.setAttribute('target', '_blank');
+      el.setAttribute('rel', 'noopener');
     } else {
-      // don't change the label, only make sure click opens form
-      el.addEventListener("click", function(e){
-        // don't interfere with other handlers; just try to open form in new tab
-        window.open(href, "_blank", "noopener");
-      });
+      el.addEventListener('click', function(){ window.open(url.toString(), '_blank', 'noopener'); });
     }
 
-    // small trace (non-blocking)
-    try{ el.setAttribute("data-ps", ps); }catch(_){}
+    // mark for debug
+    el.setAttribute('data-ps', ps);
   });
 })();
 </script>
