@@ -4730,53 +4730,55 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-<!-- SAFE CTA PATCH (conservative): only fills empty/# hrefs; keeps layout & text -->
+<!-- NO-404 CTA PATCH (dynamic base): only fills empty/# hrefs -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
   function lower(s){ return norm(s).toLowerCase(); }
-  var formURL = new URL('form.html', document.baseURI).toString();
 
-  function detect(el){
-    var cur = el, depth = 0;
-    while(cur && depth < 8){
-      var t = lower(cur.textContent || '');
-      if (t.includes('костан') || t.includes('аврора')) return 'kostanay';
-      if (t.includes('других город') || t.includes('других стран') || t.includes('онлайн')) return 'global';
-      cur = cur.parentElement; depth++;
-    }
-    return null;
-  }
+  // Compute absolute path for form.html that works for both user and project pages
+  (function(){
+    var segs = location.pathname.split('/').filter(Boolean);
+    var repo = (segs.length > 0 && !segs[0].includes('.')) ? segs[0] : ''; // heuristics: first segment is repo for project pages
+    var absForm = '/' + (repo ? repo + '/' : '') + 'form.html';
 
-  Array.from(document.querySelectorAll('a,button,[role="button"]')).forEach(function(el){
-    var label = norm(el.textContent || el.value || '');
-    if (label !== 'ЗАБРОНИРОВАТЬ МЕСТО!') return;
-
-    var ps = detect(el);
-    if(!ps) return;
-
-    var url = new URL(formURL);
-    url.searchParams.set('ps', ps);
-    url.searchParams.set('utm_source', 'site');
-    url.searchParams.set('utm_medium', 'button');
-    url.searchParams.set('utm_campaign', ps);
-    url.searchParams.set('cta', 'ЗАБРОНИРОВАТЬ МЕСТО!');
-
-    if (el.tagName && el.tagName.toLowerCase() === 'a'){
-      var old = el.getAttribute('href');
-      // Only patch if href is empty or "#"
-      if (!old || old === '#' || lower(old) === 'javascript:void(0)'){
-        el.setAttribute('href', url.toString());
-        el.setAttribute('target', '_blank');
-        el.setAttribute('rel', 'noopener');
+    function detect(el){
+      var cur = el, depth = 0;
+      while(cur && depth < 8){
+        var t = lower(cur.textContent || '');
+        if (t.includes('костан') || t.includes('аврора')) return 'kostanay';
+        if (t.includes('других город') || t.includes('других стран') || t.includes('онлайн')) return 'global';
+        cur = cur.parentElement; depth++;
       }
-    } else {
-      // For non-anchors, add a non-invasive click that never prevents default
-      el.addEventListener('click', function(){
-        window.open(url.toString(), '_blank', 'noopener');
-      });
+      return null;
     }
-  });
+
+    Array.from(document.querySelectorAll('a,button,[role="button"]')).forEach(function(el){
+      var label = norm(el.textContent || el.value || '');
+      if (label !== 'ЗАБРОНИРОВАТЬ МЕСТО!') return;
+
+      var ps = detect(el);
+      if(!ps) return;
+
+      var url = new URL(absForm, location.origin);
+      url.searchParams.set('ps', ps);
+      url.searchParams.set('utm_source', 'site');
+      url.searchParams.set('utm_medium', 'button');
+      url.searchParams.set('utm_campaign', ps);
+      url.searchParams.set('cta', 'ЗАБРОНИРОВАТЬ МЕСТО!');
+
+      if (el.tagName && el.tagName.toLowerCase() === 'a'){
+        var old = el.getAttribute('href');
+        if (!old || old === '#' || lower(old) === 'javascript:void(0)'){
+          el.setAttribute('href', url.toString());
+          el.setAttribute('target', '_blank');
+          el.setAttribute('rel', 'noopener');
+        }
+      } else {
+        el.addEventListener('click', function(){ window.open(url.toString(), '_blank', 'noopener'); });
+      }
+    });
+  })();
 });
 </script>
 </body>
