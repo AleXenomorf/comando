@@ -240,8 +240,8 @@ function checkFormFilled() { return true; }
         submitButton.disabled = !checkFormFilled();
       }
 
-      submitButton.disabled = false; }));
-      [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
+      submitButton.disabled = false;
+[firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
         el.addEventListener('input', updateSubmitButton);
       });
 
