@@ -96,5 +96,24 @@
   }
 })();
 </script>
+
+<!-- PACKAGE APPLY: read from localStorage and inject into Google Form hidden field -->
+<script>
+(function(){
+  try{
+    var stored = localStorage.getItem('selectedPackageShort') || '';
+    // Try to find hidden input by name
+    var field = document.querySelector('input[name="entry.1735060909"], input#servicesHidden, input[name="services"]');
+    if(field && (!field.value || field.value === '')){
+      field.value = stored;
+    }
+    // Optional preview block
+    var prev = document.getElementById('preview') || document.querySelector('.preview');
+    if(prev && stored){
+      prev.textContent = 'Выбранный пакет: ' + stored;
+    }
+  }catch(e){}
+})();
+</script>
 </body>
 </html>
