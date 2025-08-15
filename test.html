@@ -18,22 +18,21 @@
     .btn{display:inline-block;background:#ff6600;border:none;color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;cursor:pointer}
     .btn[disabled]{background:#888;cursor:not-allowed}
     .ok{display:none;margin-top:16px;padding:14px;border-radius:10px;background:rgba(0,204,0,.15);border:1px solid var(--primary);text-align:center}
-    .services-group{display:none !important}
   </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card">
     <h1>Оставьте свои контактные данные</h1>
-    <p class="lead">Оставьте свои данные, выберите услугу и (при наличии) укажите промокод. Мы свяжемся с вами в ближайшее время.</p>
+    <p class="lead">Форма принимает любые символы. Останемся на странице и покажем «спасибо».</p>
 
-    <!-- Скрытый iframe: остаёмся на странице -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-    <!-- ВАЖНО: novalidate чтобы браузер не блокировал (напр., Email без @) -->
+    <!-- novalidate: отключаем встроенную проверку браузера полностью -->
     <form id="gform"
           action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
           method="POST" target="hidden_iframe" novalidate>
+
       <div class="row">
         <label for="firstName">Имя</label>
         <input id="firstName" name="entry.575542865" type="text" />
@@ -43,20 +42,19 @@
         <input id="lastName" name="entry.1529853970" type="text" />
       </div>
       <div class="row">
-        <label for="email">Email</label>
-        <!-- Делаем text, а не email, чтобы НИКОГДА не блокировалось валидатором -->
+        <label for="email">Email (любой текст)</label>
         <input id="email" name="entry.63446999" type="text" />
       </div>
       <div class="row">
-        <label for="whatsapp">Номер WhatsApp (с кодом страны)</label>
-        <input id="whatsapp" name="entry.826076263" type="tel" />
+        <label for="whatsapp">Номер WhatsApp (любой текст)</label>
+        <input id="whatsapp" name="entry.826076263" type="text" />
       </div>
       <div class="row">
-        <label for="promo">Промокод</label>
-        <input id="promo" name="entry.3032165" type="text" placeholder="любой текст" />
+        <label for="promo">Промокод (любой текст)</label>
+        <input id="promo" name="entry.3032165" type="text" />
       </div>
 
-      <!-- «Выбор пакета»: короткий ярлык с главной (или полный, или дефолт) -->
+      <!-- «Выбор пакета»: короткий лейбл с index (ps) или полный (package) или дефолт -->
       <input type="hidden" id="servicesHidden" name="entry.1735060909"
              value="Онлайн базовый — 150 000/3мес (65 000/мес)" />
 
@@ -89,25 +87,23 @@
     }catch(e){}
     return ps || full || 'Онлайн базовый — 150 000/3мес (65 000/мес)';
   }
-
-  // Записываем выбранный пакет
+  // Положить ярлык в скрытое поле
   var hidden = document.getElementById('servicesHidden');
   if (hidden) hidden.value = pickLabel();
 
-  // Мини-валидация: нужен только WhatsApp (любые символы разрешены)
+  // НИКАКОЙ JS-валидации: принимаем любые символы, пустые тоже.
+  // Просто блокируем двойной клик на время отправки, и показ «спасибо» при ответе.
   var form = document.getElementById('gform');
   var btn  = document.getElementById('sendBtn');
-  form.addEventListener('submit', function(ev){
-    var wa = document.getElementById('whatsapp').value.trim();
-    if (!wa) {
-      ev.preventDefault();
-      alert('Укажите номер WhatsApp, пожалуйста.');
-      return false;
-    }
-    btn.disabled = true; // предотвратить повторные клики
+  form.addEventListener('submit', function(){
+    btn.disabled = true;
+    // Фолбэк: если CSP/браузер не даёт событие load для iframe, всё равно показать «спасибо»
+    setTimeout(function(){
+      try{ document.getElementById('ok').style.display = 'block'; btn.disabled = false; }catch(e){}
+    }, 1500);
   });
 
-  // Показ «спасибо» после ответа Google в скрытом iframe
+  // Нормальный путь: когда загрузится ответ Google в скрытом iframe
   var iframe = document.getElementById('hidden_iframe');
   iframe.addEventListener('load', function(){
     document.getElementById('ok').style.display = 'block';
