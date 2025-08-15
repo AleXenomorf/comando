@@ -4711,5 +4711,54 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  function inferPackageFromElement(el) {
+    // from explicit data attribute
+    if (el && el.dataset && el.dataset.package) return el.dataset.package.trim();
+    // from pricing column
+    const col = el.closest && el.closest('.pricing-column');
+    if (col) {
+      const nameEl = col.querySelector('.pricing-name');
+      const priceEl = col.querySelector('.pricing-price');
+      if (nameEl && priceEl) return (nameEl.textContent.trim() + ' — ' + priceEl.textContent.trim());
+    }
+    // from known labels around
+    const txt = (el.textContent || '').toLowerCase();
+    if (txt.includes('забронировать')) return 'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца';
+    return '';
+  }
+
+  function withPackage(url, pack) {
+    try {
+      const u = new URL(url, location.href);
+      if (u.pathname.endsWith('test.html') && !u.searchParams.get('package')) {
+        if (pack) u.searchParams.set('package', pack);
+      }
+      return u.pathname + (u.search ? u.search : '') + (u.hash || '');
+    } catch (e) { return url; }
+  }
+
+  // Delegate clicks on links/buttons going to test.html
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest('a, button');
+    if (!a) return;
+    // Determine target URL
+    let href = a.getAttribute('href') || '';
+    const onclick = a.getAttribute('onclick') || '';
+    let isTest = href.includes('test.html') || /test\.html/.test(onclick);
+    if (!isTest) return;
+
+    const pack = inferPackageFromElement(a);
+    if (!pack) return; // don't block normal nav; but we won't add package
+
+    e.preventDefault();
+    const target = href && href !== '#' ? href : 'test.html';
+    location.href = withPackage(target, pack);
+  }, false);
+});
+</script>
+
 </body>
 </html>
