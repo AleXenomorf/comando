@@ -3,121 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Оставьте свои контактные данные.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <title>Форма заявки</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
   <style>
-    :root { --primary:#00cc00; --secondary:#00aa00; }
-    body{margin:0;font-family:Montserrat,system-ui,Arial;color:#fff;background:#333}
-    .wrap{max-width:900px;margin:0 auto;padding:32px;min-height:100vh;display:flex;align-items:flex-start}
-    .card{background:rgba(255,255,255,.08);padding:24px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35);width:100%}
-    h1{font-family:'Playfair Display',serif;color:var(--primary);text-align:center;margin:0 0 10px}
-    .lead{opacity:.9;margin:0 0 18px;text-align:center}
+    :root { --ok:#00cc66; }
+    body{margin:0;font-family:Montserrat,system-ui,Arial;color:#fff;background:#2c2c2c}
+    .wrap{max-width:900px;margin:0 auto;padding:28px;min-height:100vh}
+    .card{background:#333;border-radius:14px;padding:20px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    h1{margin:0 0 10px}
     label{display:block;margin:10px 0 6px;font-weight:600}
-    input[type="text"],input[type="text"]{width:100%;padding:12px;border-radius:10px;border:2px solid #ddd;box-sizing:border-box}
-    .row{margin-bottom:14px}
-    .btn{display:inline-block;background:#ff6600;border:none;color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;cursor:pointer}
-    .btn[disabled]{background:#888;cursor:not-allowed}
-    .ok{display:none;margin-top:16px;padding:14px;border-radius:10px;background:rgba(0,204,0,.15);border:1px solid var(--primary);text-align:center}
-    .preview{margin:8px 0 16px;opacity:.9}
+    input[type="text"]{width:100%;padding:12px;border-radius:10px;border:2px solid #ccc;box-sizing:border-box}
+    .btn{display:inline-block;background:#ff6600;border:none;color:#fff;padding:12px 22px;border-radius:999px;font-weight:800;cursor:pointer}
+    .ok{display:none;margin-top:12px;padding:12px;border-radius:10px;background:rgba(0,204,102,.15);border:1px solid var(--ok);text-align:center}
+    .preview{margin:6px 0 12px;opacity:.95}
   </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card">
     <h1>Оставьте свои контактные данные</h1>
-<p id="chosenPreview" style="margin:-4px 0 12px;opacity:.9"></p>
-    
-
-    <div id="preview" class="preview"></div>
+    <p id="preview" class="preview"></p>
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
     <form id="gform"
-          action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
-          method="POST" target="hidden_iframe" novalidate>
+      action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
+      method="POST" target="hidden_iframe" novalidate>
 
-      <div class="row">
-        <label for="firstName">Имя</label>
-        <input id="firstName" name="entry.575542865" type="text" />
-      </div>
-      <div class="row">
-        <label for="lastName">Фамилия</label>
-        <input id="lastName" name="entry.1529853970" type="text" />
-      </div>
-      <div class="row">
-        <label for="email">Email (любой текст)</label>
-        <input id="email" name="entry.63446999" type="text" />
-      </div>
-      <div class="row">
-        <label for="whatsapp">Номер WhatsApp (любой текст)</label>
-        <input id="whatsapp" name="entry.826076263" type="text" />
-      </div>
-      <div class="row">
-        <label for="promo">Промокод (любой текст)</label>
-        <input id="promo" name="entry.3032165" type="text" />
-      </div>
+      <label>Имя</label>
+      <input type="text" name="entry.575542865">
 
-      <!-- «Выбор пакета»: кладём ИМЕННО текст выбранной кнопки с главной -->
-      <input type="hidden" id="servicesHidden" name="entry.1735060909" id="servicesHidden" value="">
+      <label>Фамилия</label>
+      <input type="text" name="entry.1529853970">
 
-      <div style="margin-top:16px">
+      <label>Email</label>
+      <input type="text" name="entry.63446999">
+
+      <label>Номер WhatsApp (с кодом страны)</label>
+      <input type="text" name="entry.826076263">
+
+      <label>Промокод</label>
+      <input type="text" name="entry.3032165">
+
+      <!-- Выбор пакета (ТОЛЬКО короткий ps) -->
+      <input type="hidden" id="servicesHidden" name="entry.1735060909" value="">
+
+      <div style="margin-top:14px">
         <button type="submit" class="btn" id="sendBtn">Оставить заявку</button>
       </div>
     </form>
-<div id="okMessage" style="display:none;margin-top:12px;padding:12px;border-radius:10px;background:rgba(0,204,0,.15);border:1px solid #00cc00;color:#fff;text-align:center">✅ Спасибо! Заявка отправлена.</div>
 
-    <div id="ok" class="ok">✅ Спасибо! Заявка отправлена. Мы свяжемся с вами в WhatsApp.</div>
+    <div id="ok" class="ok">✅ Спасибо! Заявка отправлена.</div>
   </div>
 </div>
 
 <script>
 (function(){
-  function getParam(name){
-    try { return new URLSearchParams(location.search).get(name) || ''; }
-    catch(e){ return ''; }
+  function g(n){ try{ return new URLSearchParams(location.search).get(n) || ''; }catch(e){ return ''; } }
+  var ps = g('ps');
+  if(!ps){
+    try { var s = localStorage.getItem('selectedPackageShort'); if(s){ ps = s; localStorage.removeItem('selectedPackageShort'); } } catch(e){}
   }
-  var ps  = getParam('ps');
-  var pkg = getParam('package');
-  if (!ps) {
-    try { var s = localStorage.getItem('selectedPackageShort'); if (s) { ps = s; localStorage.removeItem('selectedPackageShort'); } } catch(e){}
-  }
-  if (!pkg) {
-    try { var f = localStorage.getItem('selectedPackage'); if (f) { pkg = f; localStorage.removeItem('selectedPackage'); } } catch(e){}
-  }
-  var chosen = ps || pkg || '';
-  var hidden = document.getElementById('servicesHidden');
-  if (hidden) hidden.value = chosen;
+  document.getElementById('servicesHidden').value = ps;
+  document.getElementById('preview').textContent = ps
+    ? ('Выбранный пакет: ' + ps)
+    : '⚠️ Выбор пакета не определён — вернитесь и нажмите нужную кнопку.';
 
-  var pv = document.getElementById('chosenPreview');
-  if (pv) {
-    pv.textContent = chosen
-      ? ('Вы выбрали: ' + chosen)
-      : 'Выбор пакета не определён — вернитесь на главную и нажмите нужную кнопку.';
-  }
+  var form = document.getElementById('gform');
+  var btn  = document.getElementById('sendBtn');
 
-  var form = document.querySelector('form[action*="docs.google.com/forms"][method="POST"]');
-  var btn  = document.querySelector('#sendBtn, #submitButton, button[type="submit"]');
-  if (form){
-    form.addEventListener('submit', function(){
-      if (btn) btn.disabled = true;
-      setTimeout(function(){
-        var ok = document.getElementById('okMessage');
-        if (ok) ok.style.display = 'block';
-        if (btn) btn.disabled = false;
-      }, 1800);
-    });
-  }
-  var iframe = document.getElementById('hidden_iframe');
-  if (iframe){
-    iframe.addEventListener('load', function(){
-      var ok = document.getElementById('okMessage');
-      if (ok) ok.style.display = 'block';
-      if (btn) btn.disabled = false;
-    });
-  }
+  form.addEventListener('submit', function(){
+    btn.disabled = true;
+    setTimeout(function(){ document.getElementById('ok').style.display='block'; btn.disabled = false; }, 1600);
+  });
+  document.getElementById('hidden_iframe').addEventListener('load', function(){
+    document.getElementById('ok').style.display='block';
+    btn.disabled = false;
+  });
 })();
 </script>
 
+<!-- Guard to show a friendly message if opened directly without ps -->
+<script>
+/* GUARD_ADDED */
+(function(){
+  var qs = new URLSearchParams(location.search);
+  if(!qs.get("ps")){
+    try{
+      var box = document.getElementById('preview');
+      if(box){ box.textContent = "Откройте эту страницу через кнопку с сайта: так мы передадим выбранный пакет автоматически."; }
+    }catch(e){}
+  }
+})();
+</script>
 </body>
 </html>
-
