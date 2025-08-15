@@ -26,7 +26,8 @@
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-    <div id="package-preview" style="font-weight:bold;margin:1em 0;font-size:1.2em;"></div>
+    
+<div id="package-preview" style="font-weight:700; margin: 1em 0; font-size:1.05em;"></div>
 <form id="gform"
       action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
       method="POST" target="hidden_iframe" novalidate>
@@ -67,7 +68,7 @@
   }
   document.getElementById('servicesHidden').value = ps;
   document.getElementById('preview').textContent = ps
-    ? ('Выбранный пакет: ' + ps)
+    ? (': ' + ps)
     : '⚠️ Выбор пакета не определён — вернитесь и нажмите нужную кнопку.';
 
   var form = document.getElementById('gform');
@@ -98,26 +99,38 @@
 })();
 </script>
 
-<!-- PACKAGE APPLY v2 -->
+
+
+<!-- PACKAGE APPLY (with visible preview) -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-  var p = new URLSearchParams(location.search).get('ps');
-  var store = localStorage.getItem('selectedPackageShort');
-  var pkg = p || store || '';
-  if(pkg){
-    var prev = document.getElementById('package-preview');
-    if(prev){ prev.textContent = 'Вы выбрали: ' + pkg; }
+  var params = new URLSearchParams(location.search);
+  var pkg = params.get('ps') || localStorage.getItem('selectedPackageShort') || sessionStorage.getItem('lastSelectedPackageShort') || '';
+  var preview = document.getElementById('package-preview');
+  if (preview){
+    if (pkg && pkg.trim().length > 0) {
+      preview.textContent = 'Вы выбрали: ' + pkg;
+      preview.style.display = '';
+    } else {
+      preview.style.display = 'none';
+    }
   }
   var form = document.querySelector('form');
   if (!form) return;
   var field = form.querySelector('input[name="entry.1735060909"]');
   if (!field){
     field = document.createElement('input');
-    field.type='hidden'; field.name='entry.1735060909';
+    field.type = 'hidden';
+    field.name = 'entry.1735060909';
     form.appendChild(field);
   }
-  if(pkg) field.value = pkg;
-  try{ if(pkg) localStorage.setItem('selectedPackageShort', pkg); }catch(_){}
+  if (pkg) field.value = pkg;
+  try{
+    if (pkg){
+      localStorage.setItem('selectedPackageShort', pkg);
+      sessionStorage.setItem('lastSelectedPackageShort', pkg);
+    }
+  }catch(_){}
 });
 </script>
 </body>
