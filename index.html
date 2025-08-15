@@ -4693,6 +4693,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       const url = 'test.html' + (pack ? ('?package=' + encodeURIComponent(pack)) : '');
+      try { localStorage.setItem('selectedPackage', pack); } catch (e) {}
       location.href = url;
     }, { once: false });
   }
@@ -4755,6 +4756,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     e.preventDefault();
     const target = href && href !== '#' ? href : 'test.html';
+    try { localStorage.setItem('selectedPackage', pack); } catch (e) {}
     location.href = withPackage(target, pack);
   }, false);
 });
