@@ -54,7 +54,7 @@
         <input id="promo" name="entry.3032165" type="text" />
       </div>
 
-      <!-- «Выбор пакета»: короткий лейбл с index (ps) или полный (package) или дефолт -->
+      <!-- «Выбор пакета»: короткий лейбл из index (ps) или полный (package) или дефолт -->
       <input type="hidden" id="servicesHidden" name="entry.1735060909"
              value="Онлайн базовый — 150 000/3мес (65 000/мес)" />
 
@@ -91,19 +91,18 @@
   var hidden = document.getElementById('servicesHidden');
   if (hidden) hidden.value = pickLabel();
 
-  // НИКАКОЙ JS-валидации: принимаем любые символы, пустые тоже.
-  // Просто блокируем двойной клик на время отправки, и показ «спасибо» при ответе.
+  // НИКАКОЙ JS-валидации — просто отправляем и показываем "спасибо"
   var form = document.getElementById('gform');
   var btn  = document.getElementById('sendBtn');
   form.addEventListener('submit', function(){
     btn.disabled = true;
-    // Фолбэк: если CSP/браузер не даёт событие load для iframe, всё равно показать «спасибо»
+    // Фолбэк: показать «спасибо», даже если iframe не даст событие load (например, из-за CSP)
     setTimeout(function(){
       try{ document.getElementById('ok').style.display = 'block'; btn.disabled = false; }catch(e){}
-    }, 1500);
+    }, 1800);
   });
 
-  // Нормальный путь: когда загрузится ответ Google в скрытом iframe
+  // Нормальный путь: после ответа Google в скрытом iframe
   var iframe = document.getElementById('hidden_iframe');
   iframe.addEventListener('load', function(){
     document.getElementById('ok').style.display = 'block';
