@@ -3689,7 +3689,7 @@
 <div class="main-text">
 <div class="button-container">
 <a href="#" target="_blank">
-<button class="go-test" data-package="Базовый формат онлайн сопровождения — 150 000 тг за три месяца" style="position: absolute; top: 150px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
+<button style="position: absolute; top: 150px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
          Подать заявку
         </button>
 </a>
@@ -3727,13 +3727,13 @@
 </div>
 <div class="program-selector" style="text-align: left;">
 <div class="program-text" style="text-align: left;">Для жителей <span class="highlight-kostanay">Костаная</span> спец предложение!<br/>Тренировки в мини-группе в фитнес-клубе "Аврора!"</div>
-<button class="program-button go-test" data-package="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
+<button class="program-button" onclick="window.location.href='test.html'">
        ЗАБРОНИРОВАТЬ МЕСТО!
       </button>
 <div class="program-text" style="text-align: left;">
        Для жителей других городов и стран!
       </div>
-<button class="program-button go-test" data-package="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
+<button class="program-button" onclick="window.location.href='test.html'">
        ЗАБРОНИРОВАТЬ МЕСТО!
       </button>
 </div>
@@ -4672,170 +4672,64 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  function bindButton(btn, pack) {
-    if (!btn) return;
-    btn.classList.add('go-test');
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (!pack && btn.dataset && btn.dataset.package) {
-        pack = btn.dataset.package;
-      }
-      // Try to infer from pricing column if not provided
-      if (!pack) {
-        const col = btn.closest('.pricing-column');
-        if (col) {
-          const nameEl = col.querySelector('.pricing-name');
-          const priceEl = col.querySelector('.pricing-price');
-          if (nameEl && priceEl) {
-            pack = (nameEl.textContent.trim() + ' — ' + priceEl.textContent.trim());
-          }
-        }
-      }
-      const url = 'test.html' + (pack ? ('?package=' + encodeURIComponent(pack)) : '');
-      try { localStorage.setItem('selectedPackage', pack); } catch (e) {}
-      location.href = url;
-    }, { once: false });
-  }
-
-  // Bind explicit go-test buttons with data-package
-  document.querySelectorAll('.go-test').forEach(function(btn) {
-    bindButton(btn, btn.dataset ? btn.dataset.package : '');
-  });
-
-  // Also bind pricing buttons inside pricing columns (auto-infer name+price)
-  document.querySelectorAll('.pricing-column .pricing-button').forEach(function(btn) {
-    if (!btn.classList.contains('go-test')) {
-      bindButton(btn, '');
-    }
-  });
-});
-</script>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  function inferPackageFromElement(el) {
-    // from explicit data attribute
-    if (el && el.dataset && el.dataset.package) return el.dataset.package.trim();
-    // from pricing column
-    const col = el.closest && el.closest('.pricing-column');
-    if (col) {
-      const nameEl = col.querySelector('.pricing-name');
-      const priceEl = col.querySelector('.pricing-price');
-      if (nameEl && priceEl) return (nameEl.textContent.trim() + ' — ' + priceEl.textContent.trim());
-    }
-    // from known labels around
+/* GO-TEST PACKAGE PROPAGATION */
+(function(){
+  function inferShortLabel(el){
+    const ds = el.dataset || {};
+    if (ds.packageShort && ds.packageShort.trim()) return ds.packageShort.trim();
+    const card = el.closest && el.closest('.pricing-column, .card, section, article, .tariff, .plan');
+    const titleEl = card ? (card.querySelector('.pricing-name, h3, .title, .card-title') || card) : el;
+    const priceEl = card ? card.querySelector('.pricing-price, .price, .cost') : null;
+    const title = (titleEl ? titleEl.textContent : el.textContent || '').trim();
+    const price = (priceEl ? priceEl.textContent : '').trim();
     const txt = (el.textContent || '').toLowerCase();
-    if (txt.includes('забронировать')) return 'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца';
-    return '';
+    if (/костанай|аврора/i.test(title) || /забронировать место/i.test(txt)) return 'Костанай — мини‑группа (Аврора)';
+    if (/друг(их|ие) город|стран/i.test(title)) return 'Онлайн для других стран';
+    if (/базовый формат/i.test(title)) return 'Онлайн базовый — 150 000/3мес (65 000/мес)';
+    if (/пробная неделя/i.test(title) && /10[\s\.]*000/.test(price)) return 'Пробная неделя — 10 000';
+    if (/пробная неделя/i.test(title) && /15[\s\.]*000/.test(price)) return 'Пробная неделя — 15 000';
+    return title || el.textContent.trim();
   }
-
-  function withPackage(url, pack) {
-    try {
-      const u = new URL(url, location.href);
-      if (u.pathname.endsWith('test.html') && !u.searchParams.get('package')) {
-        if (pack) u.searchParams.set('package', pack);
-      }
-      return u.pathname + (u.search ? u.search : '') + (u.hash || '');
-    } catch (e) { return url; }
+  function inferFullPackage(el){
+    const ds = el.dataset || {};
+    if (ds.package && ds.package.trim()) return ds.package.trim();
+    const card = el.closest && el.closest('.pricing-column, .card, section, article, .tariff, .plan');
+    const titleEl = card ? (card.querySelector('.pricing-name, h3, .title, .card-title') || card) : el;
+    const priceEl = card ? card.querySelector('.pricing-price, .price, .cost') : null;
+    const title = (titleEl ? titleEl.textContent : el.textContent || '').trim();
+    const price = (priceEl ? priceEl.textContent : '').trim();
+    if (/костанай|аврора/i.test(title)) return 'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца';
+    if (/друг(их|ие) город|стран/i.test(title)) return 'Для жителей других стран';
+    if (/базовый формат/i.test(title)) return 'Базовый формат онлайн сопровождения — 150 000 тг за три месяца';
+    if (/пробная неделя/i.test(title) && /10[\s\.]*000/.test(price)) return 'Пробная неделя — 10 000 тг';
+    if (/пробная неделя/i.test(title) && /15[\s\.]*000/.test(price)) return 'Пробная неделя — 15 000 тг';
+    return 'Базовый формат онлайн сопровождения — 150 000 тг за три месяца';
   }
-
-  // Delegate clicks on links/buttons going to test.html
-  document.addEventListener('click', function(e) {
+  document.addEventListener('click', function(e){
     const a = e.target.closest('a, button');
     if (!a) return;
-    // Determine target URL
-    let href = a.getAttribute('href') || '';
-    const onclick = a.getAttribute('onclick') || '';
-    let isTest = href.includes('test.html') || /test\.html/.test(onclick);
-    if (!isTest) return;
-
-    const pack = inferPackageFromElement(a);
-    if (!pack) return; // don't block normal nav; but we won't add package
-
-    e.preventDefault();
-    const target = href && href !== '#' ? href : 'test.html';
-    try { localStorage.setItem('selectedPackage', pack); } catch (e) {}
-    location.href = withPackage(target, pack);
-  }, false);
-});
-</script>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  function text(el, sel) {
-    const n = el && el.querySelector(sel);
-    return n ? n.textContent.trim() : '';
-  }
-  function inferFromPricingColumn(el) {
-    const col = el.closest && el.closest('.pricing-column');
-    if (!col) return '';
-    const name = text(col, '.pricing-name');
-    const price = text(col, '.pricing-price');
-    if (name && price) return name + ' — ' + price;
-    return '';
-  }
-  function inferPackage(el) {
-    // 1) explicit data-package
-    if (el && el.dataset && el.dataset.package && el.dataset.package.trim()) return el.dataset.package.trim();
-    // 2) from pricing column
-    const fromCol = inferFromPricingColumn(el);
-    if (fromCol) return fromCol;
-    // 3) Fallbacks by button text
-    const label = (el.textContent || '').toLowerCase();
-    if (label.includes('забронировать')) return 'Мини-группа в фитнес-клубе «Аврора» — 200.000 тенге за три месяца';
-    if (label.includes('подать заявку')) {
-      // Try to find nearest previous .pricing-column
-      let prev = el.closest('.pricing-section') || document;
-      const columns = Array.from(prev.querySelectorAll('.pricing-column'));
-      for (const c of columns) {
-        if (c.contains(el)) return inferFromPricingColumn(el);
-      }
-      // if not inside pricing, treat as базовый по умолчанию
-      return 'Базовый формат онлайн сопровождения — 150.000 тенге за три месяца';
-    }
-    return '';
-  }
-  function withPackage(url, pack) {
-    try {
-      const u = new URL(url, location.href);
-      if (u.pathname.endsWith('test.html')) {
-        if (pack) u.searchParams.set('package', pack);
-      }
-      return u.pathname + (u.search ? u.search : '') + (u.hash || '');
-    } catch (e) { return url; }
-  }
-  function navigateWithPackage(targetEl, targetUrl) {
-    const pack = inferPackage(targetEl);
-    try { localStorage.setItem('selectedPackage', pack || ''); } catch(e) {}
-    if (!targetUrl || targetUrl === '#') targetUrl = 'test.html';
-    const finalUrl = withPackage(targetUrl, pack);
-    if (pack) { try { console.log('[package]', pack); } catch (e) {} }
-    location.href = finalUrl;
-  }
-
-  // 1) Bind all pricing buttons
-  document.querySelectorAll('.pricing-column .pricing-button').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      navigateWithPackage(btn, (btn.getAttribute('href') || btn.getAttribute('data-href') || 'test.html'));
-    });
-  });
-
-  // 2) Generic delegation for any button/link leading to test.html
-  document.addEventListener('click', function(e) {
-    const a = e.target.closest('a, button');
-    if (!a) return;
-    let href = a.getAttribute('href') || '';
-    const onclick = a.getAttribute('onclick') || '';
-    const goesToTest = (href && href.includes('test.html')) || /test\.html/.test(onclick);
+    const href = (a.getAttribute('href') || '').trim();
+    const onclick = (a.getAttribute('onclick') || '').trim();
+    const goesToTest = /test\.html/i.test(href) || /test\.html/i.test(onclick);
     if (!goesToTest) return;
     e.preventDefault();
-    navigateWithPackage(a, href);
+    var full = inferFullPackage(a);
+    var shortLabel = inferShortLabel(a);
+    try {
+      localStorage.setItem('selectedPackage', full);
+      localStorage.setItem('selectedPackageShort', shortLabel || full);
+    } catch(e) {}
+    var url = href && href !== '#' ? href : 'test.html';
+    try {
+      var u = new URL(url, location.href);
+      if (full)  u.searchParams.set('package', full);
+      if (shortLabel) u.searchParams.set('ps', shortLabel);
+      location.href = u.toString();
+    } catch(err) {
+      location.href = url + (url.indexOf('?')>-1 ? '&' : '?') + 'package=' + encodeURIComponent(full) + '&ps=' + encodeURIComponent(shortLabel||full);
+    }
   }, false);
-});
+})();
 </script>
 
 </body>
