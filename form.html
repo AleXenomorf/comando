@@ -82,19 +82,5 @@
   });
 })();
 </script>
-
-<!-- Guard to show a friendly message if opened directly without ps -->
-<script>
-/* GUARD_ADDED */
-(function(){
-  var qs = new URLSearchParams(location.search);
-  if(!qs.get("ps")){
-    try{
-      var box = document.getElementById('preview');
-      if(box){ box.textContent = "Откройте эту страницу через кнопку с сайта: так мы передадим выбранный пакет автоматически."; }
-    }catch(e){}
-  }
-})();
-</script>
 </body>
 </html>
