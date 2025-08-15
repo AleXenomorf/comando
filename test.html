@@ -26,7 +26,7 @@
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-    <div id="package-preview" style="font-weight:bold; margin: 1em 0; font-size:1.2em;"></div>
+    <div id="package-preview" style="font-weight:bold;margin:1em 0;font-size:1.2em;"></div>
 <form id="gform"
       action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
       method="POST" target="hidden_iframe" novalidate>
@@ -98,36 +98,27 @@
 })();
 </script>
 
-<!-- PACKAGE APPLY: read from localStorage and inject into Google Form hidden field -->
-<script>
-(function(){
-  try{
-    var stored = localStorage.getItem('selectedPackageShort') || '';
-    // Try to find hidden input by name
-    var field = document.querySelector('input[name="entry.1735060909"], input#servicesHidden, input[name="services"]');
-    if(field && (!field.value || field.value === '')){
-      field.value = stored;
-    }
-    // Optional preview block
-    var prev = document.getElementById('preview') || document.querySelector('.preview');
-    if(prev && stored){
-      prev.textContent = 'Выбранный пакет: ' + stored;
-    }
-  }catch(e){}
-})();
-</script>
-
+<!-- PACKAGE APPLY v2 -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-    var pkg = localStorage.getItem('selectedPackageShort');
-    if(pkg){
-        var previewEl = document.getElementById('package-preview');
-        if(previewEl){
-            previewEl.textContent = "Вы выбрали: " + pkg;
-        }
-    }
+  var p = new URLSearchParams(location.search).get('ps');
+  var store = localStorage.getItem('selectedPackageShort');
+  var pkg = p || store || '';
+  if(pkg){
+    var prev = document.getElementById('package-preview');
+    if(prev){ prev.textContent = 'Вы выбрали: ' + pkg; }
+  }
+  var form = document.querySelector('form');
+  if (!form) return;
+  var field = form.querySelector('input[name="entry.1735060909"]');
+  if (!field){
+    field = document.createElement('input');
+    field.type='hidden'; field.name='entry.1735060909';
+    form.appendChild(field);
+  }
+  if(pkg) field.value = pkg;
+  try{ if(pkg) localStorage.setItem('selectedPackageShort', pkg); }catch(_){}
 });
 </script>
-
 </body>
 </html>
