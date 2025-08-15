@@ -311,10 +311,9 @@ function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || presel
 
       function checkFormFilled() {
         const firstName = firstNameEl.value.trim();
-        const lastName  = lastNameEl.value.trim();
-        const email     = emailEl.value.trim();
         const whatsapp  = whatsappEl.value.trim();
-        return firstName && lastName && email && whatsapp && atLeastOneService();
+        // минимум: имя и WhatsApp
+        return !!(firstName && whatsapp);
       }
 
       function updateSubmitButton() {
@@ -418,8 +417,8 @@ function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || presel
       });
 
       preselectServiceFromPackage();
-      toggleServicesError();
       updateSubmitButton();
+      submitButton.disabled = !checkFormFilled();
     });
   </script>
 </body>
