@@ -4214,7 +4214,7 @@
 </div>
 <div class="contacts-content">
 <h2 class="contacts-title">
-       Наши контакты.
+       Наши контакты
       </h2>
 <div class="social-links">
 <a class="social-link instagram" href="https://instagram.com/dorohov.health" target="_blank">
@@ -4671,130 +4671,92 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-<!-- PACKAGE WIRING: maps buttons to specific package labels and remembers selection -->
+<!-- PACKAGE WIRING (STRICT v2: real classes .program-button, .program-text, .pricing-column, .pricing-button) -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
   function low(s){ return norm(s).toLowerCase(); }
 
-  // Helpers to find nearby info
-  function closest(el, sel){
-    try { return el.closest(sel); } catch(e){ return null; }
-  }
-  function findTextWithin(el, sel){
-    var node = el ? el.querySelector(sel) : null;
-    return node ? norm(node.textContent||"") : "";
-  }
-
-  // Detect package for a clicked element
-  function detectPackage(el){
-    var txt = low(el.textContent || el.value || "");
-    // Pricing column context
-    var col = closest(el, '.pricing-column') || closest(el, '.price-card') || null;
-    if(col){
-      var title = low(findTextWithin(col, 'h3, .pricing-name, .bold-header'));
-      var price = low(findTextWithin(col, '.pricing-price'));
-      if(title.includes('базовый формат онлайн сопровождения') || title.includes('базовый')){
-        if(price.includes('150.000') || price.includes('150 000')) return 'Базовый 150 000';
-      }
-      if(title.includes('мини-группа') || title.includes('мини группа') || title.includes('аврора')){
-        if(price.includes('200.000') || price.includes('200 000')) return 'Мини группа 200 000';
-      }
-      if(title.includes('пробная неделя')){
-        if(price.includes('10.000') || price.includes('10 000')) return 'Пробная 10 000';
-        if(price.includes('15.000') || price.includes('15 000')) return 'Пробная 15 000';
-      }
-    }
-
-    // Program text blocks
-    var container = closest(el, '.program, .program-block, .program-section, section, div') || document.body;
-    var ctx = low(container.textContent||"");
-    if(ctx.includes('для жителей костана') || ctx.includes('костанай')){
-      return 'Для жителей костаная';
-    }
-    if(ctx.includes('для жителей других городов и стран')){
-      return 'Жители других стран';
-    }
-
-    // Fallback for the hero "Подать заявку" button (first one outside pricing/program blocks)
-    if(txt === 'подать заявку'){
-      // Avoid if within pricing/prog blocks
-      if(!col && !ctx.includes('для жителей костана') && !ctx.includes('для жителей других городов и стран')){
-        return 'Заявка';
-      }
-    }
-
-    // If explicit "ЗАБРОНИРОВАТЬ МЕСТО!" without pricing or other markers, try to infer from nearby program text element
-    if(txt.indexOf('забронировать место') !== -1){
-      // scan ancestors up to 10 levels for hints
-      var cur = el, depth=0;
-      while(cur && depth<10){
-        var t = low(cur.textContent||"");
-        if(t.includes('для жителей костана') || t.includes('костанай')) return 'Для жителей костаная';
-        if(t.includes('для жителей других городов и стран')) return 'Жители других стран';
-        cur = cur.parentElement; depth++;
-      }
-    }
-
-    return null; // unknown
+  function set(btn, pkg){
+    if(!btn || !pkg) return;
+    btn.setAttribute('data-package', pkg);
+    // capture to override inline onclick="window.location.href='test.html'"
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      try{ localStorage.setItem('selectedPackageShort', pkg); }catch(_){}
+      var u = new URL('test.html', location.href);
+      u.searchParams.set('ps', pkg);
+      location.href = u.toString();
+    }, true);
   }
 
-  // Hook buttons
-  var nodes = Array.from(document.querySelectorAll('a,button,[role="button"]'))
-    .filter(function(el){
-      var t = low(el.textContent || el.value || '');
-      t = t.replace(/[!¡‼️]/g, '');
-      return t.includes('забронировать место') || t === 'подать заявку' || t === 'подать заявку';
-    });
-
-  // Track if we already assigned the hero "Заявка" to avoid multiple
-  var heroAssigned = false;
-
-  nodes.forEach(function(el){
-    var pkg = detectPackage(el);
-
-    // For ambiguous "Подать заявку" with no context, assign "Заявка" to the first such button
-    if(!pkg){
-      var t = low(el.textContent||el.value||'');
-      if(t === 'подать заявку' && !heroAssigned){
-        pkg = 'Заявка'; heroAssigned = true;
-      }
-    }
-    if(!pkg) return; // only process mapped buttons
-
-    // Save and navigate to test.html
-    function go(){
-      try { localStorage.setItem('selectedPackageShort', pkg); } catch(e){}
-      // Respect existing onclick navigation if it goes to test.html; otherwise set it
-      var href = (el.getAttribute('href')||'') || '';
-      if(!href || href === '#' || href.toLowerCase().indexOf('test.html') !== -1){
-        window.location.href = 'test.html';
-      } else {
-        // Let native link happen
-      }
-    }
-
-    // Attach safely; don't block other handlers
-    el.addEventListener('click', function(ev){
-      // If it's an anchor with another href (not test.html), still set selection and let it proceed
-      try { localStorage.setItem('selectedPackageShort', pkg); } catch(e){}
-      // If no href or pointing to test.html, navigate ourselves
-      var tag = (el.tagName||'').toLowerCase();
-      if(tag !== 'a'){
-        ev.preventDefault();
-        go();
-      } else {
-        var href = (el.getAttribute('href')||'');
-        if(!href || href === '#' || href.toLowerCase().indexOf('test.html') !== -1){
-          ev.preventDefault();
-          go();
+  // HERO: first visible button exactly "Подать заявку" not inside pricing or program
+  (function(){
+    var all = Array.from(document.querySelectorAll('button, a, [role="button"], .mobile-main-button'));
+    for (var i=0;i<all.length;i++){
+      var el = all[i];
+      var t = low(norm(el.textContent || el.value || ''));
+      if (t === 'подать заявку'){
+        var inPricing = el.closest('.pricing-column, .pricing-container');
+        var inProgram = el.closest('.program-text, .program-block, .program-section, .program, .program-container');
+        if(!inPricing && !inProgram){
+          set(el, 'Заявка');
+          break;
         }
       }
-    }, false);
+    }
+  })();
 
-    // Mark for debug
-    el.setAttribute('data-package', pkg);
-  });
+  // PROGRAM: bind each .program-button based on nearby .program-text
+  (function(){
+    var btns = document.querySelectorAll('.program-button');
+    btns.forEach(function(btn){
+      var cont = btn.closest('section, .program, .program-block, .program-section, div') || btn.parentElement;
+      var txtEl = cont ? cont.querySelector('.program-text') : null;
+      var txt = low(norm((txtEl ? txtEl.textContent : cont ? cont.textContent : '') || ''));
+      if (txt.includes('костаная') || txt.includes('костанай') || txt.includes('жителей костана')){
+        set(btn, 'Для жителей костаная');
+      } else if (txt.includes('других городов и стран')){
+        set(btn, 'Жители других стран');
+      }
+    });
+  })();
+
+  // PRICING: for each .pricing-column, map by title + price; bind .pricing-button inside
+  (function(){
+    var cols = document.querySelectorAll('.pricing-column');
+    cols.forEach(function(col){
+      var titleEl = col.querySelector('h3.pricing-name.bold-header, .pricing-name.bold-header, h3.bold-header, h3');
+      var priceEl = col.querySelector('.pricing-price');
+      var title = low(norm(titleEl ? titleEl.textContent : ''));
+      var price = low(norm(priceEl ? priceEl.textContent : ''));
+      var pkg = null;
+
+      if ((title.includes('базовый формат онлайн сопровождения') || title.includes('базовый')) &&
+          (price.includes('150.000') || price.includes('150 000'))) {
+        pkg = 'Базовый 150 000';
+      } else if ((title.includes('мини-группа') || title.includes('мини группа') || title.includes('аврора')) &&
+          (price.includes('200.000') || price.includes('200 000'))) {
+        pkg = 'Мини группа 200 000';
+      } else if (title.includes('пробная неделя') &&
+          (price.includes('10.000') || price.includes('10 000'))) {
+        pkg = 'Пробная 10 000';
+      } else if (title.includes('пробная неделя') &&
+          (price.includes('15.000') || price.includes('15 000'))) {
+        pkg = 'Пробная 15 000';
+      }
+
+      if (pkg){
+        var btns = col.querySelectorAll('.pricing-button, a, button');
+        btns.forEach(function(b){
+          var t = low(norm(b.textContent || b.value || ''));
+          if (t.includes('подать заявку') || t.includes('забронировать место')){
+            set(b, pkg);
+          }
+        });
+      }
+    });
+  })();
 });
 </script>
 </body>
