@@ -4670,5 +4670,132 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 </script>
 
+
+<!-- PACKAGE WIRING: maps buttons to specific package labels and remembers selection -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  function low(s){ return norm(s).toLowerCase(); }
+
+  // Helpers to find nearby info
+  function closest(el, sel){
+    try { return el.closest(sel); } catch(e){ return null; }
+  }
+  function findTextWithin(el, sel){
+    var node = el ? el.querySelector(sel) : null;
+    return node ? norm(node.textContent||"") : "";
+  }
+
+  // Detect package for a clicked element
+  function detectPackage(el){
+    var txt = low(el.textContent || el.value || "");
+    // Pricing column context
+    var col = closest(el, '.pricing-column') || closest(el, '.price-card') || null;
+    if(col){
+      var title = low(findTextWithin(col, 'h3, .pricing-name, .bold-header'));
+      var price = low(findTextWithin(col, '.pricing-price'));
+      if(title.includes('базовый формат онлайн сопровождения') || title.includes('базовый')){
+        if(price.includes('150.000') || price.includes('150 000')) return 'Базовый 150 000';
+      }
+      if(title.includes('мини-группа') || title.includes('мини группа') || title.includes('аврора')){
+        if(price.includes('200.000') || price.includes('200 000')) return 'Мини группа 200 000';
+      }
+      if(title.includes('пробная неделя')){
+        if(price.includes('10.000') || price.includes('10 000')) return 'Пробная 10 000';
+        if(price.includes('15.000') || price.includes('15 000')) return 'Пробная 15 000';
+      }
+    }
+
+    // Program text blocks
+    var container = closest(el, '.program, .program-block, .program-section, section, div') || document.body;
+    var ctx = low(container.textContent||"");
+    if(ctx.includes('для жителей костана') || ctx.includes('костанай')){
+      return 'Для жителей костаная';
+    }
+    if(ctx.includes('для жителей других городов и стран')){
+      return 'Жители других стран';
+    }
+
+    // Fallback for the hero "Подать заявку" button (first one outside pricing/program blocks)
+    if(txt === 'подать заявку'){
+      // Avoid if within pricing/prog blocks
+      if(!col && !ctx.includes('для жителей костана') && !ctx.includes('для жителей других городов и стран')){
+        return 'Заявка';
+      }
+    }
+
+    // If explicit "ЗАБРОНИРОВАТЬ МЕСТО!" without pricing or other markers, try to infer from nearby program text element
+    if(txt.indexOf('забронировать место') !== -1){
+      // scan ancestors up to 10 levels for hints
+      var cur = el, depth=0;
+      while(cur && depth<10){
+        var t = low(cur.textContent||"");
+        if(t.includes('для жителей костана') || t.includes('костанай')) return 'Для жителей костаная';
+        if(t.includes('для жителей других городов и стран')) return 'Жители других стран';
+        cur = cur.parentElement; depth++;
+      }
+    }
+
+    return null; // unknown
+  }
+
+  // Hook buttons
+  var nodes = Array.from(document.querySelectorAll('a,button,[role="button"]'))
+    .filter(function(el){
+      var t = low(el.textContent || el.value || '');
+      t = t.replace(/[!¡‼️]/g, '');
+      return t.includes('забронировать место') || t === 'подать заявку' || t === 'подать заявку';
+    });
+
+  // Track if we already assigned the hero "Заявка" to avoid multiple
+  var heroAssigned = false;
+
+  nodes.forEach(function(el){
+    var pkg = detectPackage(el);
+
+    // For ambiguous "Подать заявку" with no context, assign "Заявка" to the first such button
+    if(!pkg){
+      var t = low(el.textContent||el.value||'');
+      if(t === 'подать заявку' && !heroAssigned){
+        pkg = 'Заявка'; heroAssigned = true;
+      }
+    }
+    if(!pkg) return; // only process mapped buttons
+
+    // Save and navigate to test.html
+    function go(){
+      try { localStorage.setItem('selectedPackageShort', pkg); } catch(e){}
+      // Respect existing onclick navigation if it goes to test.html; otherwise set it
+      var href = (el.getAttribute('href')||'') || '';
+      if(!href || href === '#' || href.toLowerCase().indexOf('test.html') !== -1){
+        window.location.href = 'test.html';
+      } else {
+        // Let native link happen
+      }
+    }
+
+    // Attach safely; don't block other handlers
+    el.addEventListener('click', function(ev){
+      // If it's an anchor with another href (not test.html), still set selection and let it proceed
+      try { localStorage.setItem('selectedPackageShort', pkg); } catch(e){}
+      // If no href or pointing to test.html, navigate ourselves
+      var tag = (el.tagName||'').toLowerCase();
+      if(tag !== 'a'){
+        ev.preventDefault();
+        go();
+      } else {
+        var href = (el.getAttribute('href')||'');
+        if(!href || href === '#' || href.toLowerCase().indexOf('test.html') !== -1){
+          ev.preventDefault();
+          go();
+        }
+      }
+    }, false);
+
+    // Mark for debug
+    el.setAttribute('data-package', pkg);
+  });
+});
+</script>
 </body>
 </html>
