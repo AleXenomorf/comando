@@ -4672,61 +4672,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 <script>
-/* CONCISE-LABEL PROPAGATION (ps) */
+/* FORCE-PS-REDIRECT */
 (function(){
-  function clean(s){return (s||'').replace(/\s+/g,' ').trim();}
-  function norm(s){return clean(s).toLowerCase();}
+  function clean(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  function norm(s){ return clean(s).toLowerCase(); }
   function findCard(el){
     return el.closest('.card, .pricing-column, .tariff, .plan, article, section, .item, .product, .offer, .row, .col, .box') || el.parentElement || el;
   }
-  function conciseLabelFrom(card){
-    const t = norm(card.innerText || card.textContent || '');
-    if ((/костанай/.test(t) || /аврора/.test(t)) && /200\s*000/.test(t)) return 'Мини группа 200 000';
-    if (/других\s+город|других\s+стран|городов\s+и\s+стран/.test(t))        return 'Онлайн (другие страны)';
-    if (/базов/.test(t) && /150\s*000/.test(t))                              return 'Онлайн базовый 150 000';
-    if ((/мини[\-\s]?групп/.test(t) || /аврора/.test(t)) && (/200\s*000/.test(t) || /80\s*000/.test(t))) return 'Мини группа 200 000';
-    if (/пробн/.test(t) && /10\s*000/.test(t))                               return 'Пробная неделя 10 000';
-    if (/пробн/.test(t) && /15\s*000/.test(t))                               return 'Пробная неделя 15 000';
-    const h = card.querySelector('h1,h2,h3,h4,.title,.card-title,.pricing-name,.heading');
-    return clean(h ? h.textContent : (card.textContent || ''));
+  function labelFromCard(card){
+    const t = norm(card ? (card.innerText || card.textContent || '') : '');
+    if ((/костанай/.test(t) || /аврора/.test(t)) && /спец|мини/.test(t) && /200\s*000/.test(t)) return 'Костанай Аврора мини-группа';
+    if ((/мини[\-\s]?групп/.test(t) || /аврора/.test(t)) && /200\s*000/.test(t)) return 'Мини группа 200 000';
+    if (/других\s+город|других\s+стран|городов\s+и\s+стран/.test(t)) return 'Онлайн (другие страны)';
+    if (/базов/.test(t) && /150\s*000/.test(t)) return 'Онлайн базовый 150 000';
+    if (/пробн/.test(t) && /недел/.test(t) && /10\s*000/.test(t)) return 'Пробная неделя 10 000';
+    if (/пробн/.test(t) && /недел/.test(t) && /15\s*000/.test(t)) return 'Пробная неделя 15 000';
+    return '';
   }
-  document.querySelectorAll('a,button').forEach(function(n){
-    const href = (n.getAttribute('href')||'').trim();
-    const onclick = (n.getAttribute('onclick')||'');
-    const toTest = /(?:^|\/)test(?:\.html)?(?:[#?].*)?$/i.test(href) || /test\.html/i.test(onclick);
-    if (!toTest) return;
-    if (!n.dataset.packageShort || !n.dataset.packageShort.trim()){
-      const lbl = conciseLabelFrom(findCard(n));
-      n.dataset.packageShort = lbl;
-    }
-    if (!n.dataset.package || !n.dataset.package.trim()){
-      n.dataset.package = n.dataset.packageShort;
-    }
-  });
   document.addEventListener('click', function(ev){
     const trg = ev.target.closest('a,button');
     if (!trg) return;
     const href = (trg.getAttribute('href')||'').trim();
     const onclick = (trg.getAttribute('onclick')||'');
-    const toTest = /(?:^|\/)test(?:\.html)?(?:[#?].*)?$/i.test(href) || /test\.html/i.test(onclick);
-    if (!toTest) return;
-    ev.preventDefault(); ev.stopPropagation();
-    const ps = clean(trg.dataset.packageShort || '');
-    const pkg = clean(trg.dataset.package || ps);
-    try{
-      localStorage.setItem('selectedPackageShort', ps);
-      localStorage.setItem('selectedPackage', pkg);
-    }catch(_){}
-    const url = href || 'test.html';
-    try{
-      const u = new URL(url, location.href);
-      if (ps)  u.searchParams.set('ps', ps);
-      if (pkg) u.searchParams.set('package', pkg);
-      location.href = u.toString();
-    }catch(e){
-      const qs = (url.indexOf('?')>-1?'&':'?') + 'ps=' + encodeURIComponent(ps) + '&package=' + encodeURIComponent(pkg);
-      location.href = url + qs;
+    const isTestLink = /(?:^|\/)test(?:[\w\-]*)(?:\.html)?(?:[#?].*)?$/i.test(href) || /test[\w\-]*\.html/i.test(onclick);
+    const wantsTest = isTestLink || trg.matches('[data-go="test"]');
+    if (!wantsTest) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    const card = findCard(trg);
+    let ps = clean((trg.dataset && trg.dataset.packageShort) ? trg.dataset.packageShort : '');
+    if (!ps) ps = labelFromCard(card);
+    if (!ps){
+      alert('Не удалось определить пакет для этой кнопки. Добавьте data-package-short на кнопку.');
+      return;
     }
+    try { localStorage.setItem('selectedPackageShort', ps); } catch(e){}
+    const url = new URL('test_1_patched_exact_ps.html', location.href);
+    url.searchParams.set('ps', ps);
+    location.href = url.toString();
   }, true);
 })();
 </script>
