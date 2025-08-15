@@ -4730,59 +4730,72 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
+<!-- GOOGLE FORM WIRING: by button text + surrounding block text -->
 <script>
-(function () {
+document.addEventListener('DOMContentLoaded', function(){
   var FORM_ID = "1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA";
   var FIELD_PS = "entry.1735060909";
   var BASE = "https://docs.google.com/forms/d/e/" + FORM_ID + "/viewform?usp=pp_url";
 
-  function norm(s){ return (s||"").replace(/\s+/g," ").trim().toLowerCase(); }
+  function norm(s){ return (s||"").replace(/\s+/g," ").trim(); }
+  function low(s){ return norm(s).toLowerCase(); }
 
-  function buildUrl(ps){
+  function build(ps){
     var u = new URL(BASE);
     u.searchParams.set(FIELD_PS, ps);
-    u.searchParams.set("utm_source", "site");
-    u.searchParams.set("utm_medium", "button");
+    u.searchParams.set("utm_source","site");
+    u.searchParams.set("utm_medium","button");
     u.searchParams.set("utm_campaign", ps);
-    u.searchParams.set("cta", "ЗАБРОНИРОВАТЬ МЕСТО!");
+    u.searchParams.set("cta","ЗАБРОНИРОВАТЬ МЕСТО!");
     return u.toString();
   }
 
-  var allButtons = Array.from(document.querySelectorAll("a, button, [role='button']"));
-
-  allButtons.forEach(function (el) {
-    var btnText = norm(el.textContent || el.value || "");
-    if (btnText !== "забронировать место!") return;
-
-    var containerText = norm(el.closest("section, div")?.textContent || "");
-    var ps = null;
-    if (containerText.includes("для жителей костана")) {
-      ps = "kostanay";
-    } else if (containerText.includes("для жителей других городов и стран")) {
-      ps = "global";
+  function detectPS(el){
+    // climb up to 10 ancestors, check their text
+    var cur = el, depth = 0;
+    while (cur && depth < 10){
+      var t = low(cur.textContent || "");
+      if (t.includes("жителей костана") || t.includes("костанай") || t.includes("аврора")) return "kostanay";
+      if (t.includes("жителей других городов и стран") || t.includes("других город") || t.includes("других стран") || t.includes("онлайн")) return "global";
+      cur = cur.parentElement; depth++;
     }
+    return null;
+  }
 
-    if (!ps) return;
-
-    var href = buildUrl(ps);
-
-    if (el.tagName.toLowerCase() === "a") {
-      el.href = href;
-      el.target = "_blank";
-      el.rel = "noopener";
-    } else {
-      el.addEventListener("click", function(){
-        window.open(href, "_blank", "noopener");
-      });
-    }
-
-    el.addEventListener("click", function(){
-      try {
-        localStorage.setItem("selectedPackageShort", ps);
-      } catch(e){}
+  // Buttons whose text contains "забронировать место" (not strict equality)
+  var nodes = Array.from(document.querySelectorAll("a,button,[role='button']"))
+    .filter(function(el){
+      var t = low(el.textContent || el.value || "");
+      // remove punctuation for robust match
+      t = t.replace(/[!¡‼️]/g, "");
+      return t.includes("забронировать место");
     });
+
+  nodes.forEach(function(el, i){
+    try{
+      var ps = detectPS(el);
+      if(!ps) return;
+
+      var href = build(ps);
+
+      // Always set href to Google Form to avoid old broken links
+      if ((el.tagName||"").toLowerCase() === "a"){
+        el.setAttribute("href", href);
+        el.setAttribute("target","_blank");
+        el.setAttribute("rel","noopener");
+      } else {
+        el.addEventListener("click", function(e){ window.open(href, "_blank", "noopener"); });
+      }
+
+      el.addEventListener("click", function(){
+        try{ localStorage.setItem("selectedPackageShort", ps); }catch(e){}
+      });
+
+      // debug mark
+      el.setAttribute("data-ps", ps);
+    }catch(e){ /* ignore */ }
   });
-})();
+});
 </script>
 </body>
 </html>
