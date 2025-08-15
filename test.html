@@ -101,36 +101,45 @@
 
 
 
-<!-- PACKAGE APPLY (with visible preview) -->
+
+<!-- PACKAGE APPLY (strict preview formatting) -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   var params = new URLSearchParams(location.search);
-  var pkg = params.get('ps') || localStorage.getItem('selectedPackageShort') || sessionStorage.getItem('lastSelectedPackageShort') || '';
+  var raw = params.get('ps') || localStorage.getItem('selectedPackageShort') || sessionStorage.getItem('lastSelectedPackageShort') || '';
+  // Clean leading punctuation/whitespace like ": Пробная 15 000"
+  var pkg = (raw || '').replace(/^[\s:—\-]+/, '').trim();
   var preview = document.getElementById('package-preview');
-  if (preview){
-    if (pkg && pkg.trim().length > 0) {
+
+  if (pkg && pkg.length > 0) {
+    if (preview) {
       preview.textContent = 'Вы выбрали: ' + pkg;
       preview.style.display = '';
-    } else {
-      preview.style.display = 'none';
+    }
+  } else {
+    if (preview && preview.parentNode) {
+      preview.parentNode.removeChild(preview); // remove entirely so ничего не мелькает
     }
   }
+
+  // Hidden field for Google Form
   var form = document.querySelector('form');
   if (!form) return;
   var field = form.querySelector('input[name="entry.1735060909"]');
-  if (!field){
+  if (!field) {
     field = document.createElement('input');
     field.type = 'hidden';
     field.name = 'entry.1735060909';
     form.appendChild(field);
   }
   if (pkg) field.value = pkg;
-  try{
-    if (pkg){
+
+  try {
+    if (pkg) {
       localStorage.setItem('selectedPackageShort', pkg);
       sessionStorage.setItem('lastSelectedPackageShort', pkg);
     }
-  }catch(_){}
+  } catch (_) {}
 });
 </script>
 </body>
