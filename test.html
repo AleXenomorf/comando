@@ -282,7 +282,7 @@
         return '';
       }
 
-      function preselectServiceFromPackage() {
+      function preselectServiceFromPackage(){
         const params = new URLSearchParams(location.search);
         let pkg = params.get('package') || '';
         try {
@@ -291,10 +291,15 @@
             if (stored) { pkg = stored; localStorage.removeItem('selectedPackage'); }
           }
         } catch(e) {}
-
-        const mapped = normalizeToOption(pkg);
-        if (!mapped) return false;
-
+        const options = [
+          'Для жителей Костаная — клуб «Аврора»',
+          'Для жителей других стран',
+          'Базовый формат онлайн сопровождения — 150 000 тг за три месяца',
+          'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца',
+          'Пробная неделя — 10 000 тг',
+          'Пробная неделя — 15 000 тг'
+        ];
+        const mapped = normalizeToOption(pkg) || options[2]; // default to базовый
         const all = document.querySelectorAll('#servicesList input[type="checkbox"]');
         let matched = false;
         all.forEach(cb => {
@@ -305,6 +310,12 @@
             cb.checked = false;
           }
         });
+        if (!matched) {
+          // If mapped didn't match due to slight differences, pick exact default checkbox by value
+          all.forEach(cb => {
+            if (cb.value.trim() === options[2]) { cb.checked = true; matched = true; }
+          });
+        }
         return matched;
       }
 function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || preselectServiceFromPackage(); }
