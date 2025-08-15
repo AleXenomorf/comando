@@ -4762,5 +4762,81 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  function text(el, sel) {
+    const n = el && el.querySelector(sel);
+    return n ? n.textContent.trim() : '';
+  }
+  function inferFromPricingColumn(el) {
+    const col = el.closest && el.closest('.pricing-column');
+    if (!col) return '';
+    const name = text(col, '.pricing-name');
+    const price = text(col, '.pricing-price');
+    if (name && price) return name + ' — ' + price;
+    return '';
+  }
+  function inferPackage(el) {
+    // 1) explicit data-package
+    if (el && el.dataset && el.dataset.package && el.dataset.package.trim()) return el.dataset.package.trim();
+    // 2) from pricing column
+    const fromCol = inferFromPricingColumn(el);
+    if (fromCol) return fromCol;
+    // 3) Fallbacks by button text
+    const label = (el.textContent || '').toLowerCase();
+    if (label.includes('забронировать')) return 'Мини-группа в фитнес-клубе «Аврора» — 200.000 тенге за три месяца';
+    if (label.includes('подать заявку')) {
+      // Try to find nearest previous .pricing-column
+      let prev = el.closest('.pricing-section') || document;
+      const columns = Array.from(prev.querySelectorAll('.pricing-column'));
+      for (const c of columns) {
+        if (c.contains(el)) return inferFromPricingColumn(el);
+      }
+      // if not inside pricing, treat as базовый по умолчанию
+      return 'Базовый формат онлайн сопровождения — 150.000 тенге за три месяца';
+    }
+    return '';
+  }
+  function withPackage(url, pack) {
+    try {
+      const u = new URL(url, location.href);
+      if (u.pathname.endsWith('test.html')) {
+        if (pack) u.searchParams.set('package', pack);
+      }
+      return u.pathname + (u.search ? u.search : '') + (u.hash || '');
+    } catch (e) { return url; }
+  }
+  function navigateWithPackage(targetEl, targetUrl) {
+    const pack = inferPackage(targetEl);
+    try { localStorage.setItem('selectedPackage', pack || ''); } catch(e) {}
+    if (!targetUrl || targetUrl === '#') targetUrl = 'test.html';
+    const finalUrl = withPackage(targetUrl, pack);
+    if (pack) { try { console.log('[package]', pack); } catch (e) {} }
+    location.href = finalUrl;
+  }
+
+  // 1) Bind all pricing buttons
+  document.querySelectorAll('.pricing-column .pricing-button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      navigateWithPackage(btn, (btn.getAttribute('href') || btn.getAttribute('data-href') || 'test.html'));
+    });
+  });
+
+  // 2) Generic delegation for any button/link leading to test.html
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest('a, button');
+    if (!a) return;
+    let href = a.getAttribute('href') || '';
+    const onclick = a.getAttribute('onclick') || '';
+    const goesToTest = (href && href.includes('test.html')) || /test\.html/.test(onclick);
+    if (!goesToTest) return;
+    e.preventDefault();
+    navigateWithPackage(a, href);
+  }, false);
+});
+</script>
+
 </body>
 </html>
