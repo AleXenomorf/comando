@@ -18,6 +18,7 @@
     .btn{display:inline-block;background:#ff6600;border:none;color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;cursor:pointer}
     .btn[disabled]{background:#888;cursor:not-allowed}
     .ok{display:none;margin-top:16px;padding:14px;border-radius:10px;background:rgba(0,204,0,.15);border:1px solid var(--primary);text-align:center}
+    .preview{margin:8px 0 16px;opacity:.9}
   </style>
 </head>
 <body>
@@ -26,9 +27,10 @@
     <h1>Оставьте свои контактные данные</h1>
     <p class="lead">Форма принимает любые символы. Останемся на странице и покажем «спасибо».</p>
 
+    <div id="preview" class="preview"></div>
+
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-    <!-- novalidate: отключаем встроенную проверку браузера полностью -->
     <form id="gform"
           action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
           method="POST" target="hidden_iframe" novalidate>
@@ -54,7 +56,7 @@
         <input id="promo" name="entry.3032165" type="text" />
       </div>
 
-      <!-- «Выбор пакета»: короткий лейбл из index (ps) или полный (package) или дефолт -->
+      <!-- «Выбор пакета»: кладём ИМЕННО текст выбранной кнопки с главной -->
       <input type="hidden" id="servicesHidden" name="entry.1735060909"
              value="Онлайн базовый — 150 000/3мес (65 000/мес)" />
 
@@ -73,7 +75,7 @@
     try { return new URLSearchParams(location.search).get(name) || ''; } catch(e){ return ''; }
   }
   function pickLabel(){
-    let ps = getParam('ps');
+    let ps = getParam('ps');      // короткая подпись — ТОЧНО текст с кнопки/карточки
     let full = getParam('package');
     try{
       if(!ps){
@@ -87,22 +89,22 @@
     }catch(e){}
     return ps || full || 'Онлайн базовый — 150 000/3мес (65 000/мес)';
   }
-  // Положить ярлык в скрытое поле
-  var hidden = document.getElementById('servicesHidden');
-  if (hidden) hidden.value = pickLabel();
 
-  // НИКАКОЙ JS-валидации — просто отправляем и показываем "спасибо"
+  // Положить ярлык в скрытое поле и показать предварительный просмотр
+  var label = pickLabel();
+  document.getElementById('servicesHidden').value = label;
+  var pv = document.getElementById('preview');
+  if (pv) pv.textContent = 'Выбранный пакет: ' + label;
+
+  // НИКАКОЙ валидации — отправляем и показываем «спасибо»
   var form = document.getElementById('gform');
   var btn  = document.getElementById('sendBtn');
   form.addEventListener('submit', function(){
     btn.disabled = true;
-    // Фолбэк: показать «спасибо», даже если iframe не даст событие load (например, из-за CSP)
-    setTimeout(function(){
-      try{ document.getElementById('ok').style.display = 'block'; btn.disabled = false; }catch(e){}
-    }, 1800);
+    setTimeout(function(){ try{ document.getElementById('ok').style.display='block'; btn.disabled=false; }catch(e){} }, 1800);
   });
 
-  // Нормальный путь: после ответа Google в скрытом iframe
+  // Нормальный путь — по загрузке ответа в iframe
   var iframe = document.getElementById('hidden_iframe');
   iframe.addEventListener('load', function(){
     document.getElementById('ok').style.display = 'block';
