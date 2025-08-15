@@ -136,7 +136,7 @@
       .nav-button { padding: 10px 15px; font-size: 14px; }
     }
   
-    /* auto: hide services (preselected via index) */
+    /* Keep services in DOM, but hide visually */
     .services-group { display: none !important; }
 </style>
 </head>
@@ -252,37 +252,15 @@
       const servicesError = qs('#servicesError');
 
       
-      // === Auto select service from index ===
-      function normalizeToOption(raw) {
-        if (!raw) return '';
-        const options = [
-          'Для жителей Костаная — клуб «Аврора»',
-          'Для жителей других стран',
-          'Базовый формат онлайн сопровождения — 150 000 тг за три месяца',
-          'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца',
-          'Пробная неделя — 10 000 тг',
-          'Пробная неделя — 15 000 тг'
-        ];
-        const norm = (s) => (s || '')
+      // === Package auto-selection (from URL or localStorage) ===
+      function _normPkg(s) {
+        return (s || '')
           .replace(/[\u2013\u2014-]+/g, ' — ')
           .replace(/\s+/g, ' ')
           .trim()
           .toLowerCase();
-        const v = norm(raw);
-        for (const opt of options) {
-          if (norm(opt) === v) return opt; // exact normalized match
-        }
-        // Heuristics
-        if (/базовый/.test(v) || /150\s*000/.test(v)) return options[2];
-        if (/мини/.test(v) && /аврора/.test(v)) return options[3];
-        if (/костанай/.test(v)) return options[0];
-        if (/других\s+стран/.test(v)) return options[1];
-        if (/10\s*000/.test(v)) return options[4];
-        if (/15\s*000/.test(v)) return options[5];
-        return '';
       }
-
-      function preselectServiceFromPackage(){
+      function resolveIncomingPackage() {
         const params = new URLSearchParams(location.search);
         let pkg = params.get('package') || '';
         try {
@@ -290,7 +268,11 @@
             const stored = localStorage.getItem('selectedPackage');
             if (stored) { pkg = stored; localStorage.removeItem('selectedPackage'); }
           }
-        } catch(e) {}
+        } catch (e) {}
+        return pkg;
+      }
+      function autoCheckServiceFromPackage() {
+        const raw = resolveIncomingPackage();
         const options = [
           'Для жителей Костаная — клуб «Аврора»',
           'Для жителей других стран',
@@ -299,32 +281,40 @@
           'Пробная неделя — 10 000 тг',
           'Пробная неделя — 15 000 тг'
         ];
-        const mapped = normalizeToOption(pkg) || options[2]; // default to базовый
-        const all = document.querySelectorAll('#servicesList input[type="checkbox"]');
+        const v = _normPkg(raw);
+        let target = '';
+        // Exact normalized match
+        for (const opt of options) {
+          if (_normPkg(opt) === v) { target = opt; break; }
+        }
+        // Heuristics
+        if (!target && v) {
+          if (/базовый/.test(v) || /150\s*000/.test(v)) target = options[2];
+          else if (/мини/.test(v) && /аврора/.test(v))  target = options[3];
+          else if (/костанай/.test(v))                  target = options[0];
+          else if (/других\s+стран/.test(v))            target = options[1];
+          else if (/10\s*000/.test(v))                  target = options[4];
+          else if (/15\s*000/.test(v))                  target = options[5];
+        }
+        // If still empty, don't force now
+        const boxes = document.querySelectorAll('#servicesList input[type=\"checkbox\"]');
         let matched = false;
-        all.forEach(cb => {
-          if (cb.value.trim() === mapped) {
-            cb.checked = true;
-            matched = true;
-          } else {
-            cb.checked = false;
-          }
-        });
-        if (!matched) {
-          // If mapped didn't match due to slight differences, pick exact default checkbox by value
-          all.forEach(cb => {
-            if (cb.value.trim() === options[2]) { cb.checked = true; matched = true; }
+        if (target) {
+          boxes.forEach(cb => {
+            if (cb.value.trim() === target) { cb.checked = true; matched = true; }
+            else { cb.checked = false; }
           });
         }
         return matched;
       }
-function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || preselectServiceFromPackage(); }
+function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || autoCheckServiceFromPackage(); }
 
       function checkFormFilled() {
         const firstName = firstNameEl.value.trim();
+        const lastName  = lastNameEl.value.trim();
+        const email     = emailEl.value.trim();
         const whatsapp  = whatsappEl.value.trim();
-        // минимум: имя и WhatsApp
-        return !!(firstName && whatsapp);
+        return firstName && lastName && email && whatsapp && atLeastOneService();
       }
 
       function updateSubmitButton() {
@@ -385,7 +375,17 @@ function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || presel
         if (!checkFormFilled()) { toggleServicesError(); return; }
 
         let services = servicesList.filter(cb => cb.checked).map(cb => cb.value);
-        if (!services.length) { preselectServiceFromPackage(); services = servicesList.filter(cb => cb.checked).map(cb => cb.value); }
+        if (!services.length) {
+          autoCheckServiceFromPackage();
+          services = servicesList.filter(cb => cb.checked).map(cb => cb.value);
+        }
+        if (!services.length) {
+          // force default to ensure Google gets a valid checkbox value
+          const def = 'Базовый формат онлайн сопровождения — 150 000 тг за три месяца';
+          const boxes = document.querySelectorAll('#servicesList input[type="checkbox"]');
+          boxes.forEach(cb => { cb.checked = (cb.value.trim() === def); });
+          services = [def];
+        }
         const promoValue = (promoEl.value || '').trim(); // любые символы
 
         const contactData = {
@@ -427,9 +427,9 @@ function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || presel
         }
       });
 
-      preselectServiceFromPackage();
+      autoCheckServiceFromPackage();
+      toggleServicesError();
       updateSubmitButton();
-      submitButton.disabled = !checkFormFilled();
     });
   </script>
 </body>
