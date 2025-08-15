@@ -3967,7 +3967,7 @@
 </div>
 <div class="team-member-info">
 <h3>
-          Андрей Дорохов.
+          Андрей Дорохов
          </h3>
 <p>
           Наставник проекта с более чем 15-летним опытом.
@@ -4729,6 +4729,114 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 </script>
 
+
+<!-- === CTA FIX: unique labels/IDs + working links to test form (no 404) === -->
+<script>
+(function(){
+  // Path to your local test form (spaces encoded for safety)
+  var FORM_PATH = "./test_fixed_exact_ps%20(1).html";
+
+  // Map: rules to detect which CTA is clicked and what short code to send
+  // You can change the short codes and matching phrases.
+  var RULES = [
+    {
+      // Кнопка для жителей Костаная (клуб Аврора)
+      containsAny: ["Костаная", "Костанай", "Аврора"],
+      ps: "kostanay_offer",
+      label: "ЗАБРОНИРОВАТЬ МЕСТО — Костанай"
+    },
+    {
+      // Кнопка для жителей других городов/стран (онлайн)
+      containsAny: ["других городов", "других стран", "Онлайн", "онлайн"],
+      ps: "global_offer",
+      label: "ЗАБРОНИРОВАТЬ МЕСТО — Онлайн"
+    }
+  ];
+
+  // Helper: normalize text
+  function norm(s){ return (s||"").replace(/\s+/g," ").trim().toLowerCase(); }
+
+  // Build URL with UTM + ps
+  function buildUrl(ps, campaign, label){
+    var url = new URL(FORM_PATH, location.href);
+    url.searchParams.set("ps", ps);
+    url.searchParams.set("utm_source", "site");
+    url.searchParams.set("utm_medium", "button");
+    url.searchParams.set("utm_campaign", campaign);
+    url.searchParams.set("cta", label);
+    return url.toString();
+  }
+
+  // Find all clickable elements that could be CTAs
+  var candidates = Array.from(document.querySelectorAll("a, button, .pricing-button, .consultation-signup-btn"));
+  // De-dup
+  candidates = candidates.filter(function(el, idx, arr){ return arr.indexOf(el) === idx; });
+
+  // Apply rules
+  candidates.forEach(function(el, i){
+    try{
+      var text = norm(el.textContent || el.value || "");
+      if(!text) return;
+
+      for (var r of RULES){
+        var matched = r.containsAny.some(function(token){ return text.includes(norm(token)); });
+        if(matched){
+          var id = (r.ps + "_" + (el.id || ("cta"+i)));
+          var href = buildUrl(r.ps, r.ps, r.label);
+
+          // Attach attributes
+          el.setAttribute("data-btn-id", r.ps);
+          el.setAttribute("data-btn-label", r.label);
+
+          // Ensure it acts as link and *never* 404s (points to local form by default)
+          if(el.tagName.toLowerCase() === "a"){
+            el.href = href;
+            el.target = "_blank";
+            el.rel = "noopener";
+            el.textContent = r.label; // unify label
+          }else{
+            // For buttons/divs: add click->navigate and role link
+            el.setAttribute("role","link");
+            el.addEventListener("click", function(ev){
+              window.open(href, "_blank", "noopener");
+            }, { once:false });
+          }
+
+          // Lightweight click tracking
+          el.addEventListener("click", function(){
+            try{
+              localStorage.setItem("last_click_cta", JSON.stringify({
+                id: r.ps, label: r.label, href: href, ts: Date.now()
+              }));
+            }catch(e){}
+          }, { once:false });
+
+          break; // stop after first matched rule
+        }
+      }
+    }catch(e){ /* ignore */ }
+  });
+
+  // Fallback: If specific buttons weren’t found, try obvious text labels
+  // and wire *any* button that literally says "ЗАБРОНИРОВАТЬ МЕСТО!" to the global offer.
+  var literalCtas = Array.from(document.querySelectorAll("a, button"))
+    .filter(function(el){ return norm(el.textContent) === norm("ЗАБРОНИРОВАТЬ МЕСТО!"); });
+  literalCtas.forEach(function(el, i){
+    if(!el.getAttribute("data-btn-id")){
+      var label = "ЗАБРОНИРОВАТЬ МЕСТО — Онлайн";
+      var href = buildUrl("global_offer", "global_offer", label);
+      if(el.tagName.toLowerCase()==="a"){
+        el.href = href; el.target="_blank"; el.rel="noopener"; el.textContent = label;
+      }else{
+        el.setAttribute("role","link");
+        el.addEventListener("click", function(){ window.open(href,"_blank","noopener"); });
+      }
+      el.setAttribute("data-btn-id","global_offer");
+      el.setAttribute("data-btn-label",label);
+    }
+  });
+})();
+</script>
+<!-- === /CTA FIX === -->
 </body>
 </html>
-
