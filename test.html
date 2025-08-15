@@ -16,9 +16,8 @@
     .row{margin-bottom:14px}
     .btn{display:inline-block;background:#ff6600;border:none;color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;cursor:pointer}
     .btn[disabled]{background:#888;cursor:not-allowed}
-    .ok{display:none;margin-top:16px;padding:14px;border-radius:10px;background:rgba(0,204,0,.15);border:1px solid var(--primary);text-align:center}
-    /* чекбоксы оставляем для Google, но прячем */
-    fieldset.services{display:none !important;}
+    /* чекбоксы/селекты Google оставляем только как значения, но без показа */
+    .services{display:none}
   </style>
 </head>
 <body>
@@ -26,13 +25,12 @@
   <div class="card">
     <h1>Оставьте свои контактные данные</h1>
 
-    <!-- ФОРМА ДЛЯ ПРЯМОЙ ОТПРАВКИ В GOOGLE FORMS (без fetch, обходит CORS/CSP) -->
-    <iframe name="hidden_iframe" style="display:none"></iframe>
-    <form id="gform" action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse" method="POST" target="hidden_iframe">
-      <!-- Контакты -->
+    <!-- ПРЯМОЙ САБМИТ В GOOGLE FORMS, БЕЗ JS-ОТПРАВКИ (обходит CORS/CSP) -->
+    <form id="gform" action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse" method="POST" target="_self">
+      <!-- Контакты (делаем все НЕобязательными, чтобы сабмит гарантированно уходил) -->
       <div class="row">
         <label for="firstName">Имя</label>
-        <input id="firstName" name="entry.575542865" type="text" required />
+        <input id="firstName" name="entry.575542865" type="text" />
       </div>
       <div class="row">
         <label for="lastName">Фамилия</label>
@@ -40,167 +38,70 @@
       </div>
       <div class="row">
         <label for="email">Email</label>
-        <input id="email" name="entry.63446999" type="email" />
+        <input id="email" name="entry.63446999" type="text" />
       </div>
       <div class="row">
         <label for="whatsapp">Номер WhatsApp (с кодом страны)</label>
-        <input id="whatsapp" name="entry.826076263" type="tel" required />
+        <input id="whatsapp" name="entry.826076263" type="text" />
       </div>
       <div class="row">
         <label for="promo">Промокод</label>
-        <input id="promo" name="entry.3032165" type="text" placeholder="любой текст (не обяз.)" />
+        <input id="promo" name="entry.3032165" type="text" placeholder="любой текст" />
       </div>
 
-      <!-- Скрытый набор чекбоксов (точные значения как в форме) -->
-      <fieldset class="services">
-        <div>
-          <input type="checkbox" id="srv1" value="Для жителей Костаная — клуб «Аврора»">
-          <label for="srv1">Для жителей Костаная — клуб «Аврора»</label>
-        </div>
-        <div>
-          <input type="checkbox" id="srv2" value="Для жителей других стран">
-          <label for="srv2">Для жителей других стран</label>
-        </div>
-        <div>
-          <input type="checkbox" id="srv3" value="Базовый формат онлайн сопровождения — 150 000 тг за три месяца">
-          <label for="srv3">Базовый формат онлайн сопровождения — 150 000 тг за три месяца</label>
-        </div>
-        <div>
-          <input type="checkbox" id="srv4" value="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
-          <label for="srv4">Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца</label>
-        </div>
-        <div>
-          <input type="checkbox" id="srv5" value="Пробная неделя — 10 000 тг">
-          <label for="srv5">Пробная неделя — 10 000 тг</label>
-        </div>
-        <div>
-          <input type="checkbox" id="srv6" value="Пробная неделя — 15 000 тг">
-          <label for="srv6">Пробная неделя — 15 000 тг</label>
-        </div>
-      </fieldset>
+      <!-- Скрытое поле «Выбор пакета» -->
+      <input type="hidden" id="servicesHiddenSingle" name="entry.1735060909" value="Базовый формат онлайн сопровождения — 150 000 тг за три месяца" />
 
-      <!-- Контейнер для hidden inputs "Выбор пакета" (entry.1735060909). 
-           Для каждого выбранного чекбокса добавим отдельный input name="entry.1735060909" -->
-      <div id="servicesHidden"></div>
-
-      <!-- Обязательные поля формы Google -->
-      <input type="hidden" name="fvv" value="1" />
-      <input type="hidden" name="pageHistory" value="0" />
-      <input type="hidden" name="submit" value="Submit" />
+      <!-- Кнопка САБМИТА ВНУТРИ ФОРМЫ (без JS-обработчиков) -->
+      <div style="margin-top:16px">
+        <button type="submit" class="btn">Оставить заявку</button>
+      </div>
     </form>
 
-    <div style="margin-top:16px">
-      <button id="sendBtn" class="btn">Оставить заявку</button>
-    </div>
-
-    <div id="ok" class="ok">✅ Спасибо! Заявка отправлена.</div>
+    <noscript>
+      <div style="margin-top:12px;color:#ffd">JS отключён — будет отправлен пакет «Базовый формат…» по умолчанию.</div>
+    </noscript>
   </div>
 </div>
 
+<!-- Минимальный JS: только установка значения пакета из URL/localStorage в скрытое поле.
+     Если CSP запрещает inline-script, форма всё равно отправится с дефолтом. -->
 <script>
 (function(){
-  // Нормализация текста пакета и сопоставление с точными вариантами
-  const OPTIONS = [
-    'Для жителей Костаная — клуб «Аврора»',
-    'Для жителей других стран',
-    'Базовый формат онлайн сопровождения — 150 000 тг за три месяца',
-    'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца',
-    'Пробная неделя — 10 000 тг',
-    'Пробная неделя — 15 000 тг'
-  ];
-  const norm = s => (s||'')
-    .replace(/[\\u2013\\u2014-]+/g,' — ')
-    .replace(/\\s+/g,' ')
-    .trim()
-    .toLowerCase();
-
-  function resolvePackage(){
-    const usp = new URLSearchParams(location.search);
-    let pkg = usp.get('package') || '';
-    try{
-      if(!pkg){
-        const st = localStorage.getItem('selectedPackage');
-        if(st){ pkg = st; localStorage.removeItem('selectedPackage'); }
+  try {
+    var hidden = document.getElementById('servicesHiddenSingle');
+    if (!hidden) return;
+    var OPTIONS = [
+      'Для жителей Костаная — клуб «Аврора»',
+      'Для жителей других стран',
+      'Базовый формат онлайн сопровождения — 150 000 тг за три месяца',
+      'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца',
+      'Пробная неделя — 10 000 тг',
+      'Пробная неделя — 15 000 тг'
+    ];
+    var usp = new URLSearchParams(location.search);
+    var pkg = usp.get('package') || '';
+    if (!pkg) {
+      try {
+        var st = localStorage.getItem('selectedPackage');
+        if (st) { pkg = st; localStorage.removeItem('selectedPackage'); }
+      } catch(e) {}
+    }
+    var norm = function(s){ return (s||'').replace(/[\u2013\u2014-]+/g,' — ').replace(/\s+/g,' ').trim().toLowerCase(); };
+    var v = norm(pkg);
+    if (v) {
+      for (var i=0;i<OPTIONS.length;i++) {
+        if (norm(OPTIONS[i]) === v) { hidden.value = OPTIONS[i]; return; }
       }
-    }catch(e){}
-    const v = norm(pkg);
-    // 1) точное соответствие
-    for(const opt of OPTIONS){ if(norm(opt)===v) return opt; }
-    // 2) эвристики
-    if(/базовый/.test(v) || /150\\s*000/.test(v)) return OPTIONS[2];
-    if(/мини/.test(v) && /аврора/.test(v)) return OPTIONS[3];
-    if(/костанай/.test(v)) return OPTIONS[0];
-    if(/других\\s+стран/.test(v)) return OPTIONS[1];
-    if(/10\\s*000/.test(v)) return OPTIONS[4];
-    if(/15\\s*000/.test(v)) return OPTIONS[5];
-    // 3) дефолт — базовый
-    return OPTIONS[2];
-  }
-
-  // отметить соответствующий чекбокс (скрытый)
-  function checkHiddenBox(value){
-    const boxes = document.querySelectorAll('fieldset.services input[type="checkbox"]');
-    let matched = false;
-    boxes.forEach(cb => {
-      if(cb.value.trim() === value){
-        cb.checked = true;
-        matched = true;
-      }else{
-        cb.checked = false;
-      }
-    });
-    return matched;
-  }
-
-  // перед отправкой собрать скрытые inputs для entry.1735060909
-  function rebuildHiddenServices(){
-    const holder = document.getElementById('servicesHidden');
-    holder.innerHTML = '';
-    const boxes = document.querySelectorAll('fieldset.services input[type="checkbox"]:checked');
-    boxes.forEach(cb => {
-      const inp = document.createElement('input');
-      inp.type = 'hidden';
-      inp.name = 'entry.1735060909';
-      inp.value = cb.value;
-      holder.appendChild(inp);
-    });
-  }
-
-  // Инициализация
-  const pkg = resolvePackage();
-  checkHiddenBox(pkg); // выставили чекбокс
-  rebuildHiddenServices(); // создали скрытые inputs
-
-  // Кнопка отправки
-  const sendBtn = document.getElementById('sendBtn');
-  const form = document.getElementById('gform');
-  const ok = document.getElementById('ok');
-
-  sendBtn.addEventListener('click', function(e){
-    e.preventDefault();
-    // минимальная валидация: только WhatsApp
-    const wa   = document.getElementById('whatsapp').value.trim();
-    if(!wa){
-      alert('Пожалуйста, введите номер WhatsApp.');
-      return;
+      if (/базовый/.test(v) || /150\s*000/.test(v)) { hidden.value = OPTIONS[2]; return; }
+      if (/мини/.test(v) && /аврора/.test(v)) { hidden.value = OPTIONS[3]; return; }
+      if (/костанай/.test(v)) { hidden.value = OPTIONS[0]; return; }
+      if (/других\s+стран/.test(v)) { hidden.value = OPTIONS[1]; return; }
+      if (/10\s*000/.test(v)) { hidden.value = OPTIONS[4]; return; }
+      if (/15\s*000/.test(v)) { hidden.value = OPTIONS[5]; return; }
     }
-    }
-    // убедиться, что "Выбор пакета" есть
-    if(!document.querySelector('input[name="entry.1735060909"]')){
-      // если пакет не пришел - форсим базовый
-      const def = 'Базовый формат онлайн сопровождения — 150 000 тг за три месяца';
-      checkHiddenBox(def);
-      rebuildHiddenServices();
-
-      const v = resolvePackage();
-      checkHiddenBox(v);
-      rebuildHiddenServices();
-    }
-    // финал: обычная отправка формы (target=hidden_iframe) — работает без fetch, не блокируется CSP/CORS
-    form.submit();
-    sendBtn.disabled = true;
-    ok.style.display = 'block';
-  });
+    // иначе — дефолт уже стоит в value по умолчанию
+  } catch(e) {}
 })();
 </script>
 </body>
