@@ -4671,92 +4671,126 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-<!-- PACKAGE WIRING (STRICT v2: real classes .program-button, .program-text, .pricing-column, .pricing-button) -->
+
+
+<!-- PACKAGE WIRING (EXPLICIT: hero + program-selector + pricing-column) -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
   function low(s){ return norm(s).toLowerCase(); }
-
-  function set(btn, pkg){
+  function setPkg(btn, pkg){
     if(!btn || !pkg) return;
     btn.setAttribute('data-package', pkg);
-    // capture to override inline onclick="window.location.href='test.html'"
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      try{ localStorage.setItem('selectedPackageShort', pkg); }catch(_){}
-      var u = new URL('test.html', location.href);
-      u.searchParams.set('ps', pkg);
-      location.href = u.toString();
-    }, true);
   }
 
-  // HERO: first visible button exactly "Подать заявку" not inside pricing or program
+  // 1) HERO: first button with exact text "Подать заявку" inside .first-image area
   (function(){
-    var all = Array.from(document.querySelectorAll('button, a, [role="button"], .mobile-main-button'));
-    for (var i=0;i<all.length;i++){
-      var el = all[i];
-      var t = low(norm(el.textContent || el.value || ''));
+    var scope = document.querySelector('.first-image') || document;
+    var btns = scope.querySelectorAll('button, a[role="button"], .mobile-main-button');
+    for (var i=0;i<btns.length;i++){
+      var t = low(norm(btns[i].textContent || btns[i].value || ''));
       if (t === 'подать заявку'){
-        var inPricing = el.closest('.pricing-column, .pricing-container');
-        var inProgram = el.closest('.program-text, .program-block, .program-section, .program, .program-container');
-        if(!inPricing && !inProgram){
-          set(el, 'Заявка');
-          break;
-        }
+        setPkg(btns[i], 'Заявка');
+        break;
       }
     }
   })();
 
-  // PROGRAM: bind each .program-button based on nearby .program-text
+  // 2) PROGRAM: each .program-selector block -> read .program-text and assign to its .program-button
   (function(){
-    var btns = document.querySelectorAll('.program-button');
-    btns.forEach(function(btn){
-      var cont = btn.closest('section, .program, .program-block, .program-section, div') || btn.parentElement;
-      var txtEl = cont ? cont.querySelector('.program-text') : null;
-      var txt = low(norm((txtEl ? txtEl.textContent : cont ? cont.textContent : '') || ''));
-      if (txt.includes('костаная') || txt.includes('костанай') || txt.includes('жителей костана')){
-        set(btn, 'Для жителей костаная');
-      } else if (txt.includes('других городов и стран')){
-        set(btn, 'Жители других стран');
+    var blocks = document.querySelectorAll('.program-selector');
+    blocks.forEach(function(block){
+      var txtEl = block.querySelector('.program-text');
+      var btn = block.querySelector('.program-button, button, a');
+      var t = low(norm(txtEl ? txtEl.textContent : ''));
+      if (!btn) return;
+      if (t.includes('костаная') || t.includes('костанай') || t.includes('жителей костана')){
+        setPkg(btn, 'Для жителей костаная');
+      } else if (t.includes('других городов и стран')){
+        setPkg(btn, 'Жители других стран');
       }
     });
   })();
 
-  // PRICING: for each .pricing-column, map by title + price; bind .pricing-button inside
+  // 3) PRICING: for each .pricing-column, map title+price to package; bind .pricing-button
   (function(){
     var cols = document.querySelectorAll('.pricing-column');
     cols.forEach(function(col){
       var titleEl = col.querySelector('h3.pricing-name.bold-header, .pricing-name.bold-header, h3.bold-header, h3');
       var priceEl = col.querySelector('.pricing-price');
-      var title = low(norm(titleEl ? titleEl.textContent : ''));
-      var price = low(norm(priceEl ? priceEl.textContent : ''));
-      var pkg = null;
-
+      var btn = col.querySelector('.pricing-button, button, a');
+      if(!titleEl || !priceEl || !btn) return;
+      var title = low(norm(titleEl.textContent));
+      var price = low(norm(priceEl.textContent));
       if ((title.includes('базовый формат онлайн сопровождения') || title.includes('базовый')) &&
           (price.includes('150.000') || price.includes('150 000'))) {
-        pkg = 'Базовый 150 000';
+        setPkg(btn, 'Базовый 150 000');
       } else if ((title.includes('мини-группа') || title.includes('мини группа') || title.includes('аврора')) &&
           (price.includes('200.000') || price.includes('200 000'))) {
-        pkg = 'Мини группа 200 000';
+        setPkg(btn, 'Мини группа 200 000');
       } else if (title.includes('пробная неделя') &&
           (price.includes('10.000') || price.includes('10 000'))) {
-        pkg = 'Пробная 10 000';
+        setPkg(btn, 'Пробная 10 000');
       } else if (title.includes('пробная неделя') &&
           (price.includes('15.000') || price.includes('15 000'))) {
-        pkg = 'Пробная 15 000';
-      }
-
-      if (pkg){
-        var btns = col.querySelectorAll('.pricing-button, a, button');
-        btns.forEach(function(b){
-          var t = low(norm(b.textContent || b.value || ''));
-          if (t.includes('подать заявку') || t.includes('забронировать место')){
-            set(b, pkg);
-          }
-        });
+        setPkg(btn, 'Пробная 15 000');
       }
     });
   })();
+
+  // 4) Global click handler (capture): if button has data-package, save & go
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('a,button,[role="button"],.program-button,.pricing-button');
+    if(!el) return;
+    var pkg = el.getAttribute('data-package');
+    if(!pkg) return;
+    e.preventDefault();
+    try{
+      localStorage.setItem('selectedPackageShort', pkg);
+      sessionStorage.setItem('lastSelectedPackageShort', pkg);
+    }catch(_){}
+    var url = new URL('test.html', location.href);
+    url.searchParams.set('ps', pkg);
+    location.href = url.toString();
+  }, true);
+});
+</script>
+
+<!-- EXTRA BINDING: Program block "Для жителей других городов и стран!" -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  function low(s){ return norm(s).toLowerCase(); }
+
+  // Find any .program-button without data-package yet
+  var btns = Array.from(document.querySelectorAll('.program-button')).filter(function(b){
+    return !b.getAttribute('data-package');
+  });
+
+  btns.forEach(function(btn){
+    // Look up through ancestors for program text
+    var cur = btn, depth = 0, pkg = null;
+    while(cur && depth < 8){
+      var t = low(norm((cur.textContent||'')));
+      if (t.indexOf('для жителей других городов и стран') !== -1){
+        pkg = 'Жители других стран';
+        break;
+      }
+      // also check specific child .program-text if present
+      var pt = cur.querySelector ? cur.querySelector('.program-text') : null;
+      if(pt){
+        var tt = low(norm(pt.textContent||''));
+        if (tt.indexOf('для жителей других городов и стран') !== -1){
+          pkg = 'Жители других стран';
+          break;
+        }
+      }
+      cur = cur.parentElement; depth++;
+    }
+    if(pkg){
+      btn.setAttribute('data-package', pkg);
+    }
+  });
 });
 </script>
 </body>
