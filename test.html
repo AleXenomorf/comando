@@ -177,7 +177,7 @@
     </div>
 
     <div class="nav-buttons">
-      <button class="nav-button" id="submitButton" disabled>Оставить заявку</button>
+      <button class="nav-button" id="submitButton">Оставить заявку</button>
     </div>
 
     <div class="success-message" id="successMessage">
@@ -234,19 +234,13 @@
         };
         return map[value] || value;
       }
-function checkFormFilled() {
-        const firstName = firstNameEl.value.trim();
-        const lastName  = lastNameEl.value.trim();
-        const email     = emailEl.value.trim();
-        const whatsapp  = whatsappEl.value.trim();
-        return firstName && lastName && email && whatsapp;
-      }
+function checkFormFilled() { return true; }
 
       function updateSubmitButton() {
         submitButton.disabled = !checkFormFilled();
       }
 
-      updateSubmitButton(); }));
+      submitButton.disabled = false; }));
       [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
         el.addEventListener('input', updateSubmitButton);
       });
@@ -339,7 +333,7 @@ function checkFormFilled() {
       });
 
       // toggleServicesError removed; no services field anymore.
-      updateSubmitButton();
+      submitButton.disabled = false;
     });
   </script>
 </body>
