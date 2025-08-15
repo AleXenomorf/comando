@@ -214,7 +214,14 @@
       const promoEl     = qs('#promo');
 // Read preset from URL (package=...)
       const params = new URLSearchParams(location.search);
-      const presetPackage = params.get('package');
+      let presetPackage = params.get('package');
+      try {
+        if (!presetPackage) {
+          const stored = localStorage.getItem('selectedPackage');
+          if (stored) { presetPackage = stored; localStorage.removeItem('selectedPackage'); }
+        }
+      } catch (e) { /* ignore */ }
+
       const servicesFieldset = document.querySelector('.services-group');
 
       // If preset exists, hide the services fieldset (checkboxes) & adjust validation
