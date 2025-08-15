@@ -26,7 +26,8 @@
 
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-    <form id="gform"
+    <div id="package-preview" style="font-weight:bold; margin: 1em 0; font-size:1.2em;"></div>
+<form id="gform"
       action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
       method="POST" target="hidden_iframe" novalidate>
 
@@ -115,5 +116,18 @@
   }catch(e){}
 })();
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    var pkg = localStorage.getItem('selectedPackageShort');
+    if(pkg){
+        var previewEl = document.getElementById('package-preview');
+        if(previewEl){
+            previewEl.textContent = "Вы выбрали: " + pkg;
+        }
+    }
+});
+</script>
+
 </body>
 </html>
