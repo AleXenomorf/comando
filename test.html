@@ -412,6 +412,80 @@
 })();
 </script>
 
+
+<script>
+// SAFETY NET: force submit & show success even if other scripts interfere
+(function(){
+  function $(sel){ return document.querySelector(sel); }
+  var form = document.querySelector('form[action*="docs.google.com/forms"][method="POST"]');
+  if (!form) return;
+  form.setAttribute('target','hidden_iframe');
+  form.setAttribute('novalidate','');
+
+  // ensure hidden label is set from ps/package/localStorage
+  function getParam(name){ try { return new URLSearchParams(location.search).get(name) || ''; } catch(e){ return ''; } }
+  function pickLabel(){
+    var ps = getParam('ps') || '';
+    var full = getParam('package') || '';
+    try {
+      if (!ps) { var s = localStorage.getItem('selectedPackageShort'); if (s) { ps = s; localStorage.removeItem('selectedPackageShort'); } }
+      if (!full) { var f = localStorage.getItem('selectedPackage'); if (f) { full = f; localStorage.removeItem('selectedPackage'); } }
+    } catch(e){}
+    return ps || full || 'Онлайн базовый — 150 000/3мес (65 000/мес)';
+  }
+  var hidden = document.getElementById('servicesHidden');
+  if (hidden) hidden.value = pickLabel();
+
+  // find a visible submit button or create one if missing
+  var btn = document.querySelector('#submitButton, button[type="submit"]');
+  if (!btn) {
+    btn = document.createElement('button');
+    btn.type = 'submit';
+    btn.textContent = 'Оставить заявку';
+    btn.className = 'btn';
+    form.appendChild(btn);
+  } else {
+    btn.type = 'submit';
+    btn.disabled = false;
+  }
+
+  // minimal validation: allow any values; only require whatsapp non-empty
+  function canSend(){
+    var wa = ($('#whatsapp') ? $('#whatsapp').value.trim() : 'ok');
+    return wa.length > 0;
+  }
+
+  // intercept submit to force programmatic send
+  form.addEventListener('submit', function(ev){
+    if (!canSend()) {
+      ev.preventDefault();
+      alert('Укажите номер WhatsApp, пожалуйста.');
+      return false;
+    }
+    // Let the browser submit normally to hidden_iframe
+    btn.disabled = true;
+  });
+
+  // show success when iframe loads
+  var iframe = document.getElementById('hidden_iframe');
+  if (iframe) {
+    iframe.addEventListener('load', function(){
+      var ok = document.getElementById('successMessageOnPage');
+      if (!ok) {
+        ok = document.createElement('div');
+        ok.id = 'successMessageOnPage';
+        ok.style.cssText = 'margin-top:16px;padding:14px;border-radius:10px;background:rgba(0,204,0,.15);border:1px solid #00cc00;color:#fff;text-align:center';
+        ok.textContent = '✅ Спасибо! Заявка отправлена. Мы свяжемся с вами в WhatsApp.';
+        form.parentNode.appendChild(ok);
+      } else {
+        ok.style.display = 'block';
+      }
+      if (btn) btn.disabled = false;
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
 
