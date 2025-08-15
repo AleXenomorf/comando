@@ -4675,41 +4675,69 @@ document.addEventListener("DOMContentLoaded", function () {
 /* PACKAGE-LINK-PROPAGATION */
 (function(){
   function clean(t){ return (t||'').replace(/\s+/g,' ').trim(); }
-  function closestText(el, selectors){
-    if (!el) return '';
-    let node = el.closest(selectors);
-    if (!node) return '';
-    return clean(node.textContent || '');
+  function text(el){ return clean(el ? (el.textContent||'') : ''); }
+  function findCard(el){
+    return el.closest('.card, .pricing-column, .tariff, .plan, article, section, .item, .product, .offer, .row, .col, .box') || el.parentElement;
+  }
+  function labelFromContext(btn){
+    const card = findCard(btn);
+    const allTxt = clean((card ? card.innerText : btn.innerText) || '').toLowerCase();
+    if (/костанай/.test(allTxt) || /аврора/.test(allTxt)) {
+      if (/пробн/.test(allTxt) && /недел/.test(allTxt)) {
+      } else {
+        return 'Для жителей Костаная — тренировки в мини‑группе в клубе «Аврора» (200 000 тг за 3 мес; 80 000/мес) — ' + text(btn);
+      }
+    }
+    if (/других\s+город|других\s+стран|городов\s+и\s+стран/.test(allTxt)) {
+      return 'Для жителей других городов и стран — онлайн сопровождение — ' + text(btn);
+    }
+    if (/базов.*онлайн/.test(allTxt) || /150\s*000/.test(allTxt) || /65\s*000/.test(allTxt)) {
+      return 'Базовый формат онлайн сопровождения — 150 000 тг за 3 месяца (65 000/мес) — ' + text(btn);
+    }
+    if (/мини[\-\s]*группа/.test(allTxt) && /аврора/.test(allTxt)) {
+      return 'Мини‑группа в фитнес‑клубе «Аврора» — 200 000 тг за 3 месяца (80 000/мес) — ' + text(btn);
+    }
+    if (/пробн/.test(allTxt) && /недел/.test(allTxt) && /10\s*000/.test(allTxt)) {
+      return 'Пробная неделя с индивидуальной программой и полным сопровождением — 10 000 тг — ' + text(btn);
+    }
+    if (/пробн/.test(allTxt) && /недел/.test(allTxt) && /15\s*000/.test(allTxt)) {
+      return 'Пробная неделя с индивидуальной программой и полным сопровождением — 15 000 тг — ' + text(btn);
+    }
+    const titleEl = card ? card.querySelector('h1,h2,h3,h4,.title,.card-title,.pricing-name,.heading') : null;
+    const priceEl = card ? card.querySelector('.price,.pricing-price,.cost,.amount') : null;
+    const parts = [];
+    if (titleEl) parts.push(text(titleEl));
+    if (priceEl) parts.push(text(priceEl));
+    parts.push(text(btn));
+    return parts.filter(Boolean).join(' — ');
   }
   function composeShortLabel(trigger){
     const ds = trigger.dataset || {};
     if (ds.packageShort && ds.packageShort.trim()) return clean(ds.packageShort);
-    const card = trigger.closest('.card, .pricing-column, .tariff, .plan, article, section, .item, .product, .offer') || trigger.parentElement;
-    let title = '', price = '', btn = clean(trigger.textContent);
-    if (card){
-      const h = card.querySelector('h1,h2,h3,h4,.title,.card-title,.pricing-name,.heading');
-      if (h) title = clean(h.textContent);
-      const p = card.querySelector('.price,.pricing-price,.cost,.amount');
-      if (p) price = clean(p.textContent);
-    }
-    if (!title) title = closestText(trigger, 'h1,h2,h3,h4,.title,.card-title,.pricing-name');
-    const parts = [];
-    if (title) parts.push(title);
-    if (price) parts.push(price);
-    if (btn)   parts.push(btn);
-    return parts.filter(Boolean).join(' — ');
+    return labelFromContext(trigger);
   }
   function pickFullLabel(trigger, shortLabel){
     const ds = trigger.dataset || {};
     if (ds.package && ds.package.trim()) return clean(ds.package);
     return shortLabel;
   }
+  // Шаг 1: перед загрузкой клика заполняем data-package-short по правилам
+  document.querySelectorAll('a[href*="test"], button').forEach(function(n){
+    var href = (n.getAttribute('href')||'').trim();
+    var onclick = (n.getAttribute('onclick')||'').trim();
+    var toTest = /(?:^|\/)test(?:\.html)?(?:[#?].*)?$/i.test(href) || /test\.html/i.test(onclick);
+    if (!toTest) return;
+    if (!n.dataset.packageShort || !n.dataset.packageShort.trim()) {
+      n.dataset.packageShort = composeShortLabel(n);
+    }
+  });
+  // Шаг 2: делегатор кликов
   document.addEventListener('click', function(ev){
     const trg = ev.target.closest('a, button');
     if (!trg) return;
     const href = (trg.getAttribute('href') || '').trim();
     const onclick = (trg.getAttribute('onclick') || '').trim();
-    const goesToTest = /(?:^|\/)test\.html(?:[#?].*)?$/i.test(href) || /test\.html/i.test(onclick);
+    const goesToTest = /(?:^|\/)test(?:\.html)?(?:[#?].*)?$/i.test(href) || /test\.html/i.test(onclick);
     if (!goesToTest) return;
     ev.preventDefault();
     ev.stopPropagation();
@@ -4719,11 +4747,11 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem('selectedPackageShort', shortLabel);
       localStorage.setItem('selectedPackage', fullLabel);
     } catch(e) {}
-    const url = href && href !== '#' ? href : 'test.html';
+    var url = href && href !== '#' ? href : 'test.html';
     try {
-      const u = new URL(url, location.href);
-      if (shortLabel) u.searchParams.set('ps', shortLabel);
-      if (fullLabel)  u.searchParams.set('package', fullLabel);
+      var u = new URL(url, location.href);
+      u.searchParams.set('ps', shortLabel);
+      u.searchParams.set('package', fullLabel);
       location.href = u.toString();
     } catch(e){
       const qs = 'ps=' + encodeURIComponent(shortLabel) + '&package=' + encodeURIComponent(fullLabel);
