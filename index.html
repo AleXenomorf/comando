@@ -3689,7 +3689,7 @@
 <div class="main-text">
 <div class="button-container">
 <a href="#" target="_blank">
-<button style="position: absolute; top: 150px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
+<button class="go-test" data-package="Базовый формат онлайн сопровождения — 150 000 тг за три месяца" style="position: absolute; top: 150px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
          Подать заявку
         </button>
 </a>
@@ -3727,13 +3727,13 @@
 </div>
 <div class="program-selector" style="text-align: left;">
 <div class="program-text" style="text-align: left;">Для жителей <span class="highlight-kostanay">Костаная</span> спец предложение!<br/>Тренировки в мини-группе в фитнес-клубе "Аврора!"</div>
-<button class="program-button" onclick="window.location.href='test.html'">
+<button class="program-button go-test" data-package="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
        ЗАБРОНИРОВАТЬ МЕСТО!
       </button>
 <div class="program-text" style="text-align: left;">
        Для жителей других городов и стран!
       </div>
-<button class="program-button" onclick="window.location.href='test.html'">
+<button class="program-button go-test" data-package="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
        ЗАБРОНИРОВАТЬ МЕСТО!
       </button>
 </div>
@@ -4670,6 +4670,46 @@ document.addEventListener("DOMContentLoaded", function () {
 })();
 </script>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  function bindButton(btn, pack) {
+    if (!btn) return;
+    btn.classList.add('go-test');
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (!pack && btn.dataset && btn.dataset.package) {
+        pack = btn.dataset.package;
+      }
+      // Try to infer from pricing column if not provided
+      if (!pack) {
+        const col = btn.closest('.pricing-column');
+        if (col) {
+          const nameEl = col.querySelector('.pricing-name');
+          const priceEl = col.querySelector('.pricing-price');
+          if (nameEl && priceEl) {
+            pack = (nameEl.textContent.trim() + ' — ' + priceEl.textContent.trim());
+          }
+        }
+      }
+      const url = 'test.html' + (pack ? ('?package=' + encodeURIComponent(pack)) : '');
+      location.href = url;
+    }, { once: false });
+  }
+
+  // Bind explicit go-test buttons with data-package
+  document.querySelectorAll('.go-test').forEach(function(btn) {
+    bindButton(btn, btn.dataset ? btn.dataset.package : '');
+  });
+
+  // Also bind pricing buttons inside pricing columns (auto-infer name+price)
+  document.querySelectorAll('.pricing-column .pricing-button').forEach(function(btn) {
+    if (!btn.classList.contains('go-test')) {
+      bindButton(btn, '');
+    }
+  });
+});
+</script>
+
 </body>
 </html>
-
