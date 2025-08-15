@@ -173,40 +173,7 @@
           <input type="text" id="promo" placeholder="например: FIT2025" />
         </div>
 
-        <fieldset class="services-group">
-          <legend>
-           Выберите формат услуги
-      
-          </legend>
-          <div class="services-list" id="servicesList">
-            <div class="service-item">
-              <input type="checkbox" id="srv1" value="Для жителей Костаная — клуб «Аврора»">
-              <label for="srv1">Для жителей Костаная — клуб «Аврора»</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv2" value="Для жителей других стран">
-              <label for="srv2">Для жителей других стран</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv3" value="Базовый формат онлайн сопровождения — 150 000 тг за три месяца">
-              <label for="srv3">Базовый формат онлайн сопровождения — 150 000 тг за три месяца</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv4" value="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
-              <label for="srv4">Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv5" value="Пробная неделя — 10 000 тг">
-              <label for="srv5">Пробная неделя с индивидуальной программой и полным сопровождением — 10 000 тг</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv6" value="Пробная неделя — 15 000 тг">
-              <label for="srv6">Пробная неделя с индивидуальной программой и полным сопровождением — 15 000 тг</label>
-            </div>
-          </div>
-        
-        </fieldset>
-      </div>
+        </div>
     </div>
 
     <div class="nav-buttons">
@@ -245,11 +212,7 @@
       const emailEl     = qs('#email');
       const whatsappEl  = qs('#whatsapp');
       const promoEl     = qs('#promo');
-      const servicesList = [...document.querySelectorAll('#servicesList input[type="checkbox"]')];
-      const servicesError = qs('#servicesError');
-
-      
-      // Read preset from URL (package=...)
+// Read preset from URL (package=...)
       const params = new URLSearchParams(location.search);
       const presetPackage = params.get('package');
       const servicesFieldset = document.querySelector('.services-group');
@@ -271,23 +234,19 @@
         };
         return map[value] || value;
       }
-function atLeastOneService() { return presetPackage ? true : servicesList.some(cb => cb.checked); }
-
-      function checkFormFilled() {
+function checkFormFilled() {
         const firstName = firstNameEl.value.trim();
         const lastName  = lastNameEl.value.trim();
         const email     = emailEl.value.trim();
         const whatsapp  = whatsappEl.value.trim();
-        return firstName && lastName && email && whatsapp && atLeastOneService();
+        return firstName && lastName && email && whatsapp;
       }
 
       function updateSubmitButton() {
         submitButton.disabled = !checkFormFilled();
       }
 
-      function toggleServicesError() { servicesError.style.display = 'none'; }
-
-      servicesList.forEach(cb => cb.addEventListener('change', () => { toggleServicesError(); updateSubmitButton(); }));
+      updateSubmitButton(); }));
       [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
         el.addEventListener('input', updateSubmitButton);
       });
@@ -336,9 +295,9 @@ function atLeastOneService() { return presetPackage ? true : servicesList.some(c
       }
 
       submitButton.addEventListener('click', async function() {
-        if (!checkFormFilled()) { toggleServicesError(); return; }
+        if (!checkFormFilled()) { return; }
 
-        const services = (presetPackage ? [presetPackage] : servicesList.filter(cb => cb.checked).map(cb => cb.value)).map(normalizeSelected);
+        const services = (presetPackage ? [presetPackage] : []).map(normalizeSelected);
         const promoValue = (promoEl.value || '').trim(); // любые символы
 
         const contactData = {
@@ -371,8 +330,7 @@ function atLeastOneService() { return presetPackage ? true : servicesList.some(c
           submitButton.style.display = 'none';
 
           [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => el.value = '');
-          servicesList.forEach(cb => cb.checked = false);
-        } catch (error) {
+          } catch (error) {
           console.error('Ошибка:', error);
           alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
           submitButton.disabled = false;
