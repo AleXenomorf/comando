@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Форма заявки</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --ok:#00cc66; }
+    body{margin:0;font-family:Montserrat,system-ui,Arial;color:#fff;background:#2c2c2c}
+    .wrap{max-width:900px;margin:0 auto;padding:28px;min-height:100vh}
+    .card{background:#333;border-radius:14px;padding:20px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    h1{margin:0 0 10px}
+    label{display:block;margin:10px 0 6px;font-weight:600}
+    input[type="text"]{width:100%;padding:12px;border-radius:10px;border:2px solid #ccc;box-sizing:border-box}
+    .btn{display:inline-block;background:#ff6600;border:none;color:#fff;padding:12px 22px;border-radius:999px;font-weight:800;cursor:pointer}
+    .ok{display:none;margin-top:12px;padding:12px;border-radius:10px;background:rgba(0,204,102,.15);border:1px solid var(--ok);text-align:center}
+    .preview{margin:6px 0 12px;opacity:.95}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Оставьте свои контактные данные</h1>
+    <p id="preview" class="preview"></p>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
+
+    <form id="gform"
+      action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
+      method="POST" target="hidden_iframe" novalidate>
+
+      <label>Имя</label>
+      <input type="text" name="entry.575542865">
+
+      <label>Фамилия</label>
+      <input type="text" name="entry.1529853970">
+
+      <label>Email</label>
+      <input type="text" name="entry.63446999">
+
+      <label>Номер WhatsApp (с кодом страны)</label>
+      <input type="text" name="entry.826076263">
+
+      <label>Промокод</label>
+      <input type="text" name="entry.3032165">
+
+      <!-- Выбор пакета (ТОЛЬКО короткий ps) -->
+      <input type="hidden" id="servicesHidden" name="entry.1735060909" value="">
+
+      <div style="margin-top:14px">
+        <button type="submit" class="btn" id="sendBtn">Оставить заявку</button>
+      </div>
+    </form>
+
+    <div id="ok" class="ok">✅ Спасибо! Заявка отправлена.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function g(n){ try{ return new URLSearchParams(location.search).get(n) || ''; }catch(e){ return ''; } }
+  var ps = g('ps');
+  if(!ps){
+    try { var s = localStorage.getItem('selectedPackageShort'); if(s){ ps = s; localStorage.removeItem('selectedPackageShort'); } } catch(e){}
+  }
+  document.getElementById('servicesHidden').value = ps;
+  document.getElementById('preview').textContent = ps
+    ? ('Выбранный пакет: ' + ps)
+    : '⚠️ Выбор пакета не определён — вернитесь и нажмите нужную кнопку.';
+
+  var form = document.getElementById('gform');
+  var btn  = document.getElementById('sendBtn');
+
+  form.addEventListener('submit', function(){
+    btn.disabled = true;
+    setTimeout(function(){ document.getElementById('ok').style.display='block'; btn.disabled = false; }, 1600);
+  });
+  document.getElementById('hidden_iframe').addEventListener('load', function(){
+    document.getElementById('ok').style.display='block';
+    btn.disabled = false;
+  });
+})();
+</script>
+
+<!-- Guard to show a friendly message if opened directly without ps -->
+<script>
+/* GUARD_ADDED */
+(function(){
+  var qs = new URLSearchParams(location.search);
+  if(!qs.get("ps")){
+    try{
+      var box = document.getElementById('preview');
+      if(box){ box.textContent = "Откройте эту страницу через кнопку с сайта: так мы передадим выбранный пакет автоматически."; }
+    }catch(e){}
+  }
+})();
+</script>
+</body>
+</html>
