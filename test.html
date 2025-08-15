@@ -135,15 +135,17 @@
       .question-slide { padding: 20px 15px; }
       .nav-button { padding: 10px 15px; font-size: 14px; }
     }
-  </style>
+  
+    /* auto: hide services (preselected via index) */
+    .services-group { display: none !important; }
+</style>
 </head>
 <body>
   <div class="test-container">
     <div class="question-slide" id="question6">
       <div class="question-header">
         <div class="question-icon"><i class="fas fa-user"></i></div>
-        <div><h2 class="question-title">Оставьте свои контактные данные</h2>
-<div id="pkgPreview" style="margin:10px 0; color:#0f0; font-weight:600;"></div></div>
+        <div><h2 class="question-title">Оставьте свои контактные данные</h2></div>
       </div>
 
       <div class="info-block">
@@ -174,11 +176,44 @@
           <input type="text" id="promo" placeholder="например: FIT2025" />
         </div>
 
-        </div>
+        <fieldset class="services-group">
+          <legend>
+           Выберите формат услуги
+      
+          </legend>
+          <div class="services-list" id="servicesList">
+            <div class="service-item">
+              <input type="checkbox" id="srv1" value="Для жителей Костаная — клуб «Аврора»">
+              <label for="srv1">Для жителей Костаная — клуб «Аврора»</label>
+            </div>
+            <div class="service-item">
+              <input type="checkbox" id="srv2" value="Для жителей других стран">
+              <label for="srv2">Для жителей других стран</label>
+            </div>
+            <div class="service-item">
+              <input type="checkbox" id="srv3" value="Базовый формат онлайн сопровождения — 150 000 тг за три месяца">
+              <label for="srv3">Базовый формат онлайн сопровождения — 150 000 тг за три месяца</label>
+            </div>
+            <div class="service-item">
+              <input type="checkbox" id="srv4" value="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
+              <label for="srv4">Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца</label>
+            </div>
+            <div class="service-item">
+              <input type="checkbox" id="srv5" value="Пробная неделя — 10 000 тг">
+              <label for="srv5">Пробная неделя с индивидуальной программой и полным сопровождением — 10 000 тг</label>
+            </div>
+            <div class="service-item">
+              <input type="checkbox" id="srv6" value="Пробная неделя — 15 000 тг">
+              <label for="srv6">Пробная неделя с индивидуальной программой и полным сопровождением — 15 000 тг</label>
+            </div>
+          </div>
+        
+        </fieldset>
+      </div>
     </div>
 
     <div class="nav-buttons">
-      <button class="nav-button" id="submitButton">Оставить заявку</button>
+      <button class="nav-button" id="submitButton" disabled>Оставить заявку</button>
     </div>
 
     <div class="success-message" id="successMessage">
@@ -213,72 +248,83 @@
       const emailEl     = qs('#email');
       const whatsappEl  = qs('#whatsapp');
       const promoEl     = qs('#promo');
-// Read preset from URL (package=...)
-      const params = new URLSearchParams(location.search);
-      let presetPackage = params.get('package');
-      try {
-        if (!presetPackage) {
-          const stored = localStorage.getItem('selectedPackage');
-          if (stored) { presetPackage = stored; localStorage.removeItem('selectedPackage'); }
-        }
-      } catch (e) { /* ignore */ }
+      const servicesList = [...document.querySelectorAll('#servicesList input[type="checkbox"]')];
+      const servicesError = qs('#servicesError');
 
-      const servicesFieldset = document.querySelector('.services-group');
-
-      // If preset exists, hide the services fieldset (checkboxes) & adjust validation
-      if (presetPackage && servicesFieldset) {
-        servicesFieldset.style.display = 'none';
-      }
-
-      // Normalization map (so Google Sheet shows price-only if needed)
-      function normalizeSelected(value) {
-        if (!value) return '';
+      
+      // === Auto select service from index ===
+      function normalizeToOption(raw) {
+        if (!raw) return '';
         const options = [
           'Для жителей Костаная — клуб «Аврора»',
           'Для жителей других стран',
           'Базовый формат онлайн сопровождения — 150 000 тг за три месяца',
           'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца',
-          'Пробная неделя с индивидуальной программой и полным сопровождением — 10 000 тг',
-          'Пробная неделя с индивидуальной программой и полным сопровождением — 15 000 тг'
+          'Пробная неделя — 10 000 тг',
+          'Пробная неделя — 15 000 тг'
         ];
-
-        // Normalize incoming text (remove extra spaces, unify quotes/dashes) then try fuzzy match
         const norm = (s) => (s || '')
-          .replace(/[\u2013\u2014-]+/g, ' — ')      // dashes to spaced em-dash
-          .replace(/["']/g, '\"')                   // quotes to standard double
-          .replace(/[«»]/g, (m) => m)               // keep guillemets as-is
-          .replace(/тг\b/gi, 'тг')
+          .replace(/[\u2013\u2014-]+/g, ' — ')
           .replace(/\s+/g, ' ')
-          .trim();
-
-        const v = norm(value);
-
-        // Exact match first
+          .trim()
+          .toLowerCase();
+        const v = norm(raw);
         for (const opt of options) {
-          if (norm(opt) === v) return opt;
+          if (norm(opt) === v) return opt; // exact normalized match
         }
-
         // Heuristics
-        if (/базовый/i.test(v) || /150\s*000/.test(v)) return options[2];
-        if (/аврора/i.test(v) && /мини/i.test(v)) return options[3];
-        if (/жителей\s+костаная/i.test(v)) return options[0];
-        if (/других\s+стран/i.test(v)) return options[1];
+        if (/базовый/.test(v) || /150\s*000/.test(v)) return options[2];
+        if (/мини/.test(v) && /аврора/.test(v)) return options[3];
+        if (/костанай/.test(v)) return options[0];
+        if (/других\s+стран/.test(v)) return options[1];
         if (/10\s*000/.test(v)) return options[4];
         if (/15\s*000/.test(v)) return options[5];
-
-        // Fallback to базовый
-        return options[2];
-      };
-        return map[value] || value;
+        return '';
       }
-function checkFormFilled() { return true; }
+
+      function preselectServiceFromPackage() {
+        const params = new URLSearchParams(location.search);
+        let pkg = params.get('package') || '';
+        try {
+          if (!pkg) {
+            const stored = localStorage.getItem('selectedPackage');
+            if (stored) { pkg = stored; localStorage.removeItem('selectedPackage'); }
+          }
+        } catch(e) {}
+
+        const mapped = normalizeToOption(pkg);
+        if (!mapped) return false;
+
+        const all = document.querySelectorAll('#servicesList input[type="checkbox"]');
+        let matched = false;
+        all.forEach(cb => {
+          if (cb.value.trim() === mapped) {
+            cb.checked = true;
+            matched = true;
+          } else {
+            cb.checked = false;
+          }
+        });
+        return matched;
+      }
+function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || preselectServiceFromPackage(); }
+
+      function checkFormFilled() {
+        const firstName = firstNameEl.value.trim();
+        const lastName  = lastNameEl.value.trim();
+        const email     = emailEl.value.trim();
+        const whatsapp  = whatsappEl.value.trim();
+        return firstName && lastName && email && whatsapp && atLeastOneService();
+      }
 
       function updateSubmitButton() {
         submitButton.disabled = !checkFormFilled();
       }
 
-      submitButton.disabled = false;
-[firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
+      function toggleServicesError(){ if(!servicesError) return; servicesError.style.display = atLeastOneService()? 'none':'block'; }
+
+      servicesList.forEach(cb => cb.addEventListener('change', () => { toggleServicesError(); updateSubmitButton(); }));
+      [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
         el.addEventListener('input', updateSubmitButton);
       });
 
@@ -326,9 +372,10 @@ function checkFormFilled() { return true; }
       }
 
       submitButton.addEventListener('click', async function() {
-        if (!checkFormFilled()) { return; }
+        if (!checkFormFilled()) { toggleServicesError(); return; }
 
-        const services = (presetPackage ? [presetPackage] : []).map(normalizeSelected).filter(Boolean);
+        let services = servicesList.filter(cb => cb.checked).map(cb => cb.value);
+        if (!services.length) { preselectServiceFromPackage(); services = servicesList.filter(cb => cb.checked).map(cb => cb.value); }
         const promoValue = (promoEl.value || '').trim(); // любые символы
 
         const contactData = {
@@ -361,7 +408,8 @@ function checkFormFilled() { return true; }
           submitButton.style.display = 'none';
 
           [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => el.value = '');
-          } catch (error) {
+          servicesList.forEach(cb => cb.checked = false);
+        } catch (error) {
           console.error('Ошибка:', error);
           alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
           submitButton.disabled = false;
@@ -369,8 +417,9 @@ function checkFormFilled() { return true; }
         }
       });
 
-      // toggleServicesError removed; no services field anymore.
-      submitButton.disabled = false;
+      preselectServiceFromPackage();
+      toggleServicesError();
+      updateSubmitButton();
     });
   </script>
 </body>
