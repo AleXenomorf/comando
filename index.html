@@ -4672,88 +4672,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 <script>
-/* PACKAGE-LINK-PROPAGATIONEXPLICIT */
-/* Жёсткое соответствие: для каждой секции присваиваем кнопке точный текст,
-   который должен уйти в Google ("ps"), и официальное полное значение ("package"). */
+/* CONCISE-LABEL PROPAGATION (ps) */
 (function(){
-  function clean(t){ return (t||'').replace(/\s+/g,' ').trim(); }
-  function findCardByText(reg){
-    const nodes = document.querySelectorAll('section, article, .card, .row, .col, .box, .pricing-column, .item, .offer, .product, .tariff, div');
-    for (const n of nodes) {
-      const txt = clean(n.innerText || '').toLowerCase();
-      if (reg.test(txt)) return n;
-    }
-    return null;
+  function clean(s){return (s||'').replace(/\s+/g,' ').trim();}
+  function norm(s){return clean(s).toLowerCase();}
+  function findCard(el){
+    return el.closest('.card, .pricing-column, .tariff, .plan, article, section, .item, .product, .offer, .row, .col, .box') || el.parentElement || el;
   }
-  function setForCard(card, ps, pkg){
-    if (!card) return;
-    // Кнопка внутри карточки
-    const btn = card.querySelector('a, button');
-    if (!btn) return;
-    btn.dataset.packageShort = ps;
-    btn.dataset.package = pkg;
-    if (!/test(\.html)?/i.test(btn.getAttribute('href')||'')) {
-      btn.setAttribute('href','test.html');
-    }
+  function conciseLabelFrom(card){
+    const t = norm(card.innerText || card.textContent || '');
+    if ((/костанай/.test(t) || /аврора/.test(t)) && /200\s*000/.test(t)) return 'Мини группа 200 000';
+    if (/других\s+город|других\s+стран|городов\s+и\s+стран/.test(t))        return 'Онлайн (другие страны)';
+    if (/базов/.test(t) && /150\s*000/.test(t))                              return 'Онлайн базовый 150 000';
+    if ((/мини[\-\s]?групп/.test(t) || /аврора/.test(t)) && (/200\s*000/.test(t) || /80\s*000/.test(t))) return 'Мини группа 200 000';
+    if (/пробн/.test(t) && /10\s*000/.test(t))                               return 'Пробная неделя 10 000';
+    if (/пробн/.test(t) && /15\s*000/.test(t))                               return 'Пробная неделя 15 000';
+    const h = card.querySelector('h1,h2,h3,h4,.title,.card-title,.pricing-name,.heading');
+    return clean(h ? h.textContent : (card.textContent || ''));
   }
-
-  // Карта: ищем по уникальным фразам из твоего описания
-  const MAP = [
-    {
-      re: /костанай.*спец.*предлож/i,
-      ps: 'Для жителей Костаная — тренировки в мини-группе в фитнес-клубе «Аврора!» — ЗАБРОНИРОВАТЬ МЕСТО',
-      pkg:'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца'
-    },
-    {
-      re: /других\s+городов?\s+и\s+стран/i,
-      ps: 'Для жителей других городов и стран — ЗАБРОНИРОВАТЬ МЕСТО',
-      pkg:'Для жителей других стран'
-    },
-    {
-      re: /базовый\s+формат\s+онлайн.*150[ \.\u00A0]*000.*65[ \.\u00A0]*000/i,
-      ps: 'Базовый формат онлайн сопровождения — 150.000 тг за три месяца — 65.000 тг помесячно — ПОДАТЬ ЗАЯВКУ',
-      pkg:'Базовый формат онлайн сопровождения — 150 000 тг за три месяца'
-    },
-    {
-      re: /мини-?группа.*аврора.*200[ \.\u00A0]*000.*80[ \.\u00A0]*000/i,
-      ps: 'Мини-группа в фитнес клубе «Аврора» — 200.000 тг за три месяца — 80.000 тг помесячно (абонемент в зал отдельно) — ПОДАТЬ ЗАЯВКУ',
-      pkg:'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца'
-    },
-    {
-      re: /пробн.*недел.*10[ \.\u00A0]*000/i,
-      ps: 'Пробная неделя с выдачей индивидуальной программы и полным сопровождением — 10.000 тг — ПОДАТЬ ЗАЯВКУ',
-      pkg:'Пробная неделя — 10 000 тг'
-    },
-    {
-      re: /пробн.*недел.*15[ \.\u00A0]*000/i,
-      ps: 'Пробная неделя с выдачей индивидуальной программы и полным сопровождением — 15.000 тг — ПОДАТЬ ЗАЯВКУ',
-      pkg:'Пробная неделя — 15 000 тг'
-    },
-  ];
-
-  // Проставляем на странице
-  MAP.forEach(m => {
-    const card = findCardByText(m.re);
-    setForCard(card, m.ps, m.pkg);
+  document.querySelectorAll('a,button').forEach(function(n){
+    const href = (n.getAttribute('href')||'').trim();
+    const onclick = (n.getAttribute('onclick')||'');
+    const toTest = /(?:^|\/)test(?:\.html)?(?:[#?].*)?$/i.test(href) || /test\.html/i.test(onclick);
+    if (!toTest) return;
+    if (!n.dataset.packageShort || !n.dataset.packageShort.trim()){
+      const lbl = conciseLabelFrom(findCard(n));
+      n.dataset.packageShort = lbl;
+    }
+    if (!n.dataset.package || !n.dataset.package.trim()){
+      n.dataset.package = n.dataset.packageShort;
+    }
   });
-
-  // Делегатор кликов: переносим ps/package в URL + localStorage и идём на test.html
   document.addEventListener('click', function(ev){
-    const trg = ev.target.closest('a, button');
+    const trg = ev.target.closest('a,button');
     if (!trg) return;
     const href = (trg.getAttribute('href')||'').trim();
-    if (!/(^|\/)test(\.html)?(\?|#|$)/i.test(href)) return;
-
-    ev.preventDefault();
-    ev.stopPropagation();
-
-    const ps = clean(trg.dataset.packageShort || trg.textContent || '');
-    const pkg = clean(trg.dataset.package || ps || '');
-    try {
+    const onclick = (trg.getAttribute('onclick')||'');
+    const toTest = /(?:^|\/)test(?:\.html)?(?:[#?].*)?$/i.test(href) || /test\.html/i.test(onclick);
+    if (!toTest) return;
+    ev.preventDefault(); ev.stopPropagation();
+    const ps = clean(trg.dataset.packageShort || '');
+    const pkg = clean(trg.dataset.package || ps);
+    try{
       localStorage.setItem('selectedPackageShort', ps);
       localStorage.setItem('selectedPackage', pkg);
-    } catch(e){}
-
+    }catch(_){}
     const url = href || 'test.html';
     try{
       const u = new URL(url, location.href);
@@ -4761,8 +4724,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (pkg) u.searchParams.set('package', pkg);
       location.href = u.toString();
     }catch(e){
-      const qs = 'ps=' + encodeURIComponent(ps) + '&package=' + encodeURIComponent(pkg);
-      location.href = url + (url.indexOf('?')>-1 ? '&' : '?') + qs;
+      const qs = (url.indexOf('?')>-1?'&':'?') + 'ps=' + encodeURIComponent(ps) + '&package=' + encodeURIComponent(pkg);
+      location.href = url + qs;
     }
   }, true);
 })();
