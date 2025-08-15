@@ -4730,155 +4730,66 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-<!-- === CTA FIX: unique labels/IDs + working links to test form (no 404) === -->
+<!-- MINIMAL CTA PATCH: safe href wiring only -->
 <script>
 (function(){
-  // Path to your local test form (spaces encoded for safety)
-  var FORM_PATH = "test_form.html";
+  // Use a simple relative path without spaces to avoid 404 on many hosts
+  var FORM_PATH = "form.html";
 
-  // Map: rules to detect which CTA is clicked and what short code to send
-  // You can change the short codes and matching phrases.
-  var RULES = [
-    {
-      // Кнопка для жителей Костаная (клуб Аврора)
-      containsAny: ["Костаная", "Костанай", "Аврора"],
-      ps: "kostanay_offer",
-      label: "ЗАБРОНИРОВАТЬ МЕСТО — Костанай"
-    },
-    {
-      // Кнопка для жителей других городов/стран (онлайн)
-      containsAny: ["других городов", "других стран", "Онлайн", "онлайн"],
-      ps: "global_offer",
-      label: "ЗАБРОНИРОВАТЬ МЕСТО — Онлайн"
-    }
-  ];
-
-  // Helper: normalize text
   function norm(s){ return (s||"").replace(/\s+/g," ").trim().toLowerCase(); }
 
-  // Build URL with UTM + ps
-  function buildUrl(ps, campaign, label){
-    var url = new URL(FORM_PATH, location.href);
-    url.searchParams.set("ps", ps);
-    url.searchParams.set("utm_source", "site");
-    url.searchParams.set("utm_medium", "button");
-    url.searchParams.set("utm_campaign", campaign);
-    url.searchParams.set("cta", label);
-    return url.toString();
+  // Find all links/buttons with the exact label
+  var nodes = Array.from(document.querySelectorAll("a, button, [role='button']"))
+    .filter(function(el){
+      var t = (el.textContent || el.value || "").replace(/\s+/g," ").trim();
+      return t === "ЗАБРОНИРОВАТЬ МЕСТО!";
+    });
+
+  // Helper: detect which block we are inside by scanning ancestors' text
+  function detect(el){
+    var cur = el, depth = 0, txt;
+    while(cur && depth < 8){
+      txt = norm(cur.textContent || "");
+      if (txt.includes(norm("Для жителей Костаная")) || txt.includes(norm("Аврора"))) return "kostanay";
+      if (txt.includes(norm("Для жителей других городов и стран"))) return "global";
+      depth++; cur = cur.parentElement;
+    }
+    return null;
   }
 
-  // Find all clickable elements that could be CTAs
-  var candidates = Array.from(document.querySelectorAll("a, button, .pricing-button, .consultation-signup-btn"));
-  // De-dup
-  candidates = candidates.filter(function(el, idx, arr){ return arr.indexOf(el) === idx; });
-
-  // Apply rules
-  candidates.forEach(function(el, i){
+  function build(ps){
     try{
-      var text = norm(el.textContent || el.value || "");
-      if(!text) return;
-
-      for (var r of RULES){
-        var matched = r.containsAny.some(function(token){ return text.includes(norm(token)); });
-        if(matched){
-          var id = (r.ps + "_" + (el.id || ("cta"+i)));
-          var href = buildUrl(r.ps, r.ps, r.label);
-
-          // Attach attributes
-          el.setAttribute("data-btn-id", r.ps);
-          el.setAttribute("data-btn-label", r.label);
-
-          // Ensure it acts as link and *never* 404s (points to local form by default)
-          if(el.tagName.toLowerCase() === "a"){
-            el.href = href;
-            el.target = "_blank";
-            el.rel = "noopener";
-            el.textContent = r.label; // unify label
-          }else{
-            // For buttons/divs: add click->navigate and role link
-            el.setAttribute("role","link");
-            el.addEventListener("click", function(ev){
-              window.open(href, "_blank", "noopener");
-            }, { once:false });
-          }
-
-          // Lightweight click tracking
-          el.addEventListener("click", function(){
-            try{
-              localStorage.setItem("last_click_cta", JSON.stringify({
-                id: r.ps, label: r.label, href: href, ts: Date.now()
-              }));
-            }catch(e){}
-          }, { once:false });
-
-          break; // stop after first matched rule
-        }
-      }
-    }catch(e){ /* ignore */ }
-  });
-
-  // Fallback: If specific buttons weren’t found, try obvious text labels
-  // and wire *any* button that literally says "ЗАБРОНИРОВАТЬ МЕСТО!" to the global offer.
-  var literalCtas = Array.from(document.querySelectorAll("a, button"))
-    .filter(function(el){ return norm(el.textContent) === norm("ЗАБРОНИРОВАТЬ МЕСТО!"); });
-  literalCtas.forEach(function(el, i){
-    if(!el.getAttribute("data-btn-id")){
-      var label = "ЗАБРОНИРОВАТЬ МЕСТО — Онлайн";
-      var href = buildUrl("global_offer", "global_offer", label);
-      if(el.tagName.toLowerCase()==="a"){
-        el.href = href; el.target="_blank"; el.rel="noopener"; el.textContent = label;
-      }else{
-        el.setAttribute("role","link");
-        el.addEventListener("click", function(){ window.open(href,"_blank","noopener"); });
-      }
-      el.setAttribute("data-btn-id","global_offer");
-      el.setAttribute("data-btn-label",label);
-    }
-  });
-})();
-</script>
-<!-- === /CTA FIX === -->
-
-<script>
-(function(){
-  // Extra hardening: delegate clicks at document level to avoid SPA/router 404.
-  // Any element whose text mentions Kostanay/Аврора or "других городов/стран/онлайн" will be redirected.
-  var FORM_PATH = "test_form.html";
-  function norm(s){ return (s||"").replace(/\s+/g," ").trim().toLowerCase(); }
-  function build(ps,label){
-    var u = new URL(FORM_PATH, location.href);
-    u.searchParams.set("ps", ps);
-    u.searchParams.set("utm_source","site");
-    u.searchParams.set("utm_medium","button");
-    u.searchParams.set("utm_campaign", ps);
-    u.searchParams.set("cta", label);
-    return u.toString();
+      var u = new URL(FORM_PATH, document.baseURI);
+      u.searchParams.set("ps", ps);
+      u.searchParams.set("utm_source", "site");
+      u.searchParams.set("utm_medium", "button");
+      u.searchParams.set("utm_campaign", ps);
+      u.searchParams.set("cta", "ЗАБРОНИРОВАТЬ МЕСТО!");
+      return u.toString();
+    }catch(e){ return FORM_PATH; }
   }
-  function findCtaEl(start){
-    var el = start;
-    for (var i=0;i<5 && el;i++,el=el.parentElement){
-      if (el.tagName==="A" || el.tagName==="BUTTON") return el;
-      if (el.onclick || el.role==="button" || el.role==="link") return el;
+
+  nodes.forEach(function(el){
+    var ps = detect(el);
+    if(!ps) return; // only touch the two target blocks
+
+    var href = build(ps);
+
+    if (el.tagName && el.tagName.toLowerCase() === "a"){
+      el.setAttribute("href", href);
+      el.setAttribute("target", "_blank");
+      el.setAttribute("rel", "noopener");
+    } else {
+      // don't change the label, only make sure click opens form
+      el.addEventListener("click", function(e){
+        // don't interfere with other handlers; just try to open form in new tab
+        window.open(href, "_blank", "noopener");
+      });
     }
-    return start;
-  }
-  document.addEventListener("click", function(e){
-    var t = findCtaEl(e.target);
-    if(!t) return;
-    var txt = norm((t.textContent||t.value||""));
-    if(!txt) return;
-    var isKost = /костанай|костаная|аврора/.test(txt);
-    var isGlobal = /других город|других стран|онлайн/.test(txt);
-    if(isKost || isGlobal){
-      e.preventDefault();
-      var ps = isKost ? "kostanay_offer" : "global_offer";
-      var label = isKost ? "ЗАБРОНИРОВАТЬ МЕСТО — Костанай" : "ЗАБРОНИРОВАТЬ МЕСТО — Онлайн";
-      var url = build(ps,label);
-      try{ localStorage.setItem("last_click_cta", JSON.stringify({id:ps,label:label,href:url,ts:Date.now()})); }catch(_){}
-      // Try assign (always works even if popups blocked)
-      location.href = url;
-    }
-  }, true); // capture phase to override other handlers
+
+    // small trace (non-blocking)
+    try{ el.setAttribute("data-ps", ps); }catch(_){}
+  });
 })();
 </script>
 </body>
