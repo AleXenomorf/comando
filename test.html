@@ -248,9 +248,30 @@
       const servicesList = [...document.querySelectorAll('#servicesList input[type="checkbox"]')];
       const servicesError = qs('#servicesError');
 
-      function atLeastOneService() {
-        return servicesList.some(cb => cb.checked);
+      
+      // Read preset from URL (package=...)
+      const params = new URLSearchParams(location.search);
+      const presetPackage = params.get('package');
+      const servicesFieldset = document.querySelector('.services-group');
+
+      // If preset exists, hide the services fieldset (checkboxes) & adjust validation
+      if (presetPackage && servicesFieldset) {
+        servicesFieldset.style.display = 'none';
       }
+
+      // Normalization map (so Google Sheet shows price-only if needed)
+      function normalizeSelected(value) {
+        const map = {
+          'Базовый формат онлайн сопровождения — 150 000 тг за три месяца': '150.000 тенге за три месяца',
+          'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца': '200.000 тенге за три месяца',
+          'Пробная неделя с выдачей индивидуальной программы и полным сопровождением — 10.000 тенге': '10.000 тенге',
+          'Пробная неделя с выдачей индивидуальной программы и полным сопровождением — 15.000 тенге': '15.000 тенге',
+          'Пробная неделя — 10 000 тг': '10.000 тенге',
+          'Пробная неделя — 15 000 тг': '15.000 тенге'
+        };
+        return map[value] || value;
+      }
+function atLeastOneService() { return presetPackage ? true : servicesList.some(cb => cb.checked); }
 
       function checkFormFilled() {
         const firstName = firstNameEl.value.trim();
@@ -264,9 +285,7 @@
         submitButton.disabled = !checkFormFilled();
       }
 
-      function toggleServicesError() {
-        servicesError.style.display = atLeastOneService() ? 'none' : 'block';
-      }
+      function toggleServicesError() { servicesError.style.display = 'none'; }
 
       servicesList.forEach(cb => cb.addEventListener('change', () => { toggleServicesError(); updateSubmitButton(); }));
       [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
@@ -319,7 +338,7 @@
       submitButton.addEventListener('click', async function() {
         if (!checkFormFilled()) { toggleServicesError(); return; }
 
-        const services = servicesList.filter(cb => cb.checked).map(cb => cb.value);
+        const services = (presetPackage ? [presetPackage] : servicesList.filter(cb => cb.checked).map(cb => cb.value)).map(normalizeSelected);
         const promoValue = (promoEl.value || '').trim(); // любые символы
 
         const contactData = {
@@ -367,6 +386,5 @@
   </script>
 </body>
 </html>
-
 
 
