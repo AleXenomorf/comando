@@ -4676,40 +4676,55 @@ document.addEventListener("DOMContentLoaded", function () {
 (function(){
   function clean(s){ return (s||'').replace(/\s+/g,' ').trim(); }
   function norm(s){ return clean(s).toLowerCase(); }
-  function findCard(el){
-    return el.closest('.card, .pricing-column, .tariff, .plan, article, section, .item, .product, .offer, .row, .col, .box') || el.parentElement || el;
+  function cardOf(el){
+    return el.closest('section, article, .card, .col, .row, .container, .block, .offer, .plan, .pricing-column, .tariff') || el.parentElement || el;
   }
-  function labelFromCard(card){
-    const t = norm(card ? (card.innerText || card.textContent || '') : '');
-    if ((/костанай/.test(t) || /аврора/.test(t)) && /спец|мини/.test(t) && /200\s*000/.test(t)) return 'Костанай Аврора мини-группа';
-    if ((/мини[\-\s]?групп/.test(t) || /аврора/.test(t)) && /200\s*000/.test(t)) return 'Мини группа 200 000';
-    if (/других\s+город|других\s+стран|городов\s+и\s+стран/.test(t)) return 'Онлайн (другие страны)';
-    if (/базов/.test(t) && /150\s*000/.test(t)) return 'Онлайн базовый 150 000';
+  function isHeroButton(btn){
+    try {
+      var rect = btn.getBoundingClientRect();
+      return /подать\s+заявку/i.test(btn.textContent||'') && rect.top < 600;
+    } catch(e){ return false; }
+  }
+  function detectLabel(card, btn){
+    var t = norm(card ? (card.innerText || card.textContent || '') : '');
+    if ((/для жителей костаная/.test(t) || /костанай/.test(t) || /аврора/.test(t)) &&
+        /спец/.test(t) && /забронировать место/.test(t)) return 'Костанай Аврора (спец)';
+    if (/для жителей других городов и стран/.test(t) && /забронировать место/.test(t)) return 'Онлайн (другие страны)';
+    if (/базовый формат онлайн сопровождения/.test(t) && (/150\s*000/.test(t) || /65\s*000/.test(t))) return 'Онлайн базовый 150 000';
+    if (/мини[\-\s]?группа/.test(t) && /аврора/.test(t) && (/200\s*000/.test(t) || /80\s*000/.test(t))) return 'Мини группа 200 000';
     if (/пробн/.test(t) && /недел/.test(t) && /10\s*000/.test(t)) return 'Пробная неделя 10 000';
     if (/пробн/.test(t) && /недел/.test(t) && /15\s*000/.test(t)) return 'Пробная неделя 15 000';
+    if (isHeroButton(btn)) return 'Заявка (герой)';
     return '';
   }
-  document.addEventListener('click', function(ev){
-    const trg = ev.target.closest('a,button');
-    if (!trg) return;
-    const href = (trg.getAttribute('href')||'').trim();
-    const onclick = (trg.getAttribute('onclick')||'');
-    const isTestLink = /(?:^|\/)test(?:[\w\-]*)(?:\.html)?(?:[#?].*)?$/i.test(href) || /test[\w\-]*\.html/i.test(onclick);
-    const wantsTest = isTestLink || trg.matches('[data-go="test"]');
-    if (!wantsTest) return;
-    ev.preventDefault();
-    ev.stopPropagation();
-    const card = findCard(trg);
-    let ps = clean((trg.dataset && trg.dataset.packageShort) ? trg.dataset.packageShort : '');
-    if (!ps) ps = labelFromCard(card);
+  document.querySelectorAll('a, button').forEach(function(btn){
+    var text = (btn.textContent || '').toLowerCase();
+    var isAction = /подать заявку|забронировать место/.test(text) ||
+                   /(?:^|\/)test(?:[\w\-]*)(?:\.html)?(?:[#?].*)?$/.test((btn.getAttribute('href')||''));
+    if (!isAction) return;
+    if (btn.dataset.packageShort && btn.dataset.packageShort.trim()) return;
+    var label = detectLabel(cardOf(btn), btn);
+    if (label) btn.dataset.packageShort = label;
+  });
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('a, button'); if (!btn) return;
+    var text = (btn.textContent || '').toLowerCase();
+    var href = (btn.getAttribute('href')||'');
+    var isAction = /подать заявку|забронировать место/.test(text) ||
+                   /(?:^|\/)test(?:[\w\-]*)(?:\.html)?(?:[#?].*)?$/.test(href) ||
+                   btn.matches('[data-go="test"]');
+    if (!isAction) return;
+    var ps = clean(btn.dataset.packageShort || '');
     if (!ps){
-      alert('Не удалось определить пакет для этой кнопки. Добавьте data-package-short на кнопку.');
-      return;
+      var auto = detectLabel(cardOf(btn), btn);
+      if (auto) { ps = auto; btn.dataset.packageShort = auto; }
     }
+    if (!ps) return;
+    e.preventDefault(); e.stopPropagation();
     try { localStorage.setItem('selectedPackageShort', ps); } catch(e){}
-    const url = new URL('test_1_patched_exact_ps.html', location.href);
-    url.searchParams.set('ps', ps);
-    location.href = url.toString();
+    var u = new URL('test_1_patched_exact_ps.html', location.href);
+    u.searchParams.set('ps', ps);
+    location.href = u.toString();
   }, true);
 })();
 </script>
