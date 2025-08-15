@@ -3627,7 +3627,16 @@
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,204,0,0); }
   }
 }
-</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/></head>
+</style><link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet"/>
+<style id="zoom-scale-css-v5">
+  html, body { margin:0; padding:0; overflow-x:hidden; }
+  body.zoom-fallback { transform-origin: top left; } /* топ-левый угол, чтобы не сдвигало вниз */
+  @media (max-width: 768px) {
+    body { zoom: 1 !important; }
+    body.zoom-fallback { transform: none !important; }
+  }
+</style>
+</head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
      <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div></div>
@@ -4792,6 +4801,66 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 });
+</script>
+
+<script id="zoom-scale-js-v5">
+(function(){
+  var DESIGN_WIDTH = 1440;
+  var MOBILE_MAX = 768;
+  var isFF = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+  var raf = window.requestAnimationFrame || function(cb){ return setTimeout(cb, 16); };
+  var rszTimer = null;
+
+  function scrollTopGuard(){
+    // Жёстко ставим в самый верх, чтобы заголовки не "уезжали" выше экрана
+    try { window.scrollTo(0, 0); } catch(e){}
+  }
+
+  function applyZoom(){
+    var w = window.innerWidth || document.documentElement.clientWidth;
+    if (w <= MOBILE_MAX){ reset(); return; }
+
+    var scale = w / DESIGN_WIDTH; // вверх/вниз как картинка
+
+    if (!isFF){
+      document.body.classList.remove('zoom-fallback');
+      document.body.style.zoom = String(scale);
+      document.documentElement.style.height = '';
+      document.body.style.height = '';
+
+      raf(function(){
+        scrollTopGuard();
+      });
+    } else {
+      document.body.style.zoom = '';
+      document.body.classList.add('zoom-fallback');
+      document.body.style.transform = 'scale(' + scale + ')';
+
+      raf(function(){
+        // Компенсация высоты для корректного скролла в Firefox
+        var rect = document.body.getBoundingClientRect();
+        var scaledHeight = rect.height * scale;
+        document.documentElement.style.height = scaledHeight + 'px';
+        document.body.style.height = rect.height + 'px';
+        scrollTopGuard();
+      });
+    }
+  }
+
+  function reset(){
+    document.body.style.zoom = '';
+    document.body.classList.remove('zoom-fallback');
+    document.body.style.transform = '';
+    document.documentElement.style.height = '';
+    document.body.style.height = '';
+  }
+
+  document.addEventListener('DOMContentLoaded', applyZoom);
+  window.addEventListener('resize', function(){
+    clearTimeout(rszTimer);
+    rszTimer = setTimeout(applyZoom, 50);
+  });
+})();
 </script>
 </body>
 </html>
