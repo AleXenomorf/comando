@@ -4253,356 +4253,6 @@
 </div>
 </div>
 </div>
-<script>
-   document.addEventListener('DOMContentLoaded', function() {
-            // Анимация кольца
-            const text = "MINDFIT MINDFIT";
-            const circle = document.getElementById('marathonCircle');
-            
-            circle.innerHTML = '';
-            
-            for (let i = 0; i < text.length; i++) {
-                const charElem = document.createElement('div');
-                charElem.className = 'marathon-char';
-                charElem.textContent = text[i];
-                charElem.style.setProperty('--char-index', i);
-                circle.appendChild(charElem);
-            }
-
-            // Плавное появление блоков
-            const textBlocks = [
-                document.getElementById('advantagesBlock'), 
-                document.getElementById('pricing'),
-                document.getElementById('cases'),
-                document.getElementById('team'),
-                document.getElementById('faq'),
-                document.getElementById('contacts')
-            ];
-            
-            function checkVisibility() {
-                textBlocks.forEach(block => {
-                    if (!block) return;
-                    
-                    const rect = block.getBoundingClientRect();
-                    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-                    
-                    if (rect.top <= windowHeight * 0.7 && rect.bottom >= windowHeight * 0.3) {
-                        block.classList.add('visible');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', checkVisibility);
-            checkVisibility();
-
-            // Управление меню
-            const menuToggle = document.getElementById('menuToggle');
-            const navMenu = document.getElementById('navMenu');
-            const closeMenu = document.getElementById('closeMenu');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const imageContainer = document.getElementById('imageContainer');
-
-            function toggleMenu() {
-                navMenu.classList.toggle('active');
-                menuOverlay.classList.toggle('active');
-                imageContainer.classList.toggle('menu-open');
-                document.body.classList.toggle('no-scroll');
-            }
-
-            menuToggle.addEventListener('click', toggleMenu);
-            closeMenu.addEventListener('click', toggleMenu);
-            menuOverlay.addEventListener('click', toggleMenu);
-
-            // Плавная прокрутка к разделам
-            document.querySelectorAll('.nav-menu a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        toggleMenu();
-                        window.scrollTo({
-                            top: targetElement.offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Слайдер команды
-            const teamSlides = document.querySelectorAll('.team-slide');
-            const teamDots = document.querySelectorAll('.slider-dot');
-            const teamPrevArrow = document.querySelector('.slider-arrow.prev');
-            const teamNextArrow = document.querySelector('.slider-arrow.next');
-            const teamMobilePrevArrow = document.querySelector('.mobile-slider-arrow.prev');
-            const teamMobileNextArrow = document.querySelector('.mobile-slider-arrow.next');
-            const teamSlider = document.querySelector('.team-slider');
-            let currentTeamSlide = 0;
-            let isMobile = window.matchMedia("(max-width: 768px)").matches;
-            let teamSlideInterval;
-
-            function showTeamSlide(index) {
-                teamSlides.forEach(slide => {
-                    slide.classList.remove('active');
-                    slide.style.opacity = '0';
-                });
-                teamDots.forEach(dot => dot.classList.remove('active'));
-                
-                teamSlides[index].classList.add('active');
-                teamSlides[index].style.opacity = '1';
-                teamDots[index].classList.add('active');
-                currentTeamSlide = index;
-            }
-
-            function nextTeamSlide() {
-                let newIndex = (currentTeamSlide + 1) % teamSlides.length;
-                showTeamSlide(newIndex);
-            }
-
-            function prevTeamSlide() {
-                let newIndex = (currentTeamSlide - 1 + teamSlides.length) % teamSlides.length;
-                showTeamSlide(newIndex);
-            }
-
-            function startTeamSlideInterval() {
-                stopTeamSlideInterval();
-                teamSlideInterval = setInterval(nextTeamSlide, 4000); // Установлено 4 секунды
-            }
-
-            function stopTeamSlideInterval() {
-                if (teamSlideInterval) {
-                    clearInterval(teamSlideInterval);
-                }
-            }
-
-            // Инициализация слайдера команды
-            if (isMobile && window.matchMedia("(orientation: portrait)").matches) {
-                teamSlider.style.display = 'flex';
-                teamSlider.style.flexDirection = 'row';
-                teamSlider.style.overflowX = 'auto';
-                teamSlider.style.scrollSnapType = 'x mandatory';
-                teamSlider.style.scrollBehavior = 'smooth';
-                teamSlider.style.WebkitOverflowScrolling = 'touch';
-
-                teamSlides.forEach((slide, index) => {
-                    slide.style.minWidth = '100%';
-                    slide.style.scrollSnapAlign = 'start';
-                    slide.style.opacity = '1';
-                });
-
-                teamMobilePrevArrow.addEventListener('click', prevTeamSlide);
-                teamMobileNextArrow.addEventListener('click', nextTeamSlide);
-
-                teamDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        currentTeamSlide = slideIndex;
-                        showTeamSlide(slideIndex);
-                    });
-                });
-            } else {
-                teamSlides.forEach((slide, index) => {
-                    slide.style.position = 'absolute';
-                    slide.style.opacity = '0';
-                    slide.style.display = 'flex';
-                });
-
-                if (teamPrevArrow) teamPrevArrow.addEventListener('click', prevTeamSlide);
-                if (teamNextArrow) teamNextArrow.addEventListener('click', nextTeamSlide);
-
-                teamDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        showTeamSlide(slideIndex);
-                    });
-                });
-
-                startTeamSlideInterval();
-                teamSlider.addEventListener('mouseenter', stopTeamSlideInterval);
-                teamSlider.addEventListener('mouseleave', startTeamSlideInterval);
-            }
-
-            showTeamSlide(0);
-
-            // Слайдер кейсов
-            const casesSlides = document.querySelectorAll('.cases-slide');
-            const casesDots = document.querySelectorAll('.cases-dot');
-            const casesPrevArrow = document.querySelector('.cases-arrow.prev');
-            const casesNextArrow = document.querySelector('.cases-arrow.next');
-            const casesMobilePrevArrow = document.querySelector('.mobile-cases-arrow.prev');
-            const casesMobileNextArrow = document.querySelector('.mobile-cases-arrow.next');
-            const casesSlider = document.querySelector('.cases-slider');
-            let currentCasesSlide = 0;
-            let casesSlideInterval;
-
-            function showCasesSlide(index) {
-                casesSlides.forEach(slide => {
-                    slide.classList.remove('active');
-                    slide.style.opacity = '0';
-                });
-                casesDots.forEach(dot => dot.classList.remove('active'));
-                
-                casesSlides[index].classList.add('active');
-                casesSlides[index].style.opacity = '1';
-                casesDots[index].classList.add('active');
-                currentCasesSlide = index;
-            }
-
-            function nextCasesSlide() {
-                let newIndex = (currentCasesSlide + 1) % casesSlides.length;
-                showCasesSlide(newIndex);
-            }
-
-            function prevCasesSlide() {
-                let newIndex = (currentCasesSlide - 1 + casesSlides.length) % casesSlides.length;
-                showCasesSlide(newIndex);
-            }
-
-            function startCasesSlideInterval() {
-                stopCasesSlideInterval();
-                casesSlideInterval = setInterval(nextCasesSlide, 2000); // Изменено на 2 секунды
-            }
-
-            function stopCasesSlideInterval() {
-                if (casesSlideInterval) {
-                    clearInterval(casesSlideInterval);
-                }
-            }
-
-            // Инициализация слайдера кейсов
-            if (isMobile && window.matchMedia("(orientation: portrait)").matches) {
-                casesSlides.forEach((slide, index) => {
-                    slide.style.position = 'absolute';
-                    slide.style.opacity = '0';
-                    slide.style.display = 'flex';
-                });
-
-                showCasesSlide(0);
-                
-                casesMobilePrevArrow.addEventListener('click', prevCasesSlide);
-                casesMobileNextArrow.addEventListener('click', nextCasesSlide);
-
-                casesDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        showCasesSlide(slideIndex);
-                    });
-                });
-            } else {
-                casesSlides.forEach((slide, index) => {
-                    slide.style.position = 'absolute';
-                    slide.style.opacity = '0';
-                    slide.style.display = 'flex';
-                });
-
-                if (casesPrevArrow) casesPrevArrow.addEventListener('click', prevCasesSlide);
-                if (casesNextArrow) casesNextArrow.addEventListener('click', nextCasesSlide);
-
-                casesDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const slideIndex = parseInt(this.getAttribute('data-slide'));
-                        showCasesSlide(slideIndex);
-                    });
-                });
-
-                startCasesSlideInterval();
-                casesSlider.addEventListener('mouseenter', stopCasesSlideInterval);
-                casesSlider.addEventListener('mouseleave', startCasesSlideInterval);
-            }
-
-            showCasesSlide(0);
-
-            // Слайдер FAQ
-            const faqSlides = document.querySelectorAll('.faq-slide');
-            const faqDots = document.querySelectorAll('.faq-dot');
-            const faqPrevArrow = document.querySelector('.faq-arrow.prev');
-            const faqNextArrow = document.querySelector('.faq-arrow.next');
-            let currentFaqSlide = 0;
-            let faqSlideInterval;
-
-            function showFaqSlide(index) {
-                faqSlides.forEach(slide => slide.classList.remove('active'));
-                faqDots.forEach(dot => dot.classList.remove('active'));
-                
-                faqSlides[index].classList.add('active');
-                faqDots[index].classList.add('active');
-                currentFaqSlide = index;
-            }
-
-            function nextFaqSlide() {
-                let newIndex = (currentFaqSlide + 1) % faqSlides.length;
-                showFaqSlide(newIndex);
-            }
-
-            function prevFaqSlide() {
-                let newIndex = (currentFaqSlide - 1 + faqSlides.length) % faqSlides.length;
-                showFaqSlide(newIndex);
-            }
-
-            function startFaqSlideInterval() {
-                stopFaqSlideInterval();
-                faqSlideInterval = setInterval(nextFaqSlide, 4000); // Изменено на 4 секунды
-            }
-
-            function stopFaqSlideInterval() {
-                if (faqSlideInterval) {
-                    clearInterval(faqSlideInterval);
-                }
-            }
-
-            // Инициализация слайдера FAQ
-            faqPrevArrow.addEventListener('click', () => {
-                prevFaqSlide();
-                stopFaqSlideInterval();
-                startFaqSlideInterval();
-            });
-            
-            faqNextArrow.addEventListener('click', () => {
-                nextFaqSlide();
-                stopFaqSlideInterval();
-                startFaqSlideInterval();
-            });
-
-            faqDots.forEach(dot => {
-                dot.addEventListener('click', function() {
-                    const slideIndex = parseInt(this.getAttribute('data-slide'));
-                    showFaqSlide(slideIndex);
-                    stopFaqSlideInterval();
-                    startFaqSlideInterval();
-                });
-            });
-
-            startFaqSlideInterval();
-            
-            const faqSlider = document.querySelector('.faq-slider');
-            faqSlider.addEventListener('mouseenter', stopFaqSlideInterval);
-            faqSlider.addEventListener('mouseleave', startFaqSlideInterval);
-
-            showFaqSlide(0);
-
-            // Обновление при изменении размера окна
-            function handleResize() {
-                const newIsMobile = window.matchMedia("(max-width: 768px)").matches;
-                if (newIsMobile !== isMobile) {
-                    isMobile = newIsMobile;
-                    location.reload();
-                }
-            }
-
-            window.addEventListener('resize', handleResize);
-            window.addEventListener('orientationchange', handleResize);
-        });
-  </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    if (window.innerWidth <= 768) {
-        const el = document.querySelector(".left-text");
-        if (el) el.remove();
-    }
-});
-</script>
 
 
 
@@ -4612,165 +4262,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-<script>
-(function() {
-  const TARGET_URL = "https://alexenomorf.github.io/comando/test.html";
-
-  function normText(s) {
-    return (s || "")
-      .replace(/\s+/g, " ")
-      .trim()
-      .toLowerCase()
-      .replace(/[!！]+$/g, "");
-  }
-
-  const wanted = new Set(["забронировать место", "подать заявку"].map(normText));
-
-  // Remove Telegram marathon links proactively
-  document.querySelectorAll('a[href*="t.me/marafonpro_ADorohov"]').forEach(a => {
-    a.setAttribute("href", "#");
-    a.removeAttribute("target");
-    a.removeAttribute("rel");
-  });
-
-  const nodes = document.querySelectorAll("a, button, [role='button'], .btn, .button");
-  nodes.forEach(el => {
-    const text = normText(el.textContent);
-    if (!wanted.has(text)) return;
-
-    if (el.tagName && el.tagName.toLowerCase() === "a") {
-      el.setAttribute("href", TARGET_URL);
-      el.setAttribute("target", "_blank"); // keep opener available
-      el.removeAttribute("rel"); // ensure opener is not blocked
-      // Optional: also intercept to be safe
-      el.addEventListener("click", function(e) {
-        // Allow default anchor behavior; do not preventDefault here.
-      }, { capture: true });
-    } else {
-      el.addEventListener("click", function(e) {
-        try {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-        } catch (err) {}
-        window.open(TARGET_URL, "_blank"); // no 'noopener' to allow opener
-        return false;
-      }, { capture: true });
-      if (el.getAttribute("role") === "button") {
-        el.addEventListener("keydown", function(e) {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            window.open(TARGET_URL, "_blank");
-          }
-        });
-        if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "0");
-      }
-    }
-  });
-})();
-</script>
 
 
-<script>
-/* FORCE-PS-REDIRECT */
-(function(){
-  function clean(s){ return (s||'').replace(/\s+/g,' ').trim(); }
-  function norm(s){ return clean(s).toLowerCase(); }
-  function cardOf(el){
-    return el.closest('section, article, .card, .col, .row, .container, .block, .offer, .plan, .pricing-column, .tariff') || el.parentElement || el;
-  }
-  function isHeroButton(btn){
-    try {
-      var rect = btn.getBoundingClientRect();
-      return /подать\s+заявку/i.test(btn.textContent||'') && rect.top < 600;
-    } catch(e){ return false; }
-  }
-  function detectLabel(card, btn){
-    var t = norm(card ? (card.innerText || card.textContent || '') : '');
-    if ((/для жителей костаная/.test(t) || /костанай/.test(t) || /аврора/.test(t)) &&
-        /спец/.test(t) && /забронировать место/.test(t)) return 'Костанай Аврора (спец)';
-    if (/для жителей других городов и стран/.test(t) && /забронировать место/.test(t)) return 'Онлайн (другие страны)';
-    if (/базовый формат онлайн сопровождения/.test(t) && (/150\s*000/.test(t) || /65\s*000/.test(t))) return 'Онлайн базовый 150 000';
-    if (/мини[\-\s]?группа/.test(t) && /аврора/.test(t) && (/200\s*000/.test(t) || /80\s*000/.test(t))) return 'Мини группа 200 000';
-    if (/пробн/.test(t) && /недел/.test(t) && /10\s*000/.test(t)) return 'Пробная неделя 10 000';
-    if (/пробн/.test(t) && /недел/.test(t) && /15\s*000/.test(t)) return 'Пробная неделя 15 000';
-    if (isHeroButton(btn)) return 'Заявка (герой)';
-    return '';
-  }
-  document.querySelectorAll('a, button').forEach(function(btn){
-    var text = (btn.textContent || '').toLowerCase();
-    var isAction = /подать заявку|забронировать место/.test(text) ||
-                   /(?:^|\/)test(?:[\w\-]*)(?:\.html)?(?:[#?].*)?$/.test((btn.getAttribute('href')||''));
-    if (!isAction) return;
-    if (btn.dataset.packageShort && btn.dataset.packageShort.trim()) return;
-    var label = detectLabel(cardOf(btn), btn);
-    if (label) btn.dataset.packageShort = label;
-  });
-  document.addEventListener('click', function(e){
-    var btn = e.target.closest('a, button'); if (!btn) return;
-    var text = (btn.textContent || '').toLowerCase();
-    var href = (btn.getAttribute('href')||'');
-    var isAction = /подать заявку|забронировать место/.test(text) ||
-                   /(?:^|\/)test(?:[\w\-]*)(?:\.html)?(?:[#?].*)?$/.test(href) ||
-                   btn.matches('[data-go="test"]');
-    if (!isAction) return;
-    var ps = clean(btn.dataset.packageShort || '');
-    if (!ps){
-      var auto = detectLabel(cardOf(btn), btn);
-      if (auto) { ps = auto; btn.dataset.packageShort = auto; }
-    }
-    if (!ps) return;
-    e.preventDefault(); e.stopPropagation();
-    try { localStorage.setItem('selectedPackageShort', ps); } catch(e){}
-    var u = new URL('test_1_patched_exact_ps.html', location.href);
-    u.searchParams.set('ps', ps);
-    location.href = u.toString();
-  }, true);
-})();
-</script>
 
 
-<!-- GHPAGES CTA WIRING: keeps your layout/text, only sets hrefs safely -->
+
+
+
+
+<!-- GITHUB PAGES SAFE CTA -->
 <script>
 (function(){
-  // Build a relative URL to form.html that works under project pages (username.github.io/repo/)
   var formURL = new URL('form.html', document.baseURI).toString();
-
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
   function lower(s){ return norm(s).toLowerCase(); }
-
-  // Candidate CTAs: exact label "ЗАБРОНИРОВАТЬ МЕСТО!"
   var nodes = Array.from(document.querySelectorAll('a,button,[role="button"]'))
-    .filter(function(el){
-      var t = norm(el.textContent || el.value || '');
-      return t === 'ЗАБРОНИРОВАТЬ МЕСТО!';
-    });
-
-  // Determine context by scanning ancestors for key phrases
+    .filter(function(el){ return norm(el.textContent || el.value || '') === 'ЗАБРОНИРОВАТЬ МЕСТО!'; });
   function detect(el){
     var cur = el, depth = 0;
     while(cur && depth < 8){
       var t = lower(cur.textContent || '');
-      // Костанай / Аврора
       if (t.includes('костан') || t.includes('аврора')) return 'kostanay';
-      // Другие города/страны / онлайн
       if (t.includes('других город') || t.includes('других стран') || t.includes('онлайн')) return 'global';
       cur = cur.parentElement; depth++;
     }
     return null;
   }
-
   nodes.forEach(function(el){
     var ps = detect(el);
-    if(!ps) return; // touch only the two target CTAs
-
+    if(!ps) return;
     var url = new URL(formURL);
     url.searchParams.set('ps', ps);
     url.searchParams.set('utm_source', 'site');
     url.searchParams.set('utm_medium', 'button');
     url.searchParams.set('utm_campaign', ps);
     url.searchParams.set('cta', 'ЗАБРОНИРОВАТЬ МЕСТО!');
-
     if (el.tagName && el.tagName.toLowerCase() === 'a'){
       el.setAttribute('href', url.toString());
       el.setAttribute('target', '_blank');
@@ -4778,9 +4304,6 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       el.addEventListener('click', function(){ window.open(url.toString(), '_blank', 'noopener'); });
     }
-
-    // mark for debug
-    el.setAttribute('data-ps', ps);
   });
 })();
 </script>
