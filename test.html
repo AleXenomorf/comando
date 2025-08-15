@@ -58,7 +58,7 @@
       </div>
 
       <!-- «Выбор пакета»: кладём ИМЕННО текст выбранной кнопки с главной -->
-      <input type="hidden" id="servicesHidden" name="entry.1735060909" value="">
+      <input type="hidden" id="servicesHidden" name="entry.1735060909" id="servicesHidden" value="">
 
       <div style="margin-top:16px">
         <button type="submit" class="btn" id="sendBtn">Оставить заявку</button>
@@ -71,34 +71,23 @@
 </div>
 
 <script>
-// EXACT BUTTON LABEL -> Google Forms "Выбор пакета" (entry.1735060909)
-// Accept ANY symbols. Stay on page. Show "Спасибо!" after submit.
 (function(){
   function getParam(name){
     try { return new URLSearchParams(location.search).get(name) || ''; }
     catch(e){ return ''; }
   }
-  // Primary source: ps (short text from index button). Fallback: package. No hard-coded defaults.
   var ps  = getParam('ps');
   var pkg = getParam('package');
   if (!ps) {
-    try {
-      var s = localStorage.getItem('selectedPackageShort');
-      if (s) { ps = s; localStorage.removeItem('selectedPackageShort'); }
-    } catch(e){}
+    try { var s = localStorage.getItem('selectedPackageShort'); if (s) { ps = s; localStorage.removeItem('selectedPackageShort'); } } catch(e){}
   }
   if (!pkg) {
-    try {
-      var f = localStorage.getItem('selectedPackage');
-      if (f) { pkg = f; localStorage.removeItem('selectedPackage'); }
-    } catch(e){}
+    try { var f = localStorage.getItem('selectedPackage'); if (f) { pkg = f; localStorage.removeItem('selectedPackage'); } } catch(e){}
   }
-
   var chosen = ps || pkg || '';
   var hidden = document.getElementById('servicesHidden');
   if (hidden) hidden.value = chosen;
 
-  // Show preview for the user
   var pv = document.getElementById('chosenPreview');
   if (pv) {
     pv.textContent = chosen
@@ -106,13 +95,11 @@
       : 'Выбор пакета не определён — вернитесь на главную и нажмите нужную кнопку.';
   }
 
-  // Submission handling: never block; just prevent double click, then show "Спасибо!"
   var form = document.querySelector('form[action*="docs.google.com/forms"][method="POST"]');
-  var btn = document.querySelector('#sendBtn, #submitButton, button[type="submit"]');
+  var btn  = document.querySelector('#sendBtn, #submitButton, button[type="submit"]');
   if (form){
     form.addEventListener('submit', function(){
       if (btn) btn.disabled = true;
-      // Fallback: show success even if CSP blocks iframe load
       setTimeout(function(){
         var ok = document.getElementById('okMessage');
         if (ok) ok.style.display = 'block';
@@ -120,7 +107,6 @@
       }, 1800);
     });
   }
-  // Normal path: when hidden iframe loads after Google receives the response
   var iframe = document.getElementById('hidden_iframe');
   if (iframe){
     iframe.addEventListener('load', function(){
