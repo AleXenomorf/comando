@@ -178,15 +178,20 @@
 
   sendBtn.addEventListener('click', function(e){
     e.preventDefault();
-    // минимальная валидация: Имя + WhatsApp
-    const name = document.getElementById('firstName').value.trim();
+    // минимальная валидация: только WhatsApp
     const wa   = document.getElementById('whatsapp').value.trim();
-    if(!name || !wa){
-      alert('Пожалуйста, заполните имя и WhatsApp.');
+    if(!wa){
+      alert('Пожалуйста, введите номер WhatsApp.');
       return;
+    }
     }
     // убедиться, что "Выбор пакета" есть
     if(!document.querySelector('input[name="entry.1735060909"]')){
+      // если пакет не пришел - форсим базовый
+      const def = 'Базовый формат онлайн сопровождения — 150 000 тг за три месяца';
+      checkHiddenBox(def);
+      rebuildHiddenServices();
+
       const v = resolvePackage();
       checkHiddenBox(v);
       rebuildHiddenServices();
