@@ -5,434 +5,198 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Оставьте свои контактные данные</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    :root {
-      --primary-color: #00cc00;
-      --secondary-color: #00aa00;
-      --dark-bg: rgba(0, 0, 0, 0.7);
-      --text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', sans-serif;
-      color: #fff;
-      background: #333;
-      height: 100%;
-      overflow-x: hidden;
-    }
-    .test-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      position: relative;
-      min-height: 100vh;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .question-slide {
-      display: block;
-      animation: fadeIn 0.5s ease;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .question-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-    .question-icon {
-      font-size: 24px;
-      margin-right: 15px;
-      color: var(--primary-color);
-    }
-    .question-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 24px;
-      color: var(--primary-color);
-      margin-bottom: 30px;
-      text-align: center;
-      text-shadow: var(--text-shadow);
-    }
-    .form-group { margin-bottom: 20px; }
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: white;
-      font-weight: 600;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 12px 15px;
-      border-radius: 8px;
-      border: 2px solid #ddd;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-    .options-container { margin-top: 10px; }
-    .info-block {
-      background: rgba(0, 204, 0, 0.1);
-      border-left: 4px solid var(--primary-color);
-      padding: 15px;
-      margin-bottom: 25px;
-      border-radius: 0 8px 8px 0;
-    }
-    .info-block p { margin: 0; font-size: 15px; line-height: 1.5; }
-    .services-group { margin: 18px 0 6px; }
-    .services-group legend {
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .services-group legend small { font-weight: 600; opacity: .9; display: block; margin-top: 2px; }
-    .services-list { display: grid; grid-template-columns: 1fr; gap: 8px; }
-    .service-item {
-      display: flex; align-items: flex-start; gap: 10px;
-      background: rgba(0,0,0,0.25);
-      padding: 10px 12px; border-radius: 10px; border: 1px dashed rgba(255,255,255,0.2);
-    }
-    .service-item input { margin-top: 3px; }
-    .service-item label { font-size: 14px; font-weight: 500; }
-    .nav-buttons { display: flex; justify-content: center; margin-top: 30px; }
-    .nav-button {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 600;
-      transition: all 0.3s;
-      text-align: center;
-    }
-    .nav-button:hover { background: var(--secondary-color); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 204, 0, 0.4); }
-    .nav-button:disabled { background: #cccccc; cursor: not-allowed; transform: none; box-shadow: none; }
-    #submitButton { background: #ff6600; }
-    #submitButton:hover { background: #e65c00; }
-    .success-message {
-      display: none;
-      background: rgba(0, 204, 0, 0.2);
-      border: 1px solid var(--primary-color);
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      margin-top: 20px;
-      animation: fadeIn 0.5s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (max-width: 768px) {
-      .test-container { padding: 20px 15px; justify-content: flex-start; min-height: auto; }
-      .question-title { font-size: 20px; margin-bottom: 20px; }
-      .question-slide { padding: 20px 15px; }
-      .nav-button { padding: 10px 15px; font-size: 14px; }
-    }
-  
-    /* Keep services in DOM, but hide visually */
-    .services-group { display: none !important; }
-</style>
+    :root { --primary:#00cc00; --secondary:#00aa00; }
+    body{margin:0;font-family:Montserrat,system-ui,Arial;color:#fff;background:#333}
+    .wrap{max-width:900px;margin:0 auto;padding:32px}
+    .card{background:rgba(255,255,255,.08);padding:24px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{font-family:'Playfair Display',serif;color:var(--primary);text-align:center;margin:0 0 16px}
+    label{display:block;margin:10px 0 6px;font-weight:600}
+    input[type="text"],input[type="email"],input[type="tel"]{width:100%;padding:12px;border-radius:10px;border:2px solid #ddd;box-sizing:border-box}
+    .row{margin-bottom:14px}
+    .btn{display:inline-block;background:#ff6600;border:none;color:#fff;padding:12px 22px;border-radius:999px;font-weight:700;cursor:pointer}
+    .btn[disabled]{background:#888;cursor:not-allowed}
+    .ok{display:none;margin-top:16px;padding:14px;border-radius:10px;background:rgba(0,204,0,.15);border:1px solid var(--primary);text-align:center}
+    /* чекбоксы оставляем для Google, но прячем */
+    fieldset.services{display:none !important;}
+  </style>
 </head>
 <body>
-  <div class="test-container">
-    <div class="question-slide" id="question6">
-      <div class="question-header">
-        <div class="question-icon"><i class="fas fa-user"></i></div>
-        <div><h2 class="question-title">Оставьте свои контактные данные</h2></div>
+<div class="wrap">
+  <div class="card">
+    <h1>Оставьте свои контактные данные</h1>
+
+    <!-- ФОРМА ДЛЯ ПРЯМОЙ ОТПРАВКИ В GOOGLE FORMS (без fetch, обходит CORS/CSP) -->
+    <iframe name="hidden_iframe" style="display:none"></iframe>
+    <form id="gform" action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse" method="POST" target="hidden_iframe">
+      <!-- Контакты -->
+      <div class="row">
+        <label for="firstName">Имя</label>
+        <input id="firstName" name="entry.575542865" type="text" required />
+      </div>
+      <div class="row">
+        <label for="lastName">Фамилия</label>
+        <input id="lastName" name="entry.1529853970" type="text" />
+      </div>
+      <div class="row">
+        <label for="email">Email</label>
+        <input id="email" name="entry.63446999" type="email" />
+      </div>
+      <div class="row">
+        <label for="whatsapp">Номер WhatsApp (с кодом страны)</label>
+        <input id="whatsapp" name="entry.826076263" type="tel" required />
+      </div>
+      <div class="row">
+        <label for="promo">Промокод</label>
+        <input id="promo" name="entry.3032165" type="text" placeholder="любой текст (не обяз.)" />
       </div>
 
-      <div class="info-block">
-        <p><i class="fas fa-info-circle"></i> Оставьте свои данные, выберите услугу и (при наличии) укажите промокод. Мы свяжемся с вами в ближайшее время.</p>
-      </div>
+      <!-- Скрытый набор чекбоксов (точные значения как в форме) -->
+      <fieldset class="services">
+        <div>
+          <input type="checkbox" id="srv1" value="Для жителей Костаная — клуб «Аврора»">
+          <label for="srv1">Для жителей Костаная — клуб «Аврора»</label>
+        </div>
+        <div>
+          <input type="checkbox" id="srv2" value="Для жителей других стран">
+          <label for="srv2">Для жителей других стран</label>
+        </div>
+        <div>
+          <input type="checkbox" id="srv3" value="Базовый формат онлайн сопровождения — 150 000 тг за три месяца">
+          <label for="srv3">Базовый формат онлайн сопровождения — 150 000 тг за три месяца</label>
+        </div>
+        <div>
+          <input type="checkbox" id="srv4" value="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
+          <label for="srv4">Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца</label>
+        </div>
+        <div>
+          <input type="checkbox" id="srv5" value="Пробная неделя — 10 000 тг">
+          <label for="srv5">Пробная неделя — 10 000 тг</label>
+        </div>
+        <div>
+          <input type="checkbox" id="srv6" value="Пробная неделя — 15 000 тг">
+          <label for="srv6">Пробная неделя — 15 000 тг</label>
+        </div>
+      </fieldset>
 
-      <div class="options-container">
-        <div class="form-group">
-          <label for="firstName">Имя</label>
-          <input type="text" id="firstName" required>
-        </div>
-        <div class="form-group">
-          <label for="lastName">Фамилия</label>
-          <input type="text" id="lastName" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" required placeholder="example@mail.com">
-        </div>
-        <div class="form-group">
-          <label for="whatsapp">Номер WhatsApp (с кодом страны)</label>
-          <input type="tel" id="whatsapp" required placeholder="+79123456789">
-        </div>
+      <!-- Контейнер для hidden inputs "Выбор пакета" (entry.1735060909). 
+           Для каждого выбранного чекбокса добавим отдельный input name="entry.1735060909" -->
+      <div id="servicesHidden"></div>
 
-        <!-- PROMO moved here -->
-        <div class="form-group">
-          <label for="promo">Промокод</label>
-          <input type="text" id="promo" placeholder="например: FIT2025" />
-        </div>
+      <!-- Обязательные поля формы Google -->
+      <input type="hidden" name="fvv" value="1" />
+      <input type="hidden" name="pageHistory" value="0" />
+      <input type="hidden" name="submit" value="Submit" />
+    </form>
 
-        <fieldset class="services-group">
-          <legend>
-           Выберите формат услуги
-      
-          </legend>
-          <div class="services-list" id="servicesList">
-            <div class="service-item">
-              <input type="checkbox" id="srv1" value="Для жителей Костаная — клуб «Аврора»">
-              <label for="srv1">Для жителей Костаная — клуб «Аврора»</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv2" value="Для жителей других стран">
-              <label for="srv2">Для жителей других стран</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv3" value="Базовый формат онлайн сопровождения — 150 000 тг за три месяца">
-              <label for="srv3">Базовый формат онлайн сопровождения — 150 000 тг за три месяца</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv4" value="Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца">
-              <label for="srv4">Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv5" value="Пробная неделя — 10 000 тг">
-              <label for="srv5">Пробная неделя с индивидуальной программой и полным сопровождением — 10 000 тг</label>
-            </div>
-            <div class="service-item">
-              <input type="checkbox" id="srv6" value="Пробная неделя — 15 000 тг">
-              <label for="srv6">Пробная неделя с индивидуальной программой и полным сопровождением — 15 000 тг</label>
-            </div>
-          </div>
-        
-        </fieldset>
-      </div>
+    <div style="margin-top:16px">
+      <button id="sendBtn" class="btn">Оставить заявку</button>
     </div>
 
-    <div class="nav-buttons">
-      <button class="nav-button" id="submitButton" disabled>Оставить заявку</button>
-    </div>
-
-    <div class="success-message" id="successMessage">
-      <h3>✅ Спасибо! Ваши данные отправлены</h3>
-      <p>Мы свяжемся с вами в ближайшее время через WhatsApp</p>
-    </div>
+    <div id="ok" class="ok">✅ Спасибо! Заявка отправлена.</div>
   </div>
+</div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // ⚠️ Держать токен на фронте небезопасно
-      const botToken = '7044064135:AAFDdQFojwB8XzQVpmNXOzj-OUVzU6MlOlE';
-      const chatId = '1208941214';
+<script>
+(function(){
+  // Нормализация текста пакета и сопоставление с точными вариантами
+  const OPTIONS = [
+    'Для жителей Костаная — клуб «Аврора»',
+    'Для жителей других стран',
+    'Базовый формат онлайн сопровождения — 150 000 тг за три месяца',
+    'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца',
+    'Пробная неделя — 10 000 тг',
+    'Пробная неделя — 15 000 тг'
+  ];
+  const norm = s => (s||'')
+    .replace(/[\\u2013\\u2014-]+/g,' — ')
+    .replace(/\\s+/g,' ')
+    .trim()
+    .toLowerCase();
 
-      const googleFormsConfig = {
-        formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse',
-        fieldIds: {
-          firstName: 'entry.575542865',
-          lastName:  'entry.1529853970',
-          email:     'entry.63446999',
-          whatsapp:  'entry.826076263',
-          services:  'entry.1735060909',
-          promo:     'entry.3032165'
-        }
-      };
-
-      const qs = (s) => document.querySelector(s);
-      const submitButton   = qs('#submitButton');
-      const successMessage = qs('#successMessage');
-      const firstNameEl = qs('#firstName');
-      const lastNameEl  = qs('#lastName');
-      const emailEl     = qs('#email');
-      const whatsappEl  = qs('#whatsapp');
-      const promoEl     = qs('#promo');
-      const servicesList = [...document.querySelectorAll('#servicesList input[type="checkbox"]')];
-      const servicesError = qs('#servicesError');
-
-      
-      // === Package auto-selection (from URL or localStorage) ===
-      function _normPkg(s) {
-        return (s || '')
-          .replace(/[\u2013\u2014-]+/g, ' — ')
-          .replace(/\s+/g, ' ')
-          .trim()
-          .toLowerCase();
+  function resolvePackage(){
+    const usp = new URLSearchParams(location.search);
+    let pkg = usp.get('package') || '';
+    try{
+      if(!pkg){
+        const st = localStorage.getItem('selectedPackage');
+        if(st){ pkg = st; localStorage.removeItem('selectedPackage'); }
       }
-      function resolveIncomingPackage() {
-        const params = new URLSearchParams(location.search);
-        let pkg = params.get('package') || '';
-        try {
-          if (!pkg) {
-            const stored = localStorage.getItem('selectedPackage');
-            if (stored) { pkg = stored; localStorage.removeItem('selectedPackage'); }
-          }
-        } catch (e) {}
-        return pkg;
+    }catch(e){}
+    const v = norm(pkg);
+    // 1) точное соответствие
+    for(const opt of OPTIONS){ if(norm(opt)===v) return opt; }
+    // 2) эвристики
+    if(/базовый/.test(v) || /150\\s*000/.test(v)) return OPTIONS[2];
+    if(/мини/.test(v) && /аврора/.test(v)) return OPTIONS[3];
+    if(/костанай/.test(v)) return OPTIONS[0];
+    if(/других\\s+стран/.test(v)) return OPTIONS[1];
+    if(/10\\s*000/.test(v)) return OPTIONS[4];
+    if(/15\\s*000/.test(v)) return OPTIONS[5];
+    // 3) дефолт — базовый
+    return OPTIONS[2];
+  }
+
+  // отметить соответствующий чекбокс (скрытый)
+  function checkHiddenBox(value){
+    const boxes = document.querySelectorAll('fieldset.services input[type="checkbox"]');
+    let matched = false;
+    boxes.forEach(cb => {
+      if(cb.value.trim() === value){
+        cb.checked = true;
+        matched = true;
+      }else{
+        cb.checked = false;
       }
-      function autoCheckServiceFromPackage() {
-        const raw = resolveIncomingPackage();
-        const options = [
-          'Для жителей Костаная — клуб «Аврора»',
-          'Для жителей других стран',
-          'Базовый формат онлайн сопровождения — 150 000 тг за три месяца',
-          'Мини-группа в фитнес-клубе «Аврора» — 200 000 тг за три месяца',
-          'Пробная неделя — 10 000 тг',
-          'Пробная неделя — 15 000 тг'
-        ];
-        const v = _normPkg(raw);
-        let target = '';
-        // Exact normalized match
-        for (const opt of options) {
-          if (_normPkg(opt) === v) { target = opt; break; }
-        }
-        // Heuristics
-        if (!target && v) {
-          if (/базовый/.test(v) || /150\s*000/.test(v)) target = options[2];
-          else if (/мини/.test(v) && /аврора/.test(v))  target = options[3];
-          else if (/костанай/.test(v))                  target = options[0];
-          else if (/других\s+стран/.test(v))            target = options[1];
-          else if (/10\s*000/.test(v))                  target = options[4];
-          else if (/15\s*000/.test(v))                  target = options[5];
-        }
-        // If still empty, don't force now
-        const boxes = document.querySelectorAll('#servicesList input[type=\"checkbox\"]');
-        let matched = false;
-        if (target) {
-          boxes.forEach(cb => {
-            if (cb.value.trim() === target) { cb.checked = true; matched = true; }
-            else { cb.checked = false; }
-          });
-        }
-        return matched;
-      }
-function atLeastOneService(){ return servicesList.some(cb=>cb.checked) || autoCheckServiceFromPackage(); }
-
-      function checkFormFilled() {
-        const firstName = firstNameEl.value.trim();
-        const lastName  = lastNameEl.value.trim();
-        const email     = emailEl.value.trim();
-        const whatsapp  = whatsappEl.value.trim();
-        return firstName && lastName && email && whatsapp && atLeastOneService();
-      }
-
-      function updateSubmitButton() {
-        submitButton.disabled = !checkFormFilled();
-      }
-
-      function toggleServicesError(){ if(!servicesError) return; servicesError.style.display = atLeastOneService()? 'none':'block'; }
-
-      servicesList.forEach(cb => cb.addEventListener('change', () => { toggleServicesError(); updateSubmitButton(); }));
-      [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => {
-        el.addEventListener('input', updateSubmitButton);
-      });
-
-      async function sendToGoogleForms(data) {
-        const formData = new URLSearchParams();
-        const ids = googleFormsConfig.fieldIds;
-
-        formData.append(ids.firstName, data.firstName);
-        formData.append(ids.lastName,  data.lastName);
-        formData.append(ids.email,     data.email);
-        formData.append(ids.whatsapp,  data.whatsapp);
-
-        for (const s of data.services) {
-          formData.append(ids.services, s);
-        }
-
-        if (data.promo) {
-          formData.append(ids.promo, data.promo);
-        }
-
-        formData.append('fvv', '1');
-        formData.append('pageHistory', '0');
-        formData.append('submit', 'Submit');
-
-        await fetch(googleFormsConfig.formUrl, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: formData.toString(),
-        });
-      }
-
-      async function sendToTelegram(message) {
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
-        const body = new URLSearchParams();
-        body.append('chat_id', chatId);
-        body.append('text', message);
-        body.append('parse_mode', 'Markdown');
-        await fetch(url, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: body.toString(),
-        });
-      }
-
-      submitButton.addEventListener('click', async function() {
-        if (!checkFormFilled()) { toggleServicesError(); return; }
-
-        let services = servicesList.filter(cb => cb.checked).map(cb => cb.value);
-        if (!services.length) {
-          autoCheckServiceFromPackage();
-          services = servicesList.filter(cb => cb.checked).map(cb => cb.value);
-        }
-        if (!services.length) {
-          // force default to ensure Google gets a valid checkbox value
-          const def = 'Базовый формат онлайн сопровождения — 150 000 тг за три месяца';
-          const boxes = document.querySelectorAll('#servicesList input[type="checkbox"]');
-          boxes.forEach(cb => { cb.checked = (cb.value.trim() === def); });
-          services = [def];
-        }
-        const promoValue = (promoEl.value || '').trim(); // любые символы
-
-        const contactData = {
-          firstName: firstNameEl.value.trim(),
-          lastName:  lastNameEl.value.trim(),
-          email:     emailEl.value.trim(),
-          whatsapp:  whatsappEl.value.trim(),
-          promo:     promoValue,
-          services
-        };
-
-        const message = [
-          '📋 *Новая заявка*',
-          '',
-          `👤 *Имя:* ${contactData.firstName} ${contactData.lastName}`,
-          `📧 *Email:* ${contactData.email}`,
-          `📱 *WhatsApp:* ${contactData.whatsapp}`,
-          `🏷️ *Промокод:* ${contactData.promo || '—'}`,
-          `🧾 *Услуги:* ${services.join(', ') || '—'}`
-        ].filter(Boolean).join('\\n');
-
-        try {
-          submitButton.disabled = true;
-          submitButton.textContent = 'Отправка...';
-
-          await sendToTelegram(message);
-          await sendToGoogleForms(contactData);
-
-          successMessage.style.display = 'block';
-          submitButton.style.display = 'none';
-
-          [firstNameEl, lastNameEl, emailEl, whatsappEl, promoEl].forEach(el => el.value = '');
-          servicesList.forEach(cb => cb.checked = false);
-        } catch (error) {
-          console.error('Ошибка:', error);
-          alert('Произошла ошибка. Пожалуйста, попробуйте позже.');
-          submitButton.disabled = false;
-          submitButton.textContent = 'Отправить результаты';
-        }
-      });
-
-      autoCheckServiceFromPackage();
-      toggleServicesError();
-      updateSubmitButton();
     });
-  </script>
+    return matched;
+  }
+
+  // перед отправкой собрать скрытые inputs для entry.1735060909
+  function rebuildHiddenServices(){
+    const holder = document.getElementById('servicesHidden');
+    holder.innerHTML = '';
+    const boxes = document.querySelectorAll('fieldset.services input[type="checkbox"]:checked');
+    boxes.forEach(cb => {
+      const inp = document.createElement('input');
+      inp.type = 'hidden';
+      inp.name = 'entry.1735060909';
+      inp.value = cb.value;
+      holder.appendChild(inp);
+    });
+  }
+
+  // Инициализация
+  const pkg = resolvePackage();
+  checkHiddenBox(pkg); // выставили чекбокс
+  rebuildHiddenServices(); // создали скрытые inputs
+
+  // Кнопка отправки
+  const sendBtn = document.getElementById('sendBtn');
+  const form = document.getElementById('gform');
+  const ok = document.getElementById('ok');
+
+  sendBtn.addEventListener('click', function(e){
+    e.preventDefault();
+    // минимальная валидация: Имя + WhatsApp
+    const name = document.getElementById('firstName').value.trim();
+    const wa   = document.getElementById('whatsapp').value.trim();
+    if(!name || !wa){
+      alert('Пожалуйста, заполните имя и WhatsApp.');
+      return;
+    }
+    // убедиться, что "Выбор пакета" есть
+    if(!document.querySelector('input[name="entry.1735060909"]')){
+      const v = resolvePackage();
+      checkHiddenBox(v);
+      rebuildHiddenServices();
+    }
+    // финал: обычная отправка формы (target=hidden_iframe) — работает без fetch, не блокируется CSP/CORS
+    form.submit();
+    sendBtn.disabled = true;
+    ok.style.display = 'block';
+  });
+})();
+</script>
 </body>
 </html>
-
-
