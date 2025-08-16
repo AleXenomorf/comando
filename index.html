@@ -4862,5 +4862,41 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 })();
 </script>
+
+<!-- CONSULTATION WIRING: map "Запись на консультацию" to 'Бесплатная диагностика' -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  function low(s){ return norm(s).toLowerCase(); }
+
+  // Find all links/buttons with text "Запись на консультацию" (case-insensitive)
+  var nodes = Array.from(document.querySelectorAll('a,button,[role="button"],.consultation-signup-btn'))
+    .filter(function(el){
+      var t = low(el.textContent || el.value || '');
+      return t.indexOf('запись на консультацию') !== -1;
+    });
+
+  nodes.forEach(function(el){
+    el.setAttribute('data-package', 'Бесплатная диагностика');
+  });
+
+  // Global capture: save & go
+  if (!document.__consultationCaptureBound){
+    document.addEventListener('click', function(e){
+      var el = e.target.closest('a,button,[role="button"],.consultation-signup-btn');
+      if(!el) return;
+      var pkg = el.getAttribute('data-package');
+      if(!pkg) return;
+      e.preventDefault();
+      try{ localStorage.setItem('selectedPackageShort', pkg); }catch(_){}
+      try{ sessionStorage.setItem('lastSelectedPackageShort', pkg); }catch(_){}
+      var url = new URL('test.html', location.href);
+      url.searchParams.set('ps', pkg);
+      location.href = url.toString();
+    }, true);
+    document.__consultationCaptureBound = true;
+  }
+});
+</script>
 </body>
 </html>
