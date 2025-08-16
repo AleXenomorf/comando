@@ -4898,5 +4898,49 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 });
 </script>
+
+<!-- HERO FORCE: mobile & desktop hero "Подать заявку" => strict "Заявка" -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  function low(s){ return norm(s).toLowerCase(); }
+
+  // 1) Mobile hero: .mobile-main-button => "Заявка"
+  var mobileHero = document.querySelector('.mobile-main-button');
+  if (mobileHero){
+    mobileHero.setAttribute('data-package', 'Заявка');
+  }
+
+  // 2) Desktop hero: first visible button exactly "Подать заявку" not inside program/pricing => "Заявка"
+  var all = Array.from(document.querySelectorAll('button, a, [role="button"], .mobile-main-button'));
+  for (var i=0;i<all.length;i++){
+    var el = all[i];
+    var t = low(norm(el.textContent || el.value || ''));
+    if (t === 'подать заявку'){
+      var inPricing = el.closest('.pricing-column, .pricing-container');
+      var inProgram = el.closest('.program-selector, .program-text, .program, .program-section, .program-block');
+      if(!inPricing && !inProgram){
+        el.setAttribute('data-package', 'Заявка');
+        break;
+      }
+    }
+  }
+
+  // 3) Capture click: if data-package explicitly "Заявка" on clicked element, override and go
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('a,button,[role="button"],.mobile-main-button');
+    if(!el) return;
+    var pkg = el.getAttribute('data-package');
+    if(pkg === 'Заявка'){
+      e.preventDefault();
+      try{ localStorage.setItem('selectedPackageShort', pkg); }catch(_){}
+      try{ sessionStorage.setItem('lastSelectedPackageShort', pkg); }catch(_){}
+      var url = new URL('test.html', location.href);
+      url.searchParams.set('ps', pkg);
+      location.href = url.toString();
+    }
+  }, true);
+});
+</script>
 </body>
 </html>
