@@ -21,10 +21,7 @@
 <body>
 <div class="wrap">
   <div class="card">
-    <h1>Оставьте свои контактные данные</h1>
-    <p id="preview" class="preview"></p>
-
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
+    <h1>Оставьте свои контактные данные</h1><iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
     
 <div id="package-preview" style="font-weight:700; margin: 1em 0; font-size:1.05em;"></div>
@@ -67,9 +64,7 @@
     try { var s = localStorage.getItem('selectedPackageShort'); if(s){ ps = s; localStorage.removeItem('selectedPackageShort'); } } catch(e){}
   }
   document.getElementById('servicesHidden').value = ps;
-  document.getElementById('preview').textContent = ps
-    ? (': ' + ps)
-    : '⚠️ Выбор пакета не определён — вернитесь и нажмите нужную кнопку.';
+  
 
   var form = document.getElementById('gform');
   var btn  = document.getElementById('sendBtn');
@@ -84,23 +79,6 @@
   });
 })();
 </script>
-
-<!-- Guard to show a friendly message if opened directly without ps -->
-<script>
-/* GUARD_ADDED */
-(function(){
-  var qs = new URLSearchParams(location.search);
-  if(!qs.get("ps")){
-    try{
-      var box = document.getElementById('preview');
-      if(box){ box.textContent = "Откройте эту страницу через кнопку с сайта: так мы передадим выбранный пакет автоматически."; }
-    }catch(e){}
-  }
-})();
-</script>
-
-
-
 
 <!-- PACKAGE APPLY (strict preview formatting) -->
 <script>
