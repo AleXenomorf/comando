@@ -3751,6 +3751,58 @@
 }
 </style>
 
+
+<!-- ASPHALT BACKGROUND — SAFE (no layout/visibility changes) -->
+<style id="asphalt-bg-safe">
+  :root{ --asphalt-bg:#333333; }
+
+  /* 1) Single continuous asphalt background on the page */
+  html, body{
+    background-color: var(--asphalt-bg) !important;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+      url('https://www.transparenttextures.com/patterns/asfalt-dark.png') !important;
+    background-repeat: repeat !important;
+    background-size: auto !important;
+    background-attachment: scroll !important; /* safe for mobile */
+  }
+
+  /* 2) After the first hero: make section backgrounds transparent so asphalt shows through.
+        IMPORTANT: We do NOT change display/position/height/opacity anywhere. */
+  .first-image ~ section,
+  .first-image ~ div,
+  .first-image ~ main,
+  .first-image ~ article,
+  .first-image ~ footer {
+    background: transparent !important;
+    background-image: none !important;
+  }
+
+  /* Extra: if later sections use "*-image" wrappers, clear only their backgrounds */
+  .first-image ~ [class*="image"]{
+    background: transparent !important;
+    background-image: none !important;
+  }
+
+  /* 3) Remove only background paints of pseudo-elements below hero (no visibility changes) */
+  .first-image ~ section::before, .first-image ~ section::after,
+  .first-image ~ div::before, .first-image ~ div::after,
+  .first-image ~ main::before, .first-image ~ main::after,
+  .first-image ~ article::before, .first-image ~ article::after,
+  .first-image ~ footer::before, .first-image ~ footer::after{
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  /* 4) Some named sections: keep their own content but let asphalt show behind */
+  .pricing-section, .contacts-container, .consultation-section, .team-section, .cases-section {
+    background: transparent !important;
+    background-image: none !important;
+  }
+
+  /* NOTE: No rules here modify display/visibility/opacity/height/position.
+           Content layout is untouched — blocks cannot disappear because of this patch. */
+</style>
 </head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
