@@ -382,5 +382,52 @@ function buildDownloads(){
 })();
 </script>
 
+
+<script id="dedupe-entry-fields">
+(function(){
+  var form = document.getElementById('gform');
+  if (!form) return;
+
+  function isHiddenLike(el){
+    if (!el) return true;
+    if ((el.type||'').toLowerCase() === 'hidden') return true;
+    if (el.hasAttribute('hidden')) return true;
+    var s = window.getComputedStyle ? window.getComputedStyle(el) : null;
+    if (s && (s.display === 'none' || s.visibility === 'hidden' || s.opacity === '0')) return true;
+    // also treat zero-size as hidden-ish
+    if ((el.offsetWidth === 0 && el.offsetHeight === 0)) return true;
+    return false;
+  }
+
+  form.addEventListener('submit', function(){
+    // 1) remove our legacy custom fields (if вдруг остались)
+    Array.prototype.forEach.call(form.querySelectorAll(
+      'input[name="entry_package_ps"], input[name="entry_tag_ps"], input[name="entry_source_ps"]'
+    ), function(el){ try{ el.remove(); }catch(_){}});
+
+    // 2) de-duplicate any Google entry.* fields: keep ONE per name, prefer visible element
+    var map = Object.create(null);
+    var fields = form.querySelectorAll('input[name^="entry."], textarea[name^="entry."], select[name^="entry."]');
+    Array.prototype.forEach.call(fields, function(el){
+      var n = el.name;
+      var hidden = isHiddenLike(el);
+      if (!map[n]) {
+        map[n] = { el: el, visible: !hidden };
+      } else {
+        var prev = map[n];
+        if (!prev.visible && !hidden) {
+          // prefer visible now: remove old
+          try { prev.el.parentNode && prev.el.parentNode.removeChild(prev.el); } catch(_){}
+          map[n] = { el: el, visible: true };
+        } else {
+          // remove duplicate
+          try { el.parentNode && el.parentNode.removeChild(el); } catch(_){}
+        }
+      }
+    });
+  }, true);
+})();
+</script>
+
 </body>
 </html>
