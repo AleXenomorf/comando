@@ -11,7 +11,7 @@
     h1 { font-size: 22px; margin: 12px 0 6px; }
     .field { margin: 10px 0; }
     .field label { display:block; font-size:14px; opacity:.9; margin-bottom:6px; }
-    .field input, .field select, .field textarea {
+    .field input {
       width:100%; padding:10px 12px; border-radius:10px; border:1px solid #333; background:#151515; color:#fff;
     }
     .btn { display:inline-block; padding:12px 18px; border-radius:14px; border:none; cursor:pointer; font-weight:800;
@@ -36,7 +36,7 @@
     .overlay-zip{margin-top:12px}
     .dl-link{ display:inline-block; padding:10px 14px; border-radius:14px; text-decoration:none; color:#fff;
       background:linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-      box-shadow:0 6px 22px rgba(0, 204, 0, .55); font-weight:700; }
+      box-shadow: 0 6px 22px rgba(0, 204, 0, .55); font-weight:700; }
     .overlay-close{ position:absolute; top:10px; right:10px; width:36px; height:36px; border-radius:10px;
       border:1px solid rgba(0,255,128,.3); background:rgba(255,255,255,.06); color:#fff; font-size:22px; line-height:32px; cursor:pointer;
       box-shadow:0 6px 22px rgba(0,0,0,.35); }
@@ -44,6 +44,21 @@
   </style>
 
   <script>
+  // === НАСТРОЙКИ GOOGLE FORM (ЗАПОЛНИТЕ 1 РАЗ) ==============================
+  // 1) Замените FORM_ID на ID вашей формы (action = .../forms/d/e/FORM_ID/formResponse)
+  // 2) Вставьте entry.* ID полей (из prefill-ссылки): имя/фамилия/email/телефон/промокод
+  const GOOGLE = {
+    action: "https://docs.google.com/forms/d/e/FORM_ID_HERE/formResponse",
+    entry: {
+      name:   "entry.XXXXXXXXX",
+      surname:"entry.YYYYYYYYY",
+      email:  "entry.ZZZZZZZZZ",
+      phone:  "entry.AAAAAAAA",
+      promo:  "entry.BBBBBBBBB" // можно не заполнять, если такого поля нет
+    }
+  };
+  // ==========================================================================
+
   // Helper: detect "БОНУСЫ" mode from URL or storage
   function isBonusFlow(){
     function norm(x){ return (x||'').toString().trim().toUpperCase(); }
@@ -61,7 +76,6 @@
     "тренировка для женщин в тренажерном зале - тренировка.pdf",
     "тренировка для мужчин в тренажерном зале - тренировка.pdf"
   ];
-  var zipFile = null; // можно подключить позже
 
   function buildDownloads(){
     var box = document.getElementById('bonuses-overlay-content');
@@ -73,8 +87,7 @@
       var u = encodeURI(f);
       return '<li><a class="dl-link" href="'+u+'" download>'+f+'</a></li>';
     }).join('') + '</ul>';
-    var zip = (zipFile) ? '<p class="overlay-zip"><a class="dl-link" href="'+encodeURI(zipFile)+'" download>Скачать всё одним архивом (ZIP)</a></p>' : '';
-    box.innerHTML = closeBtn + h2 + intro + list + zip;
+    box.innerHTML = closeBtn + h2 + intro + list;
   }
 
   function showDownloadsOverlay(){
@@ -106,7 +119,7 @@
   </script>
 </head>
 <body>
-  <!-- Hidden iframe for Google Forms submit (optional; safe if action is real formResponse) -->
+  <!-- Hidden iframe for Google Forms submit -->
   <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 
   <div class="wrap">
@@ -114,26 +127,26 @@
     <form id="gform" action="#" method="post" target="hidden_iframe" novalidate>
       <div class="field">
         <label>Имя</label>
-        <input name="entry.name" required />
+        <input id="ui_name" name="ui.name" required />
       </div>
       <div class="field">
         <label>Фамилия</label>
-        <input name="entry.surname" required />
+        <input id="ui_surname" name="ui.surname" required />
       </div>
       <div class="field">
         <label>Email</label>
-        <input name="entry.email" type="email" required />
+        <input id="ui_email" name="ui.email" type="email" required />
       </div>
       <div class="field">
         <label>Телефон</label>
-        <input name="entry.phone" required />
+        <input id="ui_phone" name="ui.phone" required />
       </div>
       <div class="field">
         <label>Промокод <span class="hint">(необязательно)</span></label>
-        <input name="entry.promo" />
+        <input id="ui_promo" name="ui.promo" />
       </div>
       <div class="field">
-        <button class="btn" type="submit">Отправить заявку</button>
+        <button class="btn" type="submit" id="submitBtn">Отправить заявку</button>
       </div>
     </form>
   </div>
@@ -144,20 +157,34 @@
   </div>
 
   <script>
-  // Validation + single-submit + branch behavior (bonus vs non-bonus)
+  // Wire Google Form action + map visible UI fields => hidden entry.* before submit
   (function(){
     var form = document.getElementById('gform');
     if (!form) return;
+    // Set action
+    if (GOOGLE && GOOGLE.action && GOOGLE.action.indexOf("FORM_ID_HERE") === -1) {
+      form.action = GOOGLE.action;
+    }
+
     var submittedOnce = false;
-    var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+    var submitBtn = document.getElementById('submitBtn');
 
     function firstEmpty(){
-      var fields = form.querySelectorAll('input[required], select[required], textarea[required]');
+      var fields = form.querySelectorAll('input[required]');
       for (var i=0;i<fields.length;i++){
         var v = (fields[i].value||'').trim();
         if (!v) return fields[i];
       }
       return null;
+    }
+
+    function addHidden(name, value){
+      if (!name) return;
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value || '';
+      form.appendChild(input);
     }
 
     form.addEventListener('submit', function(e){
@@ -167,40 +194,26 @@
       submittedOnce = true;
       if (submitBtn){ submitBtn.disabled = true; submitBtn.setAttribute('aria-busy','true'); submitBtn.style.opacity='.7'; submitBtn.style.pointerEvents='none'; }
 
-      // Remove duplicate/hidden entry.* (safety) — keep only visible one per name
-      (function(){
-        function hiddenish(el){
-          if (!el) return true;
-          var t=(el.type||'').toLowerCase();
-          if (t==='hidden') return true;
-          var s = window.getComputedStyle ? window.getComputedStyle(el) : null;
-          if (s && (s.display==='none' || s.visibility==='hidden' || s.opacity==='0')) return true;
-          if (el.offsetWidth===0 && el.offsetHeight===0) return true;
-          return false;
-        }
-        var map = Object.create(null);
-        var fields = form.querySelectorAll('[name^="entry."]');
-        for (var i=0;i<fields.length;i++){
-          var el = fields[i], n=el.name, h=hiddenish(el);
-          if (!map[n]) map[n] = {el:el, vis:!h};
-          else {
-            if (!map[n].vis && !h){ try{ map[n].el.remove(); }catch(_){ } map[n] = {el:el, vis:true}; }
-            else { try{ el.remove(); }catch(_){ } }
-          }
-        }
-      })();
+      // Build hidden entry.* fields from UI
+      try {
+        addHidden(GOOGLE.entry.name,    document.getElementById('ui_name').value);
+        addHidden(GOOGLE.entry.surname, document.getElementById('ui_surname').value);
+        addHidden(GOOGLE.entry.email,   document.getElementById('ui_email').value);
+        addHidden(GOOGLE.entry.phone,   document.getElementById('ui_phone').value);
+        if (GOOGLE.entry.promo) addHidden(GOOGLE.entry.promo, document.getElementById('ui_promo').value);
+      } catch(_){}
 
-      // Branch
+      // Branch: bonus vs non-bonus
       if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
       else { try { showAckAndRedirect(); } catch(_){ } }
-      // Do NOT prevent default: if action points to Google Form, submission proceeds into hidden iframe.
+      // Do not prevent default; post to hidden_iframe
     }, true);
 
-    // Fallback: also on submit button click (for some mobile browsers)
+    // Fallbacks
     if (submitBtn){
       submitBtn.addEventListener('click', function(){
         if (submittedOnce) return;
-        var bad = (function(){ var f=form.querySelectorAll('input[required],select[required],textarea[required]'); for (var i=0;i<f.length;i++){ if(!(f[i].value||'').trim()) return true; } return false; })();
+        var bad = (function(){ var f=form.querySelectorAll('input[required]'); for (var i=0;i<f.length;i++){ if(!(f[i].value||'').trim()) return true; } return false; })();
         if (!bad){
           if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
           else { try { showAckAndRedirect(); } catch(_){ } }
@@ -208,7 +221,6 @@
       }, true);
     }
 
-    // Final fallback: when hidden iframe loads (means Google accepted submit)
     var ifr = document.getElementById('hidden_iframe');
     if (ifr){
       ifr.addEventListener('load', function(){
