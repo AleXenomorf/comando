@@ -275,13 +275,17 @@ document.addEventListener('DOMContentLoaded', function(){
 function buildDownloads(){
   var box = document.getElementById('bonuses-overlay-content') || document.querySelector('#bonuses-overlay .box');
   if (!box) return;
-  var closeBtn = '<button class="overlay-close" data-close-overlay aria-label="Закрыть">×</button>';
-  var h2 = '<h2 class="overlay-title">Ваши бонусы</h2>';
-  var intro = '<p class="overlay-intro">Скачайте материалы прямо сейчас:</p>';
-  var list = '<ul class="overlay-list">' + files.map(function(f){
-      var u = encodeURI(f);
-      return '<li><a class="dl-link" href="'+u+'" download>'+f+'</a></li>';
-    }).join('') + '</ul>';
+  var items = (Array.isArray(window.files) ? window.files : []);
+  var out = '';
+  out += '<button class="overlay-close" data-close-overlay aria-label="Закрыть">×</button>';
+  out += '<h2 class="overlay-title">Ваши бонусы</h2>';
+  out += '<p class="overlay-intro">Скачайте материалы прямо сейчас:</p>';
+  out += '<ul class="overlay-list">';
+  for (var i=0;i<items.length;i++){ var f = items[i]; var u = encodeURI(f); out += '<li><a class="dl-link" href="'+u+'" download>'+f+'</a></li>'; }
+  out += '</ul>';
+  if (typeof window.zipFile === 'string' && window.zipFile){ var zu = encodeURI(window.zipFile); out += '<p class="overlay-zip"><a class="dl-link" href="'+zu+'" download>Скачать всё одним архивом (ZIP)</a></p>'; }
+  box.innerHTML = out;
+}).join('') + '</ul>';
   var zip = (typeof zipFile === 'string' && zipFile) ?
             '<p class="overlay-zip"><a class="dl-link" href="'+encodeURI(zipFile)+'" download>Скачать всё одним архивом (ZIP)</a></p>'
             : '';
