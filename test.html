@@ -77,11 +77,22 @@
     box.innerHTML = closeBtn + h2 + intro + list + zip;
   }
 
-  function showOverlay(){
-    if (!isBonusFlow()) return;
+  function showDownloadsOverlay(){
     try { buildDownloads(); } catch(_){}
     var ov = document.getElementById('bonuses-overlay');
     if (ov) { ov.style.display = 'flex'; try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){ } }
+  }
+
+  function showAckAndRedirect(){
+    var box = document.getElementById('bonuses-overlay-content');
+    var ov = document.getElementById('bonuses-overlay');
+    if (box){
+      box.innerHTML = '<button class="overlay-close" data-close-overlay aria-label="Закрыть">×</button>' +
+                      '<h2 class="overlay-title">Запрос был получен</h2>' +
+                      '<p class="overlay-intro">Мы свяжемся с вами в ближайшее время.</p>';
+    }
+    if (ov){ ov.style.display = 'flex'; try { window.scrollTo({top:0, behavior:"smooth"}); } catch(_){} }
+    setTimeout(function(){ location.href = 'https://alexenomorf.github.io/comando/'; }, 3000);
   }
 
   document.addEventListener('click', function(e){
@@ -93,30 +104,9 @@
     location.href = 'https://alexenomorf.github.io/comando/';
   });
   </script>
-
-<script id="non-bonus-ack">
-(function(){
-  window.__showAckAndRedirect = function(){
-    var box = document.getElementById('bonuses-overlay-content');
-    var ov = document.getElementById('bonuses-overlay');
-    if (box){
-      box.innerHTML = '<h2 class="overlay-title">Запрос был получен</h2>' +
-                      '<p class="overlay-intro">Мы свяжемся с вами в ближайшее время.</p>';
-    }
-    if (ov){
-      ov.style.display = 'flex';
-      try { window.scrollTo({top:0, behavior:"smooth"}); } catch(_){}
-    }
-    setTimeout(function(){
-      location.href = 'https://alexenomorf.github.io/comando/';
-    }, 3000);
-  };
-})();
-</script>
-
 </head>
 <body>
-  <!-- Hidden iframe for Google Forms submit -->
+  <!-- Hidden iframe for Google Forms submit (optional; safe if action is real formResponse) -->
   <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 
   <div class="wrap">
@@ -143,9 +133,9 @@
         <input name="entry.promo" />
       </div>
       <div class="field">
-        <button class="btn" type="submit" id="submitBtn">Отправить заявку</button>
+        <button class="btn" type="submit">Отправить заявку</button>
       </div>
-      </form>
+    </form>
   </div>
 
   <!-- Overlay -->
@@ -154,12 +144,12 @@
   </div>
 
   <script>
-  // Validation + single-submit + show overlay immediately on pass
+  // Validation + single-submit + branch behavior (bonus vs non-bonus)
   (function(){
     var form = document.getElementById('gform');
     if (!form) return;
     var submittedOnce = false;
-    var btn = document.getElementById('submitBtn');
+    var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
 
     function firstEmpty(){
       var fields = form.querySelectorAll('input[required], select[required], textarea[required]');
@@ -169,13 +159,15 @@
       }
       return null;
     }
+
     form.addEventListener('submit', function(e){
       var bad = firstEmpty();
       if (bad){ e.preventDefault(); bad.focus(); bad.style.outline='2px solid #ff6b6b'; setTimeout(function(){bad.style.outline=''},1200); return; }
       if (submittedOnce){ e.preventDefault(); return; }
       submittedOnce = true;
-      if (btn){ btn.disabled = true; btn.setAttribute('aria-busy','true'); btn.style.opacity='.7'; btn.style.pointerEvents='none'; }
-      // Clean up duplicate/hidden entry.* (safety)
+      if (submitBtn){ submitBtn.disabled = true; submitBtn.setAttribute('aria-busy','true'); submitBtn.style.opacity='.7'; submitBtn.style.pointerEvents='none'; }
+
+      // Remove duplicate/hidden entry.* (safety) — keep only visible one per name
       (function(){
         function hiddenish(el){
           if (!el) return true;
@@ -197,35 +189,31 @@
           }
         }
       })();
-      // Branch behavior: bonus vs non-bonus
-      if (isBonusFlow()) {
-        try { showOverlay(); } catch(_){ }
-      } else {
-        try { window.__showAckAndRedirect(); } catch(_){ }
-      }
-    catch(_){ } }
+
+      // Branch
+      if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
+      else { try { showAckAndRedirect(); } catch(_){ } }
+      // Do NOT prevent default: if action points to Google Form, submission proceeds into hidden iframe.
     }, true);
 
-    // Fallback: also on submit button click
-    if (btn){
-      btn.addEventListener('click', function(){
+    // Fallback: also on submit button click (for some mobile browsers)
+    if (submitBtn){
+      submitBtn.addEventListener('click', function(){
         if (submittedOnce) return;
         var bad = (function(){ var f=form.querySelectorAll('input[required],select[required],textarea[required]'); for (var i=0;i<f.length;i++){ if(!(f[i].value||'').trim()) return true; } return false; })();
         if (!bad){
-          if (isBonusFlow()) { try { showOverlay(); } catch(_){ } }
-          else { try { window.__showAckAndRedirect(); } catch(_){ } }
+          if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
+          else { try { showAckAndRedirect(); } catch(_){ } }
         }
       }, true);
-    }
-    
     }
 
     // Final fallback: when hidden iframe loads (means Google accepted submit)
     var ifr = document.getElementById('hidden_iframe');
     if (ifr){
       ifr.addEventListener('load', function(){
-        if (isBonusFlow()) { try { showOverlay(); } catch(_){ } }
-        else { try { window.__showAckAndRedirect(); } catch(_){ } }
+        if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
+        else { try { showAckAndRedirect(); } catch(_){ } }
       });
     }
   })();
