@@ -26,10 +26,14 @@
     
 <div id="package-preview" style="font-weight:700; margin: 1em 0; font-size:1.05em;"></div>
 <form id="gform"
+      onsubmit="document.getElementById('submitBtn').disabled=true;"
       action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
       method="POST" target="hidden_iframe" novalidate>
 
-      <label>Имя</label>
+      <input type="hidden" name="entry.1735060909" id="entry_package_ps">
+      <input type="hidden" name="entry.1529853970" id="entry_tag_ps">
+      <input type="hidden" name="entry.575542865" id="entry_source_ps">
+<label>Имя</label>
       <input type="text" name="entry.575542865">
 
       <label>Фамилия</label>
@@ -53,7 +57,8 @@
     </form>
 
     <div id="ok" class="ok">✅ Спасибо! Заявка отправлена.</div>
-  </div>
+  
+</div>
 </div>
 
 <script>
@@ -120,5 +125,124 @@ document.addEventListener('DOMContentLoaded', function(){
   } catch (_) {}
 });
 </script>
+
+<!-- Bonuses overlay (visible only if ps=БОНУСЫ after successful submit) -->
+<style>
+  #bonuses-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.88);z-index:9999}
+  #bonuses-overlay .box{max-width:720px;background:#333;border-radius:16px;border:1px solid rgba(255,255,255,.15);padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.45);color:#fff}
+  #bonuses-overlay h2{margin:0 0 12px}
+  #bonuses-overlay ul{margin:6px 0 0 18px;line-height:1.7}
+</style>
+<div id="bonuses-overlay" aria-hidden="true">
+  <div class="box" id="bonuses-overlay-content">Готовим бонусы…</div></div>
+
+<script>
+(function(){
+  function getPs(){
+    try { return new URLSearchParams(location.search).get('ps') || ''; } catch(e){ return ''; }
+  }
+  var ps = getPs();
+  var isBonus = (ps === 'БОНУСЫ');
+
+  // Preview selected package/tag
+  var prev = document.getElementById('package-preview');
+  if (prev && ps) { prev.textContent = 'Вы выбрали: ' + ps; }
+
+  // Put ps into hidden fields so it lands in the sheet
+  var pkg = document.getElementById('entry_package_ps');
+  var tag = document.getElementById('entry_tag_ps');
+  var src = document.getElementById('entry_source_ps');
+  if (pkg) pkg.value = ps || '';
+  if (tag) tag.value = ps || '';
+  if (src) src.value = 'test_form';
+
+  // After submit (iframe loads), if ps == "БОНУСЫ" show overlay instead of OK
+  var iframe = document.getElementById('hidden_iframe');
+  if (iframe) {
+    iframe.addEventListener('load', function(){
+      if (isBonus) {
+        var ok = document.getElementById('ok');
+        if (ok) ok.style.display = 'none';
+        var ov = document.getElementById('bonuses-overlay');
+        if (ov) ov.style.display = 'flex';
+        try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){}
+      }
+    });
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+  function getPs(){
+    try { return new URLSearchParams(location.search).get('ps') || ''; } catch(e){ return ''; }
+  }
+  var ps = getPs();
+  var isBonus = (ps === 'БОНУСЫ');
+  var submitted = false;
+
+  var form = document.getElementById('gform');
+  if (form) {
+    form.addEventListener('submit', function(){
+      submitted = true;
+      // визуально заблокируем сабмит
+      var btn = form.querySelector('button[type="submit"], input[type="submit"]');
+      if (btn) btn.disabled = true;
+    });
+  }
+
+  var files = [
+    "МЕНЮ 1200.pdf",
+    "МЕНЮ 1500.pdf",
+    "МЕНЮ 2000.pdf",
+    "тренировка для женщин в тренажерном зале  - тренировка .pdf",
+    "тренировка для мужчин в тренажерном зале  - тренировка .pdf"
+  ];
+  var zipFile = "bonus_pack.zip";
+
+  function buildDownloads(){
+    var box = document.getElementById('bonuses-overlay-content');
+    if (!box) return;
+    box.innerHTML = "<h2 style=\"margin:0 0 12px\">Ваши бонусы 🎁</h2>" +
+                    "<p>Скачать бонусы прямо сейчас:</p>";
+    var ul = document.createElement('ul');
+    ul.style.margin = "6px 0 0 18px";
+    ul.style.lineHeight = "1.7";
+    files.forEach(function(f){
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = f;
+      a.setAttribute('download', '');
+      a.textContent = f;
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    var p = document.createElement('p');
+    p.style.marginTop = "10px";
+    var aZip = document.createElement('a');
+    aZip.href = zipFile;
+    aZip.setAttribute('download', '');
+    aZip.textContent = "Скачать всё одним архивом (ZIP)";
+    p.appendChild(aZip);
+    box.appendChild(p);
+  }
+
+  var iframe = document.getElementById('hidden_iframe');
+  if (iframe) {
+    iframe.addEventListener('load', function(){
+      // показываем только если 1) реально сабмитили форму, 2) переход был через БОНУСЫ
+      if (isBonus && submitted) {
+        buildDownloads();
+        var ov = document.getElementById('bonuses-overlay');
+        if (ov) ov.style.display = 'flex';
+        try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){}
+      }
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
