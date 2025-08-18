@@ -3803,10 +3803,123 @@
   /* NOTE: No rules here modify display/visibility/opacity/height/position.
            Content layout is untouched — blocks cannot disappear because of this patch. */
 </style>
+
+
+
+
+
+
+
+<style id="cta-half-size-overrides">
+/* === Hero buttons: 50% size everywhere === */
+
+/* Desktop hero (first screen) — shrink both */
+#home .button-container .hero-cta,
+
+
+/* Keep original positions, but both are smaller now */
+
+
+
+/* Laptop screens: raise BONUS by 30px (220 -> 190) */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  
+}
+
+/* Mobile & small tablets: 50% size and vertical stacking */
+.mobile-main-button .program-button,
+.mobile-bonuses-button .program-button {
+  font-size: 8px !important;             /* ~half of 16px */
+  padding: 7px 10px !important;          /* half of 14px 20px */
+  border-radius: 12px !important;
+  width: 100% !important;
+  max-width: 280px !important;
+}
+.mobile-bonuses-button { margin-top: 8px !important; 
+  bottom: 235px !important;
+}
+
+
+/* Mobile: make BONUS identical in look and field size to APPLY */
+.mobile-main-button .program-button,
+.mobile-bonuses-button .program-button {
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) !important;
+  box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6) !important;
+  color: #fff !important;
+  width: 100% !important;
+  max-width: 280px !important;
+  font-size: 8px !important;      /* keep 50% size */
+  padding: 7px 10px !important;   /* keep 50% size */
+  border-radius: 12px !important;
+}
+.mobile-bonuses-button { margin-top: 8px !important; 
+  bottom: 235px !important;
+}
+
+
+
+/* Desktop hero positions */
+
+
+
+
+
+/* Mobile: place bonuses at bottom of the first screen with 50px offset */
+.mobile-bonuses-button {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  bottom: 235px !important;
+  width: 100% !important;
+  max-width: 280px !important;
+  margin-top: 0 !important;
+  z-index: 101 !important;
+}
+
+
+
+/* Desktop hero positions (adjusted): */
+
+
+
+
+
+/* Desktop hero positions (raised by +20px): */
+#home .button-container .hero-cta {
+  position: absolute !important;
+  top: 90px !important;   /* was 110 */
+  left: -20px !important;
+}
+#home .button-container .hero-bonus {
+  position: absolute !important;
+  top: 120px !important;  /* was 140 */
+  left: -20px !important;
+}
+
+
+
+/* Force mobile BONUS button to match APPLY width (content-based) */
+.mobile-bonuses-button { text-align: center !important; 
+  bottom: 235px !important;
+}
+.mobile-bonuses-button .program-button {
+  width: auto !important;
+  max-width: none !important;
+  display: inline-block !important;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) !important;
+  box-shadow: 0 5px 20px rgba(0, 204, 0, 0.6) !important;
+  color: #fff !important;
+}
+
+</style>
+
 </head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
-     <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div></div>
+     <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div>
+<div class="mobile-bonuses-button" style="margin: 12px auto 0; text-align:center;">
+  <button class="program-button" data-package="БОНУСЫ" type="button">БОНУСЫ</button>
+</div></div>
 <!-- Навигационное меню -->
 <div class="nav-menu" id="navMenu">
 <button class="close-menu" id="closeMenu">
@@ -3865,10 +3978,19 @@
 <div class="main-text">
 <div class="button-container">
 <a href="#" target="_blank">
-<button style="position: absolute; top: 150px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
+<button class="hero-cta" class="hero-cta" style="position: absolute; top: 150px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
          Подать заявку
         </button>
 </a>
+</div>
+<div class="button-container">
+  <a href="#" id="btn-bonuses-hero" target="_blank">
+    <button class="hero-bonus"
+      data-package="БОНУСЫ"
+      style="position: absolute; top: 220px; left: -20px; font-size: 1.6rem; padding: 1.2rem 2.2rem; border-radius: 1rem; z-index: 10;">
+      БОНУСЫ
+    </button>
+  </a>
 </div>
 </div>
 </div>
@@ -5128,6 +5250,25 @@ document.addEventListener('DOMContentLoaded', function(){
   window.addEventListener('DOMContentLoaded', applyZoom);
   window.addEventListener('load', applyZoom);
 })();
+</script>
+
+
+<script id="bonus-route-downloads">
+document.addEventListener('DOMContentLoaded', function () {
+  if (!document.__bonusDownloadsRouteBound) {
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-package="БОНУСЫ"]');
+      if (!el) return;
+      e.preventDefault();
+      try { localStorage.setItem('selectedPackageShort', 'БОНУСЫ'); } catch (_){}
+      try { sessionStorage.setItem('lastSelectedPackageShort', 'БОНУСЫ'); } catch (_){}
+      var url = new URL('test_bonuses_gated_with_downloads.html', location.href);
+      url.searchParams.set('ps', 'БОНУСЫ');
+      location.href = url.toString();
+    }, true);
+    document.__bonusDownloadsRouteBound = true;
+  }
+});
 </script>
 
 </body>
