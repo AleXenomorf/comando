@@ -83,6 +83,21 @@
 })();
 </script>
 
+
+<script id="overlay-show-helper">
+(function(){
+  var shown = false;
+  window.__showBonusOverlay = function(){
+    if (shown) return;
+    shown = true;
+    try { if (typeof buildDownloads === 'function') buildDownloads(); } catch(_){}
+    var ov = document.getElementById('bonuses-overlay');
+    if (ov) ov.style.display = 'flex';
+    try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){}
+  };
+})();
+</script>
+
 </head>
 <body>
 <div class="wrap">
@@ -96,10 +111,7 @@
       action="https://docs.google.com/forms/d/e/1FAIpQLScf0Axx5RUF20o3DuZ1YzO3bj0oP75GlJgTqLEIDTB9kNy_AA/formResponse"
       method="POST" target="hidden_iframe" novalidate>
 
-      <input type="hidden" name="entry.1735060909" id="entry_package_ps">
-      <input type="hidden" name="entry.1529853970" id="entry_tag_ps">
-      <input type="hidden" name="entry.575542865" id="entry_source_ps">
-<label>Имя</label>
+      <label>Имя</label>
       <input type="text" name="entry.575542865">
 
       <label>Фамилия</label>
@@ -115,8 +127,6 @@
       <input type="text" name="entry.3032165">
 
       <!-- Выбор пакета (ТОЛЬКО короткий ps) -->
-      <input type="hidden" id="servicesHidden" name="entry.1735060909" value="">
-
       <div style="margin-top:14px">
         <button type="submit" class="btn" id="sendBtn">Оставить заявку</button>
       </div>
@@ -286,10 +296,7 @@ function buildDownloads(){
   if (iframe) {
     iframe.addEventListener('load', function(){
       // показываем только если 1) реально сабмитили форму, 2) переход был через БОНУСЫ
-      if ((typeof window.__isBonusFlow==="function" ? window.__isBonusFlow() : false) && submitted) {
-        buildDownloads();
-        var ov = document.getElementById('bonuses-overlay');
-        if (ov) ov.style.display = 'flex';
+      if ((typeof window.__isBonusFlow==="function" ? window.__isBonusFlow() : false) && submitted) { if (typeof window.__showBonusOverlay==="function") window.__showBonusOverlay();
         try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){}
       }
     });
@@ -325,14 +332,7 @@ function buildDownloads(){
         var fields = form.querySelectorAll('input[required],select[required],textarea[required]');
         for (var i=0;i<fields.length;i++){ var v=(fields[i].value||'').trim(); if(!v) return true; } return false; 
       })();
-      if (!bad){
-        try {
-          if (typeof buildDownloads === 'function') buildDownloads();
-          var ov = document.getElementById('bonuses-overlay');
-          if (ov) ov.style.display = 'flex';
-        } catch(_){}
-      }
-    }, true);
+      if (!bad) { try { if (typeof window.__showBonusOverlay==="function") window.__showBonusOverlay(); } catch(_){}}}, true);
   }
 
 
@@ -362,13 +362,7 @@ function buildDownloads(){
       return;
     }
     // 2) if bonus flow, show overlay immediately (no 'Готовим бонусы…')
-    if (isBonus) {
-      try {
-        if (typeof buildDownloads === 'function') buildDownloads();
-        var ov = document.getElementById('bonuses-overlay');
-        if (ov) ov.style.display = 'flex';
-        try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){}
-      } catch(_) {}
+    if (isBonus) { try { if (typeof window.__showBonusOverlay==="function") window.__showBonusOverlay(); } catch(_){}}catch(_) {}
     }
     // 3) lock after first click
     if (submittedOnce){
