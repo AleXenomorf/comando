@@ -5253,20 +5253,39 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="bonus-route-after-submit-only">
+<script id="bonus-route-downloads">
 document.addEventListener('DOMContentLoaded', function () {
-  if (window.__bonusAfterSubmitRouteBound) return;
+  if (!document.__bonusDownloadsRouteBound) {
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-package="БОНУСЫ"]');
+      if (!el) return;
+      e.preventDefault();
+      try { localStorage.setItem('selectedPackageShort', 'БОНУСЫ'); } catch (_){}
+      try { sessionStorage.setItem('lastSelectedPackageShort', 'БОНУСЫ'); } catch (_){}
+      var url = new URL('test_bonuses_gated_with_downloads.html', location.href);
+      url.searchParams.set('ps', 'БОНУСЫ');
+      location.href = url.toString();
+    }, true);
+    document.__bonusDownloadsRouteBound = true;
+  }
+});
+</script>
+
+
+<script id="bonus-route-to-en-form">
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.__bonusEnRouteBound) return;
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-package="БОНУСЫ"]');
     if (!el) return;
     e.preventDefault();
     try { localStorage.setItem('selectedPackageShort', 'БОНУСЫ'); } catch (_){}
     try { sessionStorage.setItem('lastSelectedPackageShort', 'БОНУСЫ'); } catch (_){}
-    var url = new URL('test_bonuses_gated_with_downloads_AFTER_SUBMIT_ONLY.html', location.href);
+    var url = new URL('test_bonuses_gated_en_AFTER_SUBMIT_ONLY.html', location.href);
     url.searchParams.set('ps', 'БОНУСЫ');
     location.href = url.toString();
   }, true);
-  window.__bonusAfterSubmitRouteBound = true;
+  window.__bonusEnRouteBound = true;
 });
 </script>
 
