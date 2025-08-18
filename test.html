@@ -70,6 +70,19 @@
 })();
 </script>
 
+
+<script id="bonus-flow-helper">
+(function(){
+  window.__isBonusFlow = function(){
+    function norm(x){ return (x||'').toString().trim().toUpperCase(); }
+    var ps = ""; try { ps = new URLSearchParams(location.search).get('ps') || ""; } catch(_){}
+    var ls = ""; try { ls = localStorage.getItem('selectedPackageShort') || ""; } catch(_){}
+    var ss = ""; try { ss = sessionStorage.getItem('lastSelectedPackageShort') || ""; } catch(_){}
+    return norm(ps)==="БОНУСЫ" || norm(ls)==="БОНУСЫ" || norm(ss)==="БОНУСЫ";
+  };
+})();
+</script>
+
 </head>
 <body>
 <div class="wrap">
@@ -273,7 +286,7 @@ function buildDownloads(){
   if (iframe) {
     iframe.addEventListener('load', function(){
       // показываем только если 1) реально сабмитили форму, 2) переход был через БОНУСЫ
-      if (isBonus && submitted) {
+      if ((typeof window.__isBonusFlow==="function" ? window.__isBonusFlow() : false) && submitted) {
         buildDownloads();
         var ov = document.getElementById('bonuses-overlay');
         if (ov) ov.style.display = 'flex';
@@ -300,6 +313,28 @@ function buildDownloads(){
 
   var submittedOnce = false;
   var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+  // Fallback: show overlay also on submit-button click (helps on some mobile browsers)
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function(){
+      // don't show if we've already submitted or bonus flag is false
+      if (submittedOnce) return;
+      var bonus = (typeof window.__isBonusFlow==="function" ? window.__isBonusFlow() : false);
+      if (!bonus) return;
+      // quick client-side precheck: no empty required fields
+      var bad = (function(){ 
+        var fields = form.querySelectorAll('input[required],select[required],textarea[required]');
+        for (var i=0;i<fields.length;i++){ var v=(fields[i].value||'').trim(); if(!v) return true; } return false; 
+      })();
+      if (!bad){
+        try {
+          if (typeof buildDownloads === 'function') buildDownloads();
+          var ov = document.getElementById('bonuses-overlay');
+          if (ov) ov.style.display = 'flex';
+        } catch(_){}
+      }
+    }, true);
+  }
+
 
   function firstEmptyField(){
     var fields = form.querySelectorAll('input[required],select[required],textarea[required]');
@@ -315,8 +350,7 @@ function buildDownloads(){
 
   form.addEventListener('submit', function(e){
     // compute ps and bonus flag
-    var ps = (function(){ try { return new URLSearchParams(location.search).get('ps') || ''; } catch(e){ return ''; } })();
-    var isBonus = (ps === 'БОНУСЫ');
+    var isBonus = (typeof window.__isBonusFlow === "function" ? window.__isBonusFlow() : false);
     // 1) block if any required field empty
     var bad = firstEmptyField();
     if (bad){
