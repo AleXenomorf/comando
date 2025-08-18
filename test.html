@@ -192,8 +192,8 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  var files = ["menu_1200.pdf","menu_1500.pdf","menu_2000.pdf","workout_women.pdf","workout_men.pdf"];
-  var zipFile = "bonus_pack_en.zip";
+  var files = ["МЕНЮ 1200.pdf","МЕНЮ 1500.pdf","МЕНЮ 2000.pdf","тренировка для женщин в тренажерном зале - тренировка .pdf","тренировка для мужчин в тренажерном зале - тренировка .pdf"];
+  var zipFile = null;
 
   function buildDownloads(){
     var box = document.getElementById('bonuses-overlay-content');
@@ -206,21 +206,14 @@ document.addEventListener('DOMContentLoaded', function(){
     files.forEach(function(f){
       var li = document.createElement('li');
       var a = document.createElement('a');
-      a.href = f;
+      a.href = encodeURI(f);
       a.setAttribute('download', '');
       a.textContent = f;
       li.appendChild(a);
       ul.appendChild(li);
     });
     box.appendChild(ul);
-    var p = document.createElement('p');
-    p.style.marginTop = "10px";
-    var aZip = document.createElement('a');
-    aZip.href = zipFile;
-    aZip.setAttribute('download', '');
-    aZip.textContent = "Скачать всё одним архивом (ZIP)";
-    p.appendChild(aZip);
-    box.appendChild(p);
+    if (zipFile) { var p = document.createElement("p"); p.style.marginTop = "10px"; var aZip = document.createElement("a"); aZip.href = encodeURI(zipFile); aZip.setAttribute("download",""); aZip.textContent = "Скачать всё одним архивом (ZIP)"; p.appendChild(aZip); box.appendChild(p); }
   }
 
   var iframe = document.getElementById('hidden_iframe');
