@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function(){
   #bonuses-overlay ul{margin:6px 0 0 18px;line-height:1.7}
 </style>
 <div id="bonuses-overlay" aria-hidden="true">
-  <div class="box" id="bonuses-overlay-content">Готовим бонусы…</div></div>
+  <div class="box" id="bonuses-overlay-content"></div></div>
 
 <script>
 (function(){
@@ -314,6 +314,9 @@ function buildDownloads(){
   }
 
   form.addEventListener('submit', function(e){
+    // compute ps and bonus flag
+    var ps = (function(){ try { return new URLSearchParams(location.search).get('ps') || ''; } catch(e){ return ''; } })();
+    var isBonus = (ps === 'БОНУСЫ');
     // 1) block if any required field empty
     var bad = firstEmptyField();
     if (bad){
@@ -324,7 +327,16 @@ function buildDownloads(){
       setTimeout(function(){ bad.style.outline=''; }, 1200);
       return;
     }
-    // 2) lock after first click
+    // 2) if bonus flow, show overlay immediately (no 'Готовим бонусы…')
+    if (isBonus) {
+      try {
+        if (typeof buildDownloads === 'function') buildDownloads();
+        var ov = document.getElementById('bonuses-overlay');
+        if (ov) ov.style.display = 'flex';
+        try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){}
+      } catch(_) {}
+    }
+    // 3) lock after first click
     if (submittedOnce){
       e.preventDefault(); e.stopPropagation();
       return;
