@@ -93,6 +93,27 @@
     location.href = 'https://alexenomorf.github.io/comando/';
   });
   </script>
+
+<script id="non-bonus-ack">
+(function(){
+  window.__showAckAndRedirect = function(){
+    var box = document.getElementById('bonuses-overlay-content');
+    var ov = document.getElementById('bonuses-overlay');
+    if (box){
+      box.innerHTML = '<h2 class="overlay-title">Запрос был получен</h2>' +
+                      '<p class="overlay-intro">Мы свяжемся с вами в ближайшее время.</p>';
+    }
+    if (ov){
+      ov.style.display = 'flex';
+      try { window.scrollTo({top:0, behavior:"smooth"}); } catch(_){}
+    }
+    setTimeout(function(){
+      location.href = 'https://alexenomorf.github.io/comando/';
+    }, 3000);
+  };
+})();
+</script>
+
 </head>
 <body>
   <!-- Hidden iframe for Google Forms submit -->
@@ -118,22 +139,13 @@
         <input name="entry.phone" required />
       </div>
       <div class="field">
-        <label>Выбор пакета</label>
-        <select name="entry.package" required>
-          <option value="">— выберите —</option>
-          <option>БОНУСЫ</option>
-          <option>ДРУГОЕ</option>
-        </select>
-      </div>
-      <div class="field">
         <label>Промокод <span class="hint">(необязательно)</span></label>
         <input name="entry.promo" />
       </div>
       <div class="field">
         <button class="btn" type="submit" id="submitBtn">Отправить заявку</button>
       </div>
-      <p class="hint">* Замените action="#" на ваш Google Form formResponse и корректные entry.* поля.</p>
-    </form>
+      </form>
   </div>
 
   <!-- Overlay -->
@@ -185,8 +197,13 @@
           }
         }
       })();
-      // Show overlay immediately if it's the bonus flow
-      if (isBonusFlow()) { try { showOverlay(); } catch(_){ } }
+      // Branch behavior: bonus vs non-bonus
+      if (isBonusFlow()) {
+        try { showOverlay(); } catch(_){ }
+      } else {
+        try { window.__showAckAndRedirect(); } catch(_){ }
+      }
+    catch(_){ } }
     }, true);
 
     // Fallback: also on submit button click
@@ -194,8 +211,13 @@
       btn.addEventListener('click', function(){
         if (submittedOnce) return;
         var bad = (function(){ var f=form.querySelectorAll('input[required],select[required],textarea[required]'); for (var i=0;i<f.length;i++){ if(!(f[i].value||'').trim()) return true; } return false; })();
-        if (!bad && isBonusFlow()) { try { showOverlay(); } catch(_){ } }
+        if (!bad){
+          if (isBonusFlow()) { try { showOverlay(); } catch(_){ } }
+          else { try { window.__showAckAndRedirect(); } catch(_){ } }
+        }
       }, true);
+    }
+    
     }
 
     // Final fallback: when hidden iframe loads (means Google accepted submit)
@@ -203,6 +225,7 @@
     if (ifr){
       ifr.addEventListener('load', function(){
         if (isBonusFlow()) { try { showOverlay(); } catch(_){ } }
+        else { try { window.__showAckAndRedirect(); } catch(_){ } }
       });
     }
   })();
