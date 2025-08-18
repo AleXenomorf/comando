@@ -17,6 +17,59 @@
     .ok{display:none;margin-top:12px;padding:12px;border-radius:10px;background:rgba(0,204,102,.15);border:1px solid var(--ok);text-align:center}
     .preview{margin:6px 0 12px;opacity:.95}
   </style>
+
+<style id="overlay-theme">
+#bonuses-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.9);z-index:9999}
+#bonuses-overlay .box{
+  position:relative;
+  max-width:780px;
+  width:min(92vw,780px);
+  background:linear-gradient(180deg, #121212 0%, #161616 100%);
+  border:1px solid rgba(0, 255, 128, .18);
+  border-radius:18px;
+  padding:24px 22px;
+  box-shadow:0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(0,255,128,.08) inset;
+  color:#fff;
+  font-family:Montserrat,system-ui,Arial,sans-serif;
+}
+.overlay-title{margin:0 0 6px;font-size:22px;font-weight:800;letter-spacing:.2px}
+.overlay-intro{opacity:.9;margin:0 0 10px}
+.overlay-list{margin:6px 0 0 18px;line-height:1.8}
+.overlay-zip{margin-top:12px}
+.dl-link{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:14px;
+  text-decoration:none;
+  color:#fff;
+  background:linear-gradient(45deg, var(--primary-color,#00b900), var(--secondary-color,#00e676));
+  box-shadow:0 6px 22px rgba(0, 204, 0, .55);
+  font-weight:700;
+}
+#bonuses-overlay .overlay-close{
+  position:absolute; top:10px; right:10px;
+  width:36px; height:36px; border-radius:10px;
+  border:1px solid rgba(0,255,128,.3);
+  background:rgba(255,255,255,.06);
+  color:#fff; font-size:22px; line-height:32px; cursor:pointer;
+  box-shadow:0 6px 22px rgba(0,0,0,.35);
+}
+#bonuses-overlay .overlay-close:hover{ background:rgba(255,255,255,.12); }
+</style>
+<script id="overlay-close-logic">
+(function(){
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-close-overlay]');
+    if(!btn) return;
+    e.preventDefault();
+    var ov = document.getElementById('bonuses-overlay');
+    if (ov) ov.style.display = 'none';
+    // Redirect to homepage after close:
+    location.href = 'https://alexenomorf.github.io/comando/';
+  });
+})();
+</script>
+
 </head>
 <body>
 <div class="wrap">
@@ -195,23 +248,23 @@ document.addEventListener('DOMContentLoaded', function(){
   var files = ["МЕНЮ 1200.pdf","МЕНЮ 1500.pdf","МЕНЮ 2000.pdf","тренировка для женщин в тренажерном зале - тренировка.pdf","тренировка для мужчин в тренажерном зале - тренировка.pdf"];
   var zipFile = null;
 
-  function buildDownloads(){
-    var box = document.getElementById('bonuses-overlay-content');
-    if (!box) return;
-    box.innerHTML = "<h2 style=\"margin:0 0 12px\">Ваши бонусы 🎁</h2>" +
-                    "<p>Скачать бонусы прямо сейчас:</p>";
-    var ul = document.createElement('ul');
-    ul.style.margin = "6px 0 0 18px";
-    ul.style.lineHeight = "1.7";
-    files.forEach(function(f){
-      var li = document.createElement('li');
-      var a = document.createElement('a');
-      a.href = encodeURI(f);
-      a.setAttribute('download', '');
-      a.textContent = f;
-      li.appendChild(a);
-      ul.appendChild(li);
-    });
+  
+function buildDownloads(){
+  var box = document.getElementById('bonuses-overlay-content') || document.querySelector('#bonuses-overlay .box');
+  if (!box) return;
+  var closeBtn = '<button class="overlay-close" data-close-overlay aria-label="Закрыть">×</button>';
+  var h2 = '<h2 class="overlay-title">Ваши бонусы</h2>';
+  var intro = '<p class="overlay-intro">Скачайте материалы прямо сейчас:</p>';
+  var list = '<ul class="overlay-list">' + files.map(function(f){
+      var u = encodeURI(f);
+      return '<li><a class="dl-link" href="'+u+'" download>'+f+'</a></li>';
+    }).join('') + '</ul>';
+  var zip = (typeof zipFile === 'string' && zipFile) ?
+            '<p class="overlay-zip"><a class="dl-link" href="'+encodeURI(zipFile)+'" download>Скачать всё одним архивом (ZIP)</a></p>'
+            : '';
+  box.innerHTML = closeBtn + h2 + intro + list + zip;
+}
+);
     box.appendChild(ul);
     if (zipFile) { var p = document.createElement("p"); p.style.marginTop = "10px"; var aZip = document.createElement("a"); aZip.href = encodeURI(zipFile); aZip.setAttribute("download",""); aZip.textContent = "Скачать всё одним архивом (ZIP)"; p.appendChild(aZip); box.appendChild(p); }
   }
@@ -228,6 +281,64 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     });
   }
+})();
+</script>
+
+
+<script id="form-guard">
+(function(){
+  var form = document.getElementById('gform');
+  if (!form) return;
+
+  // Mark all input/select/textarea (except hidden/disabled) as required:
+  Array.prototype.forEach.call(form.querySelectorAll('input, select, textarea'), function(el){
+    var t = (el.getAttribute('type')||'').toLowerCase();
+    if (el.disabled) return;
+    if (t === 'hidden' || t === 'submit' || t === 'button' || t === 'checkbox' || t === 'radio') return;
+    el.setAttribute('required','required');
+  });
+
+  var submittedOnce = false;
+  var submitBtn = form.querySelector('button[type="submit"], input[type="submit"]');
+
+  function firstEmptyField(){
+    var fields = form.querySelectorAll('input[required],select[required],textarea[required]');
+    for (var i=0;i<fields.length;i++){
+      var el = fields[i];
+      var v = (el.value || '').trim();
+      if (!v){
+        return el;
+      }
+    }
+    return null;
+  }
+
+  form.addEventListener('submit', function(e){
+    // 1) block if any required field empty
+    var bad = firstEmptyField();
+    if (bad){
+      e.preventDefault(); e.stopPropagation();
+      try { bad.focus(); } catch(_){}
+      // brief visual
+      bad.style.outline = '2px solid #ff6b6b';
+      setTimeout(function(){ bad.style.outline=''; }, 1200);
+      return;
+    }
+    // 2) lock after first click
+    if (submittedOnce){
+      e.preventDefault(); e.stopPropagation();
+      return;
+    }
+    submittedOnce = true;
+    if (submitBtn){
+      submitBtn.disabled = true;
+      submitBtn.setAttribute('aria-busy','true');
+      submitBtn.style.opacity = '.7';
+      submitBtn.style.pointerEvents = 'none';
+    }
+    // Also disable other interactive fields to avoid re-edits during submit
+    Array.prototype.forEach.call(form.elements, function(el){ try{ el.readOnly = true; el.disabled = (el === submitBtn) ? true : el.disabled; }catch(_){}});
+  }, true);
 })();
 </script>
 
