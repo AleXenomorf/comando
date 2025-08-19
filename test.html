@@ -35,7 +35,7 @@
     .overlay-list{margin:6px 0 0 18px; line-height:1.8}
     .dl-link{ display:inline-block; padding:10px 14px; border-radius:14px; text-decoration:none; color:#fff;
       background:linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-      box-shadow: 0 6px 22px rgba(0, 204, 0, .55); font-weight:700; }
+      box-shadow:0 6px 22px rgba(0, 204, 0, .55); font-weight:700; }
     .overlay-close{ position:absolute; top:10px; right:10px; width:36px; height:36px; border-radius:10px;
       border:1px solid rgba(0,255,128,.3); background:rgba(255,255,255,.06); color:#fff; font-size:22px; line-height:32px; cursor:pointer;
       box-shadow:0 6px 22px rgba(0,0,0,.35); }
@@ -43,26 +43,59 @@
   </style>
 
   <script>
+  // === Google Form wiring (fixed) ============================================
   const GOOGLE = {
     action: "https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse",
     entry: {
-      name:    "entry.335444133",
-      surname: "entry.2046906139",
-      email:   "entry.1743247901",
-      phone:   "entry.639032647",
-      promo:   "entry.84195239",
-      package: "entry.1448692042"
+      name:    "entry.335444133",   // Имя
+      surname: "entry.2046906139",  // Фамилия
+      email:   "entry.1743247901",  // Email
+      phone:   "entry.639032647",   // Телефон
+      promo:   "entry.84195239",    // Промокод (необяз.)
+      package: "entry.1448692042"   // Выбор пакета услуг (скрытое поле)
     }
   };
+  // ==========================================================================
 
-  function isBonusFlow(){
-    function norm(x){ return (x||'').toString().trim().toUpperCase(); }
-    var ps = ""; try { ps = new URLSearchParams(location.search).get('ps') || ""; } catch(_){}
-    var ls = ""; try { ls = localStorage.getItem('selectedPackageShort') || ""; } catch(_){}
-    var ss = ""; try { ss = sessionStorage.getItem('lastSelectedPackageShort') || ""; } catch(_){}
-    return norm(ps)==="БОНУСЫ" || norm(ls)==="БОНУСЫ" || norm(ss)==="БОНУСЫ";
+  // --- Package detection for ALL buttons, not only "БОНУСЫ" -----------------
+  function getQueryParam(keys){
+    try{
+      const sp = new URLSearchParams(location.search);
+      for (const k of keys){ const v = sp.get(k); if (v && String(v).trim()) return decodeURIComponent(v).trim(); }
+    }catch(_){}
+    return "";
   }
+  function getStorage(keys){
+    try{
+      for (const k of keys){
+        const vLS = localStorage.getItem(k);
+        if (vLS && String(vLS).trim()) return String(vLS).trim();
+      }
+    }catch(_){}
+    try{
+      for (const k of keys){
+        const vSS = sessionStorage.getItem(k);
+        if (vSS && String(vSS).trim()) return String(vSS).trim();
+      }
+    }catch(_){}
+    return "";
+  }
+  function detectPackage(){
+    // URL first (ps/pkg/package/plan/tariff), then storage (several popular keys)
+    const fromUrl = getQueryParam(["ps","pkg","package","plan","tariff"]);
+    if (fromUrl) return fromUrl;
+    const fromStorage = getStorage([
+      "selectedPackageShort","selectedPackage","selectedPackageName",
+      "lastSelectedPackageShort","package","plan","tariff"
+    ]);
+    return fromStorage || "";
+  }
+  function isBonusFlow(){
+    return (detectPackage().toUpperCase() === "БОНУСЫ");
+  }
+  // --------------------------------------------------------------------------
 
+  // Files to download (exact Cyrillic names)
   var files = [
     "МЕНЮ 1200.pdf",
     "МЕНЮ 1500.pdf",
@@ -179,16 +212,20 @@
       submittedOnce = true;
       if (submitBtn){ submitBtn.disabled = true; submitBtn.setAttribute('aria-busy','true'); submitBtn.style.opacity='.7'; submitBtn.style.pointerEvents='none'; }
 
+      // Map visible UI -> Google entry.*
       addHidden(GOOGLE.entry.name,    document.getElementById('ui_name').value);
       addHidden(GOOGLE.entry.surname, document.getElementById('ui_surname').value);
       addHidden(GOOGLE.entry.email,   document.getElementById('ui_email').value);
       addHidden(GOOGLE.entry.phone,   document.getElementById('ui_phone').value);
       if (GOOGLE.entry.promo) addHidden(GOOGLE.entry.promo, document.getElementById('ui_promo').value);
 
-      if (isBonusFlow() && GOOGLE.entry.package){
-        addHidden(GOOGLE.entry.package, "БОНУСЫ");
+      // NEW: send any detected package (БОНУСЫ or other) into package field
+      var pkg = detectPackage();
+      if (pkg && GOOGLE.entry.package){
+        addHidden(GOOGLE.entry.package, pkg);
       }
 
+      // UX branches
       if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
       else               { try { showAckAndRedirect(); } catch(_){ } }
     }, true);
