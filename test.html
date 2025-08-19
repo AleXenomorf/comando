@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Анкета — бонусы</title>
+  <title>Анкета</title>
   <style>
-    :root { --primary-color: #00b900; --secondary-color: #00e676; }
+    :root { --primary-color:#00b900; --secondary-color:#00e676; }
     body { font-family: Montserrat, system-ui, Arial, sans-serif; background:#0f0f0f; color:#eee; margin:0; }
     .wrap { max-width: 820px; margin: 24px auto; padding: 0 16px; }
     h1 { font-size: 22px; margin: 12px 0 6px; }
@@ -33,7 +33,6 @@
     .overlay-title{margin:0 0 6px; font-size:22px; font-weight:800; letter-spacing:.2px}
     .overlay-intro{opacity:.9; margin:0 0 10px}
     .overlay-list{margin:6px 0 0 18px; line-height:1.8}
-    .overlay-zip{margin-top:12px}
     .dl-link{ display:inline-block; padding:10px 14px; border-radius:14px; text-decoration:none; color:#fff;
       background:linear-gradient(45deg, var(--primary-color), var(--secondary-color));
       box-shadow: 0 6px 22px rgba(0, 204, 0, .55); font-weight:700; }
@@ -44,22 +43,18 @@
   </style>
 
   <script>
-  // === НАСТРОЙКИ GOOGLE FORM (ЗАПОЛНИТЕ 1 РАЗ) ==============================
-  // 1) Замените FORM_ID на ID вашей формы (action = .../forms/d/e/FORM_ID/formResponse)
-  // 2) Вставьте entry.* ID полей (из prefill-ссылки): имя/фамилия/email/телефон/промокод
   const GOOGLE = {
-    action: "https://docs.google.com/forms/d/e/FORM_ID_HERE/formResponse",
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse",
     entry: {
-      name:   "entry.XXXXXXXXX",
-      surname:"entry.YYYYYYYYY",
-      email:  "entry.ZZZZZZZZZ",
-      phone:  "entry.AAAAAAAA",
-      promo:  "entry.BBBBBBBBB" // можно не заполнять, если такого поля нет
+      name:    "entry.335444133",
+      surname: "entry.2046906139",
+      email:   "entry.1743247901",
+      phone:   "entry.639032647",
+      promo:   "entry.84195239",
+      package: "entry.1448692042"
     }
   };
-  // ==========================================================================
 
-  // Helper: detect "БОНУСЫ" mode from URL or storage
   function isBonusFlow(){
     function norm(x){ return (x||'').toString().trim().toUpperCase(); }
     var ps = ""; try { ps = new URLSearchParams(location.search).get('ps') || ""; } catch(_){}
@@ -68,7 +63,6 @@
     return norm(ps)==="БОНУСЫ" || norm(ls)==="БОНУСЫ" || norm(ss)==="БОНУСЫ";
   }
 
-  // Files to download (exact names, Cyrillic)
   var files = [
     "МЕНЮ 1200.pdf",
     "МЕНЮ 1500.pdf",
@@ -119,31 +113,30 @@
   </script>
 </head>
 <body>
-  <!-- Hidden iframe for Google Forms submit -->
   <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 
   <div class="wrap">
     <h1>Анкета</h1>
-    <form id="gform" action="#" method="post" target="hidden_iframe" novalidate>
+    <form id="gform" action="https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse" method="post" target="hidden_iframe" accept-charset="UTF-8" novalidate>
       <div class="field">
         <label>Имя</label>
-        <input id="ui_name" name="ui.name" required />
+        <input id="ui_name" required />
       </div>
       <div class="field">
         <label>Фамилия</label>
-        <input id="ui_surname" name="ui.surname" required />
+        <input id="ui_surname" required />
       </div>
       <div class="field">
         <label>Email</label>
-        <input id="ui_email" name="ui.email" type="email" required />
+        <input id="ui_email" type="email" required />
       </div>
       <div class="field">
         <label>Телефон</label>
-        <input id="ui_phone" name="ui.phone" required />
+        <input id="ui_phone" required />
       </div>
       <div class="field">
         <label>Промокод <span class="hint">(необязательно)</span></label>
-        <input id="ui_promo" name="ui.promo" />
+        <input id="ui_promo" />
       </div>
       <div class="field">
         <button class="btn" type="submit" id="submitBtn">Отправить заявку</button>
@@ -151,21 +144,14 @@
     </form>
   </div>
 
-  <!-- Overlay -->
   <div id="bonuses-overlay">
     <div class="box" id="bonuses-overlay-content"></div>
   </div>
 
   <script>
-  // Wire Google Form action + map visible UI fields => hidden entry.* before submit
   (function(){
     var form = document.getElementById('gform');
     if (!form) return;
-    // Set action
-    if (GOOGLE && GOOGLE.action && GOOGLE.action.indexOf("FORM_ID_HERE") === -1) {
-      form.action = GOOGLE.action;
-    }
-
     var submittedOnce = false;
     var submitBtn = document.getElementById('submitBtn');
 
@@ -177,7 +163,6 @@
       }
       return null;
     }
-
     function addHidden(name, value){
       if (!name) return;
       var input = document.createElement('input');
@@ -194,38 +179,25 @@
       submittedOnce = true;
       if (submitBtn){ submitBtn.disabled = true; submitBtn.setAttribute('aria-busy','true'); submitBtn.style.opacity='.7'; submitBtn.style.pointerEvents='none'; }
 
-      // Build hidden entry.* fields from UI
-      try {
-        addHidden(GOOGLE.entry.name,    document.getElementById('ui_name').value);
-        addHidden(GOOGLE.entry.surname, document.getElementById('ui_surname').value);
-        addHidden(GOOGLE.entry.email,   document.getElementById('ui_email').value);
-        addHidden(GOOGLE.entry.phone,   document.getElementById('ui_phone').value);
-        if (GOOGLE.entry.promo) addHidden(GOOGLE.entry.promo, document.getElementById('ui_promo').value);
-      } catch(_){}
+      addHidden(GOOGLE.entry.name,    document.getElementById('ui_name').value);
+      addHidden(GOOGLE.entry.surname, document.getElementById('ui_surname').value);
+      addHidden(GOOGLE.entry.email,   document.getElementById('ui_email').value);
+      addHidden(GOOGLE.entry.phone,   document.getElementById('ui_phone').value);
+      if (GOOGLE.entry.promo) addHidden(GOOGLE.entry.promo, document.getElementById('ui_promo').value);
 
-      // Branch: bonus vs non-bonus
+      if (isBonusFlow() && GOOGLE.entry.package){
+        addHidden(GOOGLE.entry.package, "БОНУСЫ");
+      }
+
       if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
-      else { try { showAckAndRedirect(); } catch(_){ } }
-      // Do not prevent default; post to hidden_iframe
+      else               { try { showAckAndRedirect(); } catch(_){ } }
     }, true);
-
-    // Fallbacks
-    if (submitBtn){
-      submitBtn.addEventListener('click', function(){
-        if (submittedOnce) return;
-        var bad = (function(){ var f=form.querySelectorAll('input[required]'); for (var i=0;i<f.length;i++){ if(!(f[i].value||'').trim()) return true; } return false; })();
-        if (!bad){
-          if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
-          else { try { showAckAndRedirect(); } catch(_){ } }
-        }
-      }, true);
-    }
 
     var ifr = document.getElementById('hidden_iframe');
     if (ifr){
       ifr.addEventListener('load', function(){
         if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
-        else { try { showAckAndRedirect(); } catch(_){ } }
+        else               { try { showAckAndRedirect(); } catch(_){ } }
       });
     }
   })();
