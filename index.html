@@ -3940,6 +3940,27 @@
 }
 </style>
 
+
+<!-- FIX: Mobile sizing for 'Запись на консультацию' button -->
+<style>
+@media (max-width: 768px) {
+  /* Ensure button stays within mobile viewport/container and is 10% smaller */
+  .consultation-signup-btn {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 90% !important;        /* avoid edge-to-edge overflow */
+    max-width: 288px !important;  /* 10% smaller than 320px baseline */
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+    /* shrink visual size ~10% */
+    font-size: 90% !important;
+    padding: calc(14px * 0.9) calc(16px * 0.9) !important;
+    border-radius: 0.9em !important;
+  }
+}
+</style>
+
 </head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
