@@ -95,13 +95,13 @@
   }
   // --------------------------------------------------------------------------
 
-  // Files to download (exact Cyrillic names)
+  // Files to download - updated with new filenames
   var files = [
-    "МЕНЮ 1200.pdf",
-    "МЕНЮ 1500.pdf",
-    "МЕНЮ 2000.pdf",
-    "тренировка для женщин в тренажерном зале - тренировка.pdf",
-    "тренировка для мужчин в тренажерном зале - тренировка.pdf"
+    {name: "МЕНЮ 1200.pdf", file: "menu-1200.pdf"},
+    {name: "МЕНЮ 1500.pdf", file: "menu-1500.pdf"},
+    {name: "МЕНЮ 2000.pdf", file: "menu-2000.pdf"},
+    {name: "Тренировка для женщин в тренажерном зале", file: "women-workout.pdf"},
+    {name: "Тренировка для мужчин в тренажерном зале", file: "men-workout.pdf"}
   ];
 
   function buildDownloads(){
@@ -111,8 +111,7 @@
     var h2 = '<h2 class="overlay-title">Ваши бонусы</h2>';
     var intro = '<p class="overlay-intro">Скачайте материалы прямо сейчас:</p>';
     var list = '<ul class="overlay-list">' + files.map(function(f){
-      var u = encodeURI(f);
-      return '<li><a class="dl-link" href="'+u+'" download>'+f+'</a></li>';
+      return '<li><a class="dl-link" href="' + f.file + '" download="' + f.name + '.pdf">' + f.name + '</a></li>';
     }).join('') + '</ul>';
     box.innerHTML = closeBtn + h2 + intro + list;
   }
