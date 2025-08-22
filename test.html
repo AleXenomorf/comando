@@ -1,308 +1,242 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Анкета - Исправленная версия</title>
-    <style>
-        :root {
-            --primary-color: #00b900;
-            --secondary-color: #00e676;
-            --dark-bg: #0f0f0f;
-            --card-bg: #151515;
-            --text-color: #eee;
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: 'Montserrat', system-ui, Arial, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(30, 30, 30, 0.9);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(0, 230, 118, 0.3);
-        }
-        
-        h1 {
-            font-size: 28px;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        .description {
-            color: #aaa;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #ccc;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"] {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #333;
-            border-radius: 8px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(0, 185, 0, 0.3);
-        }
-        
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 22px rgba(0, 204, 0, 0.55);
-            margin-top: 15px;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 230, 118, 0.7);
-        }
-        
-        .bonus-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(21, 21, 21, 0.8);
-            border-radius: 10px;
-            border-left: 4px solid var(--primary-color);
-        }
-        
-        .bonus-title {
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-        
-        .file-list {
-            list-style: none;
-        }
-        
-        .file-item {
-            padding: 12px;
-            margin-bottom: 10px;
-            background: rgba(40, 40, 40, 0.6);
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .download-btn {
-            padding: 8px 15px;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.5);
-        }
-        
-        .hint {
-            font-size: 13px;
-            color: #888;
-            margin-top: 5px;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #777;
-            font-size: 14px;
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            input[type="text"],
-            input[type="email"],
-            input[type="tel"] {
-                padding: 12px;
-            }
-            
-            .btn {
-                padding: 14px;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Анкета</title>
+  <style>
+    :root { --primary-color:#00b900; --secondary-color:#00e676; }
+    body { font-family: Montserrat, system-ui, Arial, sans-serif; background:#0f0f0f; color:#eee; margin:0; }
+    .wrap { max-width: 820px; margin: 24px auto; padding: 0 16px; }
+    h1 { font-size: 22px; margin: 12px 0 6px; }
+    .field { margin: 10px 0; }
+    .field label { display:block; font-size:14px; opacity:.9; margin-bottom:6px; }
+    .field input {
+      width:100%; padding:10px 12px; border-radius:10px; border:1px solid #333; background:#151515; color:#fff;
+    }
+    .btn { display:inline-block; padding:12px 18px; border-radius:14px; border:none; cursor:pointer; font-weight:800;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); color:#fff;
+      box-shadow: 0 6px 22px rgba(0, 204, 0, .55);
+    }
+    .hint { opacity:.8; font-size: 12px; }
+
+    /* Overlay */
+    #bonuses-overlay{position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      background:rgba(0,0,0,.9); z-index:9999}
+    #bonuses-overlay .box{
+      position:relative; width:min(92vw,780px);
+      background:linear-gradient(180deg, #121212 0%, #161616 100%);
+      border:1px solid rgba(0, 255, 128, .18);
+      border-radius:18px; padding:24px 22px; color:#fff;
+      box-shadow:0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(0,255,128,.08) inset;
+    }
+    .overlay-title{margin:0 0 6px; font-size:22px; font-weight:800; letter-spacing:.2px}
+    .overlay-intro{opacity:.9; margin:0 0 10px}
+    .overlay-list{margin:6px 0 0 18px; line-height:1.8}
+    .dl-link{ display:inline-block; padding:10px 14px; border-radius:14px; text-decoration:none; color:#fff;
+      background:linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      box-shadow:0 6px 22px rgba(0, 204, 0, .55); font-weight:700; }
+    .overlay-close{ position:absolute; top:10px; right:10px; width:36px; height:36px; border-radius:10px;
+      border:1px solid rgba(0,255,128,.3); background:rgba(255,255,255,.06); color:#fff; font-size:22px; line-height:32px; cursor:pointer;
+      box-shadow:0 6px 22px rgba(0,0,0,.35); }
+    .overlay-close:hover{ background:rgba(255,255,255,.12); }
+  </style>
+
+  <script>
+  // === Google Form wiring (fixed) ============================================
+  const GOOGLE = {
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse",
+    entry: {
+      name:    "entry.335444133",   // Имя
+      surname: "entry.2046906139",  // Фамилия
+      email:   "entry.1743247901",  // Email
+      phone:   "entry.639032647",   // Телефон
+      promo:   "entry.84195239",    // Промокод (необяз.)
+      package: "entry.1448692042"   // Выбор пакета услуг (скрытое поле)
+    }
+  };
+  // ==========================================================================
+
+  // --- Package detection for ALL buttons, not only "БОНУСЫ" -----------------
+  function getQueryParam(keys){
+    try{
+      const sp = new URLSearchParams(location.search);
+      for (const k of keys){ const v = sp.get(k); if (v && String(v).trim()) return decodeURIComponent(v).trim(); }
+    }catch(_){}
+    return "";
+  }
+  function getStorage(keys){
+    try{
+      for (const k of keys){
+        const vLS = localStorage.getItem(k);
+        if (vLS && String(vLS).trim()) return String(vLS).trim();
+      }
+    }catch(_){}
+    try{
+      for (const k of keys){
+        const vSS = sessionStorage.getItem(k);
+        if (vSS && String(vSS).trim()) return String(vSS).trim();
+      }
+    }catch(_){}
+    return "";
+  }
+  function detectPackage(){
+    // URL first (ps/pkg/package/plan/tariff), then storage (several popular keys)
+    const fromUrl = getQueryParam(["ps","pkg","package","plan","tariff"]);
+    if (fromUrl) return fromUrl;
+    const fromStorage = getStorage([
+      "selectedPackageShort","selectedPackage","selectedPackageName",
+      "lastSelectedPackageShort","package","plan","tariff"
+    ]);
+    return fromStorage || "";
+  }
+  function isBonusFlow(){
+    return (detectPackage().toUpperCase() === "БОНУСЫ");
+  }
+  // --------------------------------------------------------------------------
+
+  // Files to download - updated with new filenames
+  var files = [
+    {name: "МЕНЮ 1200.pdf", file: "menu-1200.pdf"},
+    {name: "МЕНЮ 1500.pdf", file: "menu-1500.pdf"},
+    {name: "МЕНЮ 2000.pdf", file: "menu-2000.pdf"},
+    {name: "Тренировка для женщин в тренажерном зале", file: "women-workout.pdf"},
+    {name: "Тренировка для мужчин в тренажерном зале", file: "men-workout.pdf"}
+  ];
+
+  function buildDownloads(){
+    var box = document.getElementById('bonuses-overlay-content');
+    if (!box) return;
+    var closeBtn = '<button class="overlay-close" data-close-overlay aria-label="Закрыть">×</button>';
+    var h2 = '<h2 class="overlay-title">Ваши бонусы</h2>';
+    var intro = '<p class="overlay-intro">Скачайте материалы прямо сейчас:</p>';
+    var list = '<ul class="overlay-list">' + files.map(function(f){
+      return '<li><a class="dl-link" href="' + f.file + '" download="' + f.name + '.pdf">' + f.name + '</a></li>';
+    }).join('') + '</ul>';
+    box.innerHTML = closeBtn + h2 + intro + list;
+  }
+
+  function showDownloadsOverlay(){
+    try { buildDownloads(); } catch(_){}
+    var ov = document.getElementById('bonuses-overlay');
+    if (ov) { ov.style.display = 'flex'; try { window.scrollTo({top:0, behavior:'smooth'}); } catch(_){ } }
+  }
+
+  function showAckAndRedirect(){
+    var box = document.getElementById('bonuses-overlay-content');
+    var ov = document.getElementById('bonuses-overlay');
+    if (box){
+      box.innerHTML = '<button class="overlay-close" data-close-overlay aria-label="Закрыть">×</button>' +
+                      '<h2 class="overlay-title">Запрос был получен</h2>' +
+                      '<p class="overlay-intro">Мы свяжемся с вами в ближайшее время.</p>';
+    }
+    if (ov){ ov.style.display = 'flex'; try { window.scrollTo({top:0, behavior:"smooth"}); } catch(_){} }
+    setTimeout(function(){ location.href = 'https://alexenomorf.github.io/comando/'; }, 3000);
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-close-overlay]');
+    if(!btn) return;
+    e.preventDefault();
+    var ov = document.getElementById('bonuses-overlay');
+    if (ov) ov.style.display = 'none';
+    location.href = 'https://alexenomorf.github.io/comando/';
+  });
+  </script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Форма заявки</h1>
-            <p class="description">Заполните данные ниже, чтобы получить доступ к материалам</p>
-        </header>
-        
-        <form id="applicationForm">
-            <div class="form-group">
-                <label for="firstName">Имя</label>
-                <input type="text" id="firstName" required placeholder="Введите ваше имя">
-            </div>
-            
-            <div class="form-group">
-                <label for="lastName">Фамилия</label>
-                <input type="text" id="lastName" required placeholder="Введите вашу фамилию">
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" required placeholder="Введите ваш email">
-            </div>
-            
-            <div class="form-group">
-                <label for="phone">Телефон</label>
-                <input type="tel" id="phone" required placeholder="Введите ваш телефон">
-            </div>
-            
-            <div class="form-group">
-                <label for="promo">Промокод <span class="hint">(необязательно)</span></label>
-                <input type="text" id="promo" placeholder="Введите промокод, если у вас есть">
-            </div>
-            
-            <button type="submit" class="btn">Отправить заявку</button>
-        </form>
-        
-        <div class="bonus-section">
-            <h2 class="bonus-title">Доступные материалы для скачивания</h2>
-            <p>После отправки формы вы сможете скачать эти материалы:</p>
-            
-            <ul class="file-list">
-                <li class="file-item">
-                    <span>МЕНЮ 1200.pdf</span>
-                    <a href="#" class="download-btn">Скачать</a>
-                </li>
-                <li class="file-item">
-                    <span>МЕНЮ 1500.pdf</span>
-                    <a href="#" class="download-btn">Скачать</a>
-                </li>
-                <li class="file-item">
-                    <span>МЕНЮ 2000.pdf</span>
-                    <a href="#" class="download-btn">Скачать</a>
-                </li>
-                <li class="file-item">
-                    <span>Тренировка для женщин</span>
-                    <a href="#" class="download-btn">Скачать</a>
-                </li>
-                <li class="file-item">
-                    <span>Тренировка для мужчин</span>
-                    <a href="#" class="download-btn">Скачать</a>
-                </li>
-            </ul>
-        </div>
-        
-        <footer>
-            <p>© 2023 Все права защищены. После отправки формы вы будете перенаправлены на главную страницу.</p>
-        </footer>
-    </div>
+  <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('applicationForm');
-            
-            // Обработка отправки формы
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Простая валидация
-                const firstName = document.getElementById('firstName').value;
-                const lastName = document.getElementById('lastName').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                
-                if (!firstName || !lastName || !email || !phone) {
-                    alert('Пожалуйста, заполните все обязательные поля');
-                    return;
-                }
-                
-                // Эмулируем отправку данных
-                setTimeout(function() {
-                    alert('Форма успешно отправлена! Теперь вы можете скачать материалы.');
-                    
-                    // Активируем ссылки для скачивания
-                    const downloadLinks = document.querySelectorAll('.download-btn');
-                    downloadLinks[0].href = 'МЕНЮ 1200.pdf';
-                    downloadLinks[1].href = 'МЕНЮ 1500.pdf';
-                    downloadLinks[2].href = 'МЕНЮ 2000.pdf';
-                    downloadLinks[3].href = 'women-workout.pdf';
-                    downloadLinks[4].href = 'men-workout.pdf';
-                    
-                    // Прокручиваем к материалам
-                    document.querySelector('.bonus-section').scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }, 1000);
-            });
-            
-            // Добавляем обработчики для предотвращения перехода по неактивным ссылкам
-            document.querySelectorAll('.download-btn').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
-                        e.preventDefault();
-                        alert('Сначала отправьте форму, чтобы получить доступ к материалам');
-                    }
-                });
-            });
-        });
-    </script>
+  <div class="wrap">
+    <h1>Анкета</h1>
+    <form id="gform" action="https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse" method="post" target="hidden_iframe" accept-charset="UTF-8" novalidate>
+      <div class="field">
+        <label>Имя</label>
+        <input id="ui_name" required />
+      </div>
+      <div class="field">
+        <label>Фамилия</label>
+        <input id="ui_surname" required />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input id="ui_email" type="email" required />
+      </div>
+      <div class="field">
+        <label>Телефон</label>
+        <input id="ui_phone" required />
+      </div>
+      <div class="field">
+        <label>Промокод <span class="hint">(необязательно)</span></label>
+        <input id="ui_promo" />
+      </div>
+      <div class="field">
+        <button class="btn" type="submit" id="submitBtn">Отправить заявку</button>
+      </div>
+    </form>
+  </div>
+
+  <div id="bonuses-overlay">
+    <div class="box" id="bonuses-overlay-content"></div>
+  </div>
+
+  <script>
+  (function(){
+    var form = document.getElementById('gform');
+    if (!form) return;
+    var submittedOnce = false;
+    var submitBtn = document.getElementById('submitBtn');
+
+    function firstEmpty(){
+      var fields = form.querySelectorAll('input[required]');
+      for (var i=0;i<fields.length;i++){
+        var v = (fields[i].value||'').trim();
+        if (!v) return fields[i];
+      }
+      return null;
+    }
+    function addHidden(name, value){
+      if (!name) return;
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value || '';
+      form.appendChild(input);
+    }
+
+    form.addEventListener('submit', function(e){
+      var bad = firstEmpty();
+      if (bad){ e.preventDefault(); bad.focus(); bad.style.outline='2px solid #ff6b6b'; setTimeout(function(){bad.style.outline=''},1200); return; }
+      if (submittedOnce){ e.preventDefault(); return; }
+      submittedOnce = true;
+      if (submitBtn){ submitBtn.disabled = true; submitBtn.setAttribute('aria-busy','true'); submitBtn.style.opacity='.7'; submitBtn.style.pointerEvents='none'; }
+
+      // Map visible UI -> Google entry.*
+      addHidden(GOOGLE.entry.name,    document.getElementById('ui_name').value);
+      addHidden(GOOGLE.entry.surname, document.getElementById('ui_surname').value);
+      addHidden(GOOGLE.entry.email,   document.getElementById('ui_email').value);
+      addHidden(GOOGLE.entry.phone,   document.getElementById('ui_phone').value);
+      if (GOOGLE.entry.promo) addHidden(GOOGLE.entry.promo, document.getElementById('ui_promo').value);
+
+      // NEW: send any detected package (БОНУСЫ or other) into package field
+      var pkg = detectPackage();
+      if (pkg && GOOGLE.entry.package){
+        addHidden(GOOGLE.entry.package, pkg);
+      }
+
+      // UX branches
+      if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
+      else               { try { showAckAndRedirect(); } catch(_){ } }
+    }, true);
+
+    var ifr = document.getElementById('hidden_iframe');
+    if (ifr){
+      ifr.addEventListener('load', function(){
+        if (isBonusFlow()) { try { showDownloadsOverlay(); } catch(_){ } }
+        else               { try { showAckAndRedirect(); } catch(_){ } }
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
