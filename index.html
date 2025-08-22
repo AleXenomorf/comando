@@ -3913,23 +3913,28 @@
 
 </style>
 
+
+<!-- FIX: Make mobile BONUSES button fixed to viewport bottom -->
 <style>
-/* --- Samsung/Android visibility hardening for mobile bonuses button --- */
-@media (max-width: 812px) {
+@media (max-width: 768px) {
   .mobile-bonuses-button {
     position: fixed !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    bottom: calc(245px + env(safe-area-inset-bottom)) !important;
-    z-index: 2147483647 !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+    bottom: 24px !important; /* adjust if you want higher/lower */
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    z-index: 9999 !important;
     pointer-events: auto !important;
-    display: block !important;
   }
-  body, html { overflow-x: hidden; }
+  .mobile-bonuses-button .program-button {
+    width: 100% !important;
+  }
 }
-</style></head>
+</style>
+
+</head>
 <body><div class="mobile-only" style="width: 100%; height: 100vh; background-image: url('https://alexenomorf.github.io/comando/114.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; position: relative; z-index: 100;">
 
      <div class="mobile-main-button"><button class="program-button">ПОДАТЬ ЗАЯВКУ</button></div>
