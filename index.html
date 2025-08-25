@@ -639,77 +639,161 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-<!-- Scroll-to-Top (desktop only) -->
+
+
+<!-- Scroll-to-Top (SPORTY desktop, neon-lime arrow) -->
 <style>
+  :root { --sporty-accent: #d3fa53; }
+
   .scroll-top {
     position: fixed;
-    right: 24px;
-    bottom: 24px;
-    width: 48px;
-    height: 48px;
-    border: 0;
-    border-radius: 999px;
+    right: 28px;
+    bottom: 28px;
+    width: 60px;
+    height: 60px;
     cursor: pointer;
     z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: var(--gradient, linear-gradient(135deg, #00ff88, #0a84ff));
-    color: #fff;
-    box-shadow: 0 8px 24px rgba(0,0,0,.25);
-
+    display: grid;
+    place-items: center;
+    border: 2px solid rgba(211, 250, 83, 0.75);
+    border-radius: 16px;
+    background: rgba(15,15,15,0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+      0 10px 30px rgba(0,0,0,.35),
+      0 0 20px rgba(211,250,83,.18),
+      inset 0 0 0 1px rgba(255,255,255,.08);
+    clip-path: polygon(25% 5%, 75% 5%, 100% 35%, 100% 65%, 75% 95%, 25% 95%, 0% 65%, 0% 35%);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
-    transition: opacity .25s ease, transform .25s ease, visibility .25s ease, box-shadow .2s ease;
+    transform: translateY(10px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease, box-shadow .25s ease;
   }
-  .scroll-top:hover { box-shadow: 0 12px 32px rgba(0,0,0,.35); transform: translateY(0); }
-  .scroll-top:focus { outline: 2px solid rgba(255,255,255,.6); outline-offset: 3px; }
-
-  .scroll-top--show { opacity: 1; visibility: visible; transform: translateY(0); }
-
-  /* Прячем на мобильных */
-  @media (max-width: 991px) {
-    .scroll-top { display: none; }
+  .scroll-top:hover {
+    transform: translateY(0) scale(1);
+    box-shadow:
+      0 14px 40px rgba(0,0,0,.45),
+      0 0 26px rgba(211,250,83,.28),
+      inset 0 0 0 2px rgba(211,250,83,.15);
   }
+  .scroll-top:focus { outline: 2px solid rgba(255,255,255,.7); outline-offset: 3px; }
+  .scroll-top--show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+
+  .scroll-top__inner { position: relative; width: 60px; height: 60px; display: grid; place-items: center; }
+
+  /* Arrow icon — sporty neon lime */
+  .scroll-top__icon { width: 24px; height: 24px; color: var(--sporty-accent); filter: drop-shadow(0 2px 6px rgba(211,250,83,.35)); transition: transform .2s ease; }
+  .scroll-top:hover .scroll-top__icon { transform: translateY(-2px); }
+
+  /* Circular progress ring around the hex button */
+  .scroll-top__ring { position: absolute; inset: -6px; pointer-events: none; }
+  .scroll-top__ring svg { width: 72px; height: 72px; transform: rotate(-90deg); }
+  .scroll-top__ring circle { fill: none; stroke-linecap: round; }
+  .scroll-top__ring circle.track { stroke: rgba(211,250,83,.18); stroke-width: 3; }
+  .scroll-top__ring circle.progress { stroke: var(--sporty-accent); stroke-width: 3.5; stroke-dasharray: 170; stroke-dashoffset: 170; transition: stroke-dashoffset .1s linear; filter: drop-shadow(0 0 6px rgba(211,250,83,.25)); }
+
+  /* Speed lines on hover for sporty vibe */
+  .scroll-top::before,
+  .scroll-top::after{
+    content:'';
+    position:absolute;
+    width: 28px; height: 2px;
+    background: linear-gradient(90deg, rgba(211,250,83,0) 0%, rgba(211,250,83,.9) 50%, rgba(211,250,83,0) 100%);
+    right: 62px;
+    transform: skewX(-25deg);
+    opacity: 0;
+    transition: opacity .2s ease, transform .2s ease;
+    filter: blur(.2px);
+  }
+  .scroll-top::after{
+    width: 40px; top: 38px; right: 70px;
+    transform: skewX(-25deg) translateX(-8px);
+    opacity: 0;
+  }
+  .scroll-top:hover::before{ top: 26px; opacity: .85; transform: skewX(-25deg) translateX(-4px); }
+  .scroll-top:hover::after{ opacity: .7; transform: skewX(-25deg) translateX(-10px); }
+
+  /* Desktop only */
+  @media (max-width: 991px) { .scroll-top { display: none; } }
 </style>
 <script>
-  (function(){
-    if (document.getElementById('scrollTopBtn')) return;
+(function(){
+  if (document.getElementById('scrollTopBtn')) return;
 
-    // Создаём кнопку
-    const btn = document.createElement('button');
+  function buildButton(){
+    var btn = document.createElement('button');
     btn.id = 'scrollTopBtn';
     btn.className = 'scroll-top';
     btn.type = 'button';
-    btn.setAttribute('aria-label', 'Наверх');
-    btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5l-7 7m7-7l7 7M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    btn.setAttribute('aria-label','Наверх');
 
-    function enable(){
-      document.body.appendChild(btn);
+    var inner = document.createElement('div');
+    inner.className = 'scroll-top__inner';
 
-      // Показ/скрытие после прокрутки
-      const toggle = () => {
-        if (window.pageYOffset > 400) btn.classList.add('scroll-top--show');
-        else btn.classList.remove('scroll-top--show');
-      };
-      toggle();
-      window.addEventListener('scroll', toggle, { passive: true });
+    // Progress ring (r = 27 -> circumference ~ 169.6 ≈ 170)
+    var ring = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    ring.setAttribute('viewBox','0 0 72 72');
+    var track = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    track.setAttribute('class','track');
+    track.setAttribute('cx','36'); track.setAttribute('cy','36'); track.setAttribute('r','27');
+    var progress = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    progress.setAttribute('class','progress');
+    progress.setAttribute('cx','36'); progress.setAttribute('cy','36'); progress.setAttribute('r','27');
+    ring.appendChild(track); ring.appendChild(progress);
 
-      // Плавный скролл наверх
-      btn.addEventListener('click', () => {
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-      });
-    }
+    // Sporty arrow (chevrons), color via currentColor (#d3fa53)
+    var icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icon.setAttribute('class','scroll-top__icon');
+    icon.setAttribute('viewBox','0 0 24 24');
+    icon.innerHTML = '<path d="M12 4l-5.5 5.5M12 4l5.5 5.5M12 4v16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enable);
-    } else {
-      enable();
-    }
-  })();
+    var ringWrap = document.createElement('div');
+    ringWrap.className = 'scroll-top__ring';
+    ringWrap.appendChild(ring);
+
+    inner.appendChild(ringWrap);
+    inner.appendChild(icon);
+    btn.appendChild(inner);
+    return { btn, progress };
+  }
+
+  function updateProgress(circle){
+    var docH = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    var winH = window.innerHeight;
+    var max = docH - winH;
+    var sc = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var pct = max > 0 ? Math.min(sc / max, 1) : 0;
+    var len = 2 * Math.PI * 27; // ~169.6
+    circle.style.strokeDasharray = len.toFixed(0);
+    circle.style.strokeDashoffset = (len * (1 - pct)).toFixed(0);
+  }
+
+  function enable(){
+    var built = buildButton();
+    var btn = built.btn;
+    var circle = built.progress;
+    document.body.appendChild(btn);
+
+    var toggle = function(){
+      if (window.pageYOffset > 450) btn.classList.add('scroll-top--show');
+      else btn.classList.remove('scroll-top--show');
+      updateProgress(circle);
+    };
+    toggle();
+    window.addEventListener('scroll', toggle, { passive: true });
+    window.addEventListener('resize', function(){ updateProgress(circle); }, { passive: true });
+
+    // Smooth scroll to top
+    btn.addEventListener('click', function(){
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enable);
+  else enable();
+})();
 </script>
 </body>
 </html>
