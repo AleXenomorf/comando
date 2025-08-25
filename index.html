@@ -291,7 +291,7 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 <span class="line">начни делать чтобы не боятся</span>
 </div>
 <p class="hero-sub">Индивидуальные планы, аналитика прогресса, гибкое питание и поддержка 24/7. Всё в одном месте.</p>
-<div class="hero-cta overlay"><a class="btn primary" href="./form_fix_v4.html?ps=ЗАЯВКА">Подать заявку</a><a class="btn ghost" href="./form_fix_v4.html?ps=КОНСУЛЬТАЦИЯ">Записаться на консультацию</a><a class="btn ghost bonus-btn" href="./form_fix_v4.html?ps=БОНУСЫ">Бонусы</a></div></div>
+<div class="hero-cta overlay"><a class="btn primary js-form-link" href="form_fix_v4.html?ps=ЗАЯВКА" target="_self">Подать заявку</a><a class="btn ghost js-form-link" href="form_fix_v4.html?ps=КОНСУЛЬТАЦИЯ" target="_self">Записаться на консультацию</a><a class="btn ghost bonus-btn js-form-link" href="form_fix_v4.html?ps=БОНУСЫ" target="_self">Бонусы</a></div></div>
 </section>
 <section class="slider-section" id="participants">
 <div class="container">
@@ -511,22 +511,22 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 <div class="program">
 <h4>Базовый формат онлайн сопровождения</h4>
 <ul><li>150.000 тенге за три месяца</li><li>65.000 тенге — помесячная оплата</li></ul>
-<div style="margin-top:12px;"><a class="btn primary" href="./form_fix_v4.html?ps=БАЗОВЫЙ">ПОДАТЬ ЗАЯВКУ</a></div>
+<div style="margin-top:12px;"><a class="btn primary js-form-link" href="form_fix_v4.html?ps=БАЗОВЫЙ" target="_self">ПОДАТЬ ЗАЯВКУ</a></div>
 </div>
 <div class="program">
 <h4>Мини-группа в фитнес клубе «Аврора»</h4>
 <ul><li>200.000 тенге за три месяца</li><li>80.000 тенге — помесячная оплата</li><li>(абонемент в зал приобретается отдельно)</li></ul>
-<div style="margin-top:12px;"><a class="btn primary" href="./form_fix_v4.html?ps=АВРОРА">ПОДАТЬ ЗАЯВКУ</a></div>
+<div style="margin-top:12px;"><a class="btn primary js-form-link" href="form_fix_v4.html?ps=АВРОРА" target="_self">ПОДАТЬ ЗАЯВКУ</a></div>
 </div>
 <div class="program">
 <h4>Пробная неделя с программой и сопровождением</h4>
 <ul><li>10.000 тенге</li></ul>
-<div style="margin-top:12px;"><a class="btn primary" href="./form_fix_v4.html?ps=ПРОБНАЯ-10К">ПОДАТЬ ЗАЯВКУ</a></div>
+<div style="margin-top:12px;"><a class="btn primary js-form-link" href="form_fix_v4.html?ps=ПРОБНАЯ-10К" target="_self">ПОДАТЬ ЗАЯВКУ</a></div>
 </div>
 <div class="program">
 <h4>Пробная неделя с программой и сопровождением</h4>
 <ul><li>15.000 тенге</li></ul>
-<div style="margin-top:12px;"><a class="btn primary" href="./form_fix_v4.html?ps=ПРОБНАЯ-15К">ПОДАТЬ ЗАЯВКУ</a></div>
+<div style="margin-top:12px;"><a class="btn primary js-form-link" href="form_fix_v4.html?ps=ПРОБНАЯ-15К" target="_self">ПОДАТЬ ЗАЯВКУ</a></div>
 </div>
 </div>
 </div>
@@ -575,5 +575,30 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 <footer>
 <div class="container">© 2025 Mind Fit. Все права защищены.</div>
 </footer>
-</body>
+<script>
+(function(){
+  function computeFormUrl(qs){
+    // Ensure URL resolves relative to the current directory path
+    var path = window.location.pathname;
+    // keep only directory part (strip file name if present)
+    var base = path.replace(/[^\/]*$/, '');
+    var url = window.location.origin + base + 'form_fix_v4.html' + (qs || '');
+    return url;
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.js-form-link');
+    if(!a) return;
+    // If modifier keys used (open in new tab), let browser handle
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank') return;
+    e.preventDefault();
+    var href = a.getAttribute('href') || 'form_fix_v4.html';
+    var qs = '';
+    var i = href.indexOf('?');
+    if(i !== -1) qs = href.slice(i);
+    var url = computeFormUrl(qs);
+    try{ window.location.assign(url); }
+    catch(_){ window.location.href = url; }
+  }, true);
+})();
+</script></body>
 </html>
