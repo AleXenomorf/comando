@@ -577,43 +577,36 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 </footer>
 
 
-<!-- FORM WIRING (robust routing to form_fix_v4.html; logic borrowed from MOBILE_STABLE) -->
+<!-- FORM WIRING (RELATIVE PATH to test.html with ?ps=... like MOBILE_STABLE) -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim(); }
   function low(s){ return norm(s).toLowerCase(); }
-
   function computeUrl(pkg){
-    var url = new URL('form_fix_v4.html', location.href); // same folder as this index
+    var url = new URL('test.html', location.href);
     if(pkg) url.searchParams.set('ps', pkg);
     return url.toString();
   }
-
   function setPkg(el, pkg){
     if(!el || !pkg) return;
     el.setAttribute('data-package', pkg);
-    // Progressive enhancement: make anchors work even without JS handlers firing
     if (el.tagName && el.tagName.toLowerCase() === 'a') {
       el.setAttribute('href', computeUrl(pkg));
       el.removeAttribute('target');
       el.removeAttribute('rel');
     }
   }
-
-  // HERO + BONUS
+  // CTA mapping
   (function(){
-    var scope = document.querySelector('.hero') || document;
-    var btns = scope.querySelectorAll('a.btn, button, [role="button"], .mobile-main-button, .program-button');
+    var btns = document.querySelectorAll('a.btn, button, [role="button"], .mobile-main-button, .program-button, .pricing-button, .consultation-signup-btn, .bonus-btn');
     btns.forEach(function(b){
       var t = low(b.textContent || b.value || '');
       if (t === 'подать заявку') setPkg(b,'Заявка');
       if (t.indexOf('записаться на консультацию') !== -1 || t.indexOf('запись на консультацию') !== -1) setPkg(b,'Бесплатная диагностика');
       if (t === 'бонусы') setPkg(b,'БОНУСЫ');
     });
-    document.querySelectorAll('.bonus-btn').forEach(function(el){ setPkg(el,'БОНУСЫ'); });
   })();
-
-  // PROGRAM CARDS: title + first price -> package
+  // Program cards -> package name
   (function(){
     var cards = document.querySelectorAll('.program');
     cards.forEach(function(card){
@@ -627,28 +620,10 @@ document.addEventListener('DOMContentLoaded', function(){
       setPkg(btn, pkg || 'Заявка');
     });
   })();
-
-  // PRICING (if present)
-  (function(){
-    var cols = document.querySelectorAll('.pricing-column');
-    cols.forEach(function(col){
-      var titleEl = col.querySelector('h3.pricing-name.bold-header, .pricing-name.bold-header, h3.bold-header, h3');
-      var priceEl = col.querySelector('.pricing-price');
-      var btn = col.querySelector('.pricing-button, button, a');
-      if(!titleEl || !priceEl || !btn) return;
-      var title = low(titleEl.textContent);
-      var price = low(priceEl.textContent);
-      if ((title.includes('базовый') && (price.includes('150.000')||price.includes('150 000')))) setPkg(btn, 'Базовый 150 000');
-      else if ((title.includes('мини') || title.includes('аврора')) && (price.includes('200.000')||price.includes('200 000'))) setPkg(btn, 'Мини группа 200 000');
-      else if (title.includes('пробная неделя') && (price.includes('10.000')||price.includes('10 000'))) setPkg(btn, 'Пробная 10 000');
-      else if (title.includes('пробная неделя') && (price.includes('15.000')||price.includes('15 000'))) setPkg(btn, 'Пробная 15 000');
-    });
-  })();
-
-  // Global capture: go to form when element with data-package is clicked
+  // Global click -> redirect to test.html
   if (!document.__formCaptureBound){
     document.addEventListener('click', function(e){
-      var el = e.target.closest('a,button,[role="button"],.program-button,.pricing-button,.mobile-main-button,.consultation-signup-btn');
+      var el = e.target.closest('a,button,[role="button"],.program-button,.pricing-button,.mobile-main-button,.consultation-signup-btn,.bonus-btn');
       if(!el) return;
       var pkg = el.getAttribute('data-package');
       if(!pkg) return;
