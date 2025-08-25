@@ -1,11 +1,12 @@
 
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>MIND FIT — FP-style (Full)</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
 <style>
 :root{
   --fp-bg: #0b0b0b;
@@ -104,7 +105,7 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 /* CTA strip + floating */
 .cta-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap }
 @media (max-width: 768px){
-  .floating-cta{
+  .floating-cta--removed{
     position: fixed; right: 16px; bottom: 16px; z-index: 9999;
     display: inline-flex; align-items:center; justify-content:center;
     padding: 14px 18px; border-radius: 999px;
@@ -114,308 +115,390 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
   }
 }
 </style>
-</head>
-
+<style>
+/* === HERO override: full-bleed photos for desktop/mobile === */
+.hero{
+  min-height: 80vh;
+  background: #000 url('https://alexenomorf.github.io/comando/photo36.jpg') center/cover no-repeat !important;
+}
+@media (max-width: 640px){
+  .hero{
+    min-height: 70vh;
+    background-image: url('https://alexenomorf.github.io/comando/photo37.jpg') !important;
+  }
+}
+/* Hide previous hero texts and buttons */
+.hero .hero-inner{ padding: 0; width: 100%; }
+.hero .hero-lines, .hero .hero-sub, .hero .hero-cta{ display: none !important; }
+</style><style>
+/* === HERO: switch to inline <picture> (no cropping), remove background === */
+.hero{
+  background: none !important;
+  min-height: auto !important;
+  padding-top: 64px; /* keep space for fixed nav */
+}
+.hero .hero-inner{ padding: 0 !important; width: 100% !important; }
+.hero .hero-media{ display:block; }
+.hero .hero-media img{ display:block; width:100%; height:auto; }
+/* keep texts/buttons hidden */
+.hero .hero-lines, .hero .hero-sub, .hero .hero-cta{ display:none !important; }
+@media (max-width: 640px){
+  .hero{ padding-top: 64px; }
+}
+</style><style>
+/* Mobile nav: show only brand, hide actions */
+@media (max-width: 900px){
+  .nav .actions{ display:none !important; }
+  .nav .inner{ justify-content:center !important; }
+  .nav .brand{ margin:0 auto; font-size:18px; }
+}
+</style><style>
+/* Position hero for overlay CTAs; ensure overlay visible even if .hero-cta was hidden earlier */
+.hero{ position: relative !important; }
+.hero .hero-cta.overlay{ 
+  position: absolute; 
+  right: clamp(12px, 3vw, 28px); 
+  bottom: clamp(12px, 3vw, 28px); 
+  display: flex !important; 
+  gap: 10px; 
+  flex-wrap: wrap; 
+  z-index: 2;
+}
+/* Compact buttons in hero on mobile */
+@media (max-width: 640px){
+  .hero .hero-cta.overlay{ 
+    left: 12px; right: auto; bottom: 12px; 
+    gap: 8px; 
+  }
+  .hero .hero-cta.overlay .btn{ padding: 10px 14px; font-size: 14px; }
+}
+</style><style>
+/* Raise hero overlay CTAs: +100px desktop, +20px mobile */
+.hero .hero-cta.overlay{ bottom: calc(clamp(12px, 3vw, 28px) + 100px) !important; }
+@media (max-width: 640px){
+  .hero .hero-cta.overlay{ bottom: calc(12px + 20px) !important; }
+}
+</style><style>
+/* Raise hero overlay CTAs: +200px desktop, +50px mobile */
+.hero .hero-cta.overlay{ bottom: calc(clamp(12px, 3vw, 28px) + 200px) !important; }
+@media (max-width: 640px){
+  .hero .hero-cta.overlay{ bottom: calc(12px + 50px) !important; }
+}
+</style><style>
+/* Raise hero overlay CTAs: +200px desktop, +100px mobile */
+.hero .hero-cta.overlay{ bottom: calc(clamp(12px, 3vw, 28px) + 200px) !important; }
+@media (max-width: 640px){
+  .hero .hero-cta.overlay{ bottom: calc(12px + 100px) !important; }
+}
+</style><style>
+/* Final raise: desktop +500px total, mobile +100px */
+.hero .hero-cta.overlay{ bottom: calc(clamp(12px, 3vw, 28px) + 500px) !important; }
+@media (max-width: 640px){
+  .hero .hero-cta.overlay{ bottom: calc(12px + 100px) !important; }
+}
+</style><style>
+/* Desktop: move hero CTAs to left (50px inset) and lower them by 200px (now bottom = +300px) */
+@media (min-width: 641px){
+  .hero .hero-cta.overlay{
+    left: 50px !important;
+    right: auto !important;
+    bottom: calc(clamp(12px, 3vw, 28px) + 300px) !important;
+  }
+}
+</style><style>
+/* Pin desktop CTA position: fixed pixels, no responsive shifting */
+@media (min-width: 641px){
+  .hero .hero-cta.overlay{
+    bottom: 500px !important;  /* pinned height */
+    left: 50px !important;     /* pinned inset */
+    right: auto !important;
+  }
+}
+</style><style>
+/* Lower CTAs on mid-desktop widths (e.g., 1024px) to avoid covering the key area */
+@media (min-width: 901px) and (max-width: 1200px){
+  .hero .hero-cta.overlay{
+    bottom: 320px !important; /* was 500px */
+    left: 50px !important;
+    right: auto !important;
+  }
+}
+</style><style>
+/* Pin mobile CTA position and raise by +100px (to ~212px from bottom) */
+@media (max-width: 640px){
+  .hero .hero-cta.overlay{
+    bottom: 212px !important; /* pinned, no viewport-based shifting */
+    left: 12px !important;
+    right: auto !important;
+  }
+}
+</style></head>
 <body>
 <header class="nav">
-  <div class="inner container">
-    <div class="brand">MIND FIT</div>
-    <div class="actions">
-      <a href="#participants" class="btn ghost">Участники</a>
-      <a href="#team" class="btn ghost">Команда</a>
-      <a href="#faq" class="btn ghost">FAQ</a>
-      <a href="#pricing" class="btn primary">Стоимость</a>
-    </div>
-  </div>
+<div class="inner container">
+<div class="brand">MIND FIT</div>
+<div class="actions">
+<a class="btn ghost" href="#participants">Участники</a>
+<a class="btn ghost" href="#team">Команда</a>
+<a class="btn ghost" href="#faq">FAQ</a>
+<a class="btn primary" href="#pricing">Стоимость</a>
+</div>
+</div>
 </header>
 <section class="hero">
-  <div class="hero-inner">
-    <div class="hero-lines">
-      <span class="line">начни делать чтобы не боятся</span>
-    </div>
-    <p class="hero-sub">Индивидуальные планы, аналитика прогресса, гибкое питание и поддержка 24/7. Всё в одном месте.</p>
-    <div class="hero-cta">
-      <a class="btn primary" href="#">Подать заявку</a>
-      <a class="btn ghost" href="#">Записаться на консультацию</a>
-    </div>
-  </div>
+<div class="hero-inner"><picture class="hero-media"><source media="(max-width: 640px)" srcset="https://alexenomorf.github.io/comando/photo37.jpg"/><img alt="Команда Mind Fit" src="https://alexenomorf.github.io/comando/photo36.jpg"/></picture>
+<div class="hero-lines">
+<span class="line">начни делать чтобы не боятся</span>
+</div>
+<p class="hero-sub">Индивидуальные планы, аналитика прогресса, гибкое питание и поддержка 24/7. Всё в одном месте.</p>
+<div class="hero-cta overlay"><a class="btn primary" href="#">Подать заявку</a><a class="btn ghost" href="#">Записаться на консультацию</a></div></div>
 </section>
-
-<section id="participants" class="slider-section">
-  <div class="container">
-    <div class="section-head">
-      <h2 class="h2">Участники проекта</h2>
-      <div class="muted"></div>
-    </div>
-    <div class="slider js-slider">
-      <div class="slides">
-        
-    <div class="js-slide participant-slide active">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/photo1.1.jpg" alt="Кейс 1.1"></div><div><img src="https://alexenomorf.github.io/comando/photo1.2.jpg" alt="Кейс 1.2"></div><div><img src="https://alexenomorf.github.io/comando/photo1.3.jpg" alt="Кейс 1.3"></div></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide participant-slide">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/photo2.1.jpg" alt="Кейс 2.1"></div><div><img src="https://alexenomorf.github.io/comando/photo2.2.jpg" alt="Кейс 2.2"></div><div><img src="https://alexenomorf.github.io/comando/photo2.3.jpg" alt="Кейс 2.3"></div></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide participant-slide">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/photo3.1.jpg" alt="Кейс 3.1"></div><div><img src="https://alexenomorf.github.io/comando/photo3.2.jpg" alt="Кейс 3.2"></div><div><img src="https://alexenomorf.github.io/comando/photo3.3.jpg" alt="Кейс 3.3"></div></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide participant-slide">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/photo4.1.jpg" alt="Кейс 4.1"></div><div><img src="https://alexenomorf.github.io/comando/photo4.2.jpg" alt="Кейс 4.2"></div></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide participant-slide">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/5.1.jpg" alt="Кейс 5"></div></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide participant-slide">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/6.jpg" alt="Кейс 6"></div><div><img src="https://alexenomorf.github.io/comando/6.1.jpg" alt="Кейс 6.1"></div></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide participant-slide">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/7.jpg" alt="Кейс 7"></div><div><img src="https://alexenomorf.github.io/comando/7.1.jpg" alt="Кейс 7.1"></div></div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide participant-slide">
-      <div class="slide-inner">
-        <div class="slide-photo" style="grid-column:1/-1">
-          <div class="part-photos"><div><img src="https://alexenomorf.github.io/comando/8.1.jpg" alt="Кейс 8.1"></div><div><img src="https://alexenomorf.github.io/comando/8.2.jpg" alt="Кейс 8.2"></div><div><img src="https://alexenomorf.github.io/comando/8.3.jpg" alt="Кейс 8.3"></div></div>
-        </div>
-      </div>
-    </div>
-    
-      </div>
-      <div class="controls">
-        <button class="btn ghost js-prev" type="button">Назад</button>
-        <div class="dots js-dots"></div>
-        <button class="btn primary js-next" type="button">Вперёд</button>
-      </div>
-    </div>
-  </div>
+<section class="slider-section" id="participants">
+<div class="container">
+<div class="section-head">
+<h2 class="h2">Участники проекта</h2>
+<div class="muted"></div>
+</div>
+<div class="slider js-slider">
+<div class="slides">
+<div class="js-slide participant-slide active">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 1.1" src="https://alexenomorf.github.io/comando/photo1.1.jpg"/></div><div><img alt="Кейс 1.2" src="https://alexenomorf.github.io/comando/photo1.2.jpg"/></div><div><img alt="Кейс 1.3" src="https://alexenomorf.github.io/comando/photo1.3.jpg"/></div></div>
+</div>
+</div>
+</div>
+<div class="js-slide participant-slide">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 2.1" src="https://alexenomorf.github.io/comando/photo2.1.jpg"/></div><div><img alt="Кейс 2.2" src="https://alexenomorf.github.io/comando/photo2.2.jpg"/></div><div><img alt="Кейс 2.3" src="https://alexenomorf.github.io/comando/photo2.3.jpg"/></div></div>
+</div>
+</div>
+</div>
+<div class="js-slide participant-slide">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 3.1" src="https://alexenomorf.github.io/comando/photo3.1.jpg"/></div><div><img alt="Кейс 3.2" src="https://alexenomorf.github.io/comando/photo3.2.jpg"/></div><div><img alt="Кейс 3.3" src="https://alexenomorf.github.io/comando/photo3.3.jpg"/></div></div>
+</div>
+</div>
+</div>
+<div class="js-slide participant-slide">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 4.1" src="https://alexenomorf.github.io/comando/photo4.1.jpg"/></div><div><img alt="Кейс 4.2" src="https://alexenomorf.github.io/comando/photo4.2.jpg"/></div></div>
+</div>
+</div>
+</div>
+<div class="js-slide participant-slide">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 5" src="https://alexenomorf.github.io/comando/5.1.jpg"/></div></div>
+</div>
+</div>
+</div>
+<div class="js-slide participant-slide">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 6" src="https://alexenomorf.github.io/comando/6.jpg"/></div><div><img alt="Кейс 6.1" src="https://alexenomorf.github.io/comando/6.1.jpg"/></div></div>
+</div>
+</div>
+</div>
+<div class="js-slide participant-slide">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 7" src="https://alexenomorf.github.io/comando/7.jpg"/></div><div><img alt="Кейс 7.1" src="https://alexenomorf.github.io/comando/7.1.jpg"/></div></div>
+</div>
+</div>
+</div>
+<div class="js-slide participant-slide">
+<div class="slide-inner">
+<div class="slide-photo" style="grid-column:1/-1">
+<div class="part-photos"><div><img alt="Кейс 8.1" src="https://alexenomorf.github.io/comando/8.1.jpg"/></div><div><img alt="Кейс 8.2" src="https://alexenomorf.github.io/comando/8.2.jpg"/></div><div><img alt="Кейс 8.3" src="https://alexenomorf.github.io/comando/8.3.jpg"/></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="controls">
+<button class="btn ghost js-prev" type="button">Назад</button>
+<div class="dots js-dots"></div>
+<button class="btn primary js-next" type="button">Вперёд</button>
+</div>
+</div>
+</div>
 </section>
-
-<section id="team" class="slider-section">
-  <div class="container">
-    <div class="section-head">
-      <h2 class="h2">Наша команда</h2>
-      <div class="muted">эксперты и наставники</div>
-    </div>
-    <div class="slider js-slider">
-      <div class="slides">
-        
-    <div class="js-slide team-slide active">
-      <div class="slide-inner">
-        <div class="slide-photo"><img alt="Андрей Дорохов" class="team-member-photo" src="https://alexenomorf.github.io/comando/4.jpg"/></div>
-        <div class="slide-info">
-          <h3>Андрей Дорохов</h3>
-          <p>Наставник проекта с более чем 15-летним опытом. Мастер спорта международного класса по жиму штанги лежа, чемпион и рекордсмен Азии и Казахстана. Более 300 клиентов достигли желаемой формы под его руководством.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide team-slide">
-      <div class="slide-inner">
-        <div class="slide-photo"><img alt="Дорохова Татьяна" class="team-member-photo" src="https://alexenomorf.github.io/comando/11.JPG"/></div>
-        <div class="slide-info">
-          <h3>Дорохова Татьяна</h3>
-          <p>Старший куратор, специалист по гипертрофийному и реабилитационному фитнесу. Доказательный нутрициолог с государственным дипломом РФ. Серебряный призер чемпионатов Казахстана по жиму штанги лежа.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide team-slide">
-      <div class="slide-inner">
-        <div class="slide-photo"><img alt="Руслан Самсонов" class="team-member-photo" src="https://alexenomorf.github.io/comando/33.jpg"/></div>
-        <div class="slide-info">
-          <h3>Руслан Самсонов</h3>
-          <p>Старший куратор с 6-летним опытом тренерской работы. Специалист по онлайн сопровождению клиентов в фитнесе. Эксперт в области физического воспитания и гипертрофийного тренинга.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide team-slide">
-      <div class="slide-inner">
-        <div class="slide-photo"><img alt="Милана" class="team-member-photo" src="https://alexenomorf.github.io/comando/photo_2025-06-25_11-35-02.jpg"/></div>
-        <div class="slide-info">
-          <h3>Милана Козлова</h3>
-          <p>Куратор с опытом тренерской деятельности более 2 лет. Дипломированный специалист по силовому тренингу и нутрициологии. Помогает клиентам достигать своих целей с помощью индивидуального подхода.</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide team-slide">
-      <div class="slide-inner">
-        <div class="slide-photo"><img alt="Ким Артемий" class="team-member-photo" src="https://alexenomorf.github.io/comando/photo_2025-06-25_19-23-14.jpg"/></div>
-        <div class="slide-info">
-          <h3>Ким Артемий</h3>
-          <p>Куратор с 2-летним опытом в фитнес-проектах SMC и MindFit. Эксперт по гипертрофийному тренингу, снижению веса и восстановительному фитнесу. Специализируется на работе с новичками и людьми, которые ранее уже пробовали, но не смогли удержаться в системе. Работает во всех форматах: индивидуальное онлайн-сопровождение, групповые программы и бот-поддержка. Ставит на первое место мягкость, адаптацию под клиента и устойчивый результат без давления.</p>
-        </div>
-      </div>
-    </div>
-    
-      </div>
-      <div class="controls">
-        <button class="btn ghost js-prev" type="button">Назад</button>
-        <div class="dots js-dots"></div>
-        <button class="btn primary js-next" type="button">Вперёд</button>
-      </div>
-    </div>
-  </div>
+<section class="slider-section" id="team">
+<div class="container">
+<div class="section-head">
+<h2 class="h2">Наша команда</h2>
+<div class="muted">эксперты и наставники</div>
+</div>
+<div class="slider js-slider">
+<div class="slides">
+<div class="js-slide team-slide active">
+<div class="slide-inner">
+<div class="slide-photo"><img alt="Андрей Дорохов" class="team-member-photo" src="https://alexenomorf.github.io/comando/4.jpg"/></div>
+<div class="slide-info">
+<h3>Андрей Дорохов</h3>
+<p>Наставник проекта с более чем 15-летним опытом. Мастер спорта международного класса по жиму штанги лежа, чемпион и рекордсмен Азии и Казахстана. Более 300 клиентов достигли желаемой формы под его руководством.</p>
+</div>
+</div>
+</div>
+<div class="js-slide team-slide">
+<div class="slide-inner">
+<div class="slide-photo"><img alt="Дорохова Татьяна" class="team-member-photo" src="https://alexenomorf.github.io/comando/11.JPG"/></div>
+<div class="slide-info">
+<h3>Дорохова Татьяна</h3>
+<p>Старший куратор, специалист по гипертрофийному и реабилитационному фитнесу. Доказательный нутрициолог с государственным дипломом РФ. Серебряный призер чемпионатов Казахстана по жиму штанги лежа.</p>
+</div>
+</div>
+</div>
+<div class="js-slide team-slide">
+<div class="slide-inner">
+<div class="slide-photo"><img alt="Руслан Самсонов" class="team-member-photo" src="https://alexenomorf.github.io/comando/33.jpg"/></div>
+<div class="slide-info">
+<h3>Руслан Самсонов</h3>
+<p>Старший куратор с 6-летним опытом тренерской работы. Специалист по онлайн сопровождению клиентов в фитнесе. Эксперт в области физического воспитания и гипертрофийного тренинга.</p>
+</div>
+</div>
+</div>
+<div class="js-slide team-slide">
+<div class="slide-inner">
+<div class="slide-photo"><img alt="Милана" class="team-member-photo" src="https://alexenomorf.github.io/comando/photo_2025-06-25_11-35-02.jpg"/></div>
+<div class="slide-info">
+<h3>Милана Козлова</h3>
+<p>Куратор с опытом тренерской деятельности более 2 лет. Дипломированный специалист по силовому тренингу и нутрициологии. Помогает клиентам достигать своих целей с помощью индивидуального подхода.</p>
+</div>
+</div>
+</div>
+<div class="js-slide team-slide">
+<div class="slide-inner">
+<div class="slide-photo"><img alt="Ким Артемий" class="team-member-photo" src="https://alexenomorf.github.io/comando/photo_2025-06-25_19-23-14.jpg"/></div>
+<div class="slide-info">
+<h3>Ким Артемий</h3>
+<p>Куратор с 2-летним опытом в фитнес-проектах SMC и MindFit. Эксперт по гипертрофийному тренингу, снижению веса и восстановительному фитнесу. Специализируется на работе с новичками и людьми, которые ранее уже пробовали, но не смогли удержаться в системе. Работает во всех форматах: индивидуальное онлайн-сопровождение, групповые программы и бот-поддержка. Ставит на первое место мягкость, адаптацию под клиента и устойчивый результат без давления.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="controls">
+<button class="btn ghost js-prev" type="button">Назад</button>
+<div class="dots js-dots"></div>
+<button class="btn primary js-next" type="button">Вперёд</button>
+</div>
+</div>
+</div>
 </section>
-
 <section id="cta-strip">
-  <div class="container">
-    <div class="cta-row">
-      <a class="btn primary" href="#">Подать заявку</a>
-      <a class="btn ghost" href="#">Записаться на консультацию</a>
-    </div>
-  </div>
+<div class="container">
+<div class="cta-row">
+<a class="btn primary" href="#">Подать заявку</a>
+<a class="btn ghost" href="#">Записаться на консультацию</a>
+</div>
+</div>
 </section>
-
-<section id="faq" class="slider-section">
-  <div class="container">
-    <div class="section-head">
-      <h2 class="h2">Часто задаваемые вопросы</h2>
-      <div class="muted"></div>
-    </div>
-    <div class="slider js-slider">
-      <div class="slides">
-        
-    <div class="js-slide faq-slide active">
-      <div class="slide-inner">
-        <div class="slide-info">
-          <div class="faq-q">Нужно ли готовить отдельно для себя и семьи?</div>
-          <div class="faq-a">Нет, все блюда можно адаптировать под общий рацион, учитывая калорийность.</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide faq-slide">
-      <div class="slide-inner">
-        <div class="slide-info">
-          <div class="faq-q">У меня нет времени на тренировки!</div>
-          <div class="faq-a">Для похудения достаточно соблюдать дефицит калорий; тренировки желательны, но не обязательны.</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide faq-slide">
-      <div class="slide-inner">
-        <div class="slide-info">
-          <div class="faq-q">А если я не люблю считать калории?</div>
-          <div class="faq-a">Предлагаем простые и удобные инструменты для минимизации затрат времени на подсчет калорий, так чтоб это занимало не более 10 минут в день.</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide faq-slide">
-      <div class="slide-inner">
-        <div class="slide-info">
-          <div class="faq-q">А если я ем сладкое каждый день?</div>
-          <div class="faq-a">Можно включать сладкое в рацион, соблюдая общий калораж.</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide faq-slide">
-      <div class="slide-inner">
-        <div class="slide-info">
-          <div class="faq-q">У меня сидячая работа, смогу ли я похудеть?</div>
-          <div class="faq-a">Да, при правильной организации питания и режима дня снижение веса возможно даже при минимальной активности.</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide faq-slide">
-      <div class="slide-inner">
-        <div class="slide-info">
-          <div class="faq-q">Я не хочу голодать!</div>
-          <div class="faq-a">Питание составлено так, чтобы вы чувствовали сытость и удовольствие от еды.</div>
-        </div>
-      </div>
-    </div>
-    
-    <div class="js-slide faq-slide">
-      <div class="slide-inner">
-        <div class="slide-info">
-          <div class="faq-q">А вдруг у меня ничего не получится?</div>
-          <div class="faq-a">Мы сопровождаем каждого клиента на всех этапах, обеспечивая поддержку и мотивацию.</div>
-        </div>
-      </div>
-    </div>
-    
-      </div>
-      <div class="controls">
-        <button class="btn ghost js-prev" type="button">Назад</button>
-        <div class="dots js-dots"></div>
-        <button class="btn primary js-next" type="button">Вперёд</button>
-      </div>
-    </div>
-  </div>
+<section class="slider-section" id="faq">
+<div class="container">
+<div class="section-head">
+<h2 class="h2">Часто задаваемые вопросы</h2>
+<div class="muted"></div>
+</div>
+<div class="slider js-slider">
+<div class="slides">
+<div class="js-slide faq-slide active">
+<div class="slide-inner">
+<div class="slide-info">
+<div class="faq-q">Нужно ли готовить отдельно для себя и семьи?</div>
+<div class="faq-a">Нет, все блюда можно адаптировать под общий рацион, учитывая калорийность.</div>
+</div>
+</div>
+</div>
+<div class="js-slide faq-slide">
+<div class="slide-inner">
+<div class="slide-info">
+<div class="faq-q">У меня нет времени на тренировки!</div>
+<div class="faq-a">Для похудения достаточно соблюдать дефицит калорий; тренировки желательны, но не обязательны.</div>
+</div>
+</div>
+</div>
+<div class="js-slide faq-slide">
+<div class="slide-inner">
+<div class="slide-info">
+<div class="faq-q">А если я не люблю считать калории?</div>
+<div class="faq-a">Предлагаем простые и удобные инструменты для минимизации затрат времени на подсчет калорий, так чтоб это занимало не более 10 минут в день.</div>
+</div>
+</div>
+</div>
+<div class="js-slide faq-slide">
+<div class="slide-inner">
+<div class="slide-info">
+<div class="faq-q">А если я ем сладкое каждый день?</div>
+<div class="faq-a">Можно включать сладкое в рацион, соблюдая общий калораж.</div>
+</div>
+</div>
+</div>
+<div class="js-slide faq-slide">
+<div class="slide-inner">
+<div class="slide-info">
+<div class="faq-q">У меня сидячая работа, смогу ли я похудеть?</div>
+<div class="faq-a">Да, при правильной организации питания и режима дня снижение веса возможно даже при минимальной активности.</div>
+</div>
+</div>
+</div>
+<div class="js-slide faq-slide">
+<div class="slide-inner">
+<div class="slide-info">
+<div class="faq-q">Я не хочу голодать!</div>
+<div class="faq-a">Питание составлено так, чтобы вы чувствовали сытость и удовольствие от еды.</div>
+</div>
+</div>
+</div>
+<div class="js-slide faq-slide">
+<div class="slide-inner">
+<div class="slide-info">
+<div class="faq-q">А вдруг у меня ничего не получится?</div>
+<div class="faq-a">Мы сопровождаем каждого клиента на всех этапах, обеспечивая поддержку и мотивацию.</div>
+</div>
+</div>
+</div>
+</div>
+<div class="controls">
+<button class="btn ghost js-prev" type="button">Назад</button>
+<div class="dots js-dots"></div>
+<button class="btn primary js-next" type="button">Вперёд</button>
+</div>
+</div>
+</div>
 </section>
-
 <section id="pricing">
-  <div class="container">
-    <div class="section-head">
-      <h2 class="h2">Стоимость участия</h2>
-      <div class="muted"></div>
-    </div>
-    <div class="programs">
-      
-    <div class="program">
-      <h4>Базовый формат онлайн сопровождения</h4>
-      <ul><li>150.000 тенге за три месяца</li><li>65.000 тенге — помесячная оплата</li></ul>
-      <div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
-    </div>
-    <div class="program">
-      <h4>Мини-группа в фитнес клубе «Аврора»</h4>
-      <ul><li>200.000 тенге за три месяца</li><li>80.000 тенге — помесячная оплата</li><li>(абонемент в зал приобретается отдельно)</li></ul>
-      <div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
-    </div>
-    <div class="program">
-      <h4>Пробная неделя с программой и сопровождением</h4>
-      <ul><li>10.000 тенге</li></ul>
-      <div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
-    </div>
-    <div class="program">
-      <h4>Пробная неделя с программой и сопровождением</h4>
-      <ul><li>15.000 тенге</li></ul>
-      <div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
-    </div>
-    </div>
-  </div>
+<div class="container">
+<div class="section-head">
+<h2 class="h2">Стоимость участия</h2>
+<div class="muted"></div>
+</div>
+<div class="programs">
+<div class="program">
+<h4>Базовый формат онлайн сопровождения</h4>
+<ul><li>150.000 тенге за три месяца</li><li>65.000 тенге — помесячная оплата</li></ul>
+<div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
+</div>
+<div class="program">
+<h4>Мини-группа в фитнес клубе «Аврора»</h4>
+<ul><li>200.000 тенге за три месяца</li><li>80.000 тенге — помесячная оплата</li><li>(абонемент в зал приобретается отдельно)</li></ul>
+<div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
+</div>
+<div class="program">
+<h4>Пробная неделя с программой и сопровождением</h4>
+<ul><li>10.000 тенге</li></ul>
+<div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
+</div>
+<div class="program">
+<h4>Пробная неделя с программой и сопровождением</h4>
+<ul><li>15.000 тенге</li></ul>
+<div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
+</div>
+</div>
+</div>
 </section>
-
 <script>
 (function(){
   function initSlider(root){
@@ -457,10 +540,8 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
   document.querySelectorAll('.js-slider').forEach(initSlider);
 })();
 </script>
-
-<a class="floating-cta" href="#">Подать заявку</a>
 <footer>
-  <div class="container">© 2025 Mind Fit. Все права защищены.</div>
+<div class="container">© 2025 Mind Fit. Все права защищены.</div>
 </footer>
 </body>
 </html>
