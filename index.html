@@ -638,5 +638,78 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
+
+<!-- Scroll-to-Top (desktop only) -->
+<style>
+  .scroll-top {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--gradient, linear-gradient(135deg, #00ff88, #0a84ff));
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity .25s ease, transform .25s ease, visibility .25s ease, box-shadow .2s ease;
+  }
+  .scroll-top:hover { box-shadow: 0 12px 32px rgba(0,0,0,.35); transform: translateY(0); }
+  .scroll-top:focus { outline: 2px solid rgba(255,255,255,.6); outline-offset: 3px; }
+
+  .scroll-top--show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+  /* Прячем на мобильных */
+  @media (max-width: 991px) {
+    .scroll-top { display: none; }
+  }
+</style>
+<script>
+  (function(){
+    if (document.getElementById('scrollTopBtn')) return;
+
+    // Создаём кнопку
+    const btn = document.createElement('button');
+    btn.id = 'scrollTopBtn';
+    btn.className = 'scroll-top';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Наверх');
+    btn.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5l-7 7m7-7l7 7M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    function enable(){
+      document.body.appendChild(btn);
+
+      // Показ/скрытие после прокрутки
+      const toggle = () => {
+        if (window.pageYOffset > 400) btn.classList.add('scroll-top--show');
+        else btn.classList.remove('scroll-top--show');
+      };
+      toggle();
+      window.addEventListener('scroll', toggle, { passive: true });
+
+      // Плавный скролл наверх
+      btn.addEventListener('click', () => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enable);
+    } else {
+      enable();
+    }
+  })();
+</script>
 </body>
 </html>
