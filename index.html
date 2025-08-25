@@ -272,6 +272,20 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
     left: 70px;
   }
 }
+</style><style>
+/* Single-file inline form modal */
+#inline-form-modal{ position: fixed; inset: 0; background: rgba(0,0,0,.72); backdrop-filter: blur(6px);
+  display:none; align-items:center; justify-content:center; z-index: 5000; padding: 20px; }
+#inline-form-modal.show{ display:flex; }
+#inline-form{ width:min(100%, 880px); height:min(100%, 720px); background:#111; border-radius:16px; border:1px solid rgba(255,255,255,.12);
+  position:relative; overflow:hidden; box-shadow: 0 30px 100px rgba(0,0,0,.5); }
+#inline-form iframe{ width:100%; height:100%; border:0; display:block; background:#111; }
+#inline-form .close{ position:absolute; right:10px; top:10px; z-index:2; background:rgba(255,255,255,.1); color:#fff;
+  border:0; border-radius:10px; width:36px; height:36px; font-size:20px; cursor:pointer; }
+@media (max-width: 640px){
+  #inline-form{ width:100%; height:90vh; border-radius:12px; }
+  #inline-form .close{ width:40px; height:40px; font-size:24px; }
+}
 </style></head>
 <body>
 <header class="nav">
@@ -600,5 +614,869 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
     catch(_){ window.location.href = url; }
   }, true);
 })();
-</script></body>
+</script><script id="form-srcdoc" type="text/plain"><!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Анкета - Современная версия</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    :root {
+      --primary: #00ff88;
+      --primary-dark: #00cc6a;
+      --secondary: #0a84ff;
+      --bg-main: #0a0a0a;
+      --bg-card: #111111;
+      --bg-input: #1a1a1a;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --border: #333333;
+      --shadow: 0 8px 32px rgba(0, 255, 136, 0.15);
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(10, 132, 255, 0.1) 0%, transparent 50%);
+    }
+
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--bg-input);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: 16px;
+      font-weight: 400;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+      background: rgba(26, 26, 26, 0.8);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
+    }
+
+    .form-input:focus + .form-label,
+    .form-input:not(:placeholder-shown) + .form-label {
+      color: var(--primary);
+    }
+
+    .form-input.error {
+      border-color: #ff4444;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .form-input.valid {
+      border-color: var(--primary);
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .form-input.valid + .input-icon.check {
+      opacity: 1;
+      color: var(--primary);
+    }
+
+    .form-input.error + .input-icon.error {
+      opacity: 1;
+      color: #ff4444;
+    }
+
+    .optional {
+      color: var(--text-secondary);
+      font-weight: 400;
+      font-size: 12px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .submit-btn .btn-text {
+      transition: opacity 0.3s ease;
+    }
+
+    .submit-btn .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .submit-btn.loading .btn-text {
+      opacity: 0;
+    }
+
+    .submit-btn.loading .loading {
+      opacity: 1;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient);
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 500px;
+      width: 100%;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      animation: modalSlide 0.3s ease;
+    }
+
+    @keyframes modalSlide {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--text-primary);
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .modal-text {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .download-list {
+      list-style: none;
+      margin: 0 0 24px 0;
+    }
+
+    .download-item {
+      margin-bottom: 12px;
+    }
+
+    .download-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      background: var(--bg-input);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .download-link:hover {
+      background: rgba(0, 255, 136, 0.1);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .download-icon {
+      margin-right: 12px;
+      color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px;
+        margin: 10px;
+      }
+      
+      .title {
+        font-size: 24px;
+      }
+      
+      .form-input {
+        padding: 14px 16px;
+      }
+    }
+
+    /* Form validation styles */
+    .validation-message {
+      font-size: 12px;
+      margin-top: 4px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .validation-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .validation-message.error {
+      color: #ff4444;
+    }
+
+    .validation-message.success {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <iframe id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
+
+  <div class="container">
+    <div class="header">
+      <h1 class="title">Заявка на консультацию</h1>
+      <p class="subtitle">Заполните форму и получите персональное предложение</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <form id="mainForm" action="https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse" method="post" target="hidden_iframe" novalidate>
+      
+      <div class="form-group">
+        <input 
+          class="form-input" 
+          type="text" 
+          id="name" 
+          placeholder="Введите ваше имя"
+          required
+          autocomplete="given-name"
+        >
+        <label class="form-label" for="name">Имя</label>
+        <div class="validation-message" id="nameMessage"></div>
+      </div>
+
+      <div class="form-group">
+        <input 
+          class="form-input" 
+          type="text" 
+          id="surname" 
+          placeholder="Введите вашу фамилию"
+          required
+          autocomplete="family-name"
+        >
+        <label class="form-label" for="surname">Фамилия</label>
+        <div class="validation-message" id="surnameMessage"></div>
+      </div>
+
+      <div class="form-group">
+        <input 
+          class="form-input" 
+          type="email" 
+          id="email" 
+          placeholder="example@mail.com"
+          required
+          autocomplete="email"
+        >
+        <label class="form-label" for="email">Email</label>
+        <div class="validation-message" id="emailMessage"></div>
+      </div>
+
+      <div class="form-group">
+        <input 
+          class="form-input" 
+          type="tel" 
+          id="phone" 
+          placeholder="+7 (999) 123-45-67"
+          required
+          autocomplete="tel"
+        >
+        <label class="form-label" for="phone">Телефон</label>
+        <div class="validation-message" id="phoneMessage"></div>
+      </div>
+
+      <div class="form-group">
+        <input 
+          class="form-input" 
+          type="text" 
+          id="promo" 
+          placeholder="Введите промокод"
+          autocomplete="off"
+        >
+        <label class="form-label" for="promo">Промокод <span class="optional">(необязательно)</span></label>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Отправить заявку</span>
+        <div class="loading">
+          <div class="spinner"></div>
+        </div>
+      </button>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const GOOGLE_FORM = {
+      action: "https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse",
+      entries: {
+        name: "entry.335444133",
+        surname: "entry.2046906139",
+        email: "entry.1743247901",
+        phone: "entry.639032647",
+        promo: "entry.84195239",
+        package: "entry.1448692042"
+      }
+    };
+
+    const FILES = [
+      {name: "МЕНЮ 1200.pdf", file: "menu-1200.pdf"},
+      {name: "МЕНЮ 1500.pdf", file: "menu-1500.pdf"},
+      {name: "МЕНЮ 2000.pdf", file: "menu-2000.pdf"},
+      {name: "Тренировка для женщин в тренажерном зале", file: "women-workout.pdf"},
+      {name: "Тренировка для мужчин в тренажерном зале", file: "men-workout.pdf"}
+    ];
+
+    // Utility functions
+    function getQueryParam(keys) {
+      const params = new URLSearchParams(window.location.search);
+      for (const key of keys) {
+        const value = params.get(key);
+        if (value && value.trim()) return decodeURIComponent(value).trim();
+      }
+      return "";
+    }
+
+    function detectPackage() {
+      if (window.__PS__ && String(window.__PS__).trim()) { return String(window.__PS__).trim(); }
+      return getQueryParam(["ps", "pkg", "package", "plan", "tariff"]) || "";
+    }
+
+    function isBonusFlow() {
+      return detectPackage().toUpperCase() === "БОНУСЫ";
+    }
+
+    // Form validation
+    class FormValidator {
+      constructor() {
+        this.fields = {
+          name: { required: true, minLength: 2 },
+          surname: { required: true, minLength: 2 },
+          email: { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ },
+          phone: { required: true, pattern: /^[\+]?[0-9\s\-\(\)]{10,}$/ }
+        };
+        this.init();
+      }
+
+      init() {
+        Object.keys(this.fields).forEach(fieldName => {
+          const field = document.getElementById(fieldName);
+          if (field) {
+            field.addEventListener('input', () => this.validateField(fieldName));
+            field.addEventListener('blur', () => this.validateField(fieldName));
+          }
+        });
+      }
+
+      validateField(fieldName) {
+        const field = document.getElementById(fieldName);
+        const config = this.fields[fieldName];
+        const message = document.getElementById(fieldName + 'Message');
+        
+        if (!field) return true;
+
+        let isValid = true;
+        let errorMessage = '';
+
+        const value = field.value.trim();
+
+        if (config.required && !value) {
+          isValid = false;
+          errorMessage = 'Это поле обязательно для заполнения';
+        } else if (value) {
+          if (config.minLength && value.length < config.minLength) {
+            isValid = false;
+            errorMessage = `Минимум ${config.minLength} символа`;
+          } else if (config.pattern && !config.pattern.test(value)) {
+            isValid = false;
+            if (fieldName === 'email') {
+              errorMessage = 'Введите корректный email';
+            } else if (fieldName === 'phone') {
+              errorMessage = 'Введите корректный номер телефона';
+            }
+          }
+        }
+
+        // Update UI
+        field.classList.remove('valid', 'error');
+        if (value) {
+          field.classList.add(isValid ? 'valid' : 'error');
+        }
+
+        if (message) {
+          message.textContent = errorMessage;
+          message.className = `validation-message ${errorMessage ? 'show error' : ''}`;
+        }
+
+        this.updateProgress();
+        return isValid;
+      }
+
+      validateAll() {
+        let allValid = true;
+        Object.keys(this.fields).forEach(fieldName => {
+          if (!this.validateField(fieldName)) {
+            allValid = false;
+          }
+        });
+        return allValid;
+      }
+
+      updateProgress() {
+        const totalFields = Object.keys(this.fields).length;
+        let validFields = 0;
+
+        Object.keys(this.fields).forEach(fieldName => {
+          const field = document.getElementById(fieldName);
+          if (field && field.value.trim() && field.classList.contains('valid')) {
+            validFields++;
+          }
+        });
+
+        const progress = (validFields / totalFields) * 100;
+        document.getElementById('progressFill').style.width = progress + '%';
+      }
+    }
+
+    // Phone formatting
+    function formatPhone(input) {
+      let value = input.value.replace(/\D/g, '');
+      
+      if (value.startsWith('8')) {
+        value = '7' + value.slice(1);
+      }
+      
+      if (value.startsWith('7')) {
+        value = value.slice(0, 11);
+        const formatted = value.replace(/^7(\d{3})(\d{3})(\d{2})(\d{2})$/, '+7 ($1) $2-$3-$4');
+        if (formatted.includes('(')) {
+          input.value = formatted;
+        }
+      }
+    }
+
+    // Modal functions
+    function showModal(content) {
+      const modal = document.getElementById('modal');
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = content;
+      modal.classList.add('show');
+    }
+
+    function hideModal() {
+      const modal = document.getElementById('modal');
+      modal.classList.remove('show');
+    }
+
+    function showBonusesModal() {
+      const downloadList = FILES.map(file => 
+        `<li class="download-item">
+          <a href="${file.file}" download="${file.name}.pdf" class="download-link">
+            <span class="download-icon">📄</span>
+            ${file.name}
+          </a>
+        </li>`
+      ).join('');
+
+      const content = `
+        <h2 class="modal-title">🎉 Ваши бонусы готовы!</h2>
+        <p class="modal-text">Скачайте эксклюзивные материалы прямо сейчас:</p>
+        <ul class="download-list">${downloadList}</ul>
+      `;
+      
+      showModal(content);
+    }
+
+    function showSuccessModal() {
+      const content = `
+        <h2 class="modal-title">✅ Заявка отправлена!</h2>
+        <p class="modal-text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
+      `;
+      
+      showModal(content);
+      
+      setTimeout(() => {
+        window.location.href = 'https://alexenomorf.github.io/comando/';
+      }, 3000);
+    }
+
+    // Form submission
+    function handleSubmit(e) {
+      e.preventDefault();
+      
+      const validator = new FormValidator();
+      if (!validator.validateAll()) {
+        return;
+      }
+
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+
+      // Add hidden fields for Google Form
+      const form = document.getElementById('mainForm');
+      
+      // Remove old hidden fields
+      form.querySelectorAll('input[type="hidden"]').forEach(input => input.remove());
+      
+      // Add new hidden fields
+      Object.entries(GOOGLE_FORM.entries).forEach(([key, entry]) => {
+        if (key === 'package') {
+          const package = detectPackage();
+          if (package) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = entry;
+            input.value = package;
+            form.appendChild(input);
+          }
+        } else {
+          const field = document.getElementById(key);
+          if (field && field.value.trim()) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = entry;
+            input.value = field.value.trim();
+            form.appendChild(input);
+          }
+        }
+      });
+
+      // Submit form
+      form.submit();
+      
+      // Show appropriate modal
+      setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        if (isBonusFlow()) {
+          showBonusesModal();
+        } else {
+          showSuccessModal();
+        }
+      }, 1500);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      const validator = new FormValidator();
+      const form = document.getElementById('mainForm');
+      const phoneInput = document.getElementById('phone');
+      const modalClose = document.getElementById('modalClose');
+      const modal = document.getElementById('modal');
+
+      // Form submission
+      form.addEventListener('submit', handleSubmit);
+
+      // Phone formatting
+      phoneInput.addEventListener('input', function() {
+        formatPhone(this);
+      });
+
+      // Modal events
+      modalClose.addEventListener('click', hideModal);
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          hideModal();
+        }
+      });
+
+      // ESC key to close modal
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('show')) {
+          hideModal();
+        }
+      });
+
+      // Handle iframe load (Google Form response)
+      document.getElementById('hidden_iframe').addEventListener('load', function() {
+        setTimeout(() => {
+          const submitBtn = document.getElementById('submitBtn');
+          submitBtn.classList.remove('loading');
+          submitBtn.disabled = false;
+          
+          if (isBonusFlow()) {
+            showBonusesModal();
+          } else {
+            showSuccessModal();
+          }
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html></script><div id="inline-form-modal"><div id="inline-form"><button class="close">×</button><iframe id="inline-form-frame" srcdoc=""></iframe></div></div><script>
+(function(){
+  function getPsFromHref(href){
+    if(!href) return '';
+    const i = href.indexOf('?'); if(i<0) return '';
+    const qs = new URLSearchParams(href.slice(i+1));
+    return qs.get('ps') || qs.get('pkg') || qs.get('package') || '';
+  }
+  function buildSrcdoc(ps){
+    try{
+      const raw = document.getElementById('form-srcdoc').textContent;
+      // Inject window.__PS__ before the rest of the HTML <body>
+      const inj = "<script>window.__PS__="+JSON.stringify(ps)+";</"+"script>";
+      // Place after <body> tag if present, otherwise prepend
+      if(raw.includes("<body")){
+        return raw.replace(/<body([^>]*)>/i, function(m,attrs){ return "<body"+attrs+">"+inj; });
+      }
+      return inj + raw;
+    }catch(e){
+      return "<!doctype html><meta charset='utf-8'><body style='background:#111;color:#fff;font-family:sans-serif'><p>Не удалось загрузить форму.</p></body>";
+    }
+  }
+  function openFormModal(ps){
+    const modal = document.getElementById('inline-form-modal');
+    const frame = document.getElementById('inline-form-frame');
+    frame.setAttribute('srcdoc', buildSrcdoc(ps||''));
+    modal.classList.add('show');
+    // lock scroll
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFormModal(){
+    const modal = document.getElementById('inline-form-modal');
+    const frame = document.getElementById('inline-form-frame');
+    modal.classList.remove('show');
+    frame.removeAttribute('srcdoc'); // free memory
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function(e){
+    const a = e.target.closest && e.target.closest('a');
+    if(!a) return;
+    const href = a.getAttribute('href') || "";
+    if(!/form_fix_v4\.html/i.test(href)) return;
+    const ps = getPsFromHref(href);
+    e.preventDefault();
+    openFormModal(ps);
+  }, true);
+  // close button & backdrop
+  document.querySelector('#inline-form .close').addEventListener('click', closeFormModal);
+  document.getElementById('inline-form-modal').addEventListener('click', function(e){
+    if(e.target === this){ closeFormModal(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeFormModal(); }
+  });
+})();</script></body>
 </html>
