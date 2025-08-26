@@ -408,6 +408,20 @@
     .validation-message.success {
       color: var(--primary);
     }
+  
+    /* Bonus flow notice */
+    .bonus-note {
+      display: none;
+      margin: 16px 0 20px 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--primary);
+      background: rgba(0, 255, 136, 0.08);
+      color: var(--text-primary);
+      line-height: 1.55;
+    }
+    .bonus-note b{ color: var(--primary); }
+
   </style>
 </head>
 <body>
@@ -417,6 +431,12 @@
     <div class="header">
       <h1 class="title">Заявка на консультацию</h1>
       <p class="subtitle">Заполните форму и получите персональное предложение</p>
+      <div id="bonusNote" class="bonus-note">
+        <b>🎁 Бонусы ждут вас:</b> После отправки формы вы сразу сможете скачать набор материалов:
+        меню на 1200/1500/2000 ккал (PDF) и стартовые тренировки для мужчин и женщин. 
+        Просто заполните контакты и нажмите «Отправить заявку».
+      </div>
+
     </div>
 
     <div class="progress-bar">
@@ -803,6 +823,35 @@
         }, 500);
       });
     });
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      if (isBonusFlow()) {
+        const note = document.getElementById('bonusNote');
+        if (note) note.style.display = 'block';
+        const sub = document.querySelector('.subtitle');
+        if (sub) sub.textContent = 'Заполните форму — и сразу получите бонусные материалы';
+      }
+    });
+
+  
+    // Hook Google Form submission via hidden iframe to show proper modal once loaded
+    (function(){
+      if (window.__bonusHookInstalled) return;
+      window.__bonusHookInstalled = true;
+      const iframe = document.getElementById('hidden_iframe');
+      if (!iframe) return;
+      iframe.addEventListener('load', function(){
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn){ submitBtn.classList.remove('loading'); submitBtn.disabled = false; }
+        if (isBonusFlow()) { 
+          showBonusesModal(); 
+        } else {
+          showSuccessModal();
+        }
+      });
+    })();
+
+  document.getElementById('mainForm').addEventListener('submit', handleSubmit);
   </script>
 </body>
 </html>
