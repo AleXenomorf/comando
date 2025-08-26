@@ -422,6 +422,30 @@
     }
     .bonus-note b{ color: var(--primary); }
 
+  
+    /* Intro modal for BONUS flow */
+    #bonusIntroOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+    }
+    #bonusIntroModal {
+      width: min(90vw, 520px);
+      margin: 8vh auto;
+      background: var(--card-bg, #111111);
+      color: var(--text-primary, #ffffff);
+      border: 1px solid var(--primary, #00ff88);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.4);
+      padding: 20px 20px 16px 20px;
+    }
+    #bonusIntroModal h3 { margin: 0 0 8px 0; line-height: 1.3; }
+    #bonusIntroModal p { margin: 8px 0 6px 0; }
+    #bonusIntroModal ul { margin: 8px 0 0 20px; }
+    #bonusIntroModal .actions { margin-top: 14px; text-align: right; }
+
   </style>
 </head>
 <body>
@@ -843,15 +867,48 @@
       iframe.addEventListener('load', function(){
         const submitBtn = document.getElementById('submitBtn');
         if (submitBtn){ submitBtn.classList.remove('loading'); submitBtn.disabled = false; }
-        if (isBonusFlow()) { 
+        if (isBonusFlow() && typeof showBonusesModal === 'function') { 
           showBonusesModal(); 
-        } else {
+        } else if (typeof showSuccessModal === 'function') {
           showSuccessModal();
         }
       });
     })();
 
   document.getElementById('mainForm').addEventListener('submit', handleSubmit);
+  
+    document.addEventListener('DOMContentLoaded', function(){
+      try {
+        if (isBonusFlow()) {
+          var ov = document.getElementById('bonusIntroOverlay');
+          if (ov) {
+            ov.style.display = 'block';
+            var closeBtn = document.getElementById('bonusIntroClose');
+            if (closeBtn) closeBtn.addEventListener('click', function(){ ov.style.display = 'none'; });
+            ov.addEventListener('click', function(e){ if (e.target === ov) ov.style.display = 'none'; });
+          }
+        }
+      } catch(e){}
+    });
+
   </script>
+
+  <!-- Intro modal shown when coming via BONUS flow -->
+  <div id="bonusIntroOverlay" role="dialog" aria-modal="true" aria-labelledby="bonusIntroTitle">
+    <div id="bonusIntroModal" role="document">
+      <h3 id="bonusIntroTitle">🎁 Бонусы уже готовы!</h3>
+      <p>Вы перешли через кнопку «БОНУСЫ». После отправки формы вы сразу получите доступ к материалам:</p>
+      <ul>
+        <li>меню на 1200 / 1500 / 2000 ккал (PDF);</li>
+        <li>стартовые тренировки для мужчин и женщин;</li>
+        <li>инструкцию «Как быстро стартовать без срывов».</li>
+      </ul>
+      <p>Заполните контакты ниже и нажмите «Отправить заявку». Ссылки на бонусы появятся сразу после отправки.</p>
+      <div class="actions">
+        <button id="bonusIntroClose" class="btn primary" type="button">Понятно</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
