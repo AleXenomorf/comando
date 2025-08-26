@@ -607,6 +607,27 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 <ul><li>15.000 тенге</li></ul>
 <div style="margin-top:12px;"><a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a></div>
 </div>
+
+<div class="program">
+  <h4>Сопровождение по питанию (без тренировок)</h4>
+  <ul>
+    <li>30.000 тенге</li>
+  </ul>
+  <div style="margin-top:12px;">
+    <a class="btn primary" href="#">ПОДАТЬ ЗАЯВКУ</a>
+  </div>
+</div>
+
+<div class="program" data-external="true">
+  <h4>Закрытое сообщество в Telegram</h4>
+  <ul>
+    <li>3 € в месяц (первый месяц — 1,5 €)</li>
+    <li>Эксклюзивные материалы и еженедельные созвоны</li>
+  </ul>
+  <div style="margin-top:12px;">
+    <a class="btn primary" href="https://t.me/tribute/app?startapp=smGt" target="_blank" rel="noopener" data-external="true">Вступить</a>
+  </div>
+</div>
 </div>
 </div>
 </section>
@@ -722,6 +743,9 @@ document.addEventListener('DOMContentLoaded', function(){
       var titleEl = card.querySelector('h4, .pricing-name, .card-title');
       var priceEl = card.querySelector('ul li, .pricing-price');
       var btn = card.querySelector('a.btn, button, [role="button"], .program-button');
+      // Skip external program cards/buttons (keep original href)
+      if (card.hasAttribute('data-external') || (btn && btn.hasAttribute('data-external'))) return;
+
       if(!btn) return;
       var title = titleEl ? norm(titleEl.textContent) : '';
       var price = priceEl ? norm(priceEl.textContent) : '';
