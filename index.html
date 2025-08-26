@@ -276,7 +276,7 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 <style>
 @media (min-width: 901px){
   .nav .actions{ margin-right: 100px; }
-  .nav-contacts{ display:flex; align-items:center; gap:10px; margin-left: 12px; }
+  .nav-contacts{ display:flex; align-items:center; gap:10px; margin-left: 212px; }
   .nav-contacts .contacts-label{ font-size:14px; color: var(--fp-dim); margin-right: 2px; }
   .nav-contacts .soc{ display:inline-flex; width:28px; height:28px; align-items:center; justify-content:center;
     color: var(--fp-accent); opacity:.9; border:1px solid var(--fp-border); border-radius:999px; }
@@ -309,6 +309,18 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 /* Final mobile raise: +50px from current pinned value */
 @media (max-width: 640px){
   .hero .hero-cta.overlay{ bottom: 262px !important; }
+}
+</style>
+
+
+<style>
+/* Override positions per user request (desktop only) */
+@media (min-width: 901px){
+  /* Move Actions (Участники / Команда / FAQ / Стоимость) 100px to the right */
+  .nav .actions{ margin-right: 0 !important; margin-left: 100px !important; }
+
+  /* Move Contacts block an additional 200px to the right (total +400 from original 12px -> 412px) */
+  .nav-contacts{ margin-left: 412px !important; }
 }
 </style>
 
