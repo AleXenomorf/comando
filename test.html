@@ -198,6 +198,8 @@
   </div>
 
   <script>
+    let lastModalType = null;
+
     // === Config ===
     const GOOGLE_FORM = {
       action: "https://docs.google.com/forms/d/e/1FAIpQLSeXbsEAJ5umw1GqCnbF8O0lrd_Jz_F6ilnlUl1M9GJyVt2DKg/formResponse",
@@ -299,12 +301,12 @@
       document.getElementById('modalBody').innerHTML = content;
       m.classList.add('show');
     }
-    function hideModal(){ document.getElementById('modal').classList.remove('show'); }
+    function hideModal(){ const m=document.getElementById('modal'); m.classList.remove('show'); if(lastModalType==='success'){ window.location.href='https://alexenomorf.github.io/comando/'; } }
     function showBonusesModal(){
       const list = FILES.map(f => `<li class="download-item"><a class="download-link" href="${f.file}" download="${f.name}"><span class="download-icon">📄</span>${f.name}</a></li>`).join('');
-      showModal(`<h2 class="modal-title">🎉 Ваши бонусы готовы!</h2><p class="modal-text">Скачайте эксклюзивные материалы прямо сейчас:</p><ul class="download-list">${list}</ul>`);
+      lastModalType='bonus'; showModal(`<h2 class="modal-title">🎉 Ваши бонусы готовы!</h2><p class="modal-text">Скачайте эксклюзивные материалы прямо сейчас:</p><ul class="download-list">${list}</ul>`);
     }
-    function showSuccessModal(){ showModal(`<h2 class="modal-title">✅ Заявка отправлена!</h2><p class="modal-text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>`); }
+    function showSuccessModal(){ lastModalType='success'; showModal(`<h2 class="modal-title">✅ Заявка отправлена!</h2><p class="modal-text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>`); }
 
     // === Personalized greeting ===
     function applyPersonalizedGreeting(){
