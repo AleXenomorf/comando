@@ -324,6 +324,39 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 }
 </style>
 
+
+<style>
+  :root{ --hero-highlight: #d3fa53; }
+
+  /* Transparent hero buttons (Apply + Bonuses) */
+  .hero .btn.transparent,
+  .hero .btn.ghost {
+    background: rgba(0,0,0,0.18);
+    border: 1px solid var(--fp-border);
+    color: var(--fp-text);
+    box-shadow: 0 8px 22px rgba(0,0,0,.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  /* On hover: only highlight with #d3fa53 */
+  .hero .btn.transparent:hover,
+  .hero .btn.ghost:hover {
+    background: var(--hero-highlight);
+    color: #111;
+    border-color: transparent;
+    box-shadow: 0 12px 34px rgba(211,250,83,.35);
+    transform: translateY(-1px);
+  }
+  /* Sticky active state after click */
+  .hero .btn.active {
+    background: var(--hero-highlight) !important;
+    color: #111 !important;
+    border-color: transparent !important;
+    box-shadow: 0 12px 34px rgba(211,250,83,.35) !important;
+    transform: none !important;
+  }
+</style>
+
 </head>
 <body>
 <header class="nav">
@@ -370,7 +403,7 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 <span class="line">начни делать чтобы не боятся</span>
 </div>
 <p class="hero-sub">Индивидуальные планы, аналитика прогресса, гибкое питание и поддержка 24/7. Всё в одном месте.</p>
-<div class="hero-cta overlay"><a class="btn primary" href="#">Подать заявку</a><a class="btn ghost" href="#">Записаться на консультацию</a><a class="btn ghost bonus-btn" href="test_bonus_note.html?ps=БОНУСЫ">Бонусы</a></div></div>
+<div class="hero-cta overlay"><a class="btn ghost transparent hero-apply" href="#">Подать заявку</a><a class="btn ghost" href="#">Записаться на консультацию</a><a class="btn ghost bonus-btn" href="test_bonus_note.html?ps=БОНУСЫ">Бонусы</a></div></div>
 </section>
 <section class="slider-section" id="participants">
 <div class="container">
@@ -705,6 +738,45 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
   </div>
 </footer>
 
+
+
+
+<script>
+(function(){
+  function markTransparent(btn){
+    if(!btn) return;
+    // force transparent style
+    btn.classList.remove('primary');
+    btn.classList.add('ghost','transparent');
+    btn.addEventListener('click', function(){
+      try{ localStorage.setItem('heroActiveBtn', (btn.textContent||'').trim().toLowerCase()); }catch(_){}
+      btn.classList.add('active');
+    }, {capture:true});
+  }
+
+  function restoreActive(){
+    try{
+      var last = localStorage.getItem('heroActiveBtn');
+      if(!last) return;
+      document.querySelectorAll('.hero .hero-cta.overlay .btn').forEach(function(b){
+        var t = (b.textContent||'').trim().toLowerCase();
+        if(t === last) b.classList.add('active');
+      });
+    }catch(_){}
+  }
+
+  // Apply to hero buttons
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.hero .hero-cta.overlay .btn').forEach(function(b){
+      var t = (b.textContent||'').trim().toLowerCase();
+      if(t === 'подать заявку' || t === 'бонусы'){
+        markTransparent(b);
+      }
+    });
+    restoreActive();
+  });
+})();
+</script>
 
 
 <!-- FORM WIRING (RELATIVE PATH to test.html with ?ps=... like MOBILE_STABLE) -->
