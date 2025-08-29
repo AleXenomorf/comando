@@ -301,7 +301,7 @@
       document.getElementById('modalBody').innerHTML = content;
       m.classList.add('show');
     }
-    function hideModal(){ const m=document.getElementById('modal'); m.classList.remove('show'); if(lastModalType==='success'){ window.location.href='https://alexenomorf.github.io/comando/'; } }
+    function hideModal(){ const m=document.getElementById('modal'); m.classList.remove('show'); if(lastModalType==='success'||lastModalType==='bonus'){ window.location.href='https://alexenomorf.github.io/comando/'; } }
     function showBonusesModal(){
       const list = FILES.map(f => `<li class="download-item"><a class="download-link" href="${f.file}" download="${f.name}"><span class="download-icon">📄</span>${f.name}</a></li>`).join('');
       lastModalType='bonus'; showModal(`<h2 class="modal-title">🎉 Ваши бонусы готовы!</h2><p class="modal-text">Скачайте эксклюзивные материалы прямо сейчас:</p><ul class="download-list">${list}</ul>`);
