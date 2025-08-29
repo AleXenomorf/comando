@@ -741,31 +741,25 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
 
 
 
+
+
+
+
 <script>
 (function(){
   function markTransparent(btn){
     if(!btn) return;
-    // force transparent style
     btn.classList.remove('primary');
     btn.classList.add('ghost','transparent');
-    btn.addEventListener('click', function(){
-      try{ localStorage.setItem('heroActiveBtn', (btn.textContent||'').trim().toLowerCase()); }catch(_){}
+    btn.addEventListener('click', function(e){
+      var parent = btn.closest('.hero') || document;
+      parent.querySelectorAll('.hero .hero-cta.overlay .btn').forEach(function(b){
+        b.classList.remove('active');
+      });
       btn.classList.add('active');
     }, {capture:true});
   }
 
-  function restoreActive(){
-    try{
-      var last = localStorage.getItem('heroActiveBtn');
-      if(!last) return;
-      document.querySelectorAll('.hero .hero-cta.overlay .btn').forEach(function(b){
-        var t = (b.textContent||'').trim().toLowerCase();
-        if(t === last) b.classList.add('active');
-      });
-    }catch(_){}
-  }
-
-  // Apply to hero buttons
   document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.hero .hero-cta.overlay .btn').forEach(function(b){
       var t = (b.textContent||'').trim().toLowerCase();
@@ -773,7 +767,6 @@ section{ padding: clamp(28px, 8vw, 96px) 0; position:relative }
         markTransparent(b);
       }
     });
-    restoreActive();
   });
 })();
 </script>
